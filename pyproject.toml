@@ -1,0 +1,55 @@
+[project]
+name = "mli-blueprint"
+version = "0.1.0"
+description = "MLI Midwest Conservation Blueprint Explorer"
+readme = "README.md"
+authors = [{ name = "Brendan C. Ward", email = "bcward@astutespruce.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "affine",
+    "aiofiles",
+    "arq",
+    "fastapi",
+    "geopandas",
+    "gunicorn",
+    "Jinja2",
+    "numba",
+    "numpy",
+    "pandas",
+    "Pillow",
+    "progress",
+    "pyarrow",
+    "pymgl",
+    "pyogrio",
+    "python-calamine",
+    "python-dotenv",
+    "python-multipart",
+    "rasterio",
+    "sentry-sdk",
+    "shapely",
+    "uvicorn",
+    "weasyprint",
+]
+
+[project.optional-dependencies]
+dev = ["httpx[http2]", "ruff", "setuptools", "watchgod", "watchfiles"]
+
+[tool.setuptools.packages.find]
+include = ["analysis", "api"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+exclude = ['.scratch']
+line-length = 120
