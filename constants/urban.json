@@ -1,0 +1,27 @@
+[
+  {
+    "value": 1,
+    "label": "Urban in 2021",
+    "color": "#696969"
+  },
+  {
+    "value": 2,
+    "label": "Very high likelihood of urbanization (>50% probability)",
+    "color": "#C40A0A"
+  },
+  {
+    "value": 3,
+    "label": "High likelihood of urbanization (25 - 50% probability)",
+    "color": "#DA6C51"
+  },
+  {
+    "value": 4,
+    "label": "Moderate likelihood of urbanization (2 - 25% probability)",
+    "color": "#F3C6A8"
+  },
+  {
+    "value": 5,
+    "label": "Not likely to urbanize",
+    "color": null
+  }
+]

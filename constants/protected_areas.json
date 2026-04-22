@@ -1,0 +1,4 @@
+[
+  { "value": 0, "label": "Not within a protected area", "color": null },
+  { "value": 1, "label": "Within a protected area", "color": "#359935" }
+]
