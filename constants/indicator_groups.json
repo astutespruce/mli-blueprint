@@ -1,0 +1,58 @@
+[
+  {
+    "id": "l",
+    "label": "Landscape health",
+    "color": "#f2f8ec",
+    "borderColor": "#d8eac7",
+    "indicators": [
+      "l_aquaticnetworkconnectivity",
+      "l_climateresiliency",
+      "l_climateresiliencycarbonsequestration",
+      "l_forests",
+      "l_grasslands",
+      "l_greatlakesshorelineanddunehabitat",
+      "l_intacthabitatcores",
+      "l_lakes",
+      "l_landscapecondition",
+      "l_riparianareas",
+      "l_streams",
+      "l_terrestrialhabitatconnectivity",
+      "l_wetlands"
+    ]
+  },
+  {
+    "id": "w",
+    "label": "Wildlife",
+    "color": "#eef7fc",
+    "borderColor": "#c3e3f4",
+    "indicators": [
+      "w_atriskspeciescoas",
+      "w_atriskspeciesrsgcn",
+      "w_gamespecies",
+      "w_imperiledspeciescriticalhabitat",
+      "w_imperiledspeciestande"
+    ]
+  },
+  {
+    "id": "h",
+    "label": "Human wellbeing",
+    "color": "#f5f5ff",
+    "borderColor": "#c2c2ff",
+    "indicators": [
+      "h_drinkingwatergroundwater",
+      "h_drinkingwatersurfacewater",
+      "h_hazardanddisasterprotectionnaturalhazards",
+      "h_hazardanddisasterprotectionpollution",
+      "h_hazardanddisasterprotectionsocialvulnerabilityindex",
+      "h_hazardanddisasterprotectiontreecanopy",
+      "h_localeconomicvitalitygrazing",
+      "h_localeconomicvitalitypollination",
+      "h_localeconomicvitalitytimber",
+      "h_nutrientreduction",
+      "h_potentialaccesstorecreation",
+      "h_publicrecreationaccess",
+      "h_sustainableworkinglands",
+      "h_tribalconservationsovereignty"
+    ]
+  }
+]

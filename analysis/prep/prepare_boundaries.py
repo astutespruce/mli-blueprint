@@ -12,9 +12,8 @@ from rasterio.features import rasterize, dataset_features
 from rasterio import windows
 import shapely
 
-from analysis.constants import DATA_CRS, GEO_CRS, MLI_STATES, MASK_RESOLUTION
-from analysis.lib.colors import hex_to_uint8
-from analysis.lib.geometry import make_valid, to_dict_all, to_dict, dissolve
+from analysis.constants import DATA_CRS, MLI_STATES, MASK_RESOLUTION
+from analysis.lib.geometry import to_dict, dissolve
 from analysis.lib.raster import write_raster, add_overviews, create_lowres_mask
 
 warnings.filterwarnings("ignore", message=".*Measured 3D MultiPolygon.*")
@@ -73,7 +72,7 @@ with rasterio.open(src_dir / "blueprint/MidwestBP_extent.tif") as src:
     window = windows.Window(col_off=0, row_off=1, width=66233, height=49996)
     transform = windows.transform(window, src.transform)
 
-    data = data[window.toslices()]
+    data = data[window.toslices()].astype("uint8")
     outfilename = out_dir / "blueprint_extent.tif"
     write_raster(
         outfilename,

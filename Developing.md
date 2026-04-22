@@ -56,6 +56,12 @@ sudo ln -s /opt/homebrew/opt/fontconfig/lib/libfontconfig.1.dylib /usr/local/lib
 sudo ln -s /opt/homebrew/opt/pango/lib/libpangoft2-1.0.dylib /usr/local/lib/pangoft2-1.0
 ```
 
+### Data processing
+
+Source data is shared with the Southeast Blueprint Explorer project. It is
+expected that that project is developed locally in `../secas-blueprint` compared
+to the root folder of this project.
+
 ## User interface development
 
 The user interface is developed using Javascript, executed in NodeJS during a
