@@ -56,10 +56,8 @@ BLUEPRINT = json.loads(open(json_dir / "blueprint.json").read())
 BLUEPRINT_COLORS = {i: entry["color"] for i, entry in enumerate(BLUEPRINT) if "color" in entry and entry["value"] > 0}
 
 INDICATOR_GROUPS = json.loads(open(json_dir / "indicator_groups.json").read())
-
 INDICATORS = json.loads(open(json_dir / "indicators.json").read())
 INDICATORS_INDEX = {indicator["id"]: indicator for indicator in INDICATORS}
-
 
 PROTECTED_AREAS = json.loads(open(json_dir / "protected_areas.json").read())
 PROTECTED_AREAS_COLORS = {

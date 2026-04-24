@@ -160,19 +160,19 @@ with rasterio.open(blueprint_extent_filename) as src:
 
     # calculate pixel count of each unit
     counts = np.zeros((len(tmp_huc12),), dtype="uint")
-    outside_se_counts = np.zeros((len(tmp_huc12),), dtype="uint")
+    outside_extent_counts = np.zeros((len(tmp_huc12),), dtype="uint")
     for i, (_, row) in Bar("Rasterizing units", max=len(tmp_huc12)).iter(enumerate(tmp_huc12.iterrows())):
         unit_window = get_window(src, (row.minx, row.miny, row.maxx, row.maxy))
         in_unit = data[unit_window.toslices()] == row.value
         counts[i] = in_unit.sum().astype("uint")
 
-        outside_se = extent_data[unit_window.toslices()][in_unit] == nodata
-        outside_se_counts[i] = outside_se.sum().astype("uint")
+        outside_extent = extent_data[unit_window.toslices()][in_unit] == nodata
+        outside_extent_counts[i] = outside_extent.sum().astype("uint")
 
     huc12["pixels"] = counts
     cellsize = src.res[0] * src.res[0] * M2_ACRES
     huc12["rasterized_acres"] = counts * cellsize
-    huc12["outside_se"] = outside_se_counts * cellsize
+    huc12["outside_extent"] = outside_extent_counts * cellsize
 
     outfilename = bnd_dir / "huc12.tif"
     write_raster(outfilename, data, transform=src.transform, crs=src.crs, nodata=0)

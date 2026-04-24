@@ -1,6 +1,6 @@
 [
     {
-        "value": 1,
+        "value": 0,
         "label": "Priority for Conservation",
         "shortLabel": "Priority",
         "percent": 50,
@@ -8,7 +8,7 @@
         "color": "#FFFFFF"
     },
     {
-        "value": 2,
+        "value": 1,
         "label": "Connections Between Priority Areas",
         "shortLabel": "Connections",
         "percent": 5,
@@ -16,7 +16,7 @@
         "color": "#89bf7c"
     },
     {
-        "value": 3,
+        "value": 2,
         "label": "Medium Conservation Priority",
         "shortLabel": "Medium",
         "percent": 20,
@@ -24,7 +24,7 @@
         "color": "#388c3a"
     },
     {
-        "value": 4,
+        "value": 3,
         "label": "High Conservation Priority",
         "shortLabel": "High",
         "percent": 15,
@@ -32,7 +32,7 @@
         "color": "#0f662c"
     },
     {
-        "value": 5,
+        "value": 4,
         "label": "Highest Conservation Priority",
         "shortLabel": "Highest",
         "description": "Highest Conservation Priority areas cover roughly 10% of the blueprint area, and consist of the top 10th percentile in priority rank.",

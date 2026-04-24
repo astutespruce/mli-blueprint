@@ -57,7 +57,7 @@ subregion_df = dissolve(subregion_df, by="subregion").reset_index().rename(colum
 ################################################################################
 ### Extract Blueprint extent
 ################################################################################
-print("Extracting SE Blueprint extent")
+print("Extracting Blueprint extent")
 with rasterio.open(src_dir / "blueprint/MidwestBP_extent.tif") as src:
     nodata = 0  # not sure why not defined in the raster
     data = src.read(1)

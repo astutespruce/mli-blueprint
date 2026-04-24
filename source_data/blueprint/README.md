@@ -16,3 +16,6 @@ that uses a different extent than the others.
 
 Hubs and corridors are not specifically broken out as a separate set of data layers,
 unlike the SECAS Blueprint.
+
+NOTE: Midwest Blueprint values natively range from 1-5; these were recoded to
+0-4 to be similar in nature to the Southeast Blueprint.

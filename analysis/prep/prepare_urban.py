@@ -9,7 +9,6 @@ from rasterio.enums import Resampling
 from rasterio.vrt import WarpedVRT
 from rasterio.warp import transform_bounds
 from rasterio.windows import Window
-import shapely
 
 from analysis.constants import MASK_RESOLUTION, URBAN_YEARS, DATA_CRS, URBAN_COLORS, NLCD_INDEXES
 from analysis.lib.colors import interpolate_colormap, hex_to_uint8
@@ -190,7 +189,7 @@ with rasterio.open(out_dir / "urban_2060.tif") as src:
     binned[(data > 12.5) & (data <= 25)] = 3  # high (>25-50%)
     binned[data > 25] = 2  # very high (>50%)
     binned[data == 51] = 1  # already urban
-    binned[data == 255] = 0  # outside SE
+    binned[data == 255] = 0  # outside Blueprint extent
 
     outfilename = out_dir / "urban_2060_binned.tif"
     write_raster(
