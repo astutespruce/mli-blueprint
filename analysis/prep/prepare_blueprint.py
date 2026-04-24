@@ -158,7 +158,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
         "AquaticNetworkConnectivity.tif": "Aquatic_connectivity.tif",
         "ClimateResiliencyCarbonSequestration.tif": "ClimateResil_CarbonSequestration.tif",
         "GreatLakesShorelineandDuneHabitat.tif": "GL_ShorelineDune.tif",
-        "LandscapeCondition.tif": "IntactHabitat_LandscapeCondition.tif",
+        "LandscapeCondition.tif": "LandscapeCondition_fixed.tif",
         "TerrestrialHabitatConnectivity.tif": "TerrestrialConnectivity.tif",
         "AtRiskSpeciesCoas.tif": "AtRiskSpp_COAs.tif",
         "AtRiskSpeciesRsgcn.tif": "AtRiskSpp_RSGCN.tif",
@@ -328,11 +328,6 @@ indicator_df = indicator_df.sort_values(by="id").drop(columns=["valueLabels"])
 ################################################################################
 extent_data = extent.read(1)
 for index, indicator_row in indicator_df.iterrows():
-    # FIXME: remove skip
-    if indicator_row.id == "l_landscapecondition":
-        warnings.warn(f"Skipping indicator that needs to be fixed: {indicator_row.id}")
-        continue
-
     filename = indicator_row.filename
 
     # clip to new TIF, standardize nodata
@@ -346,6 +341,7 @@ for index, indicator_row in indicator_df.iterrows():
 
             # read data, standardize NODATA, and clip to data extent (not necessarily Blueprint extent)
             data = src.read(1)
+
             if nodata < 0:
                 # recode nodata value first to avoid negative value issues
                 data = np.where(data == nodata, 127, data).astype("uint8")
@@ -458,10 +454,6 @@ bins = np.arange(subregion_df.value.max() + 1)
 with rasterio.open(data_dir / "boundaries/subregion_mask.tif") as subregions:
     subregion_values = subregions.read(1)
     for index, indicator_row in indicator_df.iterrows():
-        # FIXME: remove skip
-        if indicator_row.id == "l_landscapecondition":
-            continue
-
         print(f"Finding subregions for {indicator_row.label}")
         mask_filename = indicators_out_dir / str(indicator_row.filename).replace(".tif", "_mask.tif")
 

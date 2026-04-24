@@ -3,6 +3,7 @@ import math
 
 from affine import Affine
 import numba as nb
+from numba import njit
 import numpy as np
 from progress.bar import Bar
 import rasterio
@@ -154,9 +155,7 @@ def shift_window(window, window_transform, transform):
     """
     col_off = int(round((window_transform.c - transform.c) / transform.a))
     row_off = int(round((window_transform.f - transform.f) / transform.e))
-    return Window(
-        col_off=col_off, row_off=row_off, width=window.width, height=window.height
-    )
+    return Window(col_off=col_off, row_off=row_off, width=window.width, height=window.height)
 
 
 def window_overlaps(window, dataset):
@@ -211,9 +210,7 @@ def create_lowres_mask(
 
         if transform is None:
             # output is still precisely aligned to same upper left coordinate
-            transform = Affine(
-                resolution, 0, src.transform.c, 0, -resolution, src.transform.f
-            )
+            transform = Affine(resolution, 0, src.transform.c, 0, -resolution, src.transform.f)
 
         width = math.ceil((src.width * src.transform.a) / resolution)
         height = math.ceil((src.height * (-src.transform.e)) / resolution)
@@ -289,15 +286,11 @@ def summarize_raster_by_units_grid(
     for i, (_, row) in Bar(progress_label, max=len(df)).iter(enumerate(df.iterrows())):
         # get boundless window in order to calculate offset adjustments for
         # unit window, but then clip it to be boundless
-        value_window = get_window(
-            value_dataset, (row.minx, row.miny, row.maxx, row.maxy), boundless=True
-        )
+        value_window = get_window(value_dataset, (row.minx, row.miny, row.maxx, row.maxy), boundless=True)
         col_off_adj = -value_window.col_off if value_window.col_off < 0 else 0
         row_off_adj = -value_window.row_off if value_window.row_off < 0 else 0
 
-        value_window = clip_window(
-            value_window, value_dataset.width, value_dataset.height
-        )
+        value_window = clip_window(value_window, value_dataset.width, value_dataset.height)
 
         if value_window.width == 0 or value_window.height == 0:
             continue
@@ -487,26 +480,20 @@ def get_overlapping_windows(src, geometry, bounds, window_size):
     res = src.res[0]
     src_bounds = src.bounds
     start_row = max(
-        math.floor(math.floor((src_bounds[3] - bounds[3]) / res) / window_size)
-        * window_size,
+        math.floor(math.floor((src_bounds[3] - bounds[3]) / res) / window_size) * window_size,
         0,
     )
     end_row = min(
-        math.ceil(math.ceil((src_bounds[3] - bounds[1]) / res) / window_size)
-        * window_size
-        + 1,
+        math.ceil(math.ceil((src_bounds[3] - bounds[1]) / res) / window_size) * window_size + 1,
         src.height,
     )
 
     start_col = max(
-        math.floor(math.floor((bounds[0] - src_bounds[0]) / res) / window_size)
-        * window_size,
+        math.floor(math.floor((bounds[0] - src_bounds[0]) / res) / window_size) * window_size,
         0,
     )
     end_col = min(
-        math.ceil(math.ceil((bounds[2] - src_bounds[0]) / res) / window_size)
-        * window_size
-        + 1,
+        math.ceil(math.ceil((bounds[2] - src_bounds[0]) / res) / window_size) * window_size + 1,
         src.width,
     )
 
@@ -584,9 +571,7 @@ class WindowGeometryMask(object):
             read_window = self.window
 
         else:
-            read_window = shift_window(
-                self.window, self.window_transform, dataset.transform
-            )
+            read_window = shift_window(self.window, self.window_transform, dataset.transform)
             if not window_overlaps(read_window, dataset):
                 return False
 
@@ -640,3 +625,48 @@ class WindowGeometryMask(object):
         # extract values inside geometry except where they are NODATA
         count_values_inplace(data, self.shape_mask, out, nodata)
         return out
+
+
+@njit(["int8[:,:](int8[:,:],int8[:,:],int8,int8)", "uint8[:,:](uint8[:,:],uint8[:,:],uint8,uint8)"], cache=True)
+def remap(arr, remap_table, nodata, fill):
+    """Remap a 2D array of values
+
+    Parameters
+    ----------
+    arr : array of shape [:,:]
+        array of values to remap
+    remap_table : array of shape [n,2], same dtype as arr
+        array of pairs of source value, target value
+    nodata : same dtype as arr
+        value to use for mapping nodata
+    fill : same dtype as arr
+        value to use for filling output array
+
+    Returns
+    -------
+    array of shape [:,:]
+        array is same shape as arr
+    """
+
+    i = 0
+    j = 0
+    rows = arr.shape[0]
+    cols = arr.shape[1]
+
+    # process potentially sparse remap table into indexed array
+    max_value = np.max(remap_table[:, 0])
+    table = np.ones(shape=(max_value + 1,), dtype=remap_table.dtype) * fill
+    for i in range(len(remap_table)):
+        table[remap_table[i][0]] = remap_table[i][1]
+
+    out = np.ones_like(arr) * fill
+
+    for i in range(rows):
+        for j in range(cols):
+            value = arr[i, j]
+            if value == nodata:
+                out[i, j] = nodata
+            elif value <= max_value:
+                out[i, j] = table[value]
+
+    return out

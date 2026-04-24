@@ -80,26 +80,28 @@ URBAN_LEGEND = URBAN
 NLCD_YEARS = [2001, 2004, 2006, 2008, 2011, 2013, 2016, 2019, 2021]
 
 # Original codes
+# NOTE: we are only currently using the developed classes for urban development
+# 2001-2021
 NLCD_CODES = {
-    11: {"label": "Open water", "color": "#466B9F"},
-    12: {
-        "label": "Perennial ice/snow",
-        "color": "#FFFFFF",
-    },  # original color: "#D1DEF8"
+    # 11: {"label": "Open water", "color": "#466B9F"},
+    # 12: {
+    #     "label": "Perennial ice/snow",
+    #     "color": "#FFFFFF",
+    # },  # original color: "#D1DEF8"
     21: {"label": "Developed (open space)", "color": "#DEC5C5"},
     22: {"label": "Developed (low intensity)", "color": "#D99282"},
     23: {"label": "Developed (medium intensity)", "color": "#EB0000"},
     24: {"label": "Developed (high intensity)", "color": "#AB0000"},
-    31: {"label": "Barren land", "color": "#B3AC9F"},
-    41: {"label": "Deciduous forest", "color": "#68AB5F"},
-    42: {"label": "Evergreen forest", "color": "#1C5F2C"},
-    43: {"label": "Mixed forest", "color": "#B5C58F"},
-    52: {"label": "Shrub/scrub", "color": "#CCB879"},
-    71: {"label": "Grassland/herbaceous", "color": "#DFDFC2"},
-    81: {"label": "Pasture/hay", "color": "#DCD939"},
-    82: {"label": "Cultivated crops", "color": "#AB6C28"},
-    90: {"label": "Woody wetlands", "color": "#B8D9EB"},
-    95: {"label": "Emergent herbaceous wetlands", "color": "#6C9FB8"},
+    # 31: {"label": "Barren land", "color": "#B3AC9F"},
+    # 41: {"label": "Deciduous forest", "color": "#68AB5F"},
+    # 42: {"label": "Evergreen forest", "color": "#1C5F2C"},
+    # 43: {"label": "Mixed forest", "color": "#B5C58F"},
+    # 52: {"label": "Shrub/scrub", "color": "#CCB879"},
+    # 71: {"label": "Grassland/herbaceous", "color": "#DFDFC2"},
+    # 81: {"label": "Pasture/hay", "color": "#DCD939"},
+    # 82: {"label": "Cultivated crops", "color": "#AB6C28"},
+    # 90: {"label": "Woody wetlands", "color": "#B8D9EB"},
+    # 95: {"label": "Emergent herbaceous wetlands", "color": "#6C9FB8"},
 }
 
 NLCD_INDEXES = {i: e for i, e in enumerate(NLCD_CODES.values())}

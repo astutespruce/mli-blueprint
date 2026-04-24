@@ -3,7 +3,10 @@
 Blueprint data were downloaded 2/12/2026 from
 https://www.sciencebase.gov/catalog/item/69851105b66b018dbd961c58 (`2026_MidwestConservationBlueprint_fulldatadownload.zip`).
 
-The extent raster was provided directly by Rachael Carlberg (MLI) via email on
+A fixed version of LandscapeCondition.tif was provided by Rachel Carlberg (MLI)
+on 4/23/2026 via email.
+
+The extent raster was provided directly by Rachael Carlberg via email on
 3/4/2026. This is also used to backfill NODATA values in urban areas in the
 Blueprint and indicators with their appropriate 0 values.
 

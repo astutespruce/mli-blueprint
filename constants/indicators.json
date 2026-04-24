@@ -902,7 +902,7 @@
   },
   {
     "id":"l_landscapecondition",
-    "filename":"IntactHabitat_LandscapeCondition.tif",
+    "filename":"LandscapeCondition_fixed.tif",
     "label":"Landscape condition",
     "description":"This indicator represents landscape health based on landdover type and land use across the Midwest Landscape. It prioritizes areas based on proximity to natural or non-natural landcover types, plus intensity of development and land use. This indicator originates from the National Land Cover Database, Maus et al. Global-scale mining polygons, LANDFIRE Existing Vegetation Type, and the Midwest Conservation Blueprint Grasslands indicator.",
     "values":[
@@ -912,28 +912,28 @@
         "color":null
       },
       {
+        "value":1,
+        "label":"Altered landscape",
+        "color":"#E1D0AA"
+      },
+      {
         "value":2,
         "label":"Partly natural landscape",
-        "color":"#E1D0AA"
+        "color":"#B8BC91"
       },
       {
         "value":3,
         "label":"Mostly natural landscape",
-        "color":"#B8BC91"
+        "color":"#8C9971"
       },
       {
         "value":4,
         "label":"Natural landscape",
-        "color":"#8C9971"
+        "color":"#616B4B"
       },
       {
         "value":5,
         "label":"Very natural landscape",
-        "color":"#616B4B"
-      },
-      {
-        "value":6,
-        "label":null,
         "color":"#434932"
       }
     ],
