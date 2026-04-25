@@ -1,0 +1,30 @@
+<h1>{{title}}</h1>
+
+<div class="subtitle">{{subtitle}}</div>
+
+<div class="divider-wide"></div>
+
+<div class="text-center"><b>Created {{date}}</b></div>
+
+{% include "blocks/table_of_contents.html" %}
+
+{% if area_type == "huc12" %}
+    <p class="summary-units-description">
+        This subwatershed boundary is based on the
+        <a href="https://www.usgs.gov/national-hydrography/watershed-boundary-dataset">National Watershed Boundary Dataset</a>
+        (2025), U.S. Geological Survey.
+    </p>
+{% endif %}
+
+<footer class="cover-footer">
+    <div style="text-align: center;">
+        <b><a href="https://mcap-fws.hub.arcgis.com/pages/midwest-conservation-blueprint">The Midwest Conservation Blueprint 2026</a></b>
+        <br />
+        <br />
+    </div>
+    <div class="flex justify-center">
+        <div>
+            <img src="assets:MLI_logo.png" alt="MLI logo" class="cover-logo" />
+        </div>
+    </div>
+</footer>

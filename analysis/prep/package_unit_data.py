@@ -136,4 +136,13 @@ huc12 = (
     .join(protected_areas_list, how="left")
     .join(num_protected_areas, how="left")
     .join(urban, how="left")
+    .reset_index()
 )
+
+for col in ["protected_areas", "protected_areas_list", "urban"] + blueprint.columns.tolist():
+    huc12[col] = huc12[col].fillna("")
+
+huc12["num_protected_areas"] = huc12.num_protected_areas.fillna(0).astype("uint16")
+
+
+huc12.to_feather(out_dir / "summary_units.feather")

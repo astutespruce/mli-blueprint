@@ -1,0 +1,20 @@
+<div class="flex space-between">
+    <p class="light map-credits">
+        Basemap credits: © <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this basemap</a>
+    </p>
+
+    <div class="scalebar flex justify-end">
+        <div class="bar" style="width:{{results.scale.width}}px;">
+            <div class="increment" style="width:{{results.scale.increments[1]}}px; z-index:1;"></div>
+            <div class="increment" style="width:{{results.scale.increments[0]}}px; z-index:2;"></div>
+
+            <div class="increment-label" style="left:{{results.scale.increments[0]}}px;">
+                {{(results.scale.miles / 4)|format_number}}
+            </div>
+            <div class="increment-label" style="left:{{results.scale.increments[1]}}px;">
+                {{(results.scale.miles / 2)|format_number}}
+            </div>
+        </div>
+        <div class="label">{{results.scale.miles|format_number}} miles</div>
+    </div>
+</div>

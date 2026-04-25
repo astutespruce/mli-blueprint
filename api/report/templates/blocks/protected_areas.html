@@ -1,0 +1,143 @@
+<section class="break-after">
+    <div class="no-break">
+        <h3 id="ProtectedAreas">Protected Areas</h3>
+
+        <p class="dataset-description">
+            Protected areas include a variety of public lands owned or managed
+            by federal, state, and local agencies and nonprofit organizations,
+            as well as some private conservation lands and conservation
+            easements. Protected areas are derived from the
+            <a href="https://www.usgs.gov/programs/gap-analysis-project/science/pad-us-data-download">Protected Areas Database of the United States</a>
+            (PAD-US v4.1) and include Fee, Designation, Easement, Marine, and
+            Proclamation (Dept. of Defense lands only) boundaries.
+        </p>
+
+        {% if maps.protected_areas %}
+            <div class="map-container">
+                <img src="maps:protected_areas" alt="Map of protected area extent" class="map">
+
+                {% include "elements/map_footer.html" %}
+            </div>
+
+            <div class="flex map-footer">
+                <div class="map-locator-container">
+                    {% if maps.locator %}
+                        <img src="maps:locator" alt="Locator map" class="map-locator">
+                    {% endif %}
+                </div>
+
+                <div class="legend">
+                    <div class="flex">
+                        <div class="flex-grow">
+                            {% for item in legends.protected_areas[:5] %}
+                                <div class="legend-element flex align-center">
+                                    <div class="legend-patch" style="background: {{item.color}}"></div>
+                                    <div class="legend-label">{{item.label}}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="flex-grow">
+                            {% for item in legends.protected_areas[5:] %}
+                                <div class="legend-element flex align-center">
+                                    <div class="legend-patch" style="background: {{item.color}}"></div>
+                                    <div class="legend-label">{{item.label}}</div>
+                                </div>
+                            {% endfor %}
+                            {% if results.outside_extent_percent > 0 %}
+                                <div class="legend-element flex align-center">
+                                    <div class="legend-patch outside-se {% if flip_crosshatch %}flip-x{% endif %}"></div>
+                                    <div class="legend-label">Outside Midwest Blueprint</div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+        {% else %}
+            <div class="map-placeholder text-center">
+                map could not be created
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="caption">
+        Table {{table.counter}}: Extent of protected areas {% if name %} within {{name}}{% else %} in this area{% endif %}.
+    </div>
+
+    {% set table.counter=table.counter+1 %}
+
+    <table class="centered">
+        <thead>
+            <tr>
+                <th class="label" scope="col">Protected area status</th>
+                <th class="acres" scope="col">Acres</th>
+                <th class="percent" scope="col">Percent of Area</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in results.protected_areas['entries'] %}
+                <tr>
+                    <td class="label">{{entry.label}}</td>
+                    <td class="acres">{{entry.acres|format_number}}</td>
+                    <td class="percent">{{entry.percent|format_percent}}%</td>
+                </tr>
+            {% endfor %}
+
+            {% if results.outside_extent_acres > 0 %}
+                <tr class="remainder-row">
+                    <td class="label">Outside Midwest Blueprint</td>
+                    <td class="acres">{{results.outside_extent_acres|format_number}}</td>
+                    <td class="percent">{{results.outside_extent_percent|format_percent}}%</td>
+                </tr>
+            {% endif %}
+
+            <tr class="total-row">
+                <td class="align-right">Total area</td>
+                <td class="acres">{{results.rasterized_acres|format_number}}</td>
+                <td class="percent">100%</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- only show list if there was any overlap with protected areas -->
+    {% if results.protected_areas['entries'][1].acres > 0 %}
+    <div class="no-break">
+        <h4 style="margin-bottom: 2pt;">Protected areas at this location:</h4>
+        {% if results.protected_areas.num_protected_areas %}
+            <ul>
+                {% for entry in results.protected_areas.protected_areas %}
+                    <li>
+                        {{entry.name}} ({% if entry.owner %}{{entry.owner}}; {% endif %}{{entry.acres|format_number}} acres)
+                    </li>
+                {% endfor %}
+
+                {% if results.protected_areas.num_protected_areas > 25 %}
+                    <li>
+                        ... and {{(results.protected_areas.num_protected_areas - 25)|format_number}} more protected areas ...
+                    </li>
+                {% endif %}
+            </ul>
+
+            <p style="margin-top:4rem">
+                Note: areas are listed based on name, ownership, and boundary
+                information in the Protected Areas Database of the United States,
+                which may include overlapping and duplicate areas.
+            </p>
+
+        {% else %}
+            <p>
+                No known protected areas have ≥1 acre of overlap {% if name %}with {{name}}{% else %} in this area{% endif %}.
+            </p>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+</section>

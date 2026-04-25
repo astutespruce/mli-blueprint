@@ -1,0 +1,142 @@
+<section class="break-after">
+    <div class="no-break">
+        <h3 id="Urban">Urban Growth</h3>
+
+        <p>
+            The FUTURES urban growth model predicts the likelihood that an area will
+            urbanize at every decade from 2020 to 2100. Developed areas from the
+            2021 National Landcover Database serve as the baseline for current urban
+            areas. The model simulates landscape change based on trends in
+            population growth, local development suitability factors, and an urban
+            patch-growing algorithm. It considers environmental drivers like
+            distance to floodplain, slope, and available infrastructure, and even
+            socio-economic status. The probability of urbanization for each area
+            reflects how many times it urbanized out of 50 model runs.
+            <br/><br/>
+            To explore maps for additional time periods,
+            <a href="https://www.arcgis.com/apps/mapviewer/index.html?webmap=3d2eadbfd0b347eca3dcb927e9778dd9">click here</a>.
+        </p>
+
+        {% if maps.urban_2060 %}
+            <div class="map-container">
+                <img src="maps:urban_2060" alt="Map for projected urban growth - 2060" class="map">
+
+                {% include "elements/north_arrow.html" %}
+            </div>
+
+            {% include "elements/map_footer.html" %}
+
+            <div class="flex map-footer">
+                <div class="map-locator-container">
+                    {% if maps.locator %}
+                        <img src="maps:locator" alt="Locator map" class="map-locator">
+                    {% endif %}
+                </div>
+
+                <div class="legend">
+                    <div class="legend-header">Probability of urbanization by 2060</div>
+                    {% for item in legends.urban %}
+                        <div class="legend-element flex align-center">
+                            <div class="legend-patch" style="background: {{item.color}}"></div>
+                            <div>{{item.label}}</div>
+                        </div>
+                    {% endfor %}
+                    {% if results.outside_extent_percent > 0 %}
+                        <div class="legend-element flex align-center">
+                            <div class="legend-patch outside-se {% if flip_crosshatch %}flip-x{% endif %}"></div>
+                            <div class="legend-label">Outside Midwest Blueprint</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% else %}
+            <div class="map-placeholder text-center">
+                map could not be created
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="no-break">
+
+        <div class="caption">
+            Table {{table.counter}}: Extent of projected urbanization by decade{% if name %} within {{name}}{% else %} in this area{% endif %}.
+            Values from
+            <a href="https://www.sciencebase.gov/catalog/item/63f50297d34efa0476b04cf7">FUTURES model projections for the contiguous United States</a>
+            developed by the
+            <a href="https://cnr.ncsu.edu/geospatial/">Center for Geospatial Analytics</a>,
+            NC State University.
+        </div>
+
+        {% set table.counter=table.counter+1 %}
+
+        <table class="centered">
+            <thead>
+                <tr>
+                    <th class="label" scope="col">Decade</th>
+                    <th class="acres" scope="col">Acres</th>
+                    <th class="percent" scope="col">Percent of Area</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in results.urban.entries %}
+                <tr {% if entry.year == 2060 %}class="highlight-row"{% endif %}>
+                    <td class="label">{{entry.label}}</td>
+                    <td class="percent">{{entry.acres|format_number}}</td>
+                    <td class="percent">{{entry.percent|format_percent}}%</td>
+                </tr>
+            {% endfor %}
+
+            {% if results.urban.noturban_2100_acres %}
+                <tr class="remainder-row">
+                    <td class="label">Not projected to urbanize by 2100</td>
+                    <td class="acres">{{results.urban.noturban_2100_acres|format_number}}</td>
+                    <td class="percent">{{results.urban.noturban_2100_percent|format_percent}}%</td>
+                </tr>
+            {% endif %}
+
+            {% if results.urban.outside_urban_acres > 0 %}
+                <tr class="remainder-row">
+                    <td class="label">No urbanization data available</td>
+                    <td class="acres">{{results.urban.outside_urban_acres|format_number}}</td>
+                    <td class="percent">{{results.urban.outside_urban_percent|format_percent}}%</td>
+                </tr>
+            {% endif %}
+
+
+            {% if results.outside_extent_acres > 0 %}
+                <tr class="remainder-row">
+                    <td class="label">Outside Midwest Blueprint</td>
+                    <td class="acres">{{results.outside_extent_acres|format_number}}</td>
+                    <td class="percent">{{results.outside_extent_percent|format_percent}}%</td>
+                </tr>
+            {% endif %}
+
+            <tr class="total-row">
+                <td class="align-right">Total area</td>
+                <td class="acres">{{results.rasterized_acres|format_number}}</td>
+                <td class="percent">100%</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+        <p class="no-break">
+            <br />
+            {{results.urban.entries[0].percent|format_percent}}% of this
+            area is already urban in 2021, and an additional
+            {{results.urban.nonzero_urban_2060_percent|format_percent}}%
+            has at least a moderate probability of urbanizing by 2060.
+            <br />
+            <br />
+            {% if results.urban.percent_increase_by_2060 %}
+                By 2060, the size of the urban footprint is projected to increase
+                <b>{{results.urban.percent_increase_by_2060|format_number}}%</b>
+                over 2021 levels.
+                <br />
+                <br />
+            {% endif %}
+
+        </p>
+    </div>
+</section>

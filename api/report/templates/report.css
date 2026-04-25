@@ -1,0 +1,577 @@
+@charset "UTF-8";
+
+body {
+	line-height: 1.4;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 12pt;
+	color: #333;
+}
+
+@page {
+	size: letter;
+	margin: 1in 0.5in 0.5in;
+	font-family: 'Montserrat', sans-serif;
+
+	@top-left {
+		content: '{{title}} {{subtitle}}';
+		font-size: 9pt;
+		color: #aaaaaa;
+	}
+
+	@bottom-left {
+		content: 'Created {{date}} using the Midwest Conservation Blueprint Explorer';
+		font-size: 9pt;
+		color: #aaaaaa;
+	}
+
+	@bottom-right {
+		content: 'Page ' counter(page) ' of ' counter(pages);
+		font-size: 9pt;
+		color: #666;
+		text-align: right;
+	}
+}
+
+@page :first {
+	margin-bottom: 200pt;
+
+	@top-left {
+		content: none;
+	}
+	@top-right {
+		content: none;
+	}
+	@bottom-right {
+		background: none;
+		content: none;
+	}
+	@bottom-left {
+		content: none;
+	}
+	@bottom-center {
+		width: 100%;
+		content: element(footer);
+		font-size: 8pt;
+	}
+}
+
+footer {
+	position: running(footer);
+}
+
+/* table of contents */
+#TableOfContents {
+	margin-top: 24pt;
+}
+
+#TableOfContents li li {
+	list-style-type: lower-latin;
+}
+
+#TableOfContents li li li {
+	list-style-type: lower-roman;
+}
+
+#TableOfContents a {
+	text-decoration: none;
+}
+
+#TableOfContents .divider {
+	border-bottom: 1pt dashed #ddd;
+	margin: 0.15rem 0;
+}
+
+#TableOfContents .tocpagenr::after {
+	content: target-counter(attr(target), page);
+}
+
+#TableOfContents .tocsubsection {
+	margin-left: 24pt;
+}
+
+#TableOfContents li {
+	display: flex;
+	justify-content: space-between;
+}
+
+#TableOfContents a {
+	cursor: pointer;
+}
+
+h1 {
+	font-size: 20pt;
+	line-height: 1.2;
+	margin: 0;
+}
+
+h2,
+.subtitle {
+	margin: 0 0 12pt 0;
+}
+
+h3 {
+	margin: 0 0 6pt 0;
+}
+
+h4 {
+	margin-bottom: 2pt;
+}
+
+p {
+	margin-top: 0;
+	line-height: 1.3;
+	font-size: 12pt;
+}
+
+p.note {
+	font-size: small;
+	color: #7e8b96;
+}
+
+ol,
+ul {
+	font-size: 12pt;
+	line-height: 1.3;
+}
+
+ol li + li,
+ul li + li {
+	margin-top: 6pt;
+}
+
+table {
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 6pt 0 24pt;
+	font-size: 12pt;
+}
+
+table thead th {
+	font-weight: bold;
+	text-align: center;
+	background: #eeeeee;
+	border-top: 1px solid #aaaaaa;
+	border-left: 1px solid hsl(0, 0%, 67%);
+	border-right: 1px solid #aaaaaa;
+	border-bottom: 2px solid #333;
+	padding: 2pt 8pt;
+	line-height: 1.2;
+}
+
+table th:first-child {
+	text-align: left;
+}
+
+table td {
+	padding: 2pt 4pt;
+	border: 1px solid #666;
+	text-align: center;
+}
+
+table td:first-child {
+	text-align: left;
+}
+
+table .remainder-row td {
+	font-style: italic;
+	color: #666;
+}
+
+table .total-row td {
+	font-weight: bold;
+	background: #eee;
+	border-top: 2px solid #333;
+}
+
+table .align-right {
+	text-align: right !important;
+}
+
+table th.acres,
+table th.percent {
+	width: 72pt;
+}
+
+table td.label {
+	text-align: left;
+}
+
+table td.no-border {
+	border: none !important;
+}
+
+table td.no-background {
+	background: none !important;
+}
+
+table th.level {
+	width: 22pt;
+	border: none;
+	background: none;
+}
+
+table td.level {
+	text-align: right;
+	border-top: none;
+	border-bottom: none;
+	font-size: 10pt;
+	color: #666;
+}
+
+table th.threshold {
+	width: 52pt;
+	border: none;
+	background: none;
+}
+
+table td.threshold {
+	border: none;
+	font-size: 10pt;
+	color: #666;
+}
+
+table td.threshold.good {
+	border-bottom: 2px solid #333;
+	vertical-align: bottom;
+}
+
+table td.threshold.not-good {
+	vertical-align: top;
+}
+
+table tr.above-threshold td {
+	border-bottom: 2px solid #333;
+}
+
+table tr.highlight-row td,
+table th.highlight-col,
+table td.highlight-col {
+	background: #ffffe5;
+}
+
+.divider-wide {
+	margin-bottom: 10pt;
+	border-bottom: 6pt solid #21496b;
+}
+
+.no-break {
+	page-break-inside: avoid;
+	break-inside: avoid;
+}
+
+.break-before {
+	page-break-before: always;
+}
+
+.break-after {
+	page-break-after: always;
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+.caption {
+	font-size: 11pt;
+	font-style: italic;
+	color: #555568;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+.box {
+	padding: 10pt;
+	margin-bottom: 12pt;
+	background: #f2f2f2;
+}
+
+.box li + li {
+	margin-top: 12pt;
+}
+
+.spacer {
+	height: 36pt;
+}
+
+.page-break {
+	page-break-after: always;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.flex {
+	display: flex;
+}
+
+.space-between {
+	justify-content: space-between;
+}
+
+.map-container {
+	position: relative;
+	z-index: 0;
+}
+
+.map {
+	width: 100%;
+	border: 1px solid #ccc;
+	line-height: 0;
+	z-index: 1;
+}
+
+.map-placeholder {
+	width: 100%;
+	height: 64pt;
+	background: #eeeeee;
+	color: #aaaaaa;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 24pt;
+}
+
+.map-footer {
+	margin-top: 10pt;
+	width: 100%;
+}
+
+.map-credits {
+	font-size: 7pt;
+	line-height: 1;
+}
+
+.map-locator {
+	width: 230px;
+	height: 153px;
+}
+
+.map-locator-container {
+	flex: 0 0 auto;
+	margin-right: 12pt;
+}
+
+.map-locator-placeholder {
+	width: 100pt;
+	height: 64pt;
+	background: #eeeeee;
+	color: #aaaaaa;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.scalebar {
+	flex: 0 0 auto;
+	line-height: 0.9;
+	margin-left: 10pt;
+}
+
+.scalebar .bar {
+	position: relative;
+	z-index: 0;
+	border: 1px solid #666;
+	background: #fff;
+	height: 6px;
+}
+
+.scalebar .increment {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	background: #666;
+}
+
+.scalebar .increment + .increment {
+	background: #fff;
+}
+
+.scalebar .increment-label {
+	position: absolute;
+	bottom: -12px;
+	font-size: 8pt;
+	color: #666;
+}
+
+.scalebar .label {
+	margin-left: 4pt;
+	font-size: 8pt;
+	color: #666;
+	flex: 0 0 auto;
+}
+
+.flex.align-center {
+	align-items: center;
+}
+.flex.justify-center {
+	justify-content: center;
+}
+.flex.justify-end {
+	justify-content: flex-end;
+}
+.flex.flex-column {
+	flex-direction: column;
+}
+.flex-grow {
+	flex-grow: 1;
+}
+.flex.flex-no-shrink {
+	flex-shrink: 0;
+}
+
+.small {
+	font-size: 10pt;
+	line-height: 1;
+}
+
+.tiny {
+	font-size: 6pt;
+	line-height: 1;
+}
+
+.light {
+	color: #767676;
+}
+
+.legend {
+	flex: 1 1 auto;
+	line-height: 1.1;
+	font-size: 10pt;
+}
+
+.legend header {
+	margin-bottom: 2pt;
+}
+
+.legend-patch {
+	flex: 0 0 auto;
+	height: 10pt;
+	width: 16pt;
+	margin-right: 4pt;
+	opacity: 0.75;
+	border: 1px solid #aaa;
+}
+
+.legend-patch.outside-se {
+	background-color: rgba(51, 51, 51, 0.25);
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAADpJREFUKFONzEsKADAIA9Hk/oe2WGjpR6OzfgzRy9hwBoAVnMhnCm6k4IUy+KEIhuiFKTqhRAuWyOEA/DwKCnfY+F8AAAAASUVORK5CYII=);
+	background-size: 6px;
+	background-repeat: repeat;
+}
+
+/* have to flip patterns on MacOS due to bug in Weasyprint */
+.flip-x {
+	transform: scaleX(-1);
+}
+
+.legend-label {
+	flex: 1 1 auto;
+	color: #333;
+}
+
+.legend-header {
+	margin-bottom: 2pt;
+	font-weight: bold;
+	font-size: 10pt;
+}
+
+.legend-element + .legend-element {
+	margin-top: 4pt;
+}
+
+.legend .narrow-margin {
+	margin-top: 2pt !important;
+}
+
+.indicator {
+	page-break-before: always;
+}
+
+.indicator-absent {
+	color: #666;
+}
+
+.summary-units-description {
+	margin-top: 2rem;
+	font-size: 11pt;
+}
+
+.indicator-description,
+.dataset-description {
+	font-size: 11pt;
+}
+
+.indicator-group-header,
+.indicator-header {
+	margin-top: -20pt;
+	margin-bottom: 12pt;
+	padding: 6pt 6pt 4pt 6pt;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	line-height: 1.2;
+}
+
+.indicator-group-header h2,
+.indicator-header h2 {
+	margin-bottom: 0;
+	font-size: 24px;
+}
+
+.indicator-group-header h3,
+.indicator-header h3 {
+	margin: 0.15rem 0 0 0.5rem;
+}
+
+.indicator-header-indicator-group {
+	font-size: 14px;
+	color: #666;
+}
+
+.indicator-area {
+	font-size: 14px;
+	color: #666;
+}
+
+.indicator-group-icon {
+	margin-right: 6pt;
+	height: 32pt;
+	background: #fff;
+	border-radius: 32pt;
+	border: 2px solid #aaaaaa;
+	padding: 2pt;
+}
+
+.indicator + .indicator {
+	page-break-before: always;
+}
+
+.cover-logo {
+	width: 176px;
+	height: 76px;
+	margin-right: 18pt;
+}
+
+.north-arrow-container {
+	z-index: 100;
+	position: absolute;
+	right: 0.25rem;
+	bottom: 0.75rem;
+	padding: 0.25rem;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 0.25rem;
+	line-height: 1;
+}
+
+.north-arrow {
+	width: 16px;
+	height: 29px;
+}

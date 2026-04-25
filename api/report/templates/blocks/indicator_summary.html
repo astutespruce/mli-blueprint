@@ -1,0 +1,39 @@
+<section class="break-before">
+    <h2 id="IndicatorSummary">Indicator Summary</h2>
+
+    {% for group in results.indicator_groups %}
+        <div class="no-break">
+            <div class="caption">
+                Table {{table.counter}}: {{group.label}} indicators.
+            </div>
+            {% set table.counter=table.counter+1 %}
+
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th class="label" style="width: 100%;" scope="col">Indicator</th>
+                        <th class="" style="max-width: 100px;" scope="col">Present</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for indicator in group.indicator_summary %}
+                        <tr>
+                        {% if indicator.present %}
+                            <td class="label">
+                                <a href="#{{indicator.id}}">
+                                    <div>{{indicator.label}}</div>
+                                </a>
+                            </td>
+                            <td>&check;</td>
+                        {% else %}
+                            <td class="label indicator-absent">{{indicator.label}}</td>
+                            <td class="indicator-absent">-</td>
+                        {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+
+</section>

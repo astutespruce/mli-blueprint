@@ -1,0 +1,16 @@
+<div id="{{indicator.id}}" class="indicator-header" style="background-color: {{group.color}};border-color: {{group.borderColor}};">
+    {% if index == 0 %}
+        <span id="{{group.id}}" />
+    {% endif %}
+
+    <div class="flex align-center">
+        <img src="assets:{{(group.id + '.png')}}" class="indicator-group-icon" alt="Icon for {{group.label}}"/>
+        <div>
+            <div class="indicator-header-indicator-group">
+                {{group.label}}
+            </div>
+
+            <h2>{{indicator.label}}</h2>
+        </div>
+    </div>
+</div>

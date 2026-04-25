@@ -1,0 +1,2 @@
+class MapRenderError(Exception):
+    pass

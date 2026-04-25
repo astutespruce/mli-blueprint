@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 import re
-import warnings
 
 from affine import Affine
 import numpy as np
@@ -122,7 +121,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
             "Indicator": "label",
             "Legend Subheader": "valueLabel",
             "Abbreviated indicator values": "valueLabels",
-            'Blueprint Explorer "Good" threshold': "goodThreshold",
+            # 'Blueprint Explorer "Good" threshold': "goodThreshold",
             "Indicator descriptions": "description",
             "Hub Link": "url",
         }
@@ -159,7 +158,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
         "AquaticNetworkConnectivity.tif": "Aquatic_connectivity.tif",
         "ClimateResiliencyCarbonSequestration.tif": "ClimateResil_CarbonSequestration.tif",
         "GreatLakesShorelineandDuneHabitat.tif": "GL_ShorelineDune.tif",
-        "LandscapeCondition.tif": "LandscapeCondition_fixed.tif",
+        "LandscapeCondition.tif": "IntactHabitat_LandscapeCondition.tif",
         "TerrestrialHabitatConnectivity.tif": "TerrestrialConnectivity.tif",
         "AtRiskSpeciesCoas.tif": "AtRiskSpp_COAs.tif",
         "AtRiskSpeciesRsgcn.tif": "AtRiskSpp_RSGCN.tif",
@@ -190,12 +189,13 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
     if missing:
         raise ValueError(f"Unable to find files for {', '.join(missing)}")
 
+    # NOTE: not currently used
     # extract first value as integer; this is the threshold, set the rest to None
-    df["goodThreshold"] = df.goodThreshold.fillna("")
-    df.loc[df.goodThreshold.str.lower().str.contains("no"), "goodThreshold"] = ""
-    ix = df.goodThreshold != ""
-    df.loc[ix, "goodThreshold"] = df.loc[ix].goodThreshold.str.extract(r"(\d)").astype("uint8").values[:, 0]
-    df.loc[~ix, "goodThreshold"] = None
+    # df["goodThreshold"] = df.goodThreshold.fillna("")
+    # df.loc[df.goodThreshold.str.lower().str.contains("no"), "goodThreshold"] = ""
+    # ix = df.goodThreshold != ""
+    # df.loc[ix, "goodThreshold"] = df.loc[ix].goodThreshold.str.extract(r"(\d)").astype("uint8").values[:, 0]
+    # df.loc[~ix, "goodThreshold"] = None
 
     df["url"] = df.url.fillna("")
     df["valueLabel"] = df.valueLabel.fillna("").str.strip().replace("N/A", "")
@@ -234,7 +234,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
             "values",
             "valueLabel",
             "captionLabel",
-            "goodThreshold",
+            # "goodThreshold",
             "url",
         ]
     ]
@@ -333,7 +333,7 @@ for index, indicator_row in indicator_df.iterrows():
 
     # clip to new TIF, standardize nodata
     # Note: manually checked value range to verify that all can be safely cast to uint8
-    outfilename = indicators_out_dir / filename
+    outfilename = indicators_out_dir / f"{indicator_row.id}.tif"
     if not outfilename.exists():
         with rasterio.open(indicators_dir / filename) as src:
             print(f"\n-------------------------\nProcessing {indicator_row.label}")
@@ -444,6 +444,8 @@ for index, indicator_row in indicator_df.iterrows():
 
 del extent_data
 
+indicator_df = indicator_df.drop(columns=["filename"])
+
 ################################################################################
 ### Extract subregions associated with indicator
 ################################################################################
@@ -456,7 +458,7 @@ with rasterio.open(data_dir / "boundaries/subregion_mask.tif") as subregions:
     subregion_values = subregions.read(1)
     for index, indicator_row in indicator_df.iterrows():
         print(f"Finding subregions for {indicator_row.label}")
-        mask_filename = indicators_out_dir / str(indicator_row.filename).replace(".tif", "_mask.tif")
+        mask_filename = indicators_out_dir / f"{indicator_row.id}_mask.tif"
 
         with rasterio.open(mask_filename) as src:
             read_window = shift_window(

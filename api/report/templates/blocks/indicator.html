@@ -1,0 +1,117 @@
+<div class="indicator">
+
+<div class="no-break">
+    {% include "elements/indicator_header.html" %}
+
+    <p class="indicator-description">
+        {{indicator.description}}
+    </p>
+
+    {% if maps[indicator.id] %}
+        <div class="map-container">
+            <img src="maps:{{indicator.id}}" alt="Map for {{indicator.label}}" class="map">
+
+            {% include "elements/north_arrow.html" %}
+        </div>
+
+        {% include "elements/map_footer.html" %}
+
+        <div class="flex map-footer">
+            <div class="map-locator-container">
+                {% if maps.locator %}
+                    <img src="maps:locator" alt="Locator map" class="map-locator">
+                {% endif %}
+            </div>
+
+            <div class="legend">
+                {% if indicator.valueLabel %}
+                    <div class="legend-header">{{indicator.valueLabel}}</div>
+                {% endif %}
+                {% for entry in indicator["values"] %}
+                    <div class="legend-element flex {% if (indicator["values"]|length) >5 %}narrow-margin{% endif %}">
+                        <div class="legend-patch" style="background: {{entry.color}}"></div>
+                        <div class="legend-label">{{entry.label}}</div>
+                    </div>
+                {% endfor %}
+                {% if results.outside_extent_percent > 0 %}
+                    <div class="legend-element flex align-center">
+                        <div class="legend-patch outside-se {% if flip_crosshatch %}flip-x{% endif %}"></div>
+                        <div class="legend-label">Outside Midwest Blueprint</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    {% else %}
+        <div class="map-placeholder text-center">
+            map could not be created
+        </div>
+    {% endif %}
+
+</div>
+
+<div class="no-break">
+    <div class="caption">
+        Table {{table.counter}}: Indicator values for {{indicator.captionLabel or indicator.label}}{% if name %} within {{name}}{% else %} in this area{% endif %}.
+    </div>
+    {% set table.counter=table.counter+1 %}
+
+    <table class="centered">
+        <thead>
+            <tr>
+                <th class="level" scope="col"></th>
+                <th class="label" scope="col">Indicator Values{% if indicator.valueLabel %}: {{indicator.valueLabel}}{% endif %}</th>
+                <th class="acres" scope="col">Acres</th>
+                <th class="percent" scope="col">Percent of Area</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in indicator["values"] %}
+                <tr>
+                    <td class="level no-border">
+                        {% if loop.first %}
+                            &uarr; High
+                        {% elif loop.last %}
+                            &darr; Low
+                        {% endif %}
+                    </td>
+                    <td class="label">{{entry.label}}</td>
+                    <td class="acres">{{entry.acres|format_number}}</td>
+                    <td class="percent">{{entry.percent|format_percent}}%</td>
+                </tr>
+            {% endfor %}
+
+            {% if indicator.outside_indicator_acres > 0.1 %}
+                <tr class="remainder-row">
+                    <td class="no-border no-background"></td>
+                    <td class="label">Area not evaluated for this indicator</td>
+                    <td class="acres">{{indicator.outside_indicator_acres|format_number}}</td>
+                    <td class="percent">{{indicator.outside_indicator_percent|format_percent}}%</td>
+                </tr>
+            {% endif %}
+
+            {% if results.outside_extent_acres %}
+                <tr class="remainder-row">
+                    <td class="no-border no-background"></td>
+                    <td class="label">Outside Midwest Blueprint</td>
+                    <td class="acres">{{results.outside_extent_acres|format_number}}</td>
+                    <td class="percent">{{results.outside_extent_percent|format_percent}}%</td>
+                </tr>
+            {% endif %}
+
+            <tr class="total-row">
+                <td class="no-border no-background"></td>
+                <td class="align-right">Total area</td>
+                <td class="acres">{{results.rasterized_acres|format_number}}</td>
+                <td class="percent">100%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p>
+    To learn more and explore the GIS data,
+    <a href="{{indicator.url}}">view this indicator in the SECAS Atlas</a>.
+</p>
+
+</div>

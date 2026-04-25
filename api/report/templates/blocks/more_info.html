@@ -1,0 +1,13 @@
+<h2 id="MoreInfo" class="break-before">More Information</h2>
+
+{% if results.protected_areas %}
+    {% include "blocks/protected_areas.html" %}
+{% else %}
+    {% include "blocks/no_protected_areas.html" %}
+{% endif %}
+
+{% if results.urban and (results.urban.noturban_2100_percent + results.urban.outside_urban_percent) < 100 %}
+    {% include "blocks/urban.html" %}
+{% elif not is_marine_only %}
+    {% include "blocks/no_urban.html" %}
+{% endif %}

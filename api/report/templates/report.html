@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{title}} {{subtitle}}</title>
+        <meta name="author" content="Midwest Conservation Blueprint Explorer" />
+        <meta name="description" content="Detailed report created by the Midwest Conservation Blueprint Explorer ({{url}})" />
+        <meta name="generator" content="Midwest Conservation Blueprint Explorer" />
+        <meta name="keywords" content="conservation,planning,prioritization,indicators" />
+        <meta name="dcterms.created" content="{{create_date}}" />
+        <meta name="dcterms.modified" content="{{create_date}}" />
+        <meta charset="utf-8" />
+        <style>{{css}}</style>
+    </head>
+
+    <body>
+        {% set table=namespace(counter=1) %}
+
+        {% include "blocks/cover.html" %}
+
+        {% include "blocks/blank_page.html" %}
+
+        {% include "blocks/about.html" %}
+
+        {% include "blocks/blueprint.html" %}
+
+        {% include "blocks/indicator_groups.html" %}
+
+        {% include "blocks/more_info.html" %}
+    </body>
+</html>

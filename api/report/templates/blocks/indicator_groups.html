@@ -1,0 +1,5 @@
+{% include "blocks/indicator_summary.html" %}
+
+{% for group in results.indicator_groups %}
+    {% include "blocks/indicator_group.html" %}
+{% endfor %}

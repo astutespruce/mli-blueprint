@@ -156,3 +156,20 @@ states = (
 )
 write_dataframe(states, bnd_dir / "states.fgb")
 states.to_feather(out_dir / "states.feather")
+
+
+################################################################################
+### Major lakes
+################################################################################
+
+df = (
+    read_dataframe(
+        src_dir / "boundaries/ne_50m_lakes.zip",
+        columns=["name"],
+        where="name in ('Lake Superior', 'Lake Michigan', 'Lake Huron', 'Lake Saint Clair', 'Lake Erie')",
+    )
+    .to_crs(DATA_CRS)
+    .drop(columns=["name"])
+)
+
+write_dataframe(df, bnd_dir / "lakes.fgb")

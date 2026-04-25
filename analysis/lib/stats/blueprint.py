@@ -70,7 +70,7 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
 
     indicators_present = []
     for indicator in INDICATORS:
-        mask_filename = src_dir / "indicators" / indicator["filename"].replace(".tif", "_mask.tif")
+        mask_filename = src_dir / "indicators" / f"{indicator['id']}_mask.tif"
         with rasterio.open(mask_filename) as src:
             if rasterized_geometry.detect_data(src):
                 indicators_present.append(indicator)
@@ -78,7 +78,7 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
     indicators = {}
     for i, indicator in enumerate(indicators_present):
         id = indicator["id"]
-        filename = src_dir / "indicators" / indicator["filename"]
+        filename = src_dir / f"indicators/{indicator['id']}.tif"
         bins = range(0, indicator["values"][-1]["value"] + 1)
 
         with rasterio.open(filename) as src:
@@ -153,7 +153,7 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
             for id in expected_indicators
         ]
 
-        # update ecosystem with only indicators that are present
+        # update indicator group with only the indicators that are present
         group["indicators"] = [indicators[id] for id in group["indicators"] if id in indicators]
         indicator_groups.append(group)
 
@@ -205,7 +205,7 @@ def summarize_blueprint_by_units_grid(df, units_grid, out_dir):
 
     for indicator in INDICATORS:
         id = indicator["id"]
-        filename = indicators_dir / indicator["filename"]
+        filename = indicators_dir / f"{indicator['id']}.tif"
         # WARNING: some indicators have missing values in the range and are non-contiguous
         values = [v["value"] for v in indicator["values"]]
         with rasterio.open(filename) as value_dataset:
@@ -348,7 +348,7 @@ def get_blueprint_unit_results(results_dir, unit):
             for id in expected_indicators
         ]
 
-        # update ecosystem with only indicators that are present
+        # update indicator group with only the indicators that are present
         group["indicators"] = [indicators[id] for id in group["indicators"] if id in indicators]
         indicator_groups.append(group)
 

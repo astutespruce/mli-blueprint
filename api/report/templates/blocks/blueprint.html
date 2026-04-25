@@ -1,0 +1,103 @@
+<section class="break-before">
+    <h2 id="Blueprint">Midwest Blueprint Priorities</h2>
+
+    {% if maps.blueprint %}
+        <div class="map-container">
+            <img src="maps:blueprint" alt="Conservation Blueprint map" class="map">
+
+            {% include "elements/north_arrow.html" %}
+        </div>
+
+        {% include "elements/map_footer.html" %}
+
+        <div class="flex map-footer">
+            <div class="map-locator-container">
+                {% if maps.locator %}
+                    <img src="maps:locator" alt="Locator map" class="map-locator">
+                {% endif %}
+            </div>
+
+            <div class="legend">
+                <!-- <div class="legend-header">Priorities for a connected network of lands and waters</div> -->
+                <!-- omit not a priority -->
+                {% for item in legends.blueprint[:-1] %}
+                    <div class="legend-element flex align-center">
+                        <div class="legend-patch" style="background: {{item.color}}"></div>
+                        <div class="legend-label">{{item.label}}</div>
+                    </div>
+                {% endfor %}
+                {% if results.outside_extent_percent > 0 %}
+                    <div class="legend-element flex align-center">
+                        <div class="legend-patch outside-se {% if flip_crosshatch %}flip-x{% endif %}"></div>
+                        <div class="legend-label">Outside Midwest Blueprint</div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    {% else %}
+        <div class="map-placeholder text-center">
+            map could not be created
+        </div>
+    {% endif %}
+</section>
+
+<section class="break-before">
+    <div style="font-size: 1.5rem; font-weight: bold;">Priority Categories</div>
+    <!-- <div style="font-weight: bold;">For a connected network of lands and waters</div> -->
+    <p>
+        In total, Blueprint priorities and priority connections cover roughly 50% of the Midwest Blueprint geography.
+    </p>
+
+    <!-- omit not a priority -->
+    {% for item in legends.blueprint[:-1] %}
+        <div style="font-size: 1.1rem; font-weight: bold;">{{item.label}}</div>
+        <p>
+            {{item.description}}
+
+            This class covers roughly {{item.percent}}% of the Midwest Blueprint geography.
+        </p>
+    {% endfor %}
+
+
+
+<div class="spacer"></div>
+
+{% with number=table.counter,label="Extent of each Blueprint priority category" %}
+    {% include "elements/table_caption.html" %}
+{% endwith %}
+{% set table.counter=table.counter+1 %}
+
+<table class="centered">
+    <thead>
+        <tr>
+            <th class="label" scope="col">Priority Category</th>
+            <th class="acres" scope="col">Acres</th>
+            <th class="percent" scope="col">Percent of Area</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in results.blueprint %}
+        <tr>
+            <td class="label">{{item.label}}</td>
+            <td class="acres">{{item.acres|format_number}}</td>
+            <td class="percent">{{item.percent|format_percent}}%</td>
+        </tr>
+        {% endfor %}
+
+        {% if results.outside_extent_acres > 0 %}
+            <tr class="remainder-row">
+                <td class="label">Outside Midwest Blueprint</td>
+                <td class="acres">{{results.outside_extent_acres|format_number}}</td>
+                <td class="percent">{{results.outside_extent_percent|format_percent}}%</td>
+            </tr>
+        {% endif %}
+
+        <tr class="total-row">
+            <td class="label align-right">Total area</td>
+            <td class="acres">{{results.rasterized_acres|format_number}}</td>
+            <td class="percent">100%</td>
+        </tr>
+    </tbody>
+</table>
+</section>
