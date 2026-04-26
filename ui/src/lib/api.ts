@@ -60,8 +60,8 @@ export const createSummaryUnitReport = async (
 
 	if (type === 'subwatershed') {
 		unitType = 'huc12'
-	} else if (type === 'marine hex') {
-		unitType = 'marine_hex'
+	} else {
+		throw new Error(`${unitType} is not supported for summary report`)
 	}
 
 	const response = await fetch(`${API}/${unitType}/${id}?token=${API_TOKEN}`, {

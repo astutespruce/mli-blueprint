@@ -39,7 +39,7 @@
 		style="box-shadow:0 0 0 2px #0000001a;"
 		aria-label="show layers popup to choose a different layer to display on the map"
 	>
-		<LayerGroupIcon class="w-6 h-6 md:w-4.5 md:h-4.5" />
+		<LayerGroupIcon class="w-6 h-6 md:w-5.25 md:h-5.25" />
 	</Trigger>
 	<Content class="pt-4 pb-6">
 		<Header class="border-b pb-4 border-b-grey-3">

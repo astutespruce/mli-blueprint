@@ -12,7 +12,7 @@ export const getCenterAndZoom = (
 	padding: number = 0
 ) => {
 	const { offsetWidth: width, offsetHeight: height } = mapNode
-	const calcViewport = viewport(bounds, [width, height])
+	const calcViewport = viewport(bounds, [width, height], { allowFloat: true })
 
 	// Zoom out slightly to pad around bounds
 	const zoom = Math.max(calcViewport.zoom - 1, 0) * (1 - padding)

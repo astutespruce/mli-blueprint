@@ -8,6 +8,6 @@
 
 {% if results.urban and (results.urban.noturban_2100_percent + results.urban.outside_urban_percent) < 100 %}
     {% include "blocks/urban.html" %}
-{% elif not is_marine_only %}
+{% else %}
     {% include "blocks/no_urban.html" %}
 {% endif %}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import DownloadIcon from '~icons/fa-solid/download'
 	import { createSummaryUnitReport } from '$lib/api'
+	import { CONTACT_URL } from '$lib/env'
 	import { Root, Trigger, Content, Header, Title } from '$lib/components/ui/dialog'
 	import { Button } from '$lib/components/ui/button'
 	import { captureException, logGAEvent } from '$lib/util/log'
@@ -176,9 +177,7 @@
 				Note: we have made every possible effort to ensure that the information provided in this
 				viewer is accessible to people with disabilities. If you cannot fully access the
 				information, please reach out to
-				<a href="https://www.mlimidwest.org/support" target="_blank">
-					Blueprint user support staff
-				</a>
+				<a href={CONTACT_URL} target="_blank"> Blueprint user support staff </a>
 				so that we can provide the information in an alternate format.
 			</p>
 		{/if}

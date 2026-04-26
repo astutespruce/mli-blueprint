@@ -29,7 +29,7 @@ const isEmpty = (text: string | null) => {
 /**
  * Extract dictionary-encoded counts and means
  * @param {Object} packedPercents
- * @param {Array} indicatorGroupInfo - array of ecosystem info
+ * @param {Array} indicatorGroupInfo - array of indicator group info
  * @param {Array} indicatorInfo - array of indicator info
  * @param {Array} subregions - array of subregion names
  */
@@ -77,25 +77,25 @@ const extractIndicators = (
 					id,
 					values,
 					total: Math.min(sum(percents), 100),
-					ecosystem: indicatorGroupIndex[id.split('_')[0]]
+					group: indicatorGroupIndex[id.split('_')[0]]
 				}
 			}
 		)
 
-	// aggregate these up by ecosystems for ecosystems that are present
-	const ecosystemsPresent = new Set(
+	// aggregate these up by indicator group for indicator groups that are present
+	const indicatorGroupsPresent = new Set(
 		indicators
 			.filter(
 				({ values }: { values: [{ percent: number }] }) =>
 					sum(values.map(({ percent }) => percent)) > 0
 			)
-			.map(({ ecosystem: { id } }: { ecosystem: { id: string } }) => id)
+			.map(({ group: { id } }: { group: { id: string } }) => id)
 	)
 
 	indicators = indexBy(indicators, 'id')
 
-	const ecosystems = indicatorGroupInfo
-		.filter(({ id }) => ecosystemsPresent.has(id))
+	const indicatorGroups = indicatorGroupInfo
+		.filter(({ id }) => indicatorGroupsPresent.has(id))
 		.map(({ id: groupId, label, color, borderColor, indicators: groupIndicators, ...rest }) => {
 			const indicatorsPresent = groupIndicators.filter((indicatorId) => indicators[indicatorId])
 
@@ -111,13 +111,13 @@ const extractIndicators = (
 			}
 		})
 
-	return { ecosystems, indicators }
+	return { indicatorGroups, indicators }
 }
 
 /**
  * Unpack encoded attributes in feature data.
  * @param {Object} properties
- * @param {Array} indicatorGroupInfo - array of ecosystem info
+ * @param {Array} indicatorGroupInfo - array of indicator group info
  * @param {Array} indicatorInfo - array of indicator info
  * @param {Object} subregionIndex - lookup of subregions by value
  */
@@ -174,17 +174,14 @@ export const unpackFeatureData = (
 	})
 
 	const subregions = new Set<string>()
-	const regions = new Set<string>()
 
 	if (values.subregions) {
 		values.subregions.split(',').forEach((v: string) => {
 			const { subregion, region } = subregionIndex[v]
 			subregions.add(subregion)
-			regions.add(region)
 		})
 	}
 	values.subregions = subregions
-	values.regions = regions
 
 	values.indicators = extractIndicators(
 		values.indicators || {},

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Root, Trigger, Content, Header, Title } from '$lib/components/ui/dialog'
+	import { CONTACT_URL } from '$lib/env'
 	import { cn } from '$lib/utils'
 
 	let { children, triggerClass = '' } = $props()
@@ -20,9 +21,7 @@
 			<br />
 			<br />
 			Please reach out to
-			<a href="https://www.mlimidwest.org/support" target="_blank">
-				Blueprint user support staff</a
-			>.
+			<a href={CONTACT_URL} target="_blank"> Blueprint user support staff</a>.
 		</p>
 	</Content>
 </Root>

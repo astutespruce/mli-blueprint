@@ -3,6 +3,7 @@
 	import Envelope from '~icons/fa-solid/envelope'
 	import ExclamationCircle from '~icons/fa-solid/ExclamationCircle'
 	import ExternalLinkAlt from '~icons/fa-solid/external-link-alt'
+	import { BLUEPRINT_URL } from '$lib/env'
 
 	import { ContactDialog, ProvideFeedbackDialog, ReportProblemDialog } from '$lib/components/dialog'
 </script>
@@ -13,11 +14,7 @@
 	<div class="flex flex-none gap-3 items-center">
 		<div>Version: Midwest Blueprint 2026</div>
 		<div>|</div>
-		<a
-			href="https://mcap-fws.hub.arcgis.com/pages/midwest-conservation-blueprint"
-			target="_blank"
-			class="flex gap-2 items-center"
-		>
+		<a href={BLUEPRINT_URL} target="_blank" class="flex gap-2 items-center">
 			<ExternalLinkAlt width="1em" height="1em" />
 			Blueprint webpage
 		</a>

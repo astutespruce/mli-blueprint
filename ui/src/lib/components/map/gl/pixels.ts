@@ -99,7 +99,7 @@ const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: 
 				({ values }: { values: [{ percent: number }] }) =>
 					sum(values.map(({ percent }: { percent: number }) => percent)) > 0
 			)
-			.map(({ ecosystem: { id } }: { ecosystem: { id: string } }) => id)
+			.map(({ group: { id } }: { group: { id: string } }) => id)
 	)
 
 	indicators = indexBy(indicators, 'id')
@@ -108,7 +108,7 @@ const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: 
 		.filter(({ id }: { id: string }) => indicatorGroupsPresent.has(id))
 		.map(
 			({
-				id: ecosystemId,
+				id: groupId,
 				label,
 				color,
 				borderColor,
@@ -125,7 +125,7 @@ const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: 
 
 				return {
 					...rest,
-					id: ecosystemId,
+					id: groupId,
 					label,
 					color,
 					borderColor,
@@ -255,7 +255,7 @@ export const extractPixelData = (
 
 	const subregions = new Set([subregion])
 
-	// unpack indicators and ecosystems
+	// unpack indicators and indicator groups
 	data.indicators = extractIndicators(data, indicatorGroupInfo, indicatorInfo, subregions)
 
 	// extract protected areas from vector tiles

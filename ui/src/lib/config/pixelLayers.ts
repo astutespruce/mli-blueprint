@@ -1,4 +1,4 @@
-import { indexBy, sortByFunc } from '$lib/util/data'
+import { indexBy } from '$lib/util/data'
 import type {
 	Indicator,
 	PixelLayerBounds,
@@ -42,7 +42,7 @@ const pixelLayerBounds: PixelLayerBounds = {
 
 const pixelLayerSourceConfig = { tileSize: 512, minzoom: 3, maxzoom: 14 }
 
-export const pixelLayers = [...Array(10).keys()].map((i) => ({
+export const pixelLayers = [...Array(5).keys()].map((i) => ({
 	...pixelLayerSourceConfig,
 	id: `pixels${i}`,
 	url: `${tileHost}/services/midwest_pixel_layers_${i}/tiles/{z}/{x}/{y}.png`,

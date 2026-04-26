@@ -6,7 +6,6 @@ import pyarrow.compute as pc
 
 data_dir = Path("data")
 huc12_filename = data_dir / "inputs/summary_units/huc12.feather"
-marine_filename = data_dir / "inputs/summary_units/marine_hex.feather"
 
 
 def read_unit_from_feather(filename, unit_id, columns=None):
@@ -24,8 +23,4 @@ def read_unit_from_feather(filename, unit_id, columns=None):
     DataFrame
     """
     src = pa.dataset(filename, format="feather")
-    return (
-        src.to_table(columns=columns, filter=pc.field("id") == unit_id)
-        .to_pandas()
-        .set_index("id")
-    )
+    return src.to_table(columns=columns, filter=pc.field("id") == unit_id).to_pandas().set_index("id")

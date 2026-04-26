@@ -34,8 +34,8 @@
 >
 	{#if isOpen}
 		<div class="p-2" title="Click to hide legend">
-			<div class="flex items-top justify-between gap-2">
-				<div class="flex-auto font-bold leading-none text-lg">
+			<div class="flex items-center justify-between gap-4">
+				<div class="flex-auto font-bold leading-none text-base">
 					{title}
 				</div>
 				<Button

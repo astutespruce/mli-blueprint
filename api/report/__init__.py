@@ -67,7 +67,7 @@ def create_report(maps, results, name=None, area_type="custom"):
     name : str, optional (default: None)
         name of area to show as report title / header
     area_type : str, optional (default: "custom")
-        one of {"custom", "huc12", "marine_hex"}
+        one of {"custom", "huc12"}
 
     Returns
     -------
@@ -99,7 +99,6 @@ def create_report(maps, results, name=None, area_type="custom"):
         "maps": maps,
         "legends": legends,
         "results": results,
-        "is_marine_only": results.get("regions") == {"marine"},
         # have to flip the crosshatch horizontally due to bug in WeasyPrint
         "flip_crosshatch": sys.platform == "darwin",
     }

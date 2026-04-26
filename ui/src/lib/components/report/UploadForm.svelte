@@ -6,6 +6,7 @@
 
 	import Download from '~icons/fa-solid/download'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
+	import { CONTACT_URL } from '$lib/env'
 	import { cn } from '$lib/utils.js'
 	import { Field, Control, Label, Button as SubmitButton } from '$lib/components/ui/form'
 	import { Button } from '$lib/components/ui/button'
@@ -237,7 +238,7 @@
 				<br />
 				<br />
 				Don&apos;t have a shapefile? You can create one using
-				<a href="https://geojson.io/#map=6/32.861/-81.519" target="_blank"> geojson.io </a>
+				<a href="https://geojson.io" target="_blank"> geojson.io </a>
 				to draw your area of interest, save as a shapefile, then upload here.
 				<br />
 				<br />
@@ -249,9 +250,7 @@
 				<br />
 				We have made every possible effort to ensure that the information provided in this viewer is accessible
 				to people with disabilities. If you cannot fully access the information, please reach out to
-				<a href="https://www.mlimidwest.org/support" target="_blank">
-					Blueprint user support staff
-				</a>
+				<a href={CONTACT_URL} target="_blank"> Blueprint user support staff </a>
 				so that we can provide the information in an alternate format.
 				<br />
 				<br />

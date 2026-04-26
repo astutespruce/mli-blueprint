@@ -58,18 +58,6 @@ export const priorityFilters = [
 	}
 ]
 
-export const indicatorGroupFilters = indexBy(
-	rawIndicatorGroups.map(({ indicators: groupIndicators, ...ecosystem }) => ({
-		...ecosystem,
-		indicators: groupIndicators.map((id) => ({
-			...indicatorsIndex[id],
-			// sort indicator values in descending order
-			values: indicatorsIndex[id].values.slice().reverse()
-		}))
-	})),
-	'id'
-)
-
 export const otherInfoFilters = [
 	{
 		id: 'urban',
