@@ -15,7 +15,7 @@
 		<br />
 		<br />
 		Please reach out to
-		<a href={CONTACT_URL}> Blueprint user support staff</a>.
+		<a href={CONTACT_URL} target="_blank"> Blueprint user support staff</a>.
 	</p>
 
 	<hr />
@@ -28,6 +28,6 @@
 		<br />
 		<br />
 		Please reach out to
-		<a href={CONTACT_URL}> Blueprint user support staff</a>.
+		<a href={CONTACT_URL} target="_blank"> Blueprint user support staff</a>.
 	</p>
 </section>

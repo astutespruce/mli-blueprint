@@ -9,7 +9,7 @@
 </script>
 
 <footer
-	class="hidden md:flex flex-none gap-4 items-center justify-between py-1 px-2 leading-none text-sm"
+	class="hidden md:flex flex-none gap-4 items-center justify-between py-1 px-2 leading-none text-sm bg-blue-9 [&_a]:text-white text-white"
 >
 	<div class="flex flex-none gap-3 items-center">
 		<div>Version: Midwest Blueprint 2026</div>
@@ -55,13 +55,3 @@
 		and <a href="https://astutespruce.com" target="_blank">Astute Spruce</a>
 	</div>
 </footer>
-
-<style>
-	footer {
-		background-color: #1e435b;
-		color: #fff;
-		a {
-			color: #fff;
-		}
-	}
-</style>

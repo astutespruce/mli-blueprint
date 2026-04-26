@@ -12,12 +12,12 @@
 	--foreground: oklch(0.3211 0 0);
 	/* same as grey-8 */
 	--muted-foreground: oklch(0.5312 0.0266 246.33);
-	--primary: oklch(0.558 0.0914 245.17);
+	--primary: oklch(0.5608 0.1425 245.46);
 	--primary-foreground: oklch(1 0 0);
 	--accent: oklch(0.7517 0.1538 58.44);
 	--error: oklch(0.5825 0.1839 38.82);
 	--ok: oklch(0.5928 0.1414 135.34);
-	--link: oklch(0.5324 0.148986 249.5606);
+	--link: oklch(0.5578 0.1423 245.64);
 
 	/* NOTE: values less than 8 do not meet contrast ratio guidelines for text */
 	--white: oklch(1 0 0);
@@ -33,16 +33,17 @@
 	--grey-9: oklch(0.3673 0.0174 248.3);
 	--black: oklch(0 0 0);
 
-	--blue-0: oklch(0.9825 0.0075 241.66);
-	--blue-1: oklch(0.9461 0.0243 238.4);
-	--blue-2: oklch(0.9067 0.0428 238.51);
-	--blue-3: oklch(0.8636 0.0629 237.65);
-	--blue-4: oklch(0.8154 0.0853 238.59);
-	--blue-5: oklch(0.7621 0.1108 239.93);
-	--blue-6: oklch(0.6997 0.1255 241.55);
-	--blue-7: oklch(0.6272 0.1112 241.1);
-	--blue-8: oklch(0.5273 0.0914 241.52);
-	--blue-9: oklch(0.3673 0.0593 239.59);
+	/* generated using https://harmonizer.evilmartians.com/ from base hue */
+	--blue-0: oklch(0.98 0.01875 245.5); /* FIXME: */
+	--blue-1: oklch(0.9639 0.01875 245.5);
+	--blue-2: oklch(0.9155 0.0453125 245.5);
+	--blue-3: oklch(0.8496 0.0828125 245.5);
+	--blue-4: oklch(0.7842 0.121875 245.5);
+	--blue-5: oklch(0.7021 0.165625 245.5);
+	--blue-6: oklch(0.6084 0.14375 245.5);
+	--blue-7: oklch(0.5195 0.1234375 245.5);
+	--blue-8: oklch(0.4077 0.096875 245.5);
+	--blue-9: oklch(0.2983 0.0703125 245.5);
 
 	--radius: 0.5rem;
 }
