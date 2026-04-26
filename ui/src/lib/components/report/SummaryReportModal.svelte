@@ -187,7 +187,7 @@
 			<Button onclick={handleClose} variant="secondary" class="text-lg">Cancel</Button>
 
 			{#if reportState.reportURL}
-				<Button href={reportState.reportURL} class="text-lg">
+				<Button href={reportState.reportURL} class="text-lg no-underline">
 					<DownloadIcon class="size-4" />
 					Download report
 				</Button>

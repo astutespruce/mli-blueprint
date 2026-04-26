@@ -134,6 +134,12 @@ ul {
 	line-height: 1.3;
 }
 
+/* Montserrat list markers are tiny!  Have to manually double the size */
+ul li::marker {
+	font-size: 24pt;
+	line-height: 0.5;
+}
+
 ol li + li,
 ul li + li {
 	margin-top: 6pt;

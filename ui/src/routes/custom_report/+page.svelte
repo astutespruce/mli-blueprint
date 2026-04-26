@@ -147,10 +147,10 @@
 
 <main class="h-full w-full flex-auto overflow-auto">
 	<div class="relative z-0 w-full overflow-hidden h-56">
-		<div class="z-1 absolute top-[-20%]">
+		<div class="z-1 absolute top-[-40%]">
 			<enhanced:img
-				src="$images/26871026541_48a8096dd9_o.jpg"
-				class="h-auto min-w-[720px] object-cover brightness-60"
+				src="$images/53858467165_ab032617be_o.jpg"
+				class="h-auto min-w-[720px] object-cover"
 				alt=""
 			/>
 		</div>
@@ -161,11 +161,11 @@
 		</div>
 	</div>
 	<div class="text-sm text-grey-8 text-right pr-1">
-		Photo: Black Skimmers, <a
-			href="https://www.flickr.com/photos/usfwssoutheast/26871026541/"
+		Photo: Sunrise over the prairie at Big Stone National Wildlife Refuge, <a
+			href="https://www.flickr.com/photos/usfwsmidwest/53858467165"
 			target="_blank"
 			tabindex="-1"
-			class="text-grey-8">U.S. Fish and Wildlife Service Southeast Region</a
+			class="text-grey-8">U.S. Fish and Wildlife Service Midwest Region</a
 		>
 	</div>
 
