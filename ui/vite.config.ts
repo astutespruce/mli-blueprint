@@ -29,8 +29,8 @@ export default defineConfig({
 				short_name: 'Midwest Blueprint Explorer',
 				start_url: process.env.DEPLOY_PATH || '/',
 				scope: process.env.DEPLOY_PATH || '/',
-				background_color: '#21496b',
-				theme_color: '#21496b',
+				background_color: '#007ac2',
+				theme_color: '#007ac2',
 				display: 'minimal-ui',
 				icons: [
 					{

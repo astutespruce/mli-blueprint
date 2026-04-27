@@ -48,7 +48,7 @@
 		<div class="hidden lg:block">|</div>
 	</div>
 
-	<div class="text-right">
+	<div class="text-right text-xs">
 		Created by the
 		<span class="hidden xl:inline-block">U.S. Fish and Wildlife Service</span>
 		<span class="inline-block xl:hidden">USFWS</span>

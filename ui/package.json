@@ -46,7 +46,7 @@
 		"file-selector": "^2.1.2",
 		"formsnap": "^2.0.1",
 		"globals": "^17.4.0",
-		"mapbox-gl": "^3.20.0",
+		"mapbox-gl": "3.20",
 		"svelte": "^5.55.1",
 		"svelte-check": "^4.4.4",
 		"sveltekit-superforms": "^2.30.1",
