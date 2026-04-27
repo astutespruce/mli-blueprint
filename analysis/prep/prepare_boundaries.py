@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from pyogrio.geopandas import read_dataframe, write_dataframe
 import rasterio
-from rasterio.features import rasterize, dataset_features
+from rasterio.features import rasterize, dataset_features, shapes
 from rasterio import windows
 import shapely
 
@@ -141,8 +141,7 @@ with rasterio.open(src_dir / "blueprint/MidwestBP_extent.tif") as src:
     del subregion_data
 
 
-### Extract MLI states and counties
-# print("Extracting states and counties...")
+### Extract MLI states (used for report maps)
 state_list = ",".join(f"'{state}'" for state in MLI_STATES)
 states = (
     read_dataframe(
@@ -156,6 +155,32 @@ states = (
 )
 write_dataframe(states, bnd_dir / "states.fgb")
 states.to_feather(out_dir / "states.feather")
+
+### Create state boundaries that are pixel-aligned for state-level reports
+print("Rasterizing and extracting state boundaries for state reports")
+with rasterio.open(out_dir / "blueprint_extent.tif") as extent:
+    extent_data = extent.read(1)
+
+    states["value"] = states.STATEFP.astype("uint8")
+
+    data = np.zeros(shape=(extent.shape), dtype="uint8")
+    _ = rasterize(
+        states.apply(lambda row: (to_dict(row.geometry), row.value), axis=1),
+        transform=extent.transform,
+        out=data,
+    )
+
+    # mask out areas outside extent
+    data = data * extent_data
+
+    df = pd.DataFrame(shapes(data, transform=extent.transform, mask=extent_data), columns=["geometry", "value"])
+    df["value"] = df.value.astype("uint8")
+    df = df.loc[df.value != 0].copy()
+    df["geometry"] = df.geometry.apply(lambda g: shapely.geometry.shape(g))
+    df = df.groupby("value").geometry.apply(shapely.multipolygons).reset_index()
+    df = df.join(states[["id", "state", "value"]].set_index("value"), on="value")
+    df = gp.GeoDataFrame(df, geometry="geometry", crs=extent.crs)
+    write_dataframe(df, bnd_dir / "states_for_reports.fgb")
 
 
 ################################################################################
