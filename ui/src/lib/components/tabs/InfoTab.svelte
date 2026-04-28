@@ -106,9 +106,9 @@
 			means that the values shown in the tool may not exactly match the Blueprint and indicator data for
 			that specific ground location, especially in areas of high variability in the data. To view and
 			/ or download more precise spatial data, please visit the
-			<a href="https://secas-fws.hub.arcgis.com/pages/blueprint" target="_blank">
-				Blueprint page of the SECAS Atlas
-			</a>
+			<a href={BLUEPRINT_URL} target="_blank">
+				Blueprint page of the Midwest Conservation Action Portal
+			</a>.
 			<br />
 			<br />
 			To unselect the pixel, click on the <TimesCircle
@@ -128,7 +128,7 @@
 
 	<div class="flex flex-wrap lg:flex-nowrap gap-4 leading-snug">
 		<div class="flex-none">
-			<img src={MLILogo} class="w-16" alt="SECAS logo" />
+			<img src={MLILogo} class="w-16" alt="MLI logo" />
 		</div>
 		<div class="flex-auto">
 			<p>

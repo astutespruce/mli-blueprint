@@ -74,7 +74,7 @@ def create_tileset(infilename, outfilename, minzoom, maxzoom, layer_id, col_type
 
 
 ################################################################################
-### Create state tileset (all states not just SECAS states) and ocean for report
+### Create state tileset (all states not just MLI states)
 ################################################################################
 tilesets = []
 print(

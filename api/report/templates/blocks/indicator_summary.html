@@ -24,7 +24,12 @@
                                     <div>{{indicator.label}}</div>
                                 </a>
                             </td>
-                            <td>&check;</td>
+                            <td>
+                                <div class="flex align-center justify-center">
+                                    <!-- CSS based checkmark -->
+                                    <div style="width:0.4rem;height:0.75rem;border-right:2px solid #000;border-bottom:2px solid #000;transform:rotate(33deg);"></div>
+                                </div>
+                            </td>
                         {% else %}
                             <td class="label indicator-absent">{{indicator.label}}</td>
                             <td class="indicator-absent">-</td>

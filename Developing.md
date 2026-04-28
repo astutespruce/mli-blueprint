@@ -31,7 +31,8 @@ uv sync --upgrade --all-extras
 To update the requirements.txt file used to build these dependencies into the API
 Docker container for deployment, run:
 
-TODO: consolidate; these should be exactly the same versions between both
+NOTE: this project does not introduce additional dependencies to the Docker image
+and the following is not currently used.
 
 ```bash
 uv pip compile -U pyproject.toml -o ../secas-docker/docker/api/mli-blueprint-requirements.txt

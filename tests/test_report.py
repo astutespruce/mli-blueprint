@@ -52,7 +52,9 @@ def read_cache(path):
 
 ### Create reports for an AOI
 aois = [
-    # {"name": "", "path": "test_rect_wi"}
+    {"name": "", "path": "test_wi_rect"}
+    # {"name": "", "path": "in_lake_michigan"},
+    # {"name": "", "path": "overlap_ne_mli_boundary"},
 ]
 
 for aoi in aois:
@@ -141,8 +143,8 @@ for aoi in aois:
 ## Create reports for summary units
 ids = {
     "huc12": [
-        "070600030303",
-        # "041900000200" # Lake Michigan islands
+        # "070600030303",
+        # "041900000200"  # Lake Michigan islands
     ],
 }
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { BLUEPRINT_URL } from '$lib/env'
 	import { Footer, Header } from '$lib/components/layout'
 </script>
 
@@ -129,9 +130,9 @@
 			<br />
 			<br />
 			To view and / or download more precise spatial data, please visit the
-			<a href="https://secas-fws.hub.arcgis.com/pages/blueprint" target="_blank">
-				Blueprint page of the SECAS Atlas
-			</a>
+			<a href={BLUEPRINT_URL} target="_blank">
+				Blueprint page of the Midwest Conservation Action Portal
+			</a>.
 		</p>
 
 		<hr />
