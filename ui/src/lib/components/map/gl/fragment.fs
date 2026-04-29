@@ -10,13 +10,7 @@ precision mediump float;
 in vec2 vTexCoord;
 out vec4 fragColor;
 
-// uniforms for rendering the output after filtering
-uniform float opacity;
-uniform int renderLayerTextureIndex;
-uniform int renderLayerOffset;
-uniform int renderLayerBits;
-uniform sampler2D renderLayerPalette;
-uniform int renderLayerPaletteSize;
+uniform sampler2D palette;
 
 // uniforms for textures for each layer
 uniform sampler2D layer0;
@@ -25,10 +19,6 @@ uniform sampler2D layer2;
 uniform sampler2D layer3;
 uniform sampler2D layer4;
 
-// encoded filters, with a bit set to 1 for each value that is present in the
-// set of activated filters.  -1 indicates no filtering for that layer.
-// NOTE: array size is filled from JS since this can't be dynamic in the shader
-uniform int filterValues[<NUM_LAYERS>];
 
 // return 32-bit integer from vector components
 int rgbToInt32(ivec3 v) {
@@ -61,26 +51,24 @@ void main(void) {
   // replaced dynamically from JS; sets canRender
   // <FILTER_EXPR>
 
-  // bool canRender = true;
-
   int valueRGB;
-  if (renderLayerTextureIndex == 0) {
+  if (stackedPNGLayer.textureIndex == 0) {
     valueRGB = valueRGB0;
   }
-  else if (renderLayerTextureIndex == 1) {
+  else if (stackedPNGLayer.textureIndex == 1) {
     valueRGB = valueRGB1;
-  } else if (renderLayerTextureIndex == 2) {
+  } else if (stackedPNGLayer.textureIndex == 2) {
     valueRGB = valueRGB2;
-  } else if (renderLayerTextureIndex == 3) {
+  } else if (stackedPNGLayer.textureIndex == 3) {
     valueRGB = valueRGB3;
-  } else if (renderLayerTextureIndex == 4) {
+  } else if (stackedPNGLayer.textureIndex == 4) {
     valueRGB = valueRGB4;
   }
 
-  int renderValue = (valueRGB >> renderLayerOffset) & bitmask(renderLayerBits);
-  fragColor = texelFetch(renderLayerPalette, ivec2(renderValue, 0), 0);
+  int renderValue = (valueRGB >> stackedPNGLayer.offset) & bitmask(stackedPNGLayer.bits);
+  fragColor = texelFetch(palette, ivec2(renderValue, 0), 0);
 
-  fragColor.a = fragColor.a * opacity;
+  fragColor.a = fragColor.a * stackedPNGLayer.opacity;
   if (!canRender) {
     fragColor.a = 0.0;
   }

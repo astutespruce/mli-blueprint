@@ -1,9 +1,8 @@
 import { TileLayer, _getURLFromTemplate } from '@deck.gl/geo-layers'
 import { load } from '@loaders.gl/core'
 import { ImageLoader } from '@loaders.gl/images'
+import { Device } from '@luma.gl/core'
 import { dequal as deepEqual } from 'dequal'
-
-import { sum } from '$lib/util/data'
 
 // have to use the raw loader to load shaders
 import vertexShader from './vertex.vs?raw'
@@ -15,13 +14,8 @@ import { createPNGTexture, createPaletteTexture } from './texture'
 
 /**
  * Fetch a tile image asynchronously and load into a GL texture
- * @param {Object} gl - WebGL context
- * @param {String} url - url of tile
- * @param {Object} signal - fetch signal, will set aborted to abort fetch
- * @param {bool} skip - skip loading tile data (e.g,. out of viewport)
- * @returns
  */
-const fetchImage = async (device: any, url: string, signal: any, skip = false) => {
+const fetchImage = async (device: Device, url: string, signal: any, skip = false) => {
 	const data = skip
 		? null
 		: await load(url, ImageLoader, {
@@ -51,9 +45,7 @@ export default class StackedPNGTileLayer extends TileLayer {
 			isLoaded: false,
 			shaders: {
 				vs: vertexShader,
-				fs: fragmentShader
-					.replace('<NUM_LAYERS>', sum(encodingSchemes.map((e) => e.length)).toString())
-					.replace('// <FILTER_EXPR>', getFilterExpr(encodingSchemes))
+				fs: fragmentShader.replace('// <FILTER_EXPR>', getFilterExpr(encodingSchemes))
 			},
 			// following variables change over time and are updated via updateState
 			filterValues: getFilterValues(

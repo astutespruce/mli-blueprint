@@ -1,4 +1,4 @@
-/* eslint-disable no-bitwise */
+import { DynamicTexture } from '@luma.gl/engine'
 import type { Map, Point, Layer, LngLatLike } from 'mapbox-gl'
 
 import { indexBy, setIntersection, sum } from '$lib/util/data'
@@ -32,10 +32,10 @@ const getTileID = (
 	}
 }
 
-const getTile = (map: Map, screenPoint: Point, layer: Layer) => {
+const getTile = (map: Map, screenPoint: Point) => {
 	// resolve the StackedPNGTileLayer; layers[1:n] are StackedPNGLayers
-	// @ts-expect-error layer.deck is dynamically defined
-	const tileLayer = layer.deck.layerManager.layers[0]
+	// @ts-expect-error map.__deck is dynamically defined
+	const tileLayer = map.__deck.layerManager.layers[0]
 	const {
 		props: { minZoom, maxZoom, tileSize },
 		state: { tileset }
@@ -139,16 +139,15 @@ const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: 
 	return { indicatorGroups, indicators }
 }
 
-export const extractPixelData = (
+export const extractPixelData = async (
 	map: Map,
 	point: LngLatLike,
-	layer: Layer,
 	indicatorGroupInfo,
 	indicatorInfo
 ) => {
 	const screenPoint = map.project(point)
 
-	const { tile, offsetX, offsetY } = getTile(map, screenPoint, layer)
+	const { tile, offsetX, offsetY } = getTile(map, screenPoint)
 
 	if (!(tile && tile.data && tile.data.images)) {
 		// console.debug('no tile available')
@@ -167,42 +166,30 @@ export const extractPixelData = (
 		__deck: { device }
 	} = map
 
-	let pixels = null
-	// read all pixels into a single buffer; each 4 bytes corresponds
+	// read each texture at the offset; each 4 bytes corresponds
 	// to the R,G,B,A values of a given tile
-	const buffer = device.createBuffer({ byteLength: 4 * images.length })
-	const cmd = device.createCommandEncoder()
-	try {
-		images.forEach((texture, i: number) => {
-			cmd.copyTextureToBuffer({
-				sourceTexture: texture,
-				width: 1,
-				height: 1,
-				origin: [offsetX, offsetY],
-				destinationBuffer: buffer,
-				byteOffset: i * 4
-			})
+	const pixels = await Promise.all(
+		images.map(async (image: DynamicTexture) => {
+			if (image.props.width > 1 && image.props.height > 1) {
+				const buffer = await image.readAsync({
+					width: 1,
+					height: 1,
+					x: offsetX,
+					y: offsetY
+				})
+
+				return [...new Uint8Array(buffer)]
+			}
+			return [0, 0, 0, 0]
 		})
+	)
 
-		cmd.finish()
-		pixels = buffer.readSyncWebGL()
-	} finally {
-		buffer.destroy()
-		cmd.destroy()
-	}
-
-	const pixelValues: number[] = []
-	for (let i = 0; i < images.length; i += 1) {
-		// ignore alpha values
-		const value = (pixels[i * 4] << 16) | (pixels[i * 4 + 1] << 8) | pixels[i * 4 + 2]
-		pixelValues.push(value)
-	}
+	// ignore alpha values
+	const pixelValues = pixels.map(([r, g, b]: [number, number, number]) => (r << 16) | (g << 8) | b)
 
 	// decode pixel values
-	const {
-		// @ts-expect-error props is dynamically defined
-		props: { layers }
-	} = layer
+	// @ts-expect-error props is dynamically defined
+	const layers = map.__deck.layerManager.layers[0].props.layers
 
 	const data = {}
 

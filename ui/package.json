@@ -40,7 +40,7 @@
 		"clsx": "^2.1.1",
 		"d3-scale": "^4.0.2",
 		"d3-shape": "^3.2.0",
-		"deck.gl": "9.1",
+		"deck.gl": "9.3",
 		"dequal": "^2.0.3",
 		"dotenv": "^17.3.1",
 		"file-selector": "^2.1.2",

@@ -77,7 +77,7 @@
 		})
 	}
 
-	const getPixelData = debounce(() => {
+	const getPixelData = debounce(async () => {
 		if (mapData.mapMode !== 'pixel' || !map) {
 			return
 		}
@@ -88,10 +88,9 @@
 			return
 		}
 
-		const layer = map.getLayer('pixelLayers')
 		// don't fetch data if layer is not yet available or is not visible
 		// @ts-expect-error layer.deck is dynamically defined
-		if (!(layer && layer.deck && layer.deck.layerManager.layers[0].props.visible)) {
+		if (!map?.__deck?.layerManager?.layers[0]?.props?.visible) {
 			return
 		}
 
@@ -118,10 +117,11 @@
 			})
 		}
 
-		const pixelData = extractPixelData(
+		// @ts-expect-error __deck is dynamically defined
+		const pixelLayer = map.__deck.layerManager.layers[0]
+		const pixelData = await extractPixelData(
 			map,
 			map.getCenter(),
-			layer,
 			indicatorGroupInfo,
 			indicatorInfo
 		)
@@ -167,7 +167,6 @@
 		mapIsDrawing = true
 
 		const isVisible = isRenderLayerVisible
-		const pixelLayer = map.getLayer('pixelLayers')
 
 		// toggle layer visibility
 		if (mapData.mapMode === 'unit') {
@@ -178,8 +177,8 @@
 			map.setLayoutProperty('subregions', 'visibility', 'none')
 
 			// disable pixel layer event listener
-			// @ts-expect-error deck is dynamically defined
-			pixelLayer!.deck!.setProps({
+			// @ts-expect-error __deck is dynamically defined
+			map.__deck.setProps({
 				onAfterRender: () => {} // no-op
 			})
 			setPixelLayerProps({
@@ -195,8 +194,8 @@
 		// pixel identify / filter modes
 		else if (mapData.mapMode === 'pixel') {
 			// enable pixel layer event listener
-			// @ts-expect-error deck is dynamically defined
-			pixelLayer!.deck!.setProps({
+			// @ts-expect-error __deck is dynamically defined
+			map.__deck.setProps({
 				onAfterRender: deckGLHandler.handler
 			})
 
@@ -208,8 +207,8 @@
 			}
 		} else if (mapData.mapMode === 'filter') {
 			// disable pixel layer event listener
-			// @ts-expect-error deck is dynamically defined
-			pixelLayer!.deck!.setProps({
+			// @ts-expect-error __deck is dynamically defined
+			map.__deck.setProps({
 				onAfterRender: () => {} // no-op
 			})
 		}
@@ -328,10 +327,15 @@
 			map.once('idle', () => {
 				// update state once to trigger other components to update with map object
 				isLoaded = true
+
+				// FIXME: remove
+				const pixelLayer = map.__deck.layerManager.layers[0]
+				window.pixelLayer = pixelLayer
 			})
 
 			// add normal mapbox layers// add layers
 			layers.forEach((layer) => {
+				// @ts-expect-error layer is valid
 				map.addLayer(layer, beforeLayer)
 			})
 
@@ -357,8 +361,8 @@
 
 			// enable event listener for renderer
 			if (mapData.mapMode === 'pixel') {
-				// @ts-expect-error deck is dynamically defined
-				map.getLayer('pixelLayers')!.deck!.setProps({
+				// @ts-expect-error __deck is dynamically defined
+				map.__deck.setProps({
 					onAfterRender: deckGLHandler.handler
 				})
 			} else if (mapData.mapMode === 'filter') {
@@ -488,8 +492,6 @@
 		}
 
 		const updateStyle = () => {
-			const pixelLayer = map!.getLayer('pixelLayers')
-
 			map!.setStyle(`mapbox://styles/mapbox/${styleID}`)
 
 			map!.once('style.load', () => {
@@ -553,12 +555,6 @@
 					// @ts-expect-error layer is valid
 					map!.addLayer(layer, beforeLayer)
 				})
-
-				if (!map!.getLayer('pixelLayers')) {
-					// pixel layer appears to now be retained on style change
-					// @ts-expect-error this is valid
-					map!.addLayer(pixelLayer, beforeLayer)
-				}
 			})
 		}
 
