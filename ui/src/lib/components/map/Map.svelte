@@ -117,8 +117,6 @@
 			})
 		}
 
-		// @ts-expect-error __deck is dynamically defined
-		const pixelLayer = map.__deck.layerManager.layers[0]
 		const pixelData = await extractPixelData(
 			map,
 			map.getCenter(),
@@ -327,10 +325,6 @@
 			map.once('idle', () => {
 				// update state once to trigger other components to update with map object
 				isLoaded = true
-
-				// FIXME: remove
-				const pixelLayer = map.__deck.layerManager.layers[0]
-				window.pixelLayer = pixelLayer
 			})
 
 			// add normal mapbox layers// add layers

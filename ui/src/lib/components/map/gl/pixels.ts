@@ -161,11 +161,6 @@ export const extractPixelData = async (
 		data: { images }
 	} = tile
 
-	const {
-		//@ts-expect-error __deck is dynamically defined on map
-		__deck: { device }
-	} = map
-
 	// read each texture at the offset; each 4 bytes corresponds
 	// to the R,G,B,A values of a given tile
 	const pixels = await Promise.all(
