@@ -39,7 +39,7 @@
 			blueprint, indicators, threats, and protected areas.
 		</p>
 
-		<div class="mt-8 grid grid-cols-0 md:grid-cols-2 gap-8">
+		<div class="mt-4 grid grid-cols-0 md:grid-cols-2 gap-8">
 			<div class="flex flex-col justify-center">
 				<p>
 					Choose <b>Summarize data</b> from the button bar above the map. Click on any subwatershed for
@@ -51,7 +51,7 @@
 			</div>
 		</div>
 
-		<div class="mt-16 grid grid-cols-0 md:grid-cols-[1fr_1.5fr] gap-8">
+		<div class="mt-8 grid grid-cols-0 md:grid-cols-[1fr_1.5fr] gap-8">
 			<div>
 				<enhanced:img
 					src="$images/help-summarize-tabs.png"
@@ -70,9 +70,9 @@
 			</div>
 		</div>
 
-		<p class="mt-16">
-			You can download a detailed PDF report of the blueprint, hubs and corridors, underlying
-			indicators, and landscape-level threats for the selected summary unit. Click the
+		<p class="mt-8">
+			You can download a detailed PDF report of the blueprint, underlying indicators, and
+			landscape-level threats for the selected summary unit. Click the
 			<b>Export detailed maps and analysis</b> link below the area name. To unselect the area, click
 			the <b>X</b> in the upper right of the sidebar.
 		</p>
@@ -86,7 +86,7 @@
 			analysis.
 		</p>
 
-		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-16">
+		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-8">
 			<div class="flex-col justify-center">
 				<p>
 					Choose <b>View point data</b> from the button bar above the map. The crosshairs in the
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-0 md:grid-cols-[1fr_2fr] mt-16 gap-8">
+		<div class="grid grid-cols-0 md:grid-cols-[1fr_2fr] mt-8 gap-8">
 			<div>
 				<enhanced:img
 					src="$images/help-point-data-tabs.png"
@@ -123,7 +123,7 @@
 			</div>
 		</div>
 
-		<p class="mt-16">
+		<p class="mt-8">
 			Note: this approach uses pixels that have been resampled and reprojected for each zoom level.
 			This means that the values shown in the tool may not exactly match the blueprint and indicator
 			data for that specific ground location, especially in areas of high variability in the data.
@@ -141,11 +141,10 @@
 		<p class="mt-2">
 			Filters can help you find the part of the blueprint that aligns with your mission, interests,
 			or specific question. Use the filters to show areas on the map that fall within a range of
-			values for one or more layers, including the blueprint, hubs and corridors, underlying
-			indicators, and threats.
+			values for one or more layers, including the blueprint, underlying indicators, and threats.
 		</p>
 
-		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-16">
+		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-8">
 			<div class="flex flex-col justify-center">
 				<p>
 					Choose <b>Filter the blueprint</b> from the button bar above the map.
@@ -160,14 +159,14 @@
 			</div>
 		</div>
 
-		<p class="mt-16">
+		<p class="mt-8">
 			You can select more than one layer. The filters are evaluated using AND logic, which means
 			that in order for a pixel to display on the map, it must meet all the selected criteria. If
-			you filter by layers that do not co-occur at the same location, such as estuarine coastal
-			condition and plays, nothing will display on the map.
+			you filter by layers that do not co-occur at the same location, such as Great Lakes shoreline
+			& dune habitat and Grasslands, nothing will display on the map.
 		</p>
 
-		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-16">
+		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-8">
 			<div>
 				<enhanced:img
 					src="$images/help-filter-before.png"
@@ -192,8 +191,8 @@
 		<h2 class="text-4xl">Create a custom report for a specific area of interest:</h2>
 		<p class="mt-2">
 			Click on the <b>Upload a shapefile</b> button in the upper right. You will be able to upload
-			your area of interest and create a detailed PDF report of the blueprint, hubs and corridors,
-			underlying indicators, and landscape-level threats in that area.
+			your area of interest and create a detailed PDF report of the blueprint, underlying
+			indicators, and landscape-level threats in that area.
 			<br />
 			<br />
 			Examples of what is inside:
@@ -216,7 +215,7 @@
 			click the button in the upper right of the map to display the list of available layers.
 		</p>
 
-		<div class="grid grid-cols-0 md:grid-cols-[1.5fr_1fr] gap-8 mt-16">
+		<div class="grid grid-cols-0 md:grid-cols-[1.5fr_1fr] gap-8 mt-6">
 			<div>
 				<enhanced:img
 					src="$images/help-toggle-layers-button.png"
@@ -239,7 +238,7 @@
 			latitude and longitude coordinates.
 		</p>
 
-		<div class="grid gap-8 mt-16 grid-cols-[2fr_1fr_1.5fr]">
+		<div class="grid gap-8 mt-8 grid-cols-[2fr_1fr_1.5fr]">
 			<div class="flex flex-col justify-center">
 				<p>
 					Click in the search field to expand it. Use the dropdown on the left of the search bar to
@@ -254,7 +253,7 @@
 			</div>
 		</div>
 
-		<div class="grid grid-cols-0 md:grid-cols-3 gap-8 mt-16">
+		<div class="grid grid-cols-0 md:grid-cols-3 gap-8 mt-8">
 			<div class="flex flex-col justify-center">
 				<p>
 					You can search by place name or address, or enter latitude and longitude coordinates

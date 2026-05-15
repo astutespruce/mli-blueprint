@@ -15,19 +15,19 @@ body {
 	@top-left {
 		content: '{{title}} {{subtitle}}';
 		font-size: 9pt;
-		color: #aaaaaa;
+		color: #696969;
 	}
 
 	@bottom-left {
 		content: 'Created {{date}} using the Midwest Conservation Blueprint Explorer';
 		font-size: 9pt;
-		color: #aaaaaa;
+		color: #696969;
 	}
 
 	@bottom-right {
 		content: 'Page ' counter(page) ' of ' counter(pages);
 		font-size: 9pt;
-		color: #666;
+		color: #696969;
 		text-align: right;
 	}
 }
@@ -118,7 +118,7 @@ h4 {
 }
 
 a {
-	color: #0079c1;
+	color: #4290ca;
 }
 
 p {
@@ -129,7 +129,7 @@ p {
 
 p.note {
 	font-size: small;
-	color: #7e8b96;
+	color: #696969;
 }
 
 ol,
@@ -175,7 +175,7 @@ table th:first-child {
 
 table td {
 	padding: 2pt 4pt;
-	border: 1px solid #666;
+	border: 1px solid #696969;
 	text-align: center;
 }
 
@@ -185,7 +185,7 @@ table td:first-child {
 
 table .remainder-row td {
 	font-style: italic;
-	color: #666;
+	color: #696969;
 }
 
 table .total-row td {
@@ -226,7 +226,7 @@ table td.level {
 	border-top: none;
 	border-bottom: none;
 	font-size: 10pt;
-	color: #666;
+	color: #696969;
 }
 
 table th.threshold {
@@ -238,7 +238,7 @@ table th.threshold {
 table td.threshold {
 	border: none;
 	font-size: 10pt;
-	color: #666;
+	color: #696969;
 }
 
 table td.threshold.good {
@@ -262,7 +262,7 @@ table td.highlight-col {
 
 .divider-wide {
 	margin-bottom: 10pt;
-	border-bottom: 6pt solid #02426d;
+	border-bottom: 6pt solid #1e4b6c;
 }
 
 .no-break {
@@ -285,7 +285,7 @@ table td.highlight-col {
 .caption {
 	font-size: 11pt;
 	font-style: italic;
-	color: #555568;
+	color: #696969;
 }
 
 .hidden {
@@ -295,7 +295,7 @@ table td.highlight-col {
 .box {
 	padding: 10pt;
 	margin-bottom: 12pt;
-	background: #f2f2f2;
+	background: #ececec;
 }
 
 .box li + li {
@@ -388,7 +388,7 @@ table td.highlight-col {
 .scalebar .bar {
 	position: relative;
 	z-index: 0;
-	border: 1px solid #666;
+	border: 1px solid #696969;
 	background: #fff;
 	height: 6px;
 }
@@ -398,7 +398,7 @@ table td.highlight-col {
 	top: 0;
 	bottom: 0;
 	left: 0;
-	background: #666;
+	background: #696969;
 }
 
 .scalebar .increment + .increment {
@@ -409,13 +409,13 @@ table td.highlight-col {
 	position: absolute;
 	bottom: -12px;
 	font-size: 8pt;
-	color: #666;
+	color: #696969;
 }
 
 .scalebar .label {
 	margin-left: 4pt;
 	font-size: 8pt;
-	color: #666;
+	color: #696969;
 	flex: 0 0 auto;
 }
 
@@ -449,7 +449,7 @@ table td.highlight-col {
 }
 
 .light {
-	color: #767676;
+	color: #696969;
 }
 
 .legend {
@@ -507,7 +507,7 @@ table td.highlight-col {
 }
 
 .indicator-absent {
-	color: #666;
+	color: #696969;
 }
 
 .summary-units-description {
@@ -543,12 +543,12 @@ table td.highlight-col {
 
 .indicator-header-indicator-group {
 	font-size: 14px;
-	color: #666;
+	color: #333;
 }
 
 .indicator-area {
 	font-size: 14px;
-	color: #666;
+	color: #696969;
 }
 
 .indicator-group-icon {
@@ -556,7 +556,7 @@ table td.highlight-col {
 	height: 32pt;
 	background: #fff;
 	border-radius: 32pt;
-	border: 2px solid #999999;
+	border: 2px solid #3e3e3e;
 	padding: 2pt;
 }
 

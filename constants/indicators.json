@@ -1,1254 +1,1254 @@
 [
-  {
-    "id":"h_drinkingwatergroundwater",
-    "label":"Drinking water - groundwater",
-    "description":"This indicator identifies the availability and quality of drinking water from groundwater sources for people within the Midwest Landscape. It prioritizes areas based on proximity to regionally extensive aquifer systems that have the potential to be used as a drinking water source. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the USGS Principal Aquifers of the United States and the USGS Alluvial and Glacial Aquifers layer.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as an aquifer",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Principal, alluvial, or glacial aquifer, not a natural asset",
-        "color":"#B7C9E2"
-      },
-      {
-        "value":2,
-        "label":"Principal, alluvial, or glacial aquifer, natural asset",
-        "color":"#2A538B"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"drinking water - groundwater",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/399a768ef14c4f08aff5fb0fb12ba5f3\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_drinkingwatersurfacewater",
-    "label":"Drinking water - surface water",
-    "description":"This indicator identifies the availability and quality of drinking water from surface sources for people within the Midwest Landscape. It prioritizes areas based on supply and demand of drinking water, plus the presence of threats to the water supply. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the U.S. Forest Service National Forests to Faucets 2.0 Assessment.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for surface drinking water",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Less important watershed, not a natural asset",
-        "color":"#BFE9FF"
-      },
-      {
-        "value":2,
-        "label":"Less important watershed, natural asset",
-        "color":"#268EFF"
-      },
-      {
-        "value":3,
-        "label":"Medium important watershed, not a natural asset",
-        "color":"#005ACB"
-      },
-      {
-        "value":4,
-        "label":"Medium important watershed, natural asset",
-        "color":"#003B93"
-      },
-      {
-        "value":5,
-        "label":"More important watershed, not a natural asset",
-        "color":"#002673"
-      },
-      {
-        "value":6,
-        "label":"More important watershed, natural asset",
-        "color":"#00234B"
-      }
-    ],
-    "valueLabel":"Watershed importance for drinking water",
-    "captionLabel":"drinking water - surface water",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/b768ea09366f4661bb8dcd1ced48f6e6\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_hazardanddisasterprotectionnaturalhazards",
-    "label":"Hazard and disaster protection - natural hazards",
-    "description":"This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas based on the predicted annual economic loss from riverine and coastal flooding, drought, and wildfires. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the FEMA Coastal Flooding, Drought, Riverine Flooding, and Wildfire data layers.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover (not assessed)",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lower risk of loss, not a natural asset",
-        "color":"#FFBEFF"
-      },
-      {
-        "value":2,
-        "label":"Lower risk of loss, natural asset",
-        "color":"#F169FB"
-      },
-      {
-        "value":3,
-        "label":"Medium risk of loss, not a natural asset",
-        "color":"#E223FA"
-      },
-      {
-        "value":4,
-        "label":"Medium risk of loss, natural asset",
-        "color":"#B904D1"
-      },
-      {
-        "value":5,
-        "label":"High risk of loss, not a natural asset",
-        "color":"#96038B"
-      },
-      {
-        "value":6,
-        "label":"High risk of loss, natural asset",
-        "color":"#5A0145"
-      }
-    ],
-    "valueLabel":"Expected annual economic loss from flooding, drought, and wildfires",
-    "captionLabel":"hazard and disaster protection - natural hazards",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/f082bb7527f84c20bc7114d4bfbe7d38\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_hazardanddisasterprotectionpollution",
-    "label":"Hazard and disaster protection - pollution",
-    "description":"This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas based on the presence and amount of air and water pollutants. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the EPA Cumulative Respiratory Risk from Air Toxins and EPA Total Permitted Discharges.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover (not assessed)",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lower risk of air or water pollution, not a natural asset",
-        "color":"#F6E8FE"
-      },
-      {
-        "value":2,
-        "label":"Lower risk of air or water pollution, natural asset",
-        "color":"#DABCE3"
-      },
-      {
-        "value":3,
-        "label":"Medium risk of air or water pollution, not a natural asset",
-        "color":"#C594D0"
-      },
-      {
-        "value":4,
-        "label":"Medium risk of air or water pollution, natural asset",
-        "color":"#9E4FAC"
-      },
-      {
-        "value":5,
-        "label":"Higher risk of air or water pollution, not a natural asset",
-        "color":"#7B258B"
-      },
-      {
-        "value":6,
-        "label":"Higher risk of air or water pollution, natural asset",
-        "color":"#520061"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"hazard and disaster protection - pollution",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/fe6470d468104886bc3bd4c2688094cc\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_hazardanddisasterprotectionsocialvulnerabilityindex",
-    "label":"Hazard and disaster protection - social vulnerability index",
-    "description":"This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas of social vulnerability based on environmental and socioeconomic burdens. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the CDC Social Vulnerability Index.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover (not assessed) or not identified as a vulnerable census tract",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Moderately vulnerable census tract, not a natural asset",
-        "color":"#F9B8EB"
-      },
-      {
-        "value":2,
-        "label":"Moderately vulnerable census tract, natural asset",
-        "color":"#D171BD"
-      },
-      {
-        "value":3,
-        "label":"Highly vulnerable census tract, not a natural asset",
-        "color":"#B82C9A"
-      },
-      {
-        "value":4,
-        "label":"Highly vulnerable census tract, natural asset",
-        "color":"#930074"
-      }
-    ],
-    "valueLabel":"Relative vulnerability of census tracts to emergencies based on social factors",
-    "captionLabel":"hazard and disaster protection - social vulnerability index",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/2cbeeced9a6748ed8a65c2cd4812b871\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_hazardanddisasterprotectiontreecanopy",
-    "label":"Hazard and disaster protection - tree canopy",
-    "description":"This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas based on tree canopy cover need in populated areas based on existing tree canopy, surface temperature, socioeconomic factors, and health factors. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from American Forests Tree Equity Score.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for tree canopy cover",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Moderate tree canopy need, not a natural asset",
-        "color":"#DDECD7"
-      },
-      {
-        "value":2,
-        "label":"Moderate tree canopy need, natural asset",
-        "color":"#B8D7B0"
-      },
-      {
-        "value":3,
-        "label":"High tree canopy need, not a natural asset",
-        "color":"#8EC787"
-      },
-      {
-        "value":4,
-        "label":"High tree canopy need, natural asset",
-        "color":"#60B662"
-      },
-      {
-        "value":5,
-        "label":"Highest tree canopy need, not a natural asset",
-        "color":"#369752"
-      },
-      {
-        "value":6,
-        "label":"Highest tree canopy need, natural asset",
-        "color":"#05712E"
-      }
-    ],
-    "valueLabel":"Tree canopy need in populated areas",
-    "captionLabel":"hazard and disaster protection - tree canopy",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/bfaf896ed0b74f5a94dd952f70677c33\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_localeconomicvitalitygrazing",
-    "label":"Local economic vitality - grazing",
-    "description":"This indicator identifies the economic support of local economies from natural resources or associated activities (e.g. grazing, timber, pollination, outdoor recreation, and fisheries). It prioritizes the value of grazing areas based on the five-year average pasture rental rate of Midwest counties. This indicator originates from the U.S. Census Bureau USA County Boundaries, USDA National Agricultural Statistics Service, and the Midwest Conservation Blueprint Grasslands Indicator.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for grazing",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lowest county grazing value",
-        "color":"#FAE5B3"
-      },
-      {
-        "value":2,
-        "label":"Low county grazing value",
-        "color":"#EDCB78"
-      },
-      {
-        "value":3,
-        "label":"Medium county grazing value",
-        "color":"#C79926"
-      },
-      {
-        "value":4,
-        "label":"High county grazing value",
-        "color":"#A67806"
-      },
-      {
-        "value":5,
-        "label":"Highest county grazing value",
-        "color":"#7B5800"
-      }
-    ],
-    "valueLabel":"5-year average pasture rental rate, by county",
-    "captionLabel":"local economic vitality - grazing",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/247bae2a45ca4fb1847529f9dfe1f5ec\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_localeconomicvitalitypollination",
-    "label":"Local economic vitality - pollination",
-    "description":"This indicator identifies the economic support of local economies from natural resources or associated activities (e.g. grazing, timber, pollination, outdoor recreation, and fisheries). It prioritizes areas based on the presence of pollinator habitat and the economic value of insect pollination on agricultural crops within Midwest counties. This indicator originates from the U.S. Census Bureau USA County Boundaries, Jordan et al. 2021, Koh et al. 2016, and the USDA Cropland Data Layer.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for agricultural pollination",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lowest pollination value",
-        "color":"#F3CDAF"
-      },
-      {
-        "value":2,
-        "label":"Low pollination value",
-        "color":"#EEA569"
-      },
-      {
-        "value":3,
-        "label":"Medium pollination value",
-        "color":"#D97828"
-      },
-      {
-        "value":4,
-        "label":"High pollination value",
-        "color":"#AE4F00"
-      },
-      {
-        "value":5,
-        "label":"Highest pollination value",
-        "color":"#733300"
-      }
-    ],
-    "valueLabel":"Economic value of insect pollination on agricultural crops, by county",
-    "captionLabel":"local economic vitality - pollination",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/090342f0d5f949b89e02abd8a6dfaf7a\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_localeconomicvitalitytimber",
-    "label":"Local economic vitality - timber",
-    "description":"This indicator identifies the economic support of local economies from natural resources or associated activities (e.g. grazing, timber, pollination, outdoor recreation, and fisheries). It prioritizes areas based on the total value economic value of timber returns within each Midwest county. This indicator originates from the U.S. Census Bureau USA County Boundaries, Cavender-Bares et al. 2022, the National Land Cover Database, and the Protected Areas Database.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for timber harvest",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lowest timber return value",
-        "color":"#87F4D9"
-      },
-      {
-        "value":2,
-        "label":"Low timber return value",
-        "color":"#45C5AE"
-      },
-      {
-        "value":3,
-        "label":"Medium timber return value",
-        "color":"#0EA587"
-      },
-      {
-        "value":4,
-        "label":"High timber return value",
-        "color":"#077C62"
-      },
-      {
-        "value":5,
-        "label":"Highest timber return value",
-        "color":"#00573D"
-      }
-    ],
-    "valueLabel":"Economic value of timber, by county",
-    "captionLabel":"local economic vitality - timber",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/dcf920e17a3a4c3d9ebe3ace5c1b7d51\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_nutrientreduction",
-    "label":"Nutrient reduction",
-    "description":"This indicator represents the minimization of nutrient loading that leads to issues in downstream waters (e.g. harmful and nuisance algal blooms) in both the Gulf and the Great Lakes. It prioritizes areas based on a catchment's contribution to the loading of nitrogen, phosphorus, and suspended sediments into water. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the USGS 2012 SPARROW Model for the Midwest.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover (not assessed) or no data available",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Low nutrient load, not a natural asset",
-        "color":"#CCBC98"
-      },
-      {
-        "value":2,
-        "label":"Low nutrient load, natural asset",
-        "color":"#B8A16E"
-      },
-      {
-        "value":3,
-        "label":"Medium nutrient load, not a natural asset",
-        "color":"#A48749"
-      },
-      {
-        "value":4,
-        "label":"Medium nutrient load, natural asset",
-        "color":"#906F2B"
-      },
-      {
-        "value":5,
-        "label":"High nutrient load, not a natural asset",
-        "color":"#7C5912"
-      },
-      {
-        "value":6,
-        "label":"High nutrient load, natural asset",
-        "color":"#684500"
-      }
-    ],
-    "valueLabel":"Combined nitrogen, phosphorus, and suspended sediment load",
-    "captionLabel":"nutrient reduction",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/34f16118752c4cabbe6f439818440cdb\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_potentialaccesstorecreation",
-    "label":"Potential access to recreation",
-    "description":"This indicator identifies accessibility gaps to green space and outdoor recreation in populated areas within the Midwest Landscape. It prioritizes areas currently lacking access to parks within a 10-minute walk based on population density, community health, pollution burden, and more. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the Trust for Public Land's ParkServe dataset.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for new parks",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lower priority, not a natural asset",
-        "color":"#EFE1FD"
-      },
-      {
-        "value":2,
-        "label":"Lower priority, natural asset",
-        "color":"#D9B5FD"
-      },
-      {
-        "value":3,
-        "label":"Medium priority, not a natural asset",
-        "color":"#947DD6"
-      },
-      {
-        "value":4,
-        "label":"Medium priority, natural asset",
-        "color":"#5E38CA"
-      },
-      {
-        "value":5,
-        "label":"High priority, not a natural asset",
-        "color":"#44189D"
-      },
-      {
-        "value":6,
-        "label":"High priority, natural asset",
-        "color":"#1C0056"
-      }
-    ],
-    "valueLabel":"Priority for a new park to serve people who lack nearby park access",
-    "captionLabel":"potential access to recreation",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/4bfd398570b3423aa58743f9f1a8a72c\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_publicrecreationaccess",
-    "label":"Public recreation access",
-    "description":"This indicator represents the ability to enjoy outdoor spaces (e.g. green spaces, wilderness areas, beaches\/waters) for recreation and health purposes within the Midwest Landscape. It prioritizes areas based on locations of current public recreation sites. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the Protected Areas Database and Open Street Map roads.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a public recreation area",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Public recreation area, not a natural asset",
-        "color":"#796EB2"
-      },
-      {
-        "value":2,
-        "label":"Public recreation area, natural asset",
-        "color":"#3F007D"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"public recreation access",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/522f33cd058b4a3ab78a40c3e2690f1a\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_sustainableworkinglands",
-    "label":"Sustainable, working lands",
-    "description":"This indicator represents the ability of land to economically support human communities while also providing conservation benefits within the Midwest Landscape. It prioritizes areas based on the locations of conservation easements. This indicator originates from the National Conservation Easement Database.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a closed access or unknown access conservation easement",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Closed access or unknown access conservation easement",
-        "color":"#A87000"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"sustainable, working lands",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/b517a5e148524b76b202dfe149bdf123\/about",
-    "subregions":null
-  },
-  {
-    "id":"h_tribalconservationsovereignty",
-    "label":"Tribal conservation sovereignty",
-    "description":"This indicator represents the ability of Tribal nations to have access to, and control of, their natural and cultural resources. It prioritizes areas based on the locations of Tribal Nations trust and fee lands. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the Bureau of Indian Affairs Land Area Representations.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a Tribal trust or fee land",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Tribal trust or fee land, not a natural asset",
-        "color":"#FCEAA9"
-      },
-      {
-        "value":2,
-        "label":"Tribal trust or fee land, natural asset",
-        "color":"#A58100"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"tribal conservation sovereignty",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/4c51003c780b4332b217e084ddca30ab\/about",
-    "subregions":[
-      "Central Great Plains",
-      "Central Irregular Plains",
-      "Central Plains East",
-      "Central Plains West",
-      "Driftless Area",
-      "Great Lakes Islands",
-      "Great Lakes Plains",
-      "High Plains",
-      "Interior Plateau",
-      "Mixed Wood Plains",
-      "Nebraska Sand Hills",
-      "Northern Hardwood Forest",
-      "Northern Plains",
-      "Northwest Plains",
-      "Temperate Prairie North",
-      "Temperate Prairie South"
-    ]
-  },
-  {
-    "id":"l_aquaticnetworkconnectivity",
-    "label":"Aquatic network connectivity",
-    "description":"This indicator identifies the ability of aquatic species to access large, complex aquatic networks. It prioritizes areas based on the length of hydrologically connected flowlines and diversity of unfragmented aquatic habitat in the region. This indicator originates from the Nature Conservancy's Resilient Rivers dataset and the U.S. Fish and Wildlife Service's National Wetlands Inventory.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as an aquatic area",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Far below average",
-        "color":"#744D08"
-      },
-      {
-        "value":2,
-        "label":"Below average",
-        "color":"#A17E3A"
-      },
-      {
-        "value":3,
-        "label":"Slightly below average",
-        "color":"#CFBA76"
-      },
-      {
-        "value":4,
-        "label":"Average",
-        "color":"#FFFFBF"
-      },
-      {
-        "value":5,
-        "label":"Slightly above average",
-        "color":"#9CBBD6"
-      },
-      {
-        "value":6,
-        "label":"Above average",
-        "color":"#6285C0"
-      },
-      {
-        "value":7,
-        "label":"Far above average",
-        "color":"#274EA9"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"aquatic network connectivity",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/de65a59cb4b249cd96b8daabaafcb31d\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_climateresiliency",
-    "label":"Climate resiliency",
-    "description":"This indicator identifies the ability of lands and waters to function under changing climate conditions. It prioritizes areas based on landscape diversity and connectedness. This indicator originates from the Nature Conservancy's Resilient Land Mapping tool.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover or aquatic area (not assessed)",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Least resilient",
-        "color":"#9C551F"
-      },
-      {
-        "value":2,
-        "label":"Less resilient",
-        "color":"#BF874B"
-      },
-      {
-        "value":3,
-        "label":"Slightly less resilient",
-        "color":"#E0C080"
-      },
-      {
-        "value":4,
-        "label":"Average resilience",
-        "color":"#FFFFBF"
-      },
-      {
-        "value":5,
-        "label":"Slightly more resilient",
-        "color":"#A9C276"
-      },
-      {
-        "value":6,
-        "label":"More resilient",
-        "color":"#5E8A3A"
-      },
-      {
-        "value":7,
-        "label":"Most resilient",
-        "color":"#205905"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"climate resiliency",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/3c23109bfa774474917c3820b3c958b0\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_climateresiliencycarbonsequestration",
-    "label":"Climate resiliency - carbon sequestration",
-    "description":"This indicator identifies the ability of lands and waters to function under changing climate conditions. It prioritizes areas based on the amount of above and belowground carbon stored. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the U.N. Environment Programme World Biomass and Soil Carbon data.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover or aquatic area (not assessed)",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lower carbon sequestration, not a natural asset",
-        "color":"#F2F0F7"
-      },
-      {
-        "value":2,
-        "label":"Lower carbon sequestration, natural asset",
-        "color":"#DADAEB"
-      },
-      {
-        "value":3,
-        "label":"Medium carbon sequestration, not a natural asset",
-        "color":"#BCBDDC"
-      },
-      {
-        "value":4,
-        "label":"Medium carbon sequestration, natural asset",
-        "color":"#9E9AC8"
-      },
-      {
-        "value":5,
-        "label":"High carbon sequestration, not a natural asset",
-        "color":"#756BB1"
-      },
-      {
-        "value":6,
-        "label":"High carbon sequestration, natural asset",
-        "color":"#54278F"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"climate resiliency - carbon sequestration",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/22af17f2dee34430801e9037f8559a9e\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_forests",
-    "label":"Forests",
-    "description":"This indicator represents forest heath based on the availability and risk of mortality of forested stands within the Midwest Landscape. It prioritizes areas based on locations of forested stands and risks from major forest insects and diseases. This indicator originates from the U.S. Forest Service National Insect and Disease Risk Map and the National Land Cover Database.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a forest",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Pixels at hazard for mortality losses exceeding 25% of their 2012 basal area over the 2013-2027 time frame",
-        "color":"#660000"
-      },
-      {
-        "value":2,
-        "label":"Pixels considered at risk in the National Insect and Disease 2012 assessment, but that are likely no longer at risk",
-        "color":"#FFD0C8"
-      },
-      {
-        "value":3,
-        "label":"Treed areas, but not modeled as \"At Risk\"",
-        "color":"#7FC55C"
-      }
-    ],
-    "valueLabel":"Forest mortality risk",
-    "captionLabel":"forests",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/86bd553f4a3d421087e63e5d4ff8358c\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_grasslands",
-    "label":"Grasslands",
-    "description":"This indicator represents grassland health within the Midwest Landscape. It prioritizes areas based on the percentage of perennial grasses and forbs within an area. This indicator originates from the Rangeland Analysis Platform cover data.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a grassland",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":">20-40% perennial grass and forbs",
-        "color":"#E1EA62"
-      },
-      {
-        "value":2,
-        "label":">40-60% perennial grass and forbs",
-        "color":"#AFB42B"
-      },
-      {
-        "value":3,
-        "label":">60-80% perennial grass and forbs",
-        "color":"#6A7514"
-      },
-      {
-        "value":4,
-        "label":">80% perennial grass and forbs",
-        "color":"#2D3606"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"grasslands",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/a75595b0a64742fd9dfd8c19a5d18467\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_greatlakesshorelineanddunehabitat",
-    "label":"Great Lakes shoreline & dune habitat",
-    "description":"This indicator represents shoreline and dune health based on the naturalness of shoreline features and dune habitat. It prioritizes areas based on shoreline type (natural or artificial), landcover type (Great Lakes Dune or Great Lakes Dune Grassland), and Coastal Barrier Resources System designation. This indicator originates from the Great Lakes Aquatic Habitat Framework Harmonized Shoreline Classification, the LANDFIRE Existing Vegetation Type layer, and the U.S. Fish and Wildlife Service's Coastal Barrier Resources System designations.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a natural shoreline or dune",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Natural shoreline, Coastal Barrier Resources System area, or dune habitat",
-        "color":"#734C00"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"great lakes shoreline & dune habitat",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/72d53bdfc7fd4a409cc17cf66bb65456\/about",
-    "subregions":[
-      "Central Plains East",
-      "Central Plains West",
-      "Erie Drift Plains",
-      "Great Lakes Islands",
-      "Great Lakes Plains",
-      "Mixed Wood Plains",
-      "Northern Hardwood Forest"
-    ]
-  },
-  {
-    "id":"l_intacthabitatcores",
-    "label":"Intact habitat cores",
-    "description":"This indicator identifies large, unfragmented patches of habitat within the Midwest Landscape. It prioritizes areas based on quality and protection status of habitat cores. This indicator originates from the Esri Green Infrastructure Intact Habitat Cores layer and the Protected Areas Database.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not a core",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"\"Good\" intact habitat core score",
-        "color":"#C4E7B9"
-      },
-      {
-        "value":2,
-        "label":"\"Better\" intact habitat core score",
-        "color":"#5BB152"
-      },
-      {
-        "value":3,
-        "label":"\"Best\" intact habitat core score, or GAP 1-2 protected lands",
-        "color":"#066D26"
-      }
-    ],
-    "valueLabel":"Habitat core quality",
-    "captionLabel":"intact habitat cores",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/eb76c6e0b9c84201a98178ce5af4d4cd\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_lakes",
-    "label":"Lakes",
-    "description":"This indicator represents lake health based on watershed condition within the Midwest Landscape. It prioritizes lakes and reservoirs greater than one hectare based on the amount of agriculture and development in a lake's upstream watershed. This indicator originates from the LAGOS-US dataset and Lapierre et al. Continuous Lake Classifications.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a lake or reservoir",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lake or reservoir with high disturbance (>60%) in upstream watershed",
-        "color":"#B2CAFF"
-      },
-      {
-        "value":2,
-        "label":"Lake or reservoir with medium disturbance (>25-60%) in upstream watershed.",
-        "color":"#7B8FBD"
-      },
-      {
-        "value":3,
-        "label":"Lake or reservoir with low disturbance (0-25%) in upstream watershed.",
-        "color":"#43587B"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"lakes",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/049feb920f6e449ea1c47e68f8765d5d\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_landscapecondition",
-    "label":"Landscape condition",
-    "description":"This indicator represents landscape health based on landdover type and land use across the Midwest Landscape. It prioritizes areas based on proximity to natural or non-natural landcover types, plus intensity of development and land use. This indicator originates from the National Land Cover Database, Maus et al. Global-scale mining polygons, LANDFIRE Existing Vegetation Type, and the Midwest Conservation Blueprint Grasslands indicator.",
-    "values":[
-      {
-        "value":0,
-        "label":"Heavily altered landscape or lake (not assessed)",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Altered landscape",
-        "color":"#E1D0AA"
-      },
-      {
-        "value":2,
-        "label":"Partly natural landscape",
-        "color":"#B8BC91"
-      },
-      {
-        "value":3,
-        "label":"Mostly natural landscape",
-        "color":"#8C9971"
-      },
-      {
-        "value":4,
-        "label":"Natural landscape",
-        "color":"#616B4B"
-      },
-      {
-        "value":5,
-        "label":"Very natural landscape",
-        "color":"#434932"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"landscape condition",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/d69c6c8310d9487d96316d26a3f3b72e\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_riparianareas",
-    "label":"Riparian areas",
-    "description":"This indicator represents riparian health within the Midwest Landscape. It prioritizes areas based on the percentage natural landcover within floodplains. This indicator originates from the EPA Percentage of Land Area in Estimated Floodplains Classified as Natural layer and the EPA Estimated Floodplain Map of the Conterminous U.S.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a floodplain",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"0-60% natural landcover",
-        "color":"#C4DEA1"
-      },
-      {
-        "value":2,
-        "label":">60-70% natural landcover",
-        "color":"#92CA86"
-      },
-      {
-        "value":3,
-        "label":">70-80% natural landcover",
-        "color":"#4AAEA5"
-      },
-      {
-        "value":4,
-        "label":">80-90% natural landcover",
-        "color":"#2282B4"
-      },
-      {
-        "value":5,
-        "label":">90% natural landcover",
-        "color":"#003167"
-      }
-    ],
-    "valueLabel":"Percent natural landcover within the estimated floodplain, by catchment",
-    "captionLabel":"riparian areas",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/8ffa6c66bb1343c996cdba7295a7e105\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_streams",
-    "label":"Streams",
-    "description":"This indicator represents stream health based on the risk of habitat degradation within the Midwest Landscape. It prioritizes stream reaches based on urban land use, impervious surface, human population and road density, agriculture, and point source pollution sites. This indicator originates from the National Fish Habitat Partnership Cumulative Habitat Condition Indices scores.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a stream",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Highest risk",
-        "color":"#00A6FF"
-      },
-      {
-        "value":2,
-        "label":"High risk",
-        "color":"#008AFF"
-      },
-      {
-        "value":3,
-        "label":"Medium risk",
-        "color":"#0063E5"
-      },
-      {
-        "value":4,
-        "label":"Low risk",
-        "color":"#0040A8"
-      },
-      {
-        "value":5,
-        "label":"Lowest risk",
-        "color":"#002A7D"
-      }
-    ],
-    "valueLabel":"Risk of habitat degradation",
-    "captionLabel":"streams",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/daa457228f0546688717f0cc66bab710\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_terrestrialhabitatconnectivity",
-    "label":"Terrestrial habitat connectivity",
-    "description":"This indicator identifies the ability of terrestrial species to move across the landscape within the Midwest. It prioritizes areas based on relative ease of movement for terrestrial species, factoring in NLCD landcover classes, slope, proximity to water, and habitat core score. This indicator originates from the Esri Green Infrastructure Habitat Cost Surface layer.",
-    "values":[
-      {
-        "value":0,
-        "label":"Developed landcover",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Most costly",
-        "color":"#EDEDAC"
-      },
-      {
-        "value":2,
-        "label":"More costly",
-        "color":"#AED482"
-      },
-      {
-        "value":3,
-        "label":"Average cost",
-        "color":"#62AC63"
-      },
-      {
-        "value":4,
-        "label":"Less costly",
-        "color":"#0B7A2E"
-      },
-      {
-        "value":5,
-        "label":"Least costly for movement",
-        "color":"#005527"
-      }
-    ],
-    "valueLabel":"Ease of terrestrial species movement",
-    "captionLabel":"terrestrial habitat connectivity",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/c2518c284c4b4c12ac94a7c3412e237b\/about",
-    "subregions":null
-  },
-  {
-    "id":"l_wetlands",
-    "label":"Wetlands",
-    "description":"This indicator identifies the availability of wetland habitat within the Midwest Landscape. It prioritizes areas based on whether a pixel can be classified as a wetland. This indicator originates from the U.S. Fish and Wildlife Service's National Wetlands Inventory.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a wetland",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Wetland",
-        "color":"#00A8A0"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"wetlands",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/5f781f5880af4ae3ae7bb2f3d2d6fc22\/about",
-    "subregions":null
-  },
-  {
-    "id":"w_atriskspeciescoas",
-    "label":"At-risk species - COAs",
-    "description":"This indicator identifies the prevalence of species at risk of being threatened with extinction within the Midwest Landscape. It prioritizes areas based on locations of State Conservation Opportunity Areas. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the State Wildlife Action Plans of the 13 Midwest Association of Fish and Wildlife Agencies (MAFWA) states.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a Conservation Opportunity Area",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"State Conservation Opportunity Area, not a natural asset",
-        "color":"#D38AA0"
-      },
-      {
-        "value":2,
-        "label":"State Conservation Opportunity Area, natural asset",
-        "color":"#7A0024"
-      }
-    ],
-    "valueLabel":"",
-    "captionLabel":"at-risk species - COAs",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/399be10035694e1bb8992b3d070019da\/about",
-    "subregions":null
-  },
-  {
-    "id":"w_atriskspeciesrsgcn",
-    "label":"At-risk species - RSGCN",
-    "description":"This indicator identifies the prevalence of species at risk of being threatened with extinction, with an emphasis on at-risk species that are of a regional conservation need. It prioritizes areas based on the rarity-weighted richness of those Regional Species of Greatest Conservation Need (RSGCN) which are not listed as Threatened or Endangered by the ESA or G1 or G2 imperiled species. This indicator originates from the Midwest Regional Species of Greatest Conservation Need database and the USGS Gap Analysis Project.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for Regional Species of Greatest Conservation Need",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Lowest rarity-weighted richness",
-        "color":"#FAD8B4"
-      },
-      {
-        "value":2,
-        "label":"Low rarity-weighted richness",
-        "color":"#E8AC82"
-      },
-      {
-        "value":3,
-        "label":"Slightly low rarity-weighted richness",
-        "color":"#D9794E"
-      },
-      {
-        "value":4,
-        "label":"Slightly high rarity-weighted richness",
-        "color":"#C74D2E"
-      },
-      {
-        "value":5,
-        "label":"High rarity-weighted richness",
-        "color":"#AD2010"
-      },
-      {
-        "value":6,
-        "label":"Highest rarity-weighted richness",
-        "color":"#850000"
-      }
-    ],
-    "valueLabel":"Level of predicted rarity-weighted richness",
-    "captionLabel":"at-risk species - RSGCN",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/34f3468839834c18bc93a66c2be05343\/about",
-    "subregions":null
-  },
-  {
-    "id":"w_gamespecies",
-    "label":"Game species",
-    "description":"This indicator identifies the prevalence of and access to socially important game species. It prioritizes areas based on the species richness of 14 commonly hunted species: white-tailed deer, black bear, Rocky Mountain elk, moose, mule deer, pronghorn, wild turkey, bobwhite quail, ring-necked pheasant, American woodcock, ruffed grouse, sharp-tailed grouse, greater prairie chicken, and mourning dove. This indicator originates from the USGS Gap Analysis Project and the National Survey of Fishing, Hunting, and Wildlife-Associated Recreation.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for game species",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"1-2 species",
-        "color":"#F9D3B9"
-      },
-      {
-        "value":2,
-        "label":"3 species",
-        "color":"#E0AE8B"
-      },
-      {
-        "value":3,
-        "label":"4 species",
-        "color":"#C78659"
-      },
-      {
-        "value":4,
-        "label":"5 species",
-        "color":"#B0612A"
-      },
-      {
-        "value":5,
-        "label":"6 species",
-        "color":"#964005"
-      },
-      {
-        "value":6,
-        "label":"7-10 species",
-        "color":"#5C2803"
-      }
-    ],
-    "valueLabel":"Predicted game species richness",
-    "captionLabel":"game species",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/785ac2f7a26d47c0b89697f859c9056e\/about",
-    "subregions":null
-  },
-  {
-    "id":"w_imperiledspeciescriticalhabitat",
-    "label":"Imperiled species - critical habitat",
-    "description":"This indicator identifies the prevalence of species listed as threatened or endangered within the Midwest Landscape. It prioritizes areas based on the U.S. Fish and Wildlife Service's final and proposed Critical Habitat designations. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the U.S. Fish and Wildlife Service HQ Critical Habitat layer.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as critical habitat",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Critical habitat, not a natural asset",
-        "color":"#CF8080"
-      },
-      {
-        "value":2,
-        "label":"Critical habitat, natural asset",
-        "color":"#730000"
-      }
-    ],
-    "valueLabel":"U.S. Fish and Wildlife Service final and proposed critical habitat designations",
-    "captionLabel":"imperiled species - critical habitat",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/375a101b8f984dc48a3ad76375f2ad1a\/about",
-    "subregions":[
-      "Appalachian Forest",
-      "Central Great Plains",
-      "Central Irregular Plains",
-      "Central Plains East",
-      "Central Plains West",
-      "Driftless Area",
-      "Erie Drift Plains",
-      "Great Lakes Islands",
-      "Great Lakes Plains",
-      "High Plains",
-      "Interior Plateau",
-      "Mixed Wood Plains",
-      "Nebraska Sand Hills",
-      "Northern Hardwood Forest",
-      "Northern Plains",
-      "Northwest Plains",
-      "Ozarks",
-      "Temperate Prairie North",
-      "Temperate Prairie South"
-    ]
-  },
-  {
-    "id":"w_imperiledspeciestande",
-    "label":"Imperiled species - T&E",
-    "description":"This indicator identifies the prevalence of species listed as threatened or endangered within the Midwest Landscape. It prioritizes areas based on the rarity-weighted richness of threatened or endangered species found within a 300m pixel. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the NatureServe Summed Range-size Rarity of Imperiled Species in the United States layer.",
-    "values":[
-      {
-        "value":0,
-        "label":"Not identified as a priority area for imperiled species",
-        "color":null
-      },
-      {
-        "value":1,
-        "label":"Low rarity-weighted richness, not a natural asset",
-        "color":"#FFFFB2"
-      },
-      {
-        "value":2,
-        "label":"Low rarity-weighted richness, natural asset",
-        "color":"#FED976"
-      },
-      {
-        "value":3,
-        "label":"Medium rarity-weighted richness, not a natural asset",
-        "color":"#FEB24C"
-      },
-      {
-        "value":4,
-        "label":"Medium rarity-weighted richness, natural asset",
-        "color":"#FD8D3C"
-      },
-      {
-        "value":5,
-        "label":"High rarity-weighted richness, not a natural asset",
-        "color":"#F03B20"
-      },
-      {
-        "value":6,
-        "label":"High rarity-weighted richness, natural asset",
-        "color":"#BD0026"
-      }
-    ],
-    "valueLabel":"Level of predicted rarity-weighted richness",
-    "captionLabel":"imperiled species - T&E",
-    "url":"https:\/\/mcap-fws.hub.arcgis.com\/maps\/83c93d21c56740449c7fa7e0046ec314\/about",
-    "subregions":null
-  }
+	{
+		"id": "h_drinkingwatergroundwater",
+		"label": "Drinking water - groundwater",
+		"description": "This indicator identifies the availability and quality of drinking water from groundwater sources for people within the Midwest Landscape. It prioritizes areas based on proximity to regionally extensive aquifer systems that have the potential to be used as a drinking water source. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the USGS Principal Aquifers of the United States and the USGS Alluvial and Glacial Aquifers layer.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as an aquifer",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Principal, alluvial, or glacial aquifer, not a natural asset",
+				"color": "#B7C9E2"
+			},
+			{
+				"value": 2,
+				"label": "Principal, alluvial, or glacial aquifer, natural asset",
+				"color": "#2A538B"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "drinking water - groundwater",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/399a768ef14c4f08aff5fb0fb12ba5f3\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_drinkingwatersurfacewater",
+		"label": "Drinking water - surface water",
+		"description": "This indicator identifies the availability and quality of drinking water from surface sources for people within the Midwest Landscape. It prioritizes areas based on supply and demand of drinking water, plus the presence of threats to the water supply. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the U.S. Forest Service National Forests to Faucets 2.0 Assessment.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for surface drinking water",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Less important watershed, not a natural asset",
+				"color": "#BFE9FF"
+			},
+			{
+				"value": 2,
+				"label": "Less important watershed, natural asset",
+				"color": "#268EFF"
+			},
+			{
+				"value": 3,
+				"label": "Medium important watershed, not a natural asset",
+				"color": "#005ACB"
+			},
+			{
+				"value": 4,
+				"label": "Medium important watershed, natural asset",
+				"color": "#003B93"
+			},
+			{
+				"value": 5,
+				"label": "More important watershed, not a natural asset",
+				"color": "#002673"
+			},
+			{
+				"value": 6,
+				"label": "More important watershed, natural asset",
+				"color": "#00234B"
+			}
+		],
+		"valueLabel": "Watershed importance for drinking water",
+		"captionLabel": "drinking water - surface water",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/b768ea09366f4661bb8dcd1ced48f6e6\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_hazardanddisasterprotectionnaturalhazards",
+		"label": "Hazard and disaster protection - natural hazards",
+		"description": "This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas based on the predicted annual economic loss from riverine and coastal flooding, drought, and wildfires. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the FEMA Coastal Flooding, Drought, Riverine Flooding, and Wildfire data layers.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover (not assessed)",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lower risk of loss, not a natural asset",
+				"color": "#FFBEFF"
+			},
+			{
+				"value": 2,
+				"label": "Lower risk of loss, natural asset",
+				"color": "#F169FB"
+			},
+			{
+				"value": 3,
+				"label": "Medium risk of loss, not a natural asset",
+				"color": "#E223FA"
+			},
+			{
+				"value": 4,
+				"label": "Medium risk of loss, natural asset",
+				"color": "#B904D1"
+			},
+			{
+				"value": 5,
+				"label": "High risk of loss, not a natural asset",
+				"color": "#96038B"
+			},
+			{
+				"value": 6,
+				"label": "High risk of loss, natural asset",
+				"color": "#5A0145"
+			}
+		],
+		"valueLabel": "Expected annual economic loss from flooding, drought, and wildfires",
+		"captionLabel": "hazard and disaster protection - natural hazards",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/f082bb7527f84c20bc7114d4bfbe7d38\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_hazardanddisasterprotectionpollution",
+		"label": "Hazard and disaster protection - pollution",
+		"description": "This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas based on the presence and amount of air and water pollutants. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the EPA Cumulative Respiratory Risk from Air Toxins and EPA Total Permitted Discharges.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover (not assessed)",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lower risk of air or water pollution, not a natural asset",
+				"color": "#F6E8FE"
+			},
+			{
+				"value": 2,
+				"label": "Lower risk of air or water pollution, natural asset",
+				"color": "#DABCE3"
+			},
+			{
+				"value": 3,
+				"label": "Medium risk of air or water pollution, not a natural asset",
+				"color": "#C594D0"
+			},
+			{
+				"value": 4,
+				"label": "Medium risk of air or water pollution, natural asset",
+				"color": "#9E4FAC"
+			},
+			{
+				"value": 5,
+				"label": "Higher risk of air or water pollution, not a natural asset",
+				"color": "#7B258B"
+			},
+			{
+				"value": 6,
+				"label": "Higher risk of air or water pollution, natural asset",
+				"color": "#520061"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "hazard and disaster protection - pollution",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/fe6470d468104886bc3bd4c2688094cc\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_hazardanddisasterprotectionsocialvulnerabilityindex",
+		"label": "Hazard and disaster protection - social vulnerability index",
+		"description": "This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas of social vulnerability based on environmental and socioeconomic burdens. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the CDC Social Vulnerability Index.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover (not assessed) or not identified as a vulnerable census tract",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Moderately vulnerable census tract, not a natural asset",
+				"color": "#F9B8EB"
+			},
+			{
+				"value": 2,
+				"label": "Moderately vulnerable census tract, natural asset",
+				"color": "#D171BD"
+			},
+			{
+				"value": 3,
+				"label": "Highly vulnerable census tract, not a natural asset",
+				"color": "#B82C9A"
+			},
+			{
+				"value": 4,
+				"label": "Highly vulnerable census tract, natural asset",
+				"color": "#930074"
+			}
+		],
+		"valueLabel": "Relative vulnerability of census tracts to emergencies based on social factors",
+		"captionLabel": "hazard and disaster protection - social vulnerability index",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/2cbeeced9a6748ed8a65c2cd4812b871\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_hazardanddisasterprotectiontreecanopy",
+		"label": "Hazard and disaster protection - tree canopy",
+		"description": "This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas based on tree canopy cover need in populated areas based on existing tree canopy, surface temperature, socioeconomic factors, and health factors. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from American Forests Tree Equity Score.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for tree canopy cover",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Moderate tree canopy need, not a natural asset",
+				"color": "#DDECD7"
+			},
+			{
+				"value": 2,
+				"label": "Moderate tree canopy need, natural asset",
+				"color": "#B8D7B0"
+			},
+			{
+				"value": 3,
+				"label": "High tree canopy need, not a natural asset",
+				"color": "#8EC787"
+			},
+			{
+				"value": 4,
+				"label": "High tree canopy need, natural asset",
+				"color": "#60B662"
+			},
+			{
+				"value": 5,
+				"label": "Highest tree canopy need, not a natural asset",
+				"color": "#369752"
+			},
+			{
+				"value": 6,
+				"label": "Highest tree canopy need, natural asset",
+				"color": "#05712E"
+			}
+		],
+		"valueLabel": "Tree canopy need in populated areas",
+		"captionLabel": "hazard and disaster protection - tree canopy",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/bfaf896ed0b74f5a94dd952f70677c33\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_localeconomicvitalitygrazing",
+		"label": "Local economic vitality - grazing",
+		"description": "This indicator identifies the economic support of local economies from natural resources or associated activities (e.g. grazing, timber, pollination, outdoor recreation, and fisheries). It prioritizes the value of grazing areas based on the five-year average pasture rental rate of Midwest counties. This indicator originates from the U.S. Census Bureau USA County Boundaries, USDA National Agricultural Statistics Service, and the Midwest Conservation Blueprint Grasslands Indicator.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for grazing",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lowest county grazing value",
+				"color": "#FAE5B3"
+			},
+			{
+				"value": 2,
+				"label": "Low county grazing value",
+				"color": "#EDCB78"
+			},
+			{
+				"value": 3,
+				"label": "Medium county grazing value",
+				"color": "#C79926"
+			},
+			{
+				"value": 4,
+				"label": "High county grazing value",
+				"color": "#A67806"
+			},
+			{
+				"value": 5,
+				"label": "Highest county grazing value",
+				"color": "#7B5800"
+			}
+		],
+		"valueLabel": "5-year average pasture rental rate, by county",
+		"captionLabel": "local economic vitality - grazing",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/247bae2a45ca4fb1847529f9dfe1f5ec\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_localeconomicvitalitypollination",
+		"label": "Local economic vitality - pollination",
+		"description": "This indicator identifies the economic support of local economies from natural resources or associated activities (e.g. grazing, timber, pollination, outdoor recreation, and fisheries). It prioritizes areas based on the presence of pollinator habitat and the economic value of insect pollination on agricultural crops within Midwest counties. This indicator originates from the U.S. Census Bureau USA County Boundaries, Jordan et al. 2021, Koh et al. 2016, and the USDA Cropland Data Layer.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for agricultural pollination",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lowest pollination value",
+				"color": "#F3CDAF"
+			},
+			{
+				"value": 2,
+				"label": "Low pollination value",
+				"color": "#EEA569"
+			},
+			{
+				"value": 3,
+				"label": "Medium pollination value",
+				"color": "#D97828"
+			},
+			{
+				"value": 4,
+				"label": "High pollination value",
+				"color": "#AE4F00"
+			},
+			{
+				"value": 5,
+				"label": "Highest pollination value",
+				"color": "#733300"
+			}
+		],
+		"valueLabel": "Economic value of insect pollination on agricultural crops, by county",
+		"captionLabel": "local economic vitality - pollination",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/090342f0d5f949b89e02abd8a6dfaf7a\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_localeconomicvitalitytimber",
+		"label": "Local economic vitality - timber",
+		"description": "This indicator identifies the economic support of local economies from natural resources or associated activities (e.g. grazing, timber, pollination, outdoor recreation, and fisheries). It prioritizes areas based on the total value economic value of timber returns within each Midwest county. This indicator originates from the U.S. Census Bureau USA County Boundaries, Cavender-Bares et al. 2022, the National Land Cover Database, and the Protected Areas Database.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for timber harvest",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lowest timber return value",
+				"color": "#87F4D9"
+			},
+			{
+				"value": 2,
+				"label": "Low timber return value",
+				"color": "#45C5AE"
+			},
+			{
+				"value": 3,
+				"label": "Medium timber return value",
+				"color": "#0EA587"
+			},
+			{
+				"value": 4,
+				"label": "High timber return value",
+				"color": "#077C62"
+			},
+			{
+				"value": 5,
+				"label": "Highest timber return value",
+				"color": "#00573D"
+			}
+		],
+		"valueLabel": "Economic value of timber, by county",
+		"captionLabel": "local economic vitality - timber",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/dcf920e17a3a4c3d9ebe3ace5c1b7d51\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_nutrientreduction",
+		"label": "Nutrient reduction",
+		"description": "This indicator represents the minimization of nutrient loading that leads to issues in downstream waters (e.g. harmful and nuisance algal blooms) in both the Gulf and the Great Lakes. It prioritizes areas based on a catchment's contribution to the loading of nitrogen, phosphorus, and suspended sediments into water. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the USGS 2012 SPARROW Model for the Midwest.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover (not assessed) or no data available",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Low nutrient load, not a natural asset",
+				"color": "#CCBC98"
+			},
+			{
+				"value": 2,
+				"label": "Low nutrient load, natural asset",
+				"color": "#B8A16E"
+			},
+			{
+				"value": 3,
+				"label": "Medium nutrient load, not a natural asset",
+				"color": "#A48749"
+			},
+			{
+				"value": 4,
+				"label": "Medium nutrient load, natural asset",
+				"color": "#906F2B"
+			},
+			{
+				"value": 5,
+				"label": "High nutrient load, not a natural asset",
+				"color": "#7C5912"
+			},
+			{
+				"value": 6,
+				"label": "High nutrient load, natural asset",
+				"color": "#684500"
+			}
+		],
+		"valueLabel": "Combined nitrogen, phosphorus, and suspended sediment load",
+		"captionLabel": "nutrient reduction",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/34f16118752c4cabbe6f439818440cdb\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_potentialaccesstorecreation",
+		"label": "Potential access to recreation",
+		"description": "This indicator identifies accessibility gaps to green space and outdoor recreation in populated areas within the Midwest Landscape. It prioritizes areas currently lacking access to parks within a 10-minute walk based on population density, community health, pollution burden, and more. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the Trust for Public Land's ParkServe dataset.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for new parks",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lower priority, not a natural asset",
+				"color": "#EFE1FD"
+			},
+			{
+				"value": 2,
+				"label": "Lower priority, natural asset",
+				"color": "#D9B5FD"
+			},
+			{
+				"value": 3,
+				"label": "Medium priority, not a natural asset",
+				"color": "#947DD6"
+			},
+			{
+				"value": 4,
+				"label": "Medium priority, natural asset",
+				"color": "#5E38CA"
+			},
+			{
+				"value": 5,
+				"label": "High priority, not a natural asset",
+				"color": "#44189D"
+			},
+			{
+				"value": 6,
+				"label": "High priority, natural asset",
+				"color": "#1C0056"
+			}
+		],
+		"valueLabel": "Priority for a new park to serve people who lack nearby park access",
+		"captionLabel": "potential access to recreation",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/4bfd398570b3423aa58743f9f1a8a72c\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_publicrecreationaccess",
+		"label": "Public recreation access",
+		"description": "This indicator represents the ability to enjoy outdoor spaces (e.g. green spaces, wilderness areas, beaches\/waters) for recreation and health purposes within the Midwest Landscape. It prioritizes areas based on locations of current public recreation sites. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the Protected Areas Database and Open Street Map roads.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a public recreation area",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Public recreation area, not a natural asset",
+				"color": "#796EB2"
+			},
+			{
+				"value": 2,
+				"label": "Public recreation area, natural asset",
+				"color": "#3F007D"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "public recreation access",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/522f33cd058b4a3ab78a40c3e2690f1a\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_sustainableworkinglands",
+		"label": "Sustainable, working lands",
+		"description": "This indicator represents the ability of land to economically support human communities while also providing conservation benefits within the Midwest Landscape. It prioritizes areas based on the locations of conservation easements. This indicator originates from the National Conservation Easement Database.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a closed access or unknown access conservation easement",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Closed access or unknown access conservation easement",
+				"color": "#A87000"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "sustainable, working lands",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/b517a5e148524b76b202dfe149bdf123\/about",
+		"subregions": null
+	},
+	{
+		"id": "h_tribalconservationsovereignty",
+		"label": "Tribal conservation sovereignty",
+		"description": "This indicator represents the ability of Tribal nations to have access to, and control of, their natural and cultural resources. It prioritizes areas based on the locations of Tribal Nations trust and fee lands. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the Bureau of Indian Affairs Land Area Representations.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a Tribal trust or fee land",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Tribal trust or fee land, not a natural asset",
+				"color": "#FCEAA9"
+			},
+			{
+				"value": 2,
+				"label": "Tribal trust or fee land, natural asset",
+				"color": "#A58100"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "tribal conservation sovereignty",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/4c51003c780b4332b217e084ddca30ab\/about",
+		"subregions": [
+			"Central Great Plains",
+			"Central Irregular Plains",
+			"Central Plains East",
+			"Central Plains West",
+			"Driftless Area",
+			"Great Lakes Islands",
+			"Great Lakes Plains",
+			"High Plains",
+			"Interior Plateau",
+			"Mixed Wood Plains",
+			"Nebraska Sand Hills",
+			"Northern Hardwood Forest",
+			"Northern Plains",
+			"Northwest Plains",
+			"Temperate Prairie North",
+			"Temperate Prairie South"
+		]
+	},
+	{
+		"id": "l_aquaticnetworkconnectivity",
+		"label": "Aquatic network connectivity",
+		"description": "This indicator identifies the ability of aquatic species to access large, complex aquatic networks. It prioritizes areas based on the length of hydrologically connected flowlines and diversity of unfragmented aquatic habitat in the region. This indicator originates from the Nature Conservancy's Resilient Rivers dataset and the U.S. Fish and Wildlife Service's National Wetlands Inventory.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as an aquatic area",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Far below average",
+				"color": "#744D08"
+			},
+			{
+				"value": 2,
+				"label": "Below average",
+				"color": "#A17E3A"
+			},
+			{
+				"value": 3,
+				"label": "Slightly below average",
+				"color": "#CFBA76"
+			},
+			{
+				"value": 4,
+				"label": "Average",
+				"color": "#FFFFBF"
+			},
+			{
+				"value": 5,
+				"label": "Slightly above average",
+				"color": "#9CBBD6"
+			},
+			{
+				"value": 6,
+				"label": "Above average",
+				"color": "#6285C0"
+			},
+			{
+				"value": 7,
+				"label": "Far above average",
+				"color": "#274EA9"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "aquatic network connectivity",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/de65a59cb4b249cd96b8daabaafcb31d\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_climateresiliency",
+		"label": "Climate resiliency",
+		"description": "This indicator identifies the ability of lands and waters to function under changing climate conditions. It prioritizes areas based on landscape diversity and connectedness. This indicator originates from the Nature Conservancy's Resilient Land Mapping tool.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover or aquatic area (not assessed)",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Least resilient",
+				"color": "#9C551F"
+			},
+			{
+				"value": 2,
+				"label": "Less resilient",
+				"color": "#BF874B"
+			},
+			{
+				"value": 3,
+				"label": "Slightly less resilient",
+				"color": "#E0C080"
+			},
+			{
+				"value": 4,
+				"label": "Average resilience",
+				"color": "#FFFFBF"
+			},
+			{
+				"value": 5,
+				"label": "Slightly more resilient",
+				"color": "#A9C276"
+			},
+			{
+				"value": 6,
+				"label": "More resilient",
+				"color": "#5E8A3A"
+			},
+			{
+				"value": 7,
+				"label": "Most resilient",
+				"color": "#205905"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "climate resiliency",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/3c23109bfa774474917c3820b3c958b0\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_climateresiliencycarbonsequestration",
+		"label": "Climate resiliency - carbon sequestration",
+		"description": "This indicator identifies the ability of lands and waters to function under changing climate conditions. It prioritizes areas based on the amount of above and belowground carbon stored. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the U.N. Environment Programme World Biomass and Soil Carbon data.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover or aquatic area (not assessed)",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lower carbon sequestration, not a natural asset",
+				"color": "#F2F0F7"
+			},
+			{
+				"value": 2,
+				"label": "Lower carbon sequestration, natural asset",
+				"color": "#DADAEB"
+			},
+			{
+				"value": 3,
+				"label": "Medium carbon sequestration, not a natural asset",
+				"color": "#BCBDDC"
+			},
+			{
+				"value": 4,
+				"label": "Medium carbon sequestration, natural asset",
+				"color": "#9E9AC8"
+			},
+			{
+				"value": 5,
+				"label": "High carbon sequestration, not a natural asset",
+				"color": "#756BB1"
+			},
+			{
+				"value": 6,
+				"label": "High carbon sequestration, natural asset",
+				"color": "#54278F"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "climate resiliency - carbon sequestration",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/22af17f2dee34430801e9037f8559a9e\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_forests",
+		"label": "Forests",
+		"description": "This indicator represents forest heath based on the availability and risk of mortality of forested stands within the Midwest Landscape. It prioritizes areas based on locations of forested stands and risks from major forest insects and diseases. This indicator originates from the U.S. Forest Service National Insect and Disease Risk Map and the National Land Cover Database.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a forest",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Pixels at hazard for mortality losses exceeding 25% of their 2012 basal area over the 2013-2027 time frame",
+				"color": "#660000"
+			},
+			{
+				"value": 2,
+				"label": "Pixels considered at risk in the National Insect and Disease 2012 assessment, but that are likely no longer at risk",
+				"color": "#FFD0C8"
+			},
+			{
+				"value": 3,
+				"label": "Treed areas, but not modeled as \"At Risk\"",
+				"color": "#7FC55C"
+			}
+		],
+		"valueLabel": "Forest mortality risk",
+		"captionLabel": "forests",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/86bd553f4a3d421087e63e5d4ff8358c\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_grasslands",
+		"label": "Grasslands",
+		"description": "This indicator represents grassland health within the Midwest Landscape. It prioritizes areas based on the percentage of perennial grasses and forbs within an area. This indicator originates from the Rangeland Analysis Platform cover data.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a grassland",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": ">20-40% perennial grass and forbs",
+				"color": "#E1EA62"
+			},
+			{
+				"value": 2,
+				"label": ">40-60% perennial grass and forbs",
+				"color": "#AFB42B"
+			},
+			{
+				"value": 3,
+				"label": ">60-80% perennial grass and forbs",
+				"color": "#6A7514"
+			},
+			{
+				"value": 4,
+				"label": ">80% perennial grass and forbs",
+				"color": "#2D3606"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "grasslands",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/a75595b0a64742fd9dfd8c19a5d18467\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_greatlakesshorelineanddunehabitat",
+		"label": "Great Lakes shoreline & dune habitat",
+		"description": "This indicator represents shoreline and dune health based on the naturalness of shoreline features and dune habitat. It prioritizes areas based on shoreline type (natural or artificial), landcover type (Great Lakes Dune or Great Lakes Dune Grassland), and Coastal Barrier Resources System designation. This indicator originates from the Great Lakes Aquatic Habitat Framework Harmonized Shoreline Classification, the LANDFIRE Existing Vegetation Type layer, and the U.S. Fish and Wildlife Service's Coastal Barrier Resources System designations.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a natural shoreline or dune",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Natural shoreline, Coastal Barrier Resources System area, or dune habitat",
+				"color": "#734C00"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "Great Lakes shoreline & dune habitat",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/72d53bdfc7fd4a409cc17cf66bb65456\/about",
+		"subregions": [
+			"Central Plains East",
+			"Central Plains West",
+			"Erie Drift Plains",
+			"Great Lakes Islands",
+			"Great Lakes Plains",
+			"Mixed Wood Plains",
+			"Northern Hardwood Forest"
+		]
+	},
+	{
+		"id": "l_intacthabitatcores",
+		"label": "Intact habitat cores",
+		"description": "This indicator identifies large, unfragmented patches of habitat within the Midwest Landscape. It prioritizes areas based on quality and protection status of habitat cores. This indicator originates from the Esri Green Infrastructure Intact Habitat Cores layer and the Protected Areas Database.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not a core",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "\"Good\" intact habitat core score",
+				"color": "#C4E7B9"
+			},
+			{
+				"value": 2,
+				"label": "\"Better\" intact habitat core score",
+				"color": "#5BB152"
+			},
+			{
+				"value": 3,
+				"label": "\"Best\" intact habitat core score, or GAP 1-2 protected lands",
+				"color": "#066D26"
+			}
+		],
+		"valueLabel": "Habitat core quality",
+		"captionLabel": "intact habitat cores",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/eb76c6e0b9c84201a98178ce5af4d4cd\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_lakes",
+		"label": "Lakes",
+		"description": "This indicator represents lake health based on watershed condition within the Midwest Landscape. It prioritizes lakes and reservoirs greater than one hectare based on the amount of agriculture and development in a lake's upstream watershed. This indicator originates from the LAGOS-US dataset and Lapierre et al. Continuous Lake Classifications.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a lake or reservoir",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lake or reservoir with high disturbance (>60%) in upstream watershed",
+				"color": "#B2CAFF"
+			},
+			{
+				"value": 2,
+				"label": "Lake or reservoir with medium disturbance (>25-60%) in upstream watershed.",
+				"color": "#7B8FBD"
+			},
+			{
+				"value": 3,
+				"label": "Lake or reservoir with low disturbance (0-25%) in upstream watershed.",
+				"color": "#43587B"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "lakes",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/049feb920f6e449ea1c47e68f8765d5d\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_landscapecondition",
+		"label": "Landscape condition",
+		"description": "This indicator represents landscape health based on landdover type and land use across the Midwest Landscape. It prioritizes areas based on proximity to natural or non-natural landcover types, plus intensity of development and land use. This indicator originates from the National Land Cover Database, Maus et al. Global-scale mining polygons, LANDFIRE Existing Vegetation Type, and the Midwest Conservation Blueprint Grasslands indicator.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Heavily altered landscape or lake (not assessed)",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Altered landscape",
+				"color": "#E1D0AA"
+			},
+			{
+				"value": 2,
+				"label": "Partly natural landscape",
+				"color": "#B8BC91"
+			},
+			{
+				"value": 3,
+				"label": "Mostly natural landscape",
+				"color": "#8C9971"
+			},
+			{
+				"value": 4,
+				"label": "Natural landscape",
+				"color": "#616B4B"
+			},
+			{
+				"value": 5,
+				"label": "Very natural landscape",
+				"color": "#434932"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "landscape condition",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/d69c6c8310d9487d96316d26a3f3b72e\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_riparianareas",
+		"label": "Riparian areas",
+		"description": "This indicator represents riparian health within the Midwest Landscape. It prioritizes areas based on the percentage natural landcover within floodplains. This indicator originates from the EPA Percentage of Land Area in Estimated Floodplains Classified as Natural layer and the EPA Estimated Floodplain Map of the Conterminous U.S.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a floodplain",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "0-60% natural landcover",
+				"color": "#C4DEA1"
+			},
+			{
+				"value": 2,
+				"label": ">60-70% natural landcover",
+				"color": "#92CA86"
+			},
+			{
+				"value": 3,
+				"label": ">70-80% natural landcover",
+				"color": "#4AAEA5"
+			},
+			{
+				"value": 4,
+				"label": ">80-90% natural landcover",
+				"color": "#2282B4"
+			},
+			{
+				"value": 5,
+				"label": ">90% natural landcover",
+				"color": "#003167"
+			}
+		],
+		"valueLabel": "Percent natural landcover within the estimated floodplain, by catchment",
+		"captionLabel": "riparian areas",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/8ffa6c66bb1343c996cdba7295a7e105\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_streams",
+		"label": "Streams",
+		"description": "This indicator represents stream health based on the risk of habitat degradation within the Midwest Landscape. It prioritizes stream reaches based on urban land use, impervious surface, human population and road density, agriculture, and point source pollution sites. This indicator originates from the National Fish Habitat Partnership Cumulative Habitat Condition Indices scores.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a stream",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Highest risk",
+				"color": "#00A6FF"
+			},
+			{
+				"value": 2,
+				"label": "High risk",
+				"color": "#008AFF"
+			},
+			{
+				"value": 3,
+				"label": "Medium risk",
+				"color": "#0063E5"
+			},
+			{
+				"value": 4,
+				"label": "Low risk",
+				"color": "#0040A8"
+			},
+			{
+				"value": 5,
+				"label": "Lowest risk",
+				"color": "#002A7D"
+			}
+		],
+		"valueLabel": "Risk of habitat degradation",
+		"captionLabel": "streams",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/daa457228f0546688717f0cc66bab710\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_terrestrialhabitatconnectivity",
+		"label": "Terrestrial habitat connectivity",
+		"description": "This indicator identifies the ability of terrestrial species to move across the landscape within the Midwest. It prioritizes areas based on relative ease of movement for terrestrial species, factoring in NLCD landcover classes, slope, proximity to water, and habitat core score. This indicator originates from the Esri Green Infrastructure Habitat Cost Surface layer.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Developed landcover",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Most costly",
+				"color": "#EDEDAC"
+			},
+			{
+				"value": 2,
+				"label": "More costly",
+				"color": "#AED482"
+			},
+			{
+				"value": 3,
+				"label": "Average cost",
+				"color": "#62AC63"
+			},
+			{
+				"value": 4,
+				"label": "Less costly",
+				"color": "#0B7A2E"
+			},
+			{
+				"value": 5,
+				"label": "Least costly for movement",
+				"color": "#005527"
+			}
+		],
+		"valueLabel": "Ease of terrestrial species movement",
+		"captionLabel": "terrestrial habitat connectivity",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/c2518c284c4b4c12ac94a7c3412e237b\/about",
+		"subregions": null
+	},
+	{
+		"id": "l_wetlands",
+		"label": "Wetlands",
+		"description": "This indicator identifies the availability of wetland habitat within the Midwest Landscape. It prioritizes areas based on whether a pixel can be classified as a wetland. This indicator originates from the U.S. Fish and Wildlife Service's National Wetlands Inventory.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a wetland",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Wetland",
+				"color": "#00A8A0"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "wetlands",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/5f781f5880af4ae3ae7bb2f3d2d6fc22\/about",
+		"subregions": null
+	},
+	{
+		"id": "w_atriskspeciescoas",
+		"label": "At-risk species - COAs",
+		"description": "This indicator identifies the prevalence of species at risk of being threatened with extinction within the Midwest Landscape. It prioritizes areas based on locations of State Conservation Opportunity Areas. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the State Wildlife Action Plans of the 13 Midwest Association of Fish and Wildlife Agencies (MAFWA) states.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a Conservation Opportunity Area",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "State Conservation Opportunity Area, not a natural asset",
+				"color": "#D38AA0"
+			},
+			{
+				"value": 2,
+				"label": "State Conservation Opportunity Area, natural asset",
+				"color": "#7A0024"
+			}
+		],
+		"valueLabel": "",
+		"captionLabel": "at-risk species - COAs",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/399be10035694e1bb8992b3d070019da\/about",
+		"subregions": null
+	},
+	{
+		"id": "w_atriskspeciesrsgcn",
+		"label": "At-risk species - RSGCN",
+		"description": "This indicator identifies the prevalence of species at risk of being threatened with extinction, with an emphasis on at-risk species that are of a regional conservation need. It prioritizes areas based on the rarity-weighted richness of those Regional Species of Greatest Conservation Need (RSGCN) which are not listed as Threatened or Endangered by the ESA or G1 or G2 imperiled species. This indicator originates from the Midwest Regional Species of Greatest Conservation Need database and the USGS Gap Analysis Project.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for Regional Species of Greatest Conservation Need",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Lowest rarity-weighted richness",
+				"color": "#FAD8B4"
+			},
+			{
+				"value": 2,
+				"label": "Low rarity-weighted richness",
+				"color": "#E8AC82"
+			},
+			{
+				"value": 3,
+				"label": "Slightly low rarity-weighted richness",
+				"color": "#D9794E"
+			},
+			{
+				"value": 4,
+				"label": "Slightly high rarity-weighted richness",
+				"color": "#C74D2E"
+			},
+			{
+				"value": 5,
+				"label": "High rarity-weighted richness",
+				"color": "#AD2010"
+			},
+			{
+				"value": 6,
+				"label": "Highest rarity-weighted richness",
+				"color": "#850000"
+			}
+		],
+		"valueLabel": "Level of predicted rarity-weighted richness",
+		"captionLabel": "at-risk species - RSGCN",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/34f3468839834c18bc93a66c2be05343\/about",
+		"subregions": null
+	},
+	{
+		"id": "w_gamespecies",
+		"label": "Game species",
+		"description": "This indicator identifies the prevalence of and access to socially important game species. It prioritizes areas based on the species richness of 14 commonly hunted species: white-tailed deer, black bear, Rocky Mountain elk, moose, mule deer, pronghorn, wild turkey, bobwhite quail, ring-necked pheasant, American woodcock, ruffed grouse, sharp-tailed grouse, greater prairie chicken, and mourning dove. This indicator originates from the USGS Gap Analysis Project and the National Survey of Fishing, Hunting, and Wildlife-Associated Recreation.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for game species",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "1-2 species",
+				"color": "#F9D3B9"
+			},
+			{
+				"value": 2,
+				"label": "3 species",
+				"color": "#E0AE8B"
+			},
+			{
+				"value": 3,
+				"label": "4 species",
+				"color": "#C78659"
+			},
+			{
+				"value": 4,
+				"label": "5 species",
+				"color": "#B0612A"
+			},
+			{
+				"value": 5,
+				"label": "6 species",
+				"color": "#964005"
+			},
+			{
+				"value": 6,
+				"label": "7-10 species",
+				"color": "#5C2803"
+			}
+		],
+		"valueLabel": "Predicted game species richness",
+		"captionLabel": "game species",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/785ac2f7a26d47c0b89697f859c9056e\/about",
+		"subregions": null
+	},
+	{
+		"id": "w_imperiledspeciescriticalhabitat",
+		"label": "Imperiled species - critical habitat",
+		"description": "This indicator identifies the prevalence of species listed as threatened or endangered within the Midwest Landscape. It prioritizes areas based on the U.S. Fish and Wildlife Service's final and proposed Critical Habitat designations. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the U.S. Fish and Wildlife Service HQ Critical Habitat layer.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as critical habitat",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Critical habitat, not a natural asset",
+				"color": "#CF8080"
+			},
+			{
+				"value": 2,
+				"label": "Critical habitat, natural asset",
+				"color": "#730000"
+			}
+		],
+		"valueLabel": "U.S. Fish and Wildlife Service final and proposed critical habitat designations",
+		"captionLabel": "imperiled species - critical habitat",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/375a101b8f984dc48a3ad76375f2ad1a\/about",
+		"subregions": [
+			"Appalachian Forest",
+			"Central Great Plains",
+			"Central Irregular Plains",
+			"Central Plains East",
+			"Central Plains West",
+			"Driftless Area",
+			"Erie Drift Plains",
+			"Great Lakes Islands",
+			"Great Lakes Plains",
+			"High Plains",
+			"Interior Plateau",
+			"Mixed Wood Plains",
+			"Nebraska Sand Hills",
+			"Northern Hardwood Forest",
+			"Northern Plains",
+			"Northwest Plains",
+			"Ozarks",
+			"Temperate Prairie North",
+			"Temperate Prairie South"
+		]
+	},
+	{
+		"id": "w_imperiledspeciestande",
+		"label": "Imperiled species - T&E",
+		"description": "This indicator identifies the prevalence of species listed as threatened or endangered within the Midwest Landscape. It prioritizes areas based on the rarity-weighted richness of threatened or endangered species found within a 300m pixel. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the NatureServe Summed Range-size Rarity of Imperiled Species in the United States layer.",
+		"values": [
+			{
+				"value": 0,
+				"label": "Not identified as a priority area for imperiled species",
+				"color": null
+			},
+			{
+				"value": 1,
+				"label": "Low rarity-weighted richness, not a natural asset",
+				"color": "#FFFFB2"
+			},
+			{
+				"value": 2,
+				"label": "Low rarity-weighted richness, natural asset",
+				"color": "#FED976"
+			},
+			{
+				"value": 3,
+				"label": "Medium rarity-weighted richness, not a natural asset",
+				"color": "#FEB24C"
+			},
+			{
+				"value": 4,
+				"label": "Medium rarity-weighted richness, natural asset",
+				"color": "#FD8D3C"
+			},
+			{
+				"value": 5,
+				"label": "High rarity-weighted richness, not a natural asset",
+				"color": "#F03B20"
+			},
+			{
+				"value": 6,
+				"label": "High rarity-weighted richness, natural asset",
+				"color": "#BD0026"
+			}
+		],
+		"valueLabel": "Level of predicted rarity-weighted richness",
+		"captionLabel": "imperiled species - T&E",
+		"url": "https:\/\/mcap-fws.hub.arcgis.com\/maps\/83c93d21c56740449c7fa7e0046ec314\/about",
+		"subregions": null
+	}
 ]
