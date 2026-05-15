@@ -11,17 +11,17 @@
 	</Trigger>
 	<Content class="pt-4 pb-6">
 		<Header class="border-b pb-4 border-b-grey-2">
-			<Title class="text-3xl">Give your feedback to Blueprint Staff</Title>
+			<Title class="text-3xl">Give your feedback to Midwest Landscape Initiative Staff</Title>
 		</Header>
 		<p class="text-lg">
-			The Blueprint and its inputs are regularly revised based on input from people like you. Have a
+			The blueprint and its inputs are regularly revised based on input from people like you. Have a
 			suggestion on how to improve the priorities? Let us know! We also welcome feedback on how to
-			improve the Midwest Blueprint Explorer interface. Midwest Blueprint staff will read and
-			respond to your comments&mdash;we promise.
+			improve the Midwest Conservation Blueprint Explorer interface. Midwest Landscape Initiative
+			staff will read and respond to your comments&mdash;we promise.
 			<br />
 			<br />
 			Please reach out to
-			<a href={CONTACT_URL} target="_blank"> Blueprint user support staff </a>.
+			<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>.
 		</p>
 	</Content>
 </Root>

@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte'
 	import { createQuery } from '@tanstack/svelte-query'
 
-	import { CONTACT_EMAIL } from '$lib/env'
+	import { CONTACT_URL } from '$lib/env'
 	import CompassIcon from '~icons/fa-solid/compass'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
 	import SearchIcon from '~icons/fa-solid/Search'
@@ -180,8 +180,7 @@
 					</div>
 					<div class="mt-4">
 						Please try a different search term. If the error continues, please
-						<a href={`mailto:${CONTACT_EMAIL}`}> let us know </a>
-						.
+						<a href={CONTACT_URL} target="_blank">let us know</a>.
 					</div>
 				</div>
 			{:else if suggestions.isLoading || place.isLoading}

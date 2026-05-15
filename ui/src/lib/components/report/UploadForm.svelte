@@ -231,7 +231,7 @@
 		<div>
 			<p>
 				Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
-				interest to generate a detailed PDF report of the Blueprint, underlying indicators, and
+				interest to generate a detailed PDF report of the blueprint, underlying indicators, and
 				other contextual information for your area of interest. It includes a map and summary table
 				for every indicator present in the area, as well as additional information about
 				urbanization and sea-level rise.
@@ -250,12 +250,12 @@
 				<br />
 				We have made every possible effort to ensure that the information provided in this viewer is accessible
 				to people with disabilities. If you cannot fully access the information, please reach out to
-				<a href={CONTACT_URL} target="_blank"> Blueprint user support staff </a>
+				<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
 				so that we can provide the information in an alternate format.
 				<br />
 				<br />
-				You can help us improve the Blueprint and this report by helping us understand your use case:
-				we use this information to provide statistics about how the Blueprint is being used and to prioritize
+				You can help us improve the blueprint and this report by helping us understand your use case:
+				we use this information to provide statistics about how the blueprint is being used and to prioritize
 				improvements.
 			</p>
 		</div>

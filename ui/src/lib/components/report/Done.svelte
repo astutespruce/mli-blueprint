@@ -4,7 +4,7 @@
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
 	import { Root, Description } from '$lib/components/ui/alert'
 	import { Button } from '$lib/components/ui/button'
-	import { CONTACT_EMAIL } from '$lib/env'
+	import { CONTACT_URL } from '$lib/env'
 	import { cn } from '$lib/utils'
 
 	const { reportURL = null, errors, onReset = null, class: className = '' } = $props()
@@ -32,7 +32,7 @@
 					{/each}
 				</ul>
 				<p class="mt-4">
-					Please try again. If that does not work, please <a href={`mailto:${CONTACT_EMAIL}`}
+					Please try again. If that does not work, please <a href={CONTACT_URL} target="_blank"
 						>contact us</a
 					>.
 				</p>

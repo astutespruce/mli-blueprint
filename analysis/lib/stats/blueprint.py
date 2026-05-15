@@ -195,7 +195,7 @@ def summarize_blueprint_by_units_grid(df, units_grid, out_dir):
                 units_grid,
                 value_dataset,
                 bins=BLUEPRINT_BINS,
-                progress_label="Summarizing Blueprint",
+                progress_label="Summarizing Midwest Conservation Blueprint",
             )
             * cellsize
         )

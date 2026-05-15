@@ -5,7 +5,7 @@
 
 <div class="text-grey-9 mt-8 pt-8 border-t border-t-grey-2">
 	<QuestionCircleIcon class="mt-[-0.25rem] mr-1 size-5 inline" />
-	Need help interpreting these results or applying Blueprint priorities to your particular project or
+	Need help interpreting these results or applying blueprint priorities to your particular project or
 	location? <br />
 	Please
 

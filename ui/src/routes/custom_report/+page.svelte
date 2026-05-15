@@ -131,7 +131,7 @@
 </script>
 
 <svelte:head>
-	<title>Create a custom Blueprint report</title>
+	<title>Create a custom blueprint report</title>
 </svelte:head>
 
 <svelte:document
@@ -156,7 +156,7 @@
 		</div>
 		<div class="container mt-14">
 			<h1 class="text-7xl relative text-white z-2 text-shadow-sm text-shadow-black">
-				Create a custom Blueprint report
+				Create a custom blueprint report
 			</h1>
 		</div>
 	</div>

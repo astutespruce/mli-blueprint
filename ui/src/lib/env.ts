@@ -6,7 +6,6 @@ export const MAPBOX_TOKEN = env.PUBLIC_MAPBOX_TOKEN
 export const API_HOST = env.PUBLIC_API_HOST
 export const TILE_HOST = env.PUBLIC_TILE_HOST
 export const API_TOKEN = env.PUBLIC_API_TOKEN
-export const CONTACT_EMAIL = env.PUBLIC_CONTACT_EMAIL
 export const CONTACT_URL = env.PUBLIC_CONTACT_URL
 export const BLUEPRINT_URL = env.PUBLIC_BLUEPRINT_URL
 export const DEPLOY_ENV = env.PUBLIC_DEPLOY_ENV

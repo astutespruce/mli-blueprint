@@ -47,7 +47,7 @@
 		</ModeTooltip>
 
 		<ModeTooltip
-			content="Show values at a specific point for the Blueprint, indicators, and other contextual information"
+			content="Show values at a specific point for the blueprint, indicators, and other contextual information"
 			onClick={handlePixelClick}
 			class={cn(mapData.mapMode === 'pixel' ? activeClass : inactiveClass)}
 		>
@@ -55,11 +55,11 @@
 		</ModeTooltip>
 
 		<ModeTooltip
-			content="Find your part of the Blueprint by showing only areas that score within a certain range on indicators and more"
+			content="Find your part of the blueprint by showing only areas that score within a certain range on indicators and more"
 			onClick={handleFilterClick}
 			class={cn('', mapData.mapMode === 'filter' ? activeClass : inactiveClass)}
 		>
-			Filter the Blueprint
+			Filter the blueprint
 		</ModeTooltip>
 	</div>
 	<div class="text-xs md:text-sm text-center md:text-left ml-2 leading-none mt-1 md:mt-0">

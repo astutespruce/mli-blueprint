@@ -29,15 +29,15 @@
 		<br />
 		It serves as an invitation to better coordinate voluntary conservation actions and investments across
 		the Midwest by focusing and aligning conservation work, attracting and directing funding for conservation,
-		and Connecting partners and opening the door to all audiences.
+		and connecting partners and opening the door to all audiences.
 		<br /><br />
 
 		For more information, visit the
-		<a href={BLUEPRINT_URL} target="_blank"> Blueprint webpage </a>.
+		<a href={BLUEPRINT_URL} target="_blank"> blueprint webpage </a>.
 		<br />
 		<br />
 		The <b>Midwest Conservation Blueprint Explorer</b> is an online viewer designed to help you understand
-		the Blueprint and discover how your area of interest scores on the Blueprint priorities, indicators,
+		the blueprint and discover how your area of interest scores on the blueprint priorities, indicators,
 		and other landscape-level information. Here, you can:
 	</p>
 
@@ -46,15 +46,15 @@
 			<b>Summarize data</b> to show charts and information for a subwatershed
 		</li>
 		<li>
-			<b>View point data</b> to discover what is driving the Blueprint priorities and show values at a
+			<b>View point data</b> to discover what is driving the blueprint priorities and show values at a
 			specific location for indicators, threats, and more
 		</li>
 		<li>
-			<b>Filter the Blueprint</b> to find your part of the Blueprint by showing only areas that score
+			<b>Filter the blueprint</b> to find your part of the blueprint by showing only areas that score
 			within a certain range on indicators and other data
 		</li>
 		<li>
-			<b>Upload a shapefile</b> to create detailed custom reports of the Blueprint, underlying indicators,
+			<b>Upload a shapefile</b> to create detailed custom reports of the blueprint, underlying indicators,
 			and other landscape-level information in your area
 		</li>
 	</ul>
@@ -103,11 +103,11 @@
 			<br />
 			<br />
 			Note: this approach uses pixels that have been resampled and reprojected for each zoom level. This
-			means that the values shown in the tool may not exactly match the Blueprint and indicator data for
+			means that the values shown in the tool may not exactly match the blueprint and indicator data for
 			that specific ground location, especially in areas of high variability in the data. To view and
 			/ or download more precise spatial data, please visit the
 			<a href={BLUEPRINT_URL} target="_blank">
-				Blueprint page of the Midwest Conservation Action Portal
+				blueprint page of the Midwest Conservation Action Portal
 			</a>.
 			<br />
 			<br />

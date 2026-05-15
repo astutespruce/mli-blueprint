@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>How to use the Blueprint Explorer</title>
+	<title>How to use the blueprint Explorer</title>
 </svelte:head>
 
 <Header />
@@ -36,7 +36,7 @@
 		<h2 class="text-4xl">Summarize data:</h2>
 		<p class="pt-2">
 			This mode allows you to select a subwatershed and view data summaries and charts for the
-			Blueprint, indicators, threats, and protected areas.
+			blueprint, indicators, threats, and protected areas.
 		</p>
 
 		<div class="mt-8 grid grid-cols-0 md:grid-cols-2 gap-8">
@@ -71,7 +71,7 @@
 		</div>
 
 		<p class="mt-16">
-			You can download a detailed PDF report of the Blueprint, hubs and corridors, underlying
+			You can download a detailed PDF report of the blueprint, hubs and corridors, underlying
 			indicators, and landscape-level threats for the selected summary unit. Click the
 			<b>Export detailed maps and analysis</b> link below the area name. To unselect the area, click
 			the <b>X</b> in the upper right of the sidebar.
@@ -81,8 +81,8 @@
 
 		<h2 class="text-4xl">View point data:</h2>
 		<p class="mt-2">
-			This mode allows you to show values at a specific point for the Blueprint, indicators,
-			threats, and more by drilling into a single 30 meter pixel, the smallest unit of the Blueprint
+			This mode allows you to show values at a specific point for the blueprint, indicators,
+			threats, and more by drilling into a single 30 meter pixel, the smallest unit of the blueprint
 			analysis.
 		</p>
 
@@ -125,30 +125,30 @@
 
 		<p class="mt-16">
 			Note: this approach uses pixels that have been resampled and reprojected for each zoom level.
-			This means that the values shown in the tool may not exactly match the Blueprint and indicator
+			This means that the values shown in the tool may not exactly match the blueprint and indicator
 			data for that specific ground location, especially in areas of high variability in the data.
 			<br />
 			<br />
 			To view and / or download more precise spatial data, please visit the
 			<a href={BLUEPRINT_URL} target="_blank">
-				Blueprint page of the Midwest Conservation Action Portal
+				blueprint page of the Midwest Conservation Action Portal
 			</a>.
 		</p>
 
 		<hr />
 
-		<h2 class="text-4xl">Filter the Blueprint:</h2>
+		<h2 class="text-4xl">Filter the blueprint:</h2>
 		<p class="mt-2">
-			Filters can help you find the part of the Blueprint that aligns with your mission, interests,
+			Filters can help you find the part of the blueprint that aligns with your mission, interests,
 			or specific question. Use the filters to show areas on the map that fall within a range of
-			values for one or more layers, including the Blueprint, hubs and corridors, underlying
+			values for one or more layers, including the blueprint, hubs and corridors, underlying
 			indicators, and threats.
 		</p>
 
 		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-16">
 			<div class="flex flex-col justify-center">
 				<p>
-					Choose <b>Filter the Blueprint</b> from the button bar above the map.
+					Choose <b>Filter the blueprint</b> from the button bar above the map.
 					<br />
 					<br />
 					Click the checkbox for a given layer to enable it for filtering the map. Use the next level
@@ -156,7 +156,7 @@
 				</p>
 			</div>
 			<div>
-				<enhanced:img src="$images/help-filter.png" alt="Shows filtering the Blueprint" />
+				<enhanced:img src="$images/help-filter.png" alt="Shows filtering the blueprint" />
 			</div>
 		</div>
 
@@ -171,13 +171,13 @@
 			<div>
 				<enhanced:img
 					src="$images/help-filter-before.png"
-					alt="Shows filtering the Blueprint showing before filters are applied"
+					alt="Shows filtering the blueprint showing before filters are applied"
 				/>
 			</div>
 			<div>
 				<enhanced:img
 					src="$images/help-filter-after.png"
-					alt="Shows filtering the Blueprint showing after filters are applied"
+					alt="Shows filtering the blueprint showing after filters are applied"
 				/>
 			</div>
 		</div>
@@ -192,7 +192,7 @@
 		<h2 class="text-4xl">Create a custom report for a specific area of interest:</h2>
 		<p class="mt-2">
 			Click on the <b>Upload a shapefile</b> button in the upper right. You will be able to upload
-			your area of interest and create a detailed PDF report of the Blueprint, hubs and corridors,
+			your area of interest and create a detailed PDF report of the blueprint, hubs and corridors,
 			underlying indicators, and landscape-level threats in that area.
 			<br />
 			<br />
@@ -211,8 +211,8 @@
 
 		<h2 class="text-4xl">Display different map layers:</h2>
 		<p class="mt-2">
-			You can display map layers other than the Blueprint. Choose
-			<b>View point data</b> or <b>Filter the Blueprint</b> from the button bar above the map, and then
+			You can display map layers other than the blueprint. Choose
+			<b>View point data</b> or <b>Filter the blueprint</b> from the button bar above the map, and then
 			click the button in the upper right of the map to display the list of available layers.
 		</p>
 

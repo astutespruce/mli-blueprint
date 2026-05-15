@@ -15,13 +15,13 @@
 			<Title class="text-3xl">Contact us</Title>
 		</Header>
 		<p class="text-lg">
-			Do you have a question about the Blueprint? Would you like help using the Blueprint to support
-			a proposal or inform a decision? Midwest Blueprint staff are here to support you! We really
-			mean it. It is what we do!
+			Do you have a question about the blueprint? Would you like help using the blueprint to support
+			a proposal or inform a decision? Midwest Landscape Initiative staff are here to support you!
+			We really mean it. It is what we do!
 			<br />
 			<br />
 			Please reach out to
-			<a href={CONTACT_URL} target="_blank"> Blueprint user support staff</a>.
+			<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff</a>.
 		</p>
 	</Content>
 </Root>

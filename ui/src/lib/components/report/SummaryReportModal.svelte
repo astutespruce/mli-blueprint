@@ -169,15 +169,15 @@
 			/>
 		{:else}
 			<p class="text-xl">
-				Create and download a Blueprint summary report for this area. This detailed report includes
-				maps and analysis of the Blueprint priorities and each indicator present in this area, as
+				Create and download a blueprint summary report for this area. This detailed report includes
+				maps and analysis of the blueprint priorities and each indicator present in this area, as
 				well as potential threats and protected areas.
 			</p>
 			<p class="text-md">
 				Note: we have made every possible effort to ensure that the information provided in this
 				viewer is accessible to people with disabilities. If you cannot fully access the
 				information, please reach out to
-				<a href={CONTACT_URL} target="_blank"> Blueprint user support staff </a>
+				<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
 				so that we can provide the information in an alternate format.
 			</p>
 		{/if}

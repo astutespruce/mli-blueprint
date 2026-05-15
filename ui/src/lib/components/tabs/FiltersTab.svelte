@@ -94,7 +94,7 @@
 	<div class="flex justify-between flex-none pt-4 pb-2 px-2 border-b border-b-grey-2">
 		<div class="flex items-center gap-2">
 			<FilterIcon class="size-5" />
-			<h2 class="text-2xl leading-tight">Filter the Blueprint</h2>
+			<h2 class="text-2xl leading-tight">Filter the blueprint</h2>
 		</div>
 		<div
 			class={cn('flex justify-end items-center', {
@@ -114,7 +114,7 @@
 		{:else if mapData.hasVisibleFilters}
 			<div class="flex flex-col overflow-y-auto flex-auto h-full relative">
 				<div class="px-4 py-2 leading-tight text-grey-8">
-					Filters can help you find the part of the Blueprint that aligns with your mission,
+					Filters can help you find the part of the blueprint that aligns with your mission,
 					interest, or specific question. Enable the filters below to narrow down the Blueprint to
 					the part that falls within a range of values for one or more layers.
 				</div>

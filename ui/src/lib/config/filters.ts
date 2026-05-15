@@ -53,7 +53,7 @@ export const priorityFilters = [
 		id: 'blueprint',
 		label: 'Blueprint priority',
 		description:
-			'The Blueprint is a basemap of priority lands and waters for conservation in the Midwest.',
+			'The blueprint is a basemap of priority lands and waters for conservation in the Midwest.',
 		values: blueprint.slice().sort(sortByFunc('value')).slice(1, blueprint.length).reverse()
 	}
 ]
