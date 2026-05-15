@@ -191,7 +191,7 @@ df = (
     read_dataframe(
         src_dir / "boundaries/ne_50m_lakes.zip",
         columns=["name"],
-        where="name in ('Lake Superior', 'Lake Michigan', 'Lake Huron', 'Lake Saint Clair', 'Lake Erie')",
+        where="name in ('Lake Superior', 'Lake Michigan', 'Lake Huron', 'Lake Saint Clair', 'Lake Erie', 'Lake Ontario')",
     )
     .to_crs(DATA_CRS)
     .drop(columns=["name"])

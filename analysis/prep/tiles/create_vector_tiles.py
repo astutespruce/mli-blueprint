@@ -10,6 +10,7 @@ from analysis.constants import GEO_CRS, MLI_STATES
 
 data_dir = Path("data")
 se_src_dir = Path("../secas-blueprint/source_data").resolve()
+src_dir = Path("source_data")
 tmp_dir = Path("/tmp")
 out_dir = Path("tiles")
 out_dir.mkdir(exist_ok=True)
@@ -78,10 +79,15 @@ def create_tileset(infilename, outfilename, minzoom, maxzoom, layer_id, col_type
 ################################################################################
 tilesets = []
 print(
-    "\n\n------------------------------------------------\nCreating state tiles\n------------------------------------------------\n"
+    "\n\n------------------------------------------------\nCreating state & province tiles\n------------------------------------------------\n"
 )
 df = (
-    read_dataframe(se_src_dir / "boundaries/tl_2024_us_state.zip", columns=["STUSPS"], use_arrow=True)
+    read_dataframe(
+        se_src_dir / "boundaries/tl_2024_us_state.zip",
+        columns=["STUSPS"],
+        where="STUSPS not in ('HI', 'PR', 'VI', 'GU', 'AK') ",
+        use_arrow=True,
+    )
     .rename(columns={"STUSPS": "id"})
     .to_crs(GEO_CRS)
 )
@@ -89,6 +95,7 @@ df = (
 # simplify boundaries for cleaner rendering
 df["geometry"] = shapely.coverage_simplify(df.geometry.values, 0.025)
 write_dataframe(df, "/tmp/check.fgb")
+
 
 infilename = tmp_dir / "mli_states.fgb"
 write_dataframe(df.loc[df.id.isin(MLI_STATES)].explode(ignore_index=True), infilename)
@@ -101,6 +108,31 @@ write_dataframe(df.loc[~df.id.isin(MLI_STATES)].explode(ignore_index=True), infi
 outfilename = tmp_dir / "other_states.mbtiles"
 tilesets.append(outfilename)
 create_tileset(infilename, outfilename, minzoom=0, maxzoom=5, layer_id="other_states", col_types=get_col_types(df))
+
+# extract US boundary
+us_bnd = gp.GeoDataFrame(geometry=[shapely.union_all(df.geometry.values)], crs=GEO_CRS)
+infilename = tmp_dir / "us_bnd.fgb"
+write_dataframe(us_bnd.explode(ignore_index=True), infilename)
+outfilename = tmp_dir / "us_bnd.mbtiles"
+tilesets.append(outfilename)
+create_tileset(infilename, outfilename, minzoom=0, maxzoom=5, layer_id="us_bnd")
+
+
+df = (
+    read_dataframe(
+        src_dir / "boundaries/CAN_provinces.gdb",
+        columns=["PRNAME"],
+        where="PRNAME in ('Manitoba', 'Ontario', 'Saskatchewan')",
+    )
+    .drop(columns=["PRNAME"])
+    .to_crs(GEO_CRS)
+)
+df["geometry"] = shapely.coverage_simplify(df.geometry.values, 0.025)
+infilename = tmp_dir / "provinces.fgb"
+write_dataframe(df, infilename)
+outfilename = tmp_dir / "provinces.mbtiles"
+tilesets.append(outfilename)
+create_tileset(infilename, outfilename, minzoom=0, maxzoom=5, layer_id="provinces")
 
 df = read_dataframe(data_dir / "boundaries/lakes.fgb").to_crs(GEO_CRS)
 infilename = tmp_dir / "lakes.fgb"

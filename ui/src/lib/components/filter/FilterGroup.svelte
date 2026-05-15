@@ -3,8 +3,6 @@
 	import Filter from './Filter.svelte'
 
 	const { id, icon, label, color, borderColor, entries, onChange } = $props()
-
-	console.log('id', id)
 </script>
 
 <div class="w-full flex-none">

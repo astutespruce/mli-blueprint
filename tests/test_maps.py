@@ -16,7 +16,7 @@ from api.stats.custom_area import get_custom_area_results
 from api.stats.summary_units import get_summary_unit_results
 
 aoi_names = [
-    # "test_wi_rect",
+    "test_wi_rect",
 ]
 
 for aoi_name in aoi_names:
@@ -67,9 +67,9 @@ for aoi_name in aoi_names:
 ### Write maps for a summary unit
 
 ids = {
-    "huc12": [
-        "070600030303",
-    ],
+    # "huc12": [
+    #     "070600030303",
+    # ],
 }
 
 
