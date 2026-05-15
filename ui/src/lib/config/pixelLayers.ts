@@ -62,7 +62,7 @@ const coreLayers: PixelLayer[] = [
 	{
 		id: 'blueprint',
 		label: 'Blueprint priority',
-		// valueLabel: 'for a connected network of lands and waters', // used in legend
+		valueLabel: 'for the wellbeing of people and nature', // used in legend
 		// sort colors in ascending value; blueprint is in descending order
 		colors: blueprint.map(({ color, value }) => (value === 0 ? null : color)).reverse(),
 		categories: blueprintCategories,

@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { cn } from '$lib/utils'
 	import Filter from './Filter.svelte'
 
-	const { icon, label, color, borderColor, entries, onChange } = $props()
+	const { id, icon, label, color, borderColor, entries, onChange } = $props()
+
+	console.log('id', id)
 </script>
 
 <div class="w-full flex-none">
@@ -12,7 +15,13 @@
 	>
 		<div class="flex items-center justify-between">
 			<div class="flex items-center gap-2">
-				<img src={icon} alt={`${label} icon`} class="w-[2em] h-[2em] bg-white rounded-full" />
+				<img
+					src={icon}
+					alt={`${label} icon`}
+					class={cn('w-[2em] h-[2em] bg-white rounded-full ', {
+						'border-[1.5px] border-grey-8': id !== 'priorities' && id !== 'other-info'
+					})}
+				/>
 				<h3 class="text-lg">{label}</h3>
 			</div>
 		</div>

@@ -10,11 +10,11 @@
 	<Trigger class={cn(triggerClass)}>
 		{@render children()}
 	</Trigger>
-	<Content class="pt-4 pb-6">
+	<Content class="pt-4 pb-6 pr-12">
 		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Contact us</Title>
 		</Header>
-		<p class="text-lg">
+		<p class="text-lg pt-2">
 			Do you have a question about the blueprint? Would you like help using the blueprint to support
 			a proposal or inform a decision? Midwest Landscape Initiative staff are here to support you!
 			We really mean it. It is what we do!

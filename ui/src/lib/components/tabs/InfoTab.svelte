@@ -3,7 +3,7 @@
 	import { BLUEPRINT_URL, DEPLOY_ENV } from '$lib/env'
 	import TimesCircle from '~icons/fa-solid/times-circle'
 	import { Root as Alert } from '$lib/components/ui/alert'
-	import MLILogo from '$images/MLI_logo.png'
+	import MLILogo from '$images/MLI_logo_graphic.svg'
 	import { cn } from '$lib/utils'
 
 	const isStaging = DEPLOY_ENV === 'staging'

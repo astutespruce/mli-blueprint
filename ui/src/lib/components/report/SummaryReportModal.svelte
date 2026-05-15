@@ -150,39 +150,41 @@
 			Export detailed maps and analysis
 		</div>
 	</Trigger>
-	<Content class="pt-4 pb-6">
+	<Content class="pt-4 pb-6 pr-6">
 		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Blueprint Summary Report</Title>
 		</Header>
-		{#if reportState.error !== null}
-			<ReportError error={reportState.error} />
-		{:else if reportState.reportURL !== null}
-			<Done errors={reportState.errors} />
-			<p class="text-lg">You can also click the button below to download your report.</p>
-		{:else if reportState.inProgress}
-			<Progress message={reportState.message} progress={reportState.progress} />
-		{:else if reportState.status === 'queued'}
-			<Queued
-				message={reportState.message}
-				queuePosition={reportState.queuePosition}
-				elapsedTime={reportState.elapsedTime}
-			/>
-		{:else}
-			<p class="text-xl">
-				Create and download a blueprint summary report for this area. This detailed report includes
-				maps and analysis of the blueprint priorities and each indicator present in this area, as
-				well as potential threats and protected areas.
-			</p>
-			<p class="text-md">
-				Note: we have made every possible effort to ensure that the information provided in this
-				viewer is accessible to people with disabilities. If you cannot fully access the
-				information, please reach out to
-				<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
-				so that we can provide the information in an alternate format.
-			</p>
-		{/if}
 
-		<hr class="my-0" />
+		<div class="pt-2 pb-4">
+			{#if reportState.error !== null}
+				<ReportError error={reportState.error} />
+			{:else if reportState.reportURL !== null}
+				<Done errors={reportState.errors} />
+				<p class="text-lg">You can also click the button below to download your report.</p>
+			{:else if reportState.inProgress}
+				<Progress message={reportState.message} progress={reportState.progress} />
+			{:else if reportState.status === 'queued'}
+				<Queued
+					message={reportState.message}
+					queuePosition={reportState.queuePosition}
+					elapsedTime={reportState.elapsedTime}
+				/>
+			{:else}
+				<p class="text-xl">
+					Create and download a blueprint summary report for this area. This detailed report
+					includes maps and analysis of the blueprint priorities and each indicator present in this
+					area, as well as potential threats and protected areas.
+				</p>
+				<p class="text-md mt-4">
+					Note: we have made every possible effort to ensure that the information provided in this
+					viewer is accessible to people with disabilities. If you cannot fully access the
+					information, please reach out to
+					<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
+					so that we can provide the information in an alternate format.
+				</p>
+			{/if}
+		</div>
+		<hr class="mt-0 mb-4" />
 		<div class="flex justify-between items-center gap-4">
 			<Button onclick={handleClose} variant="outline" class="text-lg">Cancel</Button>
 

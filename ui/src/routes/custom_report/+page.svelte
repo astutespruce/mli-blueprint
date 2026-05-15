@@ -149,7 +149,7 @@
 	<div class="relative z-0 w-full overflow-hidden h-56">
 		<div class="z-1 absolute top-[-40%]">
 			<enhanced:img
-				src="$images/53858467165_ab032617be_o.jpg"
+				src="$images/IndianaDNR_Fountain_County_Wetland.jpg"
 				class="h-auto min-w-[720px] object-cover"
 				alt=""
 			/>
@@ -161,12 +161,7 @@
 		</div>
 	</div>
 	<div class="text-sm text-grey-8 text-right pr-1">
-		Photo: Sunrise over the prairie at Big Stone National Wildlife Refuge, <a
-			href="https://www.flickr.com/photos/usfwsmidwest/53858467165"
-			target="_blank"
-			tabindex="-1"
-			class="text-grey-8">U.S. Fish and Wildlife Service Midwest Region</a
-		>
+		Photo: Fountain County Wetland, Indiana DNR.
 	</div>
 
 	{#if reportState.error !== null}

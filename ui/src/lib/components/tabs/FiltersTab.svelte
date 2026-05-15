@@ -120,6 +120,7 @@
 				</div>
 
 				<FilterGroup
+					id="priorities"
 					label="Filter by priorities"
 					icon={BlueprintIcon}
 					color="#4d004b0d"
@@ -130,6 +131,7 @@
 
 				{#each indicatorGroups as { id, label, color, borderColor } (id)}
 					<FilterGroup
+						{id}
 						label={`Filter by ${label.toLowerCase()}`}
 						icon={indicatorGroupIcons[id as keyof typeof indicatorGroupIcons]}
 						{color}
@@ -140,6 +142,7 @@
 				{/each}
 
 				<FilterGroup
+					id="other-info"
 					label="More filters"
 					icon={OtherInfoIcon}
 					color="#f3c6a830"

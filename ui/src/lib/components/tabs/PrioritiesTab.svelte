@@ -54,7 +54,7 @@
 
 <section class={cn('flex-auto overflow-y-auto h-full p-4', className)}>
 	<h3 class="text-2xl">Midwest Blueprint 2026 Priority</h3>
-	<!-- <div class="text-grey-9">for a connected network of lands and waters</div> -->
+	<div class="text-grey-9">for the wellbeing of people and nature</div>
 	{#if type !== 'pixel'}
 		<PieChart categories={blueprintChartData} class="mt-6 mb-4" />
 	{/if}

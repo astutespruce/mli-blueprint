@@ -9,11 +9,11 @@
 	<Trigger>
 		{@render children()}
 	</Trigger>
-	<Content class="pt-4 pb-6">
+	<Content class="pt-4 pb-6 pr-12">
 		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Report a problem</Title>
 		</Header>
-		<p class="text-lg">
+		<p class="text-lg mt-2">
 			Did you encounter an error while using this application? Do you see a problem with the
 			blueprint priorities or indicator areas?
 			<br />

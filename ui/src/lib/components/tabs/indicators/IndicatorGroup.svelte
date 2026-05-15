@@ -26,7 +26,7 @@
 			<img
 				src={icon}
 				alt={`${label} icon`}
-				class="flex-none w-8 h-8 bg-white rounded-full border-[1.5px] border-[#999999] p-px"
+				class="flex-none w-8 h-8 bg-white rounded-full border-[1.5px] border-grey-8 p-px"
 			/>
 			<h3 class="flex-auto text-xl">{label} indicators</h3>
 		</div>

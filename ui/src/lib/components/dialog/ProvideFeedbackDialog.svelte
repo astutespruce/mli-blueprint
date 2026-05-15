@@ -13,7 +13,7 @@
 		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Give your feedback to Midwest Landscape Initiative Staff</Title>
 		</Header>
-		<p class="text-lg">
+		<p class="text-lg pt-2 pr-12">
 			The blueprint and its inputs are regularly revised based on input from people like you. Have a
 			suggestion on how to improve the priorities? Let us know! We also welcome feedback on how to
 			improve the Midwest Conservation Blueprint Explorer interface. Midwest Landscape Initiative
