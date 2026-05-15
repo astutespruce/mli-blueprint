@@ -82,7 +82,7 @@
 					{formatPercent(totalGoodPercent)}% in good condition
 				</div>
 			</div>
-			<div class="border-b border-dashed border-b-grey-6 h-[1px] my-2"></div>
+			<div class="border-b border-dashed border-b-grey-9/50 h-[1px] my-2"></div>
 			<div class="flex justify-center items-center gap-1">
 				<ArrowDownIcon class="size-4" />
 				<div class="w-[14em]">

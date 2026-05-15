@@ -22,7 +22,7 @@
 		{sideOffset}
 		{side}
 		class={cn(
-			'bg-white border border-grey-4 drop-shadow-md origin-(--bits-tooltip-content-transform-origin) z-10000 w-fit text-balance rounded-md px-3 py-1.5 text-xs data-[side=bottom]:-mt-1',
+			'bg-white border border-grey-9 drop-shadow-md origin-(--bits-tooltip-content-transform-origin) z-10000 w-fit text-balance rounded-md px-3 py-1.5 text-xs data-[side=bottom]:-mt-1',
 			className
 		)}
 		{...restProps}

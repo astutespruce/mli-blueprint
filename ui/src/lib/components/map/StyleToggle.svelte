@@ -25,7 +25,7 @@
 
 <Button
 	onclick={handleToggle}
-	class="absolute z-1 overflow-hidden right-[10px] md:right-auto md:left-[10px] top-[14px] md:top-auto md:bottom-[40px] w-[40px] md:w-[64px] h-[40px] md:h-[64px] rounded-full border md:border-2 border-white shadow-lg shadow-grey-8 ring-1 ring-grey-4 p-0 focus-visible:ring-accent"
+	class="absolute z-1 overflow-hidden right-[10px] md:right-auto md:left-[10px] top-[14px] md:top-auto md:bottom-[40px] w-[40px] md:w-[64px] h-[40px] md:h-[64px] rounded-full border md:border-2 border-white shadow-lg shadow-grey-8 ring-1 ring-grey-9/30 p-0 focus-visible:ring-accent"
 >
 	<img src={icon} alt={label} class="w-full h-full" />
 </Button>

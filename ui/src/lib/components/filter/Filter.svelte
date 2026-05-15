@@ -73,7 +73,7 @@
 			onclick={handleFilterToggle}
 			onkeydown={handleKeyDown}
 			class={cn(
-				'label flex-auto pl-4 py-1 border-2 border-transparent cursor-pointer group hover:bg-blue-0',
+				'label flex-auto pl-4 py-1 border-2 border-transparent cursor-pointer group hover:bg-grey-0',
 				{
 					'font-bold': enabled
 				}
@@ -82,14 +82,14 @@
 			<div class="flex flex-auto items-center gap-2">
 				<div class="relative">
 					<FilterIcon
-						class={cn('size-4 top-0 relative text-grey-4 group-hover:text-grey-9', {
+						class={cn('size-4 top-0 relative text-grey-9/30 group-hover:text-grey-9', {
 							'text-grey-9': enabled
 						})}
 						aria-hidden="true"
 					/>
 					<Plus
 						class={cn(
-							'size-[0.7em] absolute top-[0.1rem] -left-2 text-grey-4  group-hover:text-grey-9',
+							'size-[0.7em] absolute top-[0.1rem] -left-2 text-grey-9/40  group-hover:text-grey-9',
 							{
 								hidden: enabled
 							}

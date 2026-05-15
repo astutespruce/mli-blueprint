@@ -10,7 +10,7 @@
 
 <header
 	class={cn(
-		'flex-none leading-none drop-shadow-sm drop-shadow-black z-10000 bg-primary text-white',
+		'flex-none leading-none drop-shadow-sm drop-shadow-black z-10000 bg-blue-9 text-white',
 		{
 			'hidden md:block': hasData
 		}

@@ -7,43 +7,53 @@
 @import 'tw-animate-css';
 
 :root {
-	/* adapted from theme-ui, converted using https://oklch.com/ */
-	--background: oklch(1 0 0);
-	--foreground: oklch(0.3211 0 0);
-	/* same as grey-8 */
-	--muted-foreground: oklch(0.5312 0.0266 246.33);
-	--primary: oklch(0.5608 0.1425 245.46);
-	--primary-foreground: oklch(1 0 0);
-	--accent: oklch(0.7517 0.1538 58.44);
-	--error: oklch(0.5825 0.1839 38.82);
-	--ok: oklch(0.5928 0.1414 135.34);
-	--link: oklch(0.5578 0.1423 245.64);
-
-	/* NOTE: values less than 8 do not meet contrast ratio guidelines for text */
 	--white: oklch(1 0 0);
-	--grey-0: oklch(0.9824 0.0013 286.38);
-	--grey-1: oklch(0.9479 0.0025 228.79);
-	--grey-2: oklch(0.9083 0.0052 247.88);
-	--grey-3: oklch(0.8652 0.0082 253.86);
-	--grey-4: oklch(0.8195 0.0105 238.54);
-	--grey-5: oklch(0.7661 0.0145 248.02);
-	--grey-6: oklch(0.7042 0.0185 248.09);
-	--grey-7: oklch(0.6299 0.0225 243.6);
-	--grey-8: oklch(0.5312 0.0266 246.33);
-	--grey-9: oklch(0.3673 0.0174 248.3);
 	--black: oklch(0 0 0);
 
-	/* generated using https://harmonizer.evilmartians.com/ from base hue */
-	--blue-0: oklch(0.98 0.01875 245.5); /* FIXME: */
-	--blue-1: oklch(0.9639 0.01875 245.5);
-	--blue-2: oklch(0.9155 0.0453125 245.5);
-	--blue-3: oklch(0.8496 0.0828125 245.5);
-	--blue-4: oklch(0.7842 0.121875 245.5);
-	--blue-5: oklch(0.7021 0.165625 245.5);
-	--blue-6: oklch(0.6084 0.14375 245.5);
-	--blue-7: oklch(0.5195 0.1234375 245.5);
-	--blue-8: oklch(0.4077 0.096875 245.5);
-	--blue-9: oklch(0.2983 0.0703125 245.5);
+	/* much lighter version of grey-2 */
+	--grey-0: oklch(0.9822 0 0);
+
+	/* lighter version of grey-2 */
+	--grey-1: oklch(0.9422 0 0);
+
+	/* MLI palette light grey */
+	--grey-2: oklch(0.8822 0 0);
+
+	/* darker version of grey-2 */
+	--grey-8: oklch(0.522 0 0);
+
+	/* much darker version of grey-2 */
+	--grey-9: oklch(0.3622 0 0);
+
+	/* MLI palette light blue */
+	--blue-2: oklch(0.9023 0.0371 238.11);
+
+	/* MLI palette mid blue */
+	--blue-8: oklch(0.6301 0.1163 243.73);
+
+	/* MLI palette dark blue */
+	--blue-9: oklch(0.3979 0.0744 243.53);
+
+	/* MLI palette light green */
+	--green-2: oklch(0.8176 0.1203 120.16);
+
+	/* MLI palette mid green */
+	--green-8: oklch(0.7016 0.1415 121.66);
+
+	/* adapted from theme-ui, converted using https://oklch.com/ */
+	--background: var(--white);
+	--foreground: oklch(0.3211 0 0);
+	--muted-foreground: var(--grey-9);
+
+	--primary: var(--blue-8);
+	--secondary: var(--green-8);
+
+	--primary-foreground: var(--white);
+	--accent: oklch(0.7517 0.1538 58.44);
+	--error: oklch(0.5825 0.1839 38.82);
+	--ok: var(--green-8);
+
+	--link: var(--blue-8);
 
 	--radius: 0.5rem;
 }
@@ -70,31 +80,21 @@
 	--color-grey-0: var(--grey-0);
 	--color-grey-1: var(--grey-1);
 	--color-grey-2: var(--grey-2);
-	--color-grey-3: var(--grey-3);
-	--color-grey-4: var(--grey-4);
-	--color-grey-5: var(--grey-5);
-	--color-grey-6: var(--grey-6);
-	--color-grey-7: var(--grey-7);
 	--color-grey-8: var(--grey-8);
 	--color-grey-9: var(--grey-9);
 
-	--color-blue-0: var(--blue-0);
-	--color-blue-1: var(--blue-1);
 	--color-blue-2: var(--blue-2);
-	--color-blue-3: var(--blue-3);
-	--color-blue-4: var(--blue-4);
-	--color-blue-5: var(--blue-5);
-	--color-blue-6: var(--blue-6);
-	--color-blue-7: var(--blue-7);
 	--color-blue-8: var(--blue-8);
 	--color-blue-9: var(--blue-9);
 
 	--color-white: var(--white);
 	--color-black: var(--black);
 
-	--color-secondary: var(--grey-1);
-	--color-secondary-foreground: var(--secondary-grey-8);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--white);
 	--color-destructive: var(--error);
+
+	--color-input: var(--grey-9);
 
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
@@ -135,7 +135,7 @@
 	}
 
 	hr {
-		@apply my-12 border-grey-3;
+		@apply my-12 border-grey-2;
 	}
 
 	.mapboxgl-ctrl-zoom-in,
@@ -153,10 +153,6 @@
 	.mapboxgl-ctrl-top-right {
 		@apply !top-[50px];
 	}
-
-	/* canvas {
-		@apply md:border-l-2 border-l-grey-3 focus-visible:border-l-[blue];
-	} */
 }
 
 @utility container {

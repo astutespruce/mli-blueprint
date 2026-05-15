@@ -18,25 +18,25 @@
 >
 	<div class="text-grey-8 font-sm flex-none">Low</div>
 	<div
-		class={cn('flex items-center flex-auto mx-4 border border-grey-4', {
-			'border-grey-6': isPresent
+		class={cn('flex items-center flex-auto mx-4 border border-grey-9/40', {
+			'border-grey-9/50': isPresent
 		})}
 	>
 		<!-- always have a 0 bin -->
 		{#if values[0].value > 0}
 			<div
-				class="relative flex-auto h-3 bg-grey-0 not-first:border-l not-first:border-l-grey-3"
+				class="relative flex-auto h-3 bg-grey-0 not-first:border-l not-first:border-l-grey-2"
 			></div>
 		{/if}
 		{#each values as { value, percent } (value)}
 			<div
-				class={cn('relative flex-auto h-3 bg-grey-0 not-first:border-l not-first:border-l-grey-3', {
+				class={cn('relative flex-auto h-3 bg-grey-0 not-first:border-l not-first:border-l-grey-2', {
 					'bg-grey-8': percent === 100
 				})}
 			>
 				{#if value === goodThreshold}
 					<div
-						class="absolute text-grey-8 text-xs border-l border-dashed border-l-grey-6 w-[94px] top-[-1.2rem]"
+						class="absolute text-grey-8 text-xs border-l border-dashed border-l-grey-9/50 w-[94px] top-[-1.2rem]"
 					>
 						&rarr; good condition
 					</div>

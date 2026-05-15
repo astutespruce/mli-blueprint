@@ -42,10 +42,10 @@
 		<LayerGroupIcon class="w-6 h-6 md:w-5.25 md:h-5.25" />
 	</Trigger>
 	<Content class="pt-4 pb-6">
-		<Header class="border-b pb-4 border-b-grey-3">
+		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Choose layer to show on map</Title>
 		</Header>
-		<div class="overflow-y-auto max-h-[400px]">
+		<div class="overflow-y-auto max-h-[400px] py-2">
 			{#each renderLayerGroups as { label: groupLabel, layers } (groupLabel)}
 				<div class="not-first:mt-2 not-first:pt-2 not-first:border-t not-first:border-t-grey-1">
 					{#if groupLabel}
@@ -62,7 +62,7 @@
 							{#if isActiveLayer(id)}
 								<EyeIcon class="text-foreground size-4 mt-1" />
 							{:else}
-								<EyeSlashIcon class="text-grey-8 size-4 mt-1" />
+								<EyeSlashIcon class="text-grey-9/40 size-4 mt-1" />
 							{/if}
 							<div class={cn({ 'font-bold': isActiveLayer(id) })}>{label}</div>
 						</div>

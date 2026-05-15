@@ -35,7 +35,7 @@
 </script>
 
 <div
-	class="flex flex-col md:flex-wrap md:flex-row justify-center md:justify-start items-center md:gap-2 absolute text-center pt-3 pb-2 px-4 bg-white text-foreground shadow-md shadow-grey-6 z-1 left-0 md:left-[21px] right-0 md:right-auto bottom-0 md:bottom-auto md:top-0 md:rounded-b-xl"
+	class="flex flex-col md:flex-wrap md:flex-row justify-center md:justify-start items-center md:gap-2 absolute text-center pt-3 pb-2 px-4 bg-white text-foreground shadow-md shadow-grey-9/75 z-1 left-0 md:left-[21px] right-0 md:right-auto bottom-0 md:bottom-auto md:top-0 md:rounded-b-xl"
 >
 	<div class="flex items-center flex-nowrap justify-center md:justify-start gap-0.5">
 		<ModeTooltip

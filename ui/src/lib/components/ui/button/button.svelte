@@ -11,7 +11,7 @@
 				destructive:
 					'bg-destructive shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white',
 				outline:
-					'bg-transparent hover:bg-black/20 hover:text-accent-foreground border border-white',
+					'bg-transparent hover:bg-grey-0 hover:text-accent-foreground border border-grey-9/50',
 				secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
 				ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
 				link: 'text-primary underline-offset-4 hover:underline'

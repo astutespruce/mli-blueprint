@@ -151,7 +151,7 @@
 		</div>
 	</Trigger>
 	<Content class="pt-4 pb-6">
-		<Header class="border-b pb-4 border-b-grey-3">
+		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Blueprint Summary Report</Title>
 		</Header>
 		{#if reportState.error !== null}
@@ -184,7 +184,7 @@
 
 		<hr class="my-0" />
 		<div class="flex justify-between items-center gap-4">
-			<Button onclick={handleClose} variant="secondary" class="text-lg">Cancel</Button>
+			<Button onclick={handleClose} variant="outline" class="text-lg">Cancel</Button>
 
 			{#if reportState.reportURL}
 				<Button href={reportState.reportURL} class="text-lg no-underline">

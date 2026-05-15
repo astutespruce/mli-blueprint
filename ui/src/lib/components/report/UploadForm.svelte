@@ -163,7 +163,7 @@
 								/>
 								<div
 									class={cn(
-										'border-2 border-grey-5 rounded-lg bg-grey-1/40 border-dashed p-6 flex flex-col justify-center items-center text-center cursor-pointer mt-2',
+										'border-2 border-grey-9/50 rounded-lg bg-grey-1/40 border-dashed p-6 flex flex-col justify-center items-center text-center cursor-pointer mt-2',
 										{
 											'border-error': isDragValid === false || $errors.file,
 											'bg-error/10': isDragValid === false || $errors.file,
@@ -219,7 +219,7 @@
 				<div class="flex justify-between border-t border-t-grey-2 pt-8 mt-8">
 					<div>
 						{#if isFileValid}
-							<Button onclick={handleResetFile} variant="secondary" class="text-xl"
+							<Button onclick={handleResetFile} variant="outline" class="text-xl"
 								>Choose a different file</Button
 							>
 						{/if}

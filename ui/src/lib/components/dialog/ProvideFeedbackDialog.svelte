@@ -10,7 +10,7 @@
 		{@render children()}
 	</Trigger>
 	<Content class="pt-4 pb-6">
-		<Header class="border-b pb-4 border-b-grey-3">
+		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Give your feedback to Blueprint Staff</Title>
 		</Header>
 		<p class="text-lg">

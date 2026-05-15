@@ -662,7 +662,7 @@
 </script>
 
 <div
-	class="h-full w-full flex-auto relative md:border-l-2 border-l-grey-3 has-focus-visible:border-l-primary overflow-hidden"
+	class="h-full w-full flex-auto relative md:border-l-2 border-l-grey-9/40 has-focus-visible:border-l-primary overflow-hidden"
 >
 	<div class="h-full w-full" {@attach createMap}></div>
 

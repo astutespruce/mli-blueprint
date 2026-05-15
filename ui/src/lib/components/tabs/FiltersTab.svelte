@@ -91,7 +91,7 @@
 </script>
 
 <section class={cn('flex flex-col h-full', className)}>
-	<div class="flex justify-between flex-none pt-4 pb-2 px-2 border-b border-b-grey-3">
+	<div class="flex justify-between flex-none pt-4 pb-2 px-2 border-b border-b-grey-2">
 		<div class="flex items-center gap-2">
 			<FilterIcon class="size-5" />
 			<h2 class="text-2xl leading-tight">Filter the Blueprint</h2>

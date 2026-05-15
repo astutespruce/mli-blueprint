@@ -26,7 +26,7 @@
 </script>
 
 <div
-	class="absolute z-1 text-grey-9 bg-white cursor-pointer bottom-10 lg:bottom-6 right-2.5 border border-grey-5 rounded-sm shadow-md shadow-grey-6 max-w-52.5 select-none hidden md:block focus-visible:outline-2 outline-accent"
+	class="absolute z-1 text-grey-9 bg-white cursor-pointer bottom-10 lg:bottom-6 right-2.5 border border-grey-9/50 rounded-sm shadow-md shadow-grey-9/75 max-w-52.5 select-none hidden md:block focus-visible:outline-2 outline-accent"
 	onclick={toggleVisibility}
 	onkeydown={handleKeyDown}
 	role="button"
@@ -39,7 +39,7 @@
 					{title}
 				</div>
 				<Button
-					class="flex-none bg-grey-0 text-foreground border border-grey-7 rounded-sm p-0 leading-none hover:bg-grey-1 w-7 h-7"
+					class="flex-none bg-grey-0 text-foreground border border-grey-9/50 hover:border-grey-9 rounded-sm p-0 leading-none hover:bg-grey-1 w-7 h-7"
 					title={`Click to ${isVisible ? 'hide' : 'show'}`}
 					onclick={toggleLayerVisibility}
 					tabindex={0}

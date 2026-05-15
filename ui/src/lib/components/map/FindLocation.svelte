@@ -80,7 +80,7 @@
 
 <div
 	class={cn(
-		'hidden md:block absolute p-[6px] text-grey-9 bg-white pointer-events-auto rounded-lg border-2 border-grey-2 shadow-md shadow-grey-5 user-select-none z-2 top-0 right-0 w-[150px]',
+		'hidden md:block absolute p-[6px] text-grey-9 bg-white pointer-events-auto rounded-lg border-2 border-grey-2 shadow-md shadow-grey-9/50 user-select-none z-2 top-0 right-0 w-[150px]',
 		{
 			'w-[290px]': isFocused || showOptions
 		}
@@ -120,7 +120,7 @@
 	</div>
 
 	{#if showOptions}
-		<div class="mt-1 pt-1 border-t border-t-grey-3 leading-none">
+		<div class="mt-1 pt-1 border-t border-t-grey-2 leading-none">
 			<Button
 				onclick={setPlacenameMode}
 				class="text-md bg-white hover:bg-grey-0 text-foreground h-8 w-full shadow-none justify-start"
