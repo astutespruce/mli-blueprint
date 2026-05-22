@@ -161,7 +161,7 @@
 		</div>
 	</div>
 	<div class="text-sm text-grey-8 text-right pr-1">
-		Photo: Fountain County Wetland, Indiana DNR.
+		Photo: Wetland in Fountain County, IN. Iowa Department of Natural Resources.
 	</div>
 
 	{#if reportState.error !== null}

@@ -9,9 +9,9 @@ from rasterio.vrt import WarpedVRT
 from rasterio.warp import transform_bounds
 from rasterio.windows import Window
 
-from analysis.constants import DATA_CRS, NLCD_CODES, NLCD_INDEXES, MASK_RESOLUTION
+from analysis.constants import DATA_CRS, NLCD_CODES, NLCD_INDEXES
 from analysis.lib.colors import hex_to_uint8
-from analysis.lib.raster import add_overviews, write_raster, create_lowres_mask, remap
+from analysis.lib.raster import add_overviews, write_raster, remap
 
 NODATA = 255
 
