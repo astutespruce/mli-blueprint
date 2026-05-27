@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>How to use the blueprint Explorer</title>
+	<title>How to use the Blueprint Explorer</title>
 </svelte:head>
 
 <Header />
@@ -19,7 +19,7 @@
 		</div>
 		<div class="container mt-14">
 			<h1 class="text-7xl relative text-white z-2 text-shadow-sm text-shadow-black">
-				How to use this viewer
+				How to use the Blueprint Explorer
 			</h1>
 		</div>
 	</div>

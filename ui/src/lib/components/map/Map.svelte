@@ -677,7 +677,6 @@
 	)
 
 	const zoomFullExtent = () => {
-		console.log('zoom full extent', config.bounds)
 		map.fitBounds(config.bounds)
 	}
 </script>

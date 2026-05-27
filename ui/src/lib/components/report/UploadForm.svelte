@@ -248,8 +248,9 @@
 				to help you interpret and apply this information to your particular application!
 				<br />
 				<br />
-				We have made every possible effort to ensure that the information provided in this viewer is accessible
-				to people with disabilities. If you cannot fully access the information, please reach out to
+				We have made every possible effort to ensure that the information provided in the Blueprint Explorer
+				is accessible to people with disabilities. If you cannot fully access the information, please
+				reach out to
 				<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
 				so that we can provide the information in an alternate format.
 				<br />

@@ -67,7 +67,7 @@
 
 	<div class="md:hidden">
 		<hr class="my-6" />
-		<h2 class="text-2xl">How To Use This Viewer</h2>
+		<h2 class="text-2xl">How To Use The Blueprint Explorer</h2>
 		<h3 class="text-xl">Subwatershed details:</h3>
 		<p class="mt-1 text-lg">
 			Choose <b>Summary data</b> from the button bar below the map. Click on any subwatershed for

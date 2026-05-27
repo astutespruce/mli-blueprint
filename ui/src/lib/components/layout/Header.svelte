@@ -40,7 +40,7 @@
 				class="flex gap-1.5 items-center flex-none font-bold text-md bg-transparent hover:bg-black/20 no-underline px-2 py-1.5 border border-white cursor-pointer rounded-sm hover text-white focus:outline-2 focus:outline-accent"
 			>
 				<QuestionCircle />
-				<div class="hidden md:block">How to use this viewer</div>
+				<div class="hidden md:block">How to use the Blueprint Explorer</div>
 			</a>
 
 			<a
