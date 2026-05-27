@@ -279,7 +279,7 @@
 			maxBounds
 		})
 
-		map.addControl(new mapboxgl.NavigationControl(), 'top-right')
+		map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right')
 
 		window.map = map // for easier debugging and querying via console
 
@@ -290,6 +290,22 @@
 				'aria-label',
 				'interactive map showing Midwest Conservation Blueprint'
 			)
+
+			// add full extent button manually so it has proper tab order
+			const button = document.createElement('button')
+			button.onclick = zoomFullExtent
+			button.title = 'zoom to full extent'
+			button.tabIndex = 0
+
+			const span = document.createElement('span')
+			span.classList = 'mapboxgl-ctrl-icon'
+			// from @lucide/svelte/icons/maximize-2
+			span.style =
+				'background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1heGltaXplMi1pY29uIGx1Y2lkZS1tYXhpbWl6ZS0yIj48cGF0aCBkPSJNMTUgM2g2djYiLz48cGF0aCBkPSJtMjEgMy03IDciLz48cGF0aCBkPSJtMyAyMSA3LTciLz48cGF0aCBkPSJNOSAyMUgzdi02Ii8+PC9zdmc+);'
+			button.appendChild(span)
+
+			const container = document.querySelector('.mapboxgl-ctrl-top-right .mapboxgl-ctrl-group')
+			container?.appendChild(button)
 
 			// add sources
 			Object.entries(sources).forEach(([id, source]) => {
@@ -659,6 +675,11 @@
 	const displayLayer = $derived(
 		mapData.mapMode === 'unit' ? renderLayersIndex.blueprint : renderLayer
 	)
+
+	const zoomFullExtent = () => {
+		console.log('zoom full extent', config.bounds)
+		map.fitBounds(config.bounds)
+	}
 </script>
 
 <div

@@ -36,9 +36,9 @@
 		<a href={BLUEPRINT_URL} target="_blank"> blueprint webpage </a>.
 		<br />
 		<br />
-		The <b>Midwest Conservation Blueprint Explorer</b> is an online viewer designed to help you understand
-		the blueprint and discover how your area of interest scores on the blueprint priorities, indicators,
-		and other landscape-level information. Here, you can:
+		The <b>Midwest Conservation Blueprint Explorer</b> is designed to help you understand the blueprint
+		and discover how your area of interest scores on the blueprint priorities, indicators, and other landscape-level
+		information. Here, you can:
 	</p>
 
 	<ul class="text-lg list-disc pl-6 mt-1 [&>li]:pb-2">
@@ -61,7 +61,7 @@
 
 	<p class="hidden md:block text-lg mt-2">
 		<a href={resolve('/help')} target="_blank" rel="noreferrer">
-			Read instructions on how to use this viewer
+			Read instructions on how to use the Blueprint Explorer
 		</a>.
 	</p>
 

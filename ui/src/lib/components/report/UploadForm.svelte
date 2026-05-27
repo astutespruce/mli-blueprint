@@ -233,8 +233,8 @@
 				Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
 				interest to generate a detailed PDF report of the blueprint, underlying indicators, and
 				other contextual information for your area of interest. It includes a map and summary table
-				for every indicator present in the area, as well as additional information about
-				urbanization and sea-level rise.
+				for every indicator present in the area as well as projected urbanization and protected
+				areas.
 				<br />
 				<br />
 				Don&apos;t have a shapefile? You can create one using
