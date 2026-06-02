@@ -34,6 +34,18 @@
 
 		For more information, visit the
 		<a href={BLUEPRINT_URL} target="_blank"> blueprint webpage </a>.
+		<br /><br />
+		You can also use the
+		<a
+			href="https://experience.arcgis.com/experience/d05669f0532247bc96fffa8e3820f498/page/Viewer"
+			target="_blank">Viewer</a
+		>
+		for other ways to explore the Blueprint and provide feedback using the
+		<a
+			href="https://experience.arcgis.com/experience/d05669f0532247bc96fffa8e3820f498/page/Feedback"
+			target="_blank">Feedback app</a
+		>
+
 		<br />
 		<br />
 		The <b>Midwest Conservation Blueprint Explorer</b> is designed to help you understand the blueprint

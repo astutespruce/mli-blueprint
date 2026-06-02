@@ -1,5 +1,3 @@
-import ContactDialog from './ContactDialog.svelte';
-import ProvideFeedbackDialog from './ProvideFeedbackDialog.svelte';
-import ReportProblemDialog from './ReportProblemDialog.svelte';
+import ContactDialog from './ContactDialog.svelte'
 
-export { ContactDialog, ProvideFeedbackDialog, ReportProblemDialog };
+export { ContactDialog }

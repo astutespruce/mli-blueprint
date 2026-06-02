@@ -1,4 +1,5 @@
 <script lang="ts" module>
+	// added header variant
 	import { cn, type WithElementRef } from '$lib/utils.js'
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements'
 	import { type VariantProps, tv } from 'tailwind-variants'
@@ -14,7 +15,9 @@
 					'bg-transparent hover:bg-grey-0 hover:text-accent-foreground border border-grey-9/50',
 				secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
 				ghost: 'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
-				link: 'text-primary underline-offset-4 hover:underline'
+				link: 'text-primary underline-offset-4 hover:underline',
+				header:
+					'items-center flex-none font-bold text-md bg-white hover:bg-black/20 no-underline px-2 py-1.5 border border-white cursor-pointer rounded-sm hover:bg-white/90 text-blue-9 focus-visible:ring-2 focus-visible:ring-accent'
 			},
 			size: {
 				default: 'h-9 px-4 py-2 has-[>svg]:px-3',

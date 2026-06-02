@@ -1,11 +1,9 @@
 <script>
-	import Comments from '~icons/fa-solid/comments'
 	import Envelope from '~icons/fa-solid/envelope'
-	import ExclamationCircle from '~icons/fa-solid/ExclamationCircle'
 	import ExternalLinkAlt from '~icons/fa-solid/external-link-alt'
 	import { BLUEPRINT_URL } from '$lib/env'
 
-	import { ContactDialog, ProvideFeedbackDialog, ReportProblemDialog } from '$lib/components/dialog'
+	import { ContactDialog } from '$lib/components/dialog'
 </script>
 
 <footer
@@ -26,24 +24,6 @@
 					Contact us
 				</div>
 			</ContactDialog>
-		</div>
-		<div class="hidden lg:block">|</div>
-		<div class="flex-none">
-			<ReportProblemDialog>
-				<div class="items-center gap-2 cursor-pointer hover:underline hidden lg:flex">
-					<ExclamationCircle width="1em" height="1em" />
-					Report a problem
-				</div>
-			</ReportProblemDialog>
-		</div>
-		<div class="hidden lg:block">|</div>
-		<div class="flex-none">
-			<ProvideFeedbackDialog>
-				<div class="items-center gap-2 cursor-pointer hover:underline hidden lg:flex">
-					<Comments width="1em" height="1em" />
-					Provide feedback
-				</div>
-			</ProvideFeedbackDialog>
 		</div>
 		<div class="hidden lg:block">|</div>
 	</div>

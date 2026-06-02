@@ -15,6 +15,11 @@ if (browser && typeof SENTRY_DSN !== 'undefined') {
 			/extensions\//i,
 			/^chrome:\/\//i,
 			/^chrome-extension:\/\//i
+		],
+		ignoreErrors: [
+			// ignore pushstate errors that result from monkypatching svelte
+			// https://github.com/sveltejs/kit/issues/12177
+			/NS Pushstate prevention/
 		]
 	})
 	// @ts-ignore

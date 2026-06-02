@@ -15,11 +15,16 @@
 			<Title class="text-3xl">Contact us</Title>
 		</Header>
 		<p class="text-lg pt-2">
-			Do you have a question about the blueprint? Would you like help using the blueprint to support
-			a proposal or inform a decision? Midwest Landscape Initiative staff are here to support you!
-			We really mean it. It is what we do!
-			<br />
-			<br />
+			Did you encounter an error while using this application?
+			<br /><br />
+			Do you have a question about the blueprint?<br /><br />
+			Would you like help using the blueprint to
+			<a href="https://www.mlimidwest.org/support/" target="_blank"
+				>support a proposal or inform a decision</a
+			>?
+			<br /><br />
+			Midwest Landscape Initiative staff are here to support you! We really mean it. It is what we do!
+			<br /><br />
 			Please reach out to
 			<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff</a>.
 		</p>

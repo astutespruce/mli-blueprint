@@ -9,21 +9,23 @@
 
 <Header />
 <main class="h-full w-full flex-auto overflow-auto">
-	<div class="relative z-0 w-full overflow-hidden h-60">
-		<div class="z-1 absolute top-[-50%]">
+	<div class="relative z-0 w-full md:overflow-hidden md:h-60">
+		<div class="z-1 absolute top-[-50%] hidden md:block">
 			<enhanced:img
 				src="$images/51356236607_da97f278aa_o.jpg"
 				class="h-auto min-w-[720px] object-cover"
 				alt=""
 			/>
 		</div>
-		<div class="container mt-14">
-			<h1 class="text-7xl relative text-white z-2 text-shadow-sm text-shadow-black">
+		<div class="container mt-4 md:mt-14">
+			<h1
+				class="text-5xl md:text-7xl relative md:text-white z-2 md:text-shadow-sm md:text-shadow-black"
+			>
 				How to use the Blueprint Explorer
 			</h1>
 		</div>
 	</div>
-	<div class="text-sm text-grey-8 text-right pr-1">
+	<div class="text-sm text-grey-8 text-right pr-1 hidden sm:block">
 		Photo: Sunset at Crab Orchard National Wildlife Refuge, <a
 			href="https://www.flickr.com/photos/usfwsmidwest/51356236607/"
 			target="_blank"

@@ -2,7 +2,10 @@
 	import { resolve } from '$app/paths'
 
 	import FileUpload from '~icons/fa-solid/file-upload'
-	import QuestionCircle from '~icons/fa-solid/question-circle'
+	import InfoCircle from '~icons/fa-solid/info-circle'
+	import ViewerIcon from '~icons/fa-solid/map'
+	import FeedbackIcon from '~icons/fa-solid/comment-dots'
+	import { Button } from '$lib/components/ui/button'
 	import { cn } from '$lib/utils'
 
 	let { hasData = false } = $props()
@@ -17,7 +20,7 @@
 	)}
 >
 	<nav
-		class="sm:flex flex-auto justify-between items-center gap-3 pl-2 pr-4 py-1"
+		class="sm:flex flex-auto flex-wrap lg:justify-between items-center gap-3 pl-2 pr-4 py-1"
 		aria-label="Main navigation"
 	>
 		<a
@@ -33,23 +36,33 @@
 				Conservation Blueprint Explorer
 			</div>
 		</a>
-		<div class="hidden flex-none md:flex gap-3 lg:gap-5">
-			<a
-				href={resolve('/help')}
-				target="_blank"
-				class="flex gap-1.5 items-center flex-none font-bold text-md bg-transparent hover:bg-black/20 no-underline px-2 py-1.5 border border-white cursor-pointer rounded-sm hover text-white focus:outline-2 focus:outline-accent"
-			>
-				<QuestionCircle />
-				<div class="hidden md:block">How to use the Blueprint Explorer</div>
-			</a>
+		<div class="hidden flex-none md:flex gap-3">
+			<Button href={resolve('/help')} target="_blank" variant="header">
+				<InfoCircle />
+				<div class="hidden md:block">Instructions</div>
+			</Button>
 
-			<a
-				href={resolve('/custom_report')}
-				class="flex gap-1.5 items-center flex-none font-bold text-md bg-transparent hover:bg-black/20 no-underline px-2 py-1.5 border border-white cursor-pointer rounded-sm text-white focus:outline-2 focus:outline-accent"
-			>
+			<Button href={resolve('/custom_report')} variant="header">
 				<FileUpload />
 				Upload a shapefile
-			</a>
+			</Button>
+			<Button
+				href="https://experience.arcgis.com/experience/d05669f0532247bc96fffa8e3820f498/page/Viewer"
+				target="_blank"
+				variant="header"
+			>
+				<ViewerIcon />
+				Viewer</Button
+			>
+			<Button
+				href="https://experience.arcgis.com/experience/d05669f0532247bc96fffa8e3820f498/page/Feedback"
+				target="_blank"
+				variant="header"
+			>
+				<FeedbackIcon />
+
+				Feedback app
+			</Button>
 		</div>
 	</nav>
 </header>
