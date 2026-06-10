@@ -14,6 +14,7 @@
 			<enhanced:img
 				src="$images/51356236607_da97f278aa_o.jpg"
 				class="h-auto min-w-[720px] object-cover"
+				fetchpriority="high"
 				alt=""
 			/>
 		</div>

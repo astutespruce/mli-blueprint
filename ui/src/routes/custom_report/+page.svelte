@@ -151,6 +151,7 @@
 			<enhanced:img
 				src="$images/IndianaDNR_Fountain_County_Wetland.jpg"
 				class="h-auto min-w-[720px] object-cover"
+				fetchpriority="high"
 				alt=""
 			/>
 		</div>
