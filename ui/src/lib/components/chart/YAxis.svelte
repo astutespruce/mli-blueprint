@@ -26,7 +26,7 @@
 		</text>
 	{/if}
 
-	{#each ticks as { y, label: tickLabel }}
+	{#each ticks as { y, label: tickLabel } (y)}
 		<g transform={`translate(-4, ${y})`}>
 			<line x1={0} y1={0} x2={8} y2={0} stroke-width={1} class="stroke-grey-9" />
 

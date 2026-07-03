@@ -46,6 +46,7 @@
 			<h2 class="text-3xl">There was an unexpected error</h2>
 			<div class="mt-4 text-xl">
 				Please try again in a few minutes. If that still doesn't work, please
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a href={CONTACT_URL} target="_blank"> let us know</a>!
 			</div>
 		</div>

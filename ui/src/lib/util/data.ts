@@ -13,9 +13,9 @@ export const flatten = (records: [[]]) =>
  * @param {Array} records
  * @param {String} field
  */
-export const indexBy = (records: { [key: string]: any }, field: string) =>
+export const indexBy = (records: Record<string, any>[], field: string) =>
 	records.reduce(
-		(prev: {}, record: { [key: string]: any }) => Object.assign(prev, { [record[field]]: record }),
+		(prev: {}, record: Record<string, any>) => Object.assign(prev, { [record[field]]: record }),
 		{}
 	)
 

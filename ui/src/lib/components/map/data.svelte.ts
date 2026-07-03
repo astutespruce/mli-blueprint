@@ -1,3 +1,5 @@
+import { SvelteSet } from 'svelte/reactivity'
+
 import { defaultFilters } from '$lib/config/filters'
 import { logGAEvent } from '$lib/util/log'
 import type { Filter, Filters } from '$lib/types'
@@ -10,14 +12,14 @@ export class MapData {
 	#activeFilterValues = $derived.by(() =>
 		Object.fromEntries(
 			Object.entries(this.#filters)
-				.filter(([_, { enabled }]) => enabled)
+				.filter(([, { enabled }]) => enabled)
 				.map(([id, { activeValues }]) => [id, activeValues])
 		)
 	)
 	#numEnabledFilters = $derived.by(
 		() => Object.values(this.#filters).filter(({ enabled }) => enabled).length
 	)
-	#visibleSubregions: Set<string> = $state.raw(new Set<string>())
+	#visibleSubregions: Set<string> = $state.raw(new SvelteSet<string>())
 	#filtersLoading: boolean = $state(true) // set to false on first set of visible subregions
 
 	get mapMode(): string {

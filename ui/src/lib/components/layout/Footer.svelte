@@ -12,6 +12,7 @@
 	<div class="flex flex-none gap-3 items-center">
 		<div>Version: Midwest Conservation Blueprint 2026</div>
 		<div>|</div>
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 		<a href={BLUEPRINT_URL} target="_blank" class="flex gap-2 items-center">
 			<ExternalLinkAlt width="1em" height="1em" />
 			Blueprint webpage

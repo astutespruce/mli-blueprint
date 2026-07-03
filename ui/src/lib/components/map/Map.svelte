@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { getContext, untrack } from 'svelte'
+	import { SvelteSet } from 'svelte/reactivity'
 	import { MapboxOverlay } from '@deck.gl/mapbox'
+	import * as mapboxgl from 'mapbox-gl/esm'
+	import type { Map, Marker, SourceSpecification } from 'mapbox-gl/esm'
+	import 'mapbox-gl/dist/mapbox-gl.css'
 
 	import CrosshairsIcon from '$images/CrosshairsIcon.svg'
 	import Spinner from '~icons/fa-solid/spinner'
@@ -13,6 +17,7 @@
 	import { mapConfig as config, sources, layers } from '$lib/config/map'
 	import { pixelLayers, renderLayersIndex } from '$lib/config/pixelLayers'
 	import type { MapData } from '$lib/components/map'
+	import { MAPBOX_TOKEN } from '$lib/env'
 	import type { Coordinate, LocationData, PixelLayer } from '$lib/types'
 	import { indexBy } from '$lib/util/data'
 	import { debounce, eventHandler } from '$lib/util/func'
@@ -23,14 +28,14 @@
 	import { Legend } from './legend'
 
 	import LayerToggle from './LayerToggle.svelte'
-	import { mapboxgl } from './mapbox'
+
 	import { ModeToggle } from './mode'
 	import StyleToggle from './StyleToggle.svelte'
 	import { getCenterAndZoom } from './viewport'
 	import { cn } from '$lib/utils'
 
-	let map: mapboxgl.Map
-	let marker: mapboxgl.Marker | null = null
+	let map: Map
+	let marker: Marker | null = null
 
 	const mapData: MapData = getContext('map-data')
 	const locationData: LocationData = getContext('location-data')
@@ -63,7 +68,7 @@
 	const minPixelLayerZoom = 7 // minimum reasonable zoom for getting pixel data
 	const minSummaryZoom = layers.filter(({ id }) => id === 'unit-outline')[0].minzoom
 
-	const setPixelLayerProps = (newProps) => {
+	const setPixelLayerProps = (newProps: object) => {
 		if (!map) return
 
 		// this happens in hot reload
@@ -97,12 +102,10 @@
 		const { lng: longitude, lat: latitude } = map.getCenter()
 
 		// If protected areas tiles aren't loaded yet, schedule a callback once tiles are loaded
-		if (
-			!(
-				map.style._otherSourceCaches.protectedAreas &&
-				map.style._otherSourceCaches.protectedAreas.loaded()
-			)
-		) {
+		if (!(
+			map.style?._otherSourceCaches.protectedAreas &&
+			map.style?._otherSourceCaches.protectedAreas.loaded()
+		)) {
 			mapData.setData({
 				type: 'pixel',
 				location: {
@@ -149,9 +152,10 @@
 			return
 		}
 
-		const subregions = new Set<string>()
+		const subregions = new SvelteSet<string>()
 		map
 			.queryRenderedFeatures(null, { layers: ['subregions'] })
+			// @ts-expect-error subregion is OK
 			.forEach(({ properties: { subregion } }) => {
 				subregions.add(subregion)
 			})
@@ -242,14 +246,14 @@
 			return
 		}
 		// hide Gulf of Mexico
-		if (map.style._layers['marine-label-md-pt']) {
+		if (map.style?._layers['marine-label-md-pt']) {
 			map.setFilter('marine-label-md-pt', [
 				'all',
 				['==', '$type', 'Point'],
 				['in', 'labelrank', 2, 3],
 				['!=', 'name', 'Gulf of Mexico']
 			])
-		} else if (map.style._layers['water-point-label']) {
+		} else if (map.style?._layers['water-point-label']) {
 			map.setFilter('water-point-label', [
 				'all',
 				[
@@ -272,6 +276,7 @@
 		map = new mapboxgl.Map({
 			container: mapNode,
 			style: 'mapbox://styles/mapbox/light-v9',
+			accessToken: MAPBOX_TOKEN,
 			center,
 			zoom,
 			minZoom,
@@ -311,7 +316,7 @@
 
 			// add sources
 			Object.entries(sources).forEach(([id, source]) => {
-				map.addSource(id, source)
+				map.addSource(id, source as SourceSpecification)
 			})
 
 			// add DeckGL pixel layer
@@ -322,6 +327,7 @@
 				layers: [
 					new StackedPNGTileLayer({
 						id: 'pixelLayers',
+						// @ts-expect-error interleaved is OK
 						interleaved: true,
 						beforeId: beforeLayer,
 						refinementStrategy: 'no-overlap',
@@ -435,7 +441,7 @@
 			map.setFilter('unit-outline-highlight', ['==', 'id', properties!.id])
 
 			mapData.setData(
-				unpackFeatureData(properties, indicatorGroupInfo, indicatorInfo, subregionIndex)
+				unpackFeatureData(properties || {}, indicatorGroupInfo, indicatorInfo, subregionIndex)
 			)
 			resizeMap()
 		})
@@ -585,6 +591,7 @@
 
 	// effect for setting a location
 	$effect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		locationData.location
 
 		if (!untrack(() => isLoaded)) {
@@ -619,6 +626,7 @@
 
 	// effect for updates to mapMode
 	$effect(() => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		mapData.mapMode
 
 		if (!untrack(() => isLoaded)) {
@@ -644,8 +652,10 @@
 
 	// effect for changed mapData to reset boundary highlight
 	$effect(() => {
+		/* eslint-disable @typescript-eslint/no-unused-expressions */
 		mapData.mapMode
 		mapData.data
+		/* eslint-enable @typescript-eslint/no-unused-expressions */
 
 		if (!untrack(() => isLoaded)) {
 			return
@@ -659,6 +669,7 @@
 	// effect for update to filters
 	$effect(() => {
 		// NOTE: have to specifically mark activeFilterValues to trigger this effect
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		mapData.activeFilterValues
 
 		if (!untrack(() => isLoaded)) {

@@ -4,18 +4,17 @@
 	import { cn } from '$lib/utils'
 
 	import IndicatorPercentChart from './IndicatorPercentChart.svelte'
-	import { formatPercent } from '$lib/util/format'
 	const { values, goodThreshold = null } = $props()
 	// remainder values, like area outside SE, are assigned values < 0
 	const remainders = $derived(values.filter(({ value }: { value: number }) => value < 0))
 
-	type Value = {
-		value: number
-		label: string
-		percent: number
-	}
+	// good percents not currently used
+	// type Value = {
+	// 	value: number
+	// 	label: string
+	// 	percent: number
+	// }
 
-	// not currently used
 	// const { goodPercents, totalGoodPercent, notGoodPercents, totalNotGoodPercent } = $derived.by(
 	// 	() => {
 	// 		if (goodThreshold === null) {

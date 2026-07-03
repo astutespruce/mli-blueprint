@@ -22,6 +22,6 @@ if (browser && typeof SENTRY_DSN !== 'undefined') {
 			/NS Pushstate prevention/
 		]
 	})
-	// @ts-ignore
+
 	window.Sentry = Sentry
 }

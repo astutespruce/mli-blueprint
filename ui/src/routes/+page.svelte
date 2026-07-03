@@ -43,10 +43,12 @@
 	let prevMobileTab: string | null = $state(null)
 
 	$effect(() => {
+		/* eslint-disable @typescript-eslint/no-unused-expressions */
 		tab
 		isMobile
 		mapData.mapMode
 		mapData.data
+		/* eslint-enable @typescript-eslint/no-unused-expressions */
 
 		let nextTab = tab
 

@@ -1,13 +1,6 @@
 import { indexBy, range, sortByFunc } from '$lib/util/data'
 import type { Filters } from '$lib/types'
-import {
-	blueprint,
-	indicatorGroups as rawIndicatorGroups,
-	indicators,
-	indicatorsIndex,
-	urban,
-	protectedAreas
-} from './constants'
+import { blueprint, indicators, urban, protectedAreas } from './constants'
 
 // setup default filters
 export const defaultFilters: Filters = Object.fromEntries(

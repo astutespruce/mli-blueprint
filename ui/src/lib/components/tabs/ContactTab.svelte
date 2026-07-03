@@ -19,6 +19,7 @@
 		Midwest Landscape Initiative staff are here to support you! We really mean it. It is what we do!
 		<br /><br />
 		Please reach out to
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 		<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff</a>.
 	</p>
 </section>

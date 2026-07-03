@@ -55,13 +55,13 @@
 <div class={cn('flex items-center gap-8', className)}>
 	<div class="flex-auto max-w-[160px]">
 		<svg viewBox="0 0 100 100" width="100%" height="100%">
-			{#each entries as { path, color }}
+			{#each entries as { path, color } (path)}
 				<path d={path} fill="none" stroke-width={lineWidth} stroke={color} />
 			{/each}
 		</svg>
 	</div>
 	<div class="min-w-[140px]">
-		{#each categories as { value, label, color }}
+		{#each categories as { value, label, color } (label)}
 			<div class="flex items-center gap-2 text-sm not-first:mt-2">
 				<div
 					class="w-5 h-5 flex-none border border-grey-2"

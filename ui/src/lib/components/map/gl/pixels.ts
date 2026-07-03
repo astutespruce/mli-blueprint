@@ -1,5 +1,5 @@
 import { DynamicTexture } from '@luma.gl/engine'
-import type { Map, Point, Layer, LngLatLike } from 'mapbox-gl'
+import type { Map, Point, LngLatLike } from 'mapbox-gl/esm'
 
 import { indexBy, setIntersection, sum } from '$lib/util/data'
 import type { IndicatorValue } from '$lib/types'

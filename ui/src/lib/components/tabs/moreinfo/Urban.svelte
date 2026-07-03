@@ -7,7 +7,7 @@
 
 	const YEARS = [2001, 2004, 2006, 2008, 2011, 2013, 2016, 2019, 2021, 2030, 2040, 2050, 2060]
 
-	const { type, urban, regions } = $props()
+	const { type, urban } = $props()
 </script>
 
 <div class="not-first:mt-8 not-first:border-t not-first:border-t-grey-2 not-first:pt-8">

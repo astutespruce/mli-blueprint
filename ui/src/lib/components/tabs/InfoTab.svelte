@@ -33,6 +33,7 @@
 		<br /><br />
 
 		For more information, visit the
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 		<a href={BLUEPRINT_URL} target="_blank"> blueprint webpage </a>.
 		<br /><br />
 		You can also use the
@@ -118,6 +119,7 @@
 			means that the values shown in the tool may not exactly match the blueprint and indicator data for
 			that specific ground location, especially in areas of high variability in the data. To view and
 			/ or download more precise spatial data, please visit the
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 			<a href={BLUEPRINT_URL} target="_blank">
 				blueprint page of the Midwest Conservation Action Portal
 			</a>.
@@ -145,6 +147,7 @@
 		<div class="flex-auto">
 			<p>
 				<b>Citation:</b> Midwest Landscape Initiative. 2026. Midwest Conservation Blueprint 2026.
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a href={BLUEPRINT_URL} target="_blank">
 					{BLUEPRINT_URL}
 				</a>.

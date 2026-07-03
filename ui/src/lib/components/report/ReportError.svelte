@@ -18,10 +18,9 @@
 					{#if error}
 						The server says {error}
 					{:else}
-						Please try again. If that does not work, try a different file or <a
-							href={CONTACT_URL}
-							target="_blank">contact us</a
-						>.
+						Please try again. If that does not work, try a different file or
+						<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+						<a href={CONTACT_URL} target="_blank">contact us </a>.
 					{/if}
 				</p>
 			</Description>

@@ -179,6 +179,7 @@
 					Note: we have made every possible effort to ensure that the information provided in the
 					Blueprint Explorer is accessible to people with disabilities. If you cannot fully access
 					the information, please reach out to
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 					<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
 					so that we can provide the information in an alternate format.
 				</p>

@@ -180,6 +180,7 @@
 					</div>
 					<div class="mt-4">
 						Please try a different search term. If the error continues, please
+						<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 						<a href={CONTACT_URL} target="_blank">let us know</a>.
 					</div>
 				</div>
@@ -192,7 +193,7 @@
 				<div class="flex items-center justify-center px-4 py-8 text-grey-8">No results found</div>
 			{:else}
 				<div bind:this={resultsNode} class="search-results mt-4">
-					{#each suggestions.data as { id, name, address }, i}
+					{#each suggestions.data as { id, name, address }, i (id)}
 						<div
 							class="cursor-pointer leading-none bg-white hover:bg-grey-0 not-first:border-t not-first:border-t-grey-1 py-1 px-2"
 							onclick={handleResultClick(id, i)}

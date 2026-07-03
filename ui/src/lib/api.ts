@@ -103,7 +103,7 @@ const pollJob = async (jobId: string, onProgress: ProgressCallback) => {
 			response = await fetch(`${API}/status/${jobId}`, {
 				cache: 'no-cache'
 			})
-		} catch (_) {
+		} catch {
 			failedRequests += 1
 
 			// sleep and try again

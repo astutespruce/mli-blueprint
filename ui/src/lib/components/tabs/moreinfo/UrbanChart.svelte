@@ -140,7 +140,7 @@
 			<!-- render in reverse order so that tooltips show properly with increasing trends -->
 			<Points
 				points={rightPoints.slice(1)}
-				minX={xAxisTicks[0]}
+				minX={xAxisTicks[0].x}
 				radius={4}
 				fill={colors[1]}
 				baseline={yScale(0)}

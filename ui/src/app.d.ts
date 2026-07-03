@@ -19,6 +19,9 @@ declare global {
 		Sentry?: {
 			captureException: (any) => void
 		}
+
+		// map is dynamically added to window on map pages
+		map?: Map
 	}
 }
 

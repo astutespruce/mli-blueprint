@@ -32,9 +32,9 @@
 					{/each}
 				</ul>
 				<p class="mt-4">
-					Please try again. If that does not work, please <a href={CONTACT_URL} target="_blank"
-						>contact us</a
-					>.
+					Please try again. If that does not work, please
+					<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+					<a href={CONTACT_URL} target="_blank">contact us</a>.
 				</p>
 			</Description>
 		</Root>
