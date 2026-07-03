@@ -28,10 +28,6 @@
 	let resultsNode: Element | undefined = $state()
 
 	// query is debounced from value
-	// FIXME:
-	// NOTE: we have to use a writable stores until Svelte 5 is properly supported by tanstack-query
-	// let query = writable<string>('')
-	// let selectedId = writable<string | null>(null)
 	let query: string = $state('')
 	let selectedId: string | null = $state(null)
 
@@ -79,7 +75,8 @@
 			resultsNode.children &&
 			resultsNode.children.length >= index
 		) {
-			;(resultsNode.children[index] as HTMLElement).focus()
+			const node: HTMLElement = resultsNode.children[index] as HTMLElement
+			node.focus()
 		}
 	})
 
