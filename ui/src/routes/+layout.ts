@@ -23,7 +23,11 @@ if (browser && typeof SENTRY_DSN !== 'undefined') {
 			// not sure why we are getting this one; assume bot
 			'e.target.elements is not iterable',
 			// WebGL 2.0 doesn't work for all clients (mostly bots)
-			'Failed to initialize WebGL'
+			'Failed to initialize WebGL',
+			// bot errors
+			'is not valid JSON',
+			// likely bot related
+			'Failed to fetch dynamically imported module'
 		]
 	})
 
