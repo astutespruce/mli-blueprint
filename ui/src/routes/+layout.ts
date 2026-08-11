@@ -19,7 +19,11 @@ if (browser && typeof SENTRY_DSN !== 'undefined') {
 		ignoreErrors: [
 			// ignore pushstate errors that result from monkypatching svelte
 			// https://github.com/sveltejs/kit/issues/12177
-			/NS Pushstate prevention/
+			'NS Pushstate prevention',
+			// not sure why we are getting this one; assume bot
+			'e.target.elements is not iterable',
+			// WebGL 2.0 doesn't work for all clients (mostly bots)
+			'Failed to initialize WebGL'
 		]
 	})
 
