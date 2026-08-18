@@ -135,7 +135,7 @@ def summarize_urban_by_units_grid(df, units_grid, out_dir):
     out_dir : str
     """
 
-    if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent"})) == 3:
+    if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent_acres"})) == 3:
         raise ValueError("GeoDataFrame for summary must include value, rasterized_acres, outside_extent columns")
 
     bins = np.arange(0, len(PROBABILITIES))

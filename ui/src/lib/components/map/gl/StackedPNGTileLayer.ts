@@ -12,6 +12,10 @@ import { getFilterExpr, getFilterValues } from './filters'
 import StackedPNGLayer from './StackedPNGLayer'
 import { createPNGTexture, createPaletteTexture } from './texture'
 
+// turn off verbose logging
+luma.log.level = 0
+luma.log.enable(false)
+
 /**
  * Fetch a tile image asynchronously and load into a GL texture
  */

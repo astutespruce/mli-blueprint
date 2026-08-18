@@ -46,7 +46,7 @@ indicators = pd.DataFrame(
         ]
         for e in INDICATORS
     ],
-    columns=["indicator_group", "id", "filename", "min_value", "max_value"],
+    columns=["theme", "id", "filename", "min_value", "max_value"],
 )
 
 
@@ -54,21 +54,21 @@ core = pd.DataFrame(
     [
         # blueprint is included so that it can be rendered after applying filters in UI
         {
-            "indicator_group": "",
+            "theme": "",
             "id": "blueprint",
             "filename": blueprint_filename,
             "min_value": BLUEPRINT[0]["value"],
             "max_value": BLUEPRINT[-1]["value"],
         },
         {
-            "indicator_group": "otherInfo",
+            "theme": "otherInfo",
             "id": "protectedAreas",
             "filename": protected_areas_filename,
             "min_value": PROTECTED_AREAS[0]["value"],
             "max_value": PROTECTED_AREAS[-1]["value"],
         },
         {
-            "indicator_group": "otherInfo",
+            "theme": "otherInfo",
             "id": "urban",
             "filename": urban_filename,
             "min_value": URBAN[0]["value"],

@@ -1,12 +1,11 @@
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 import geopandas as gp
-from pyogrio import read_dataframe, write_dataframe
 import shapely
+from pyogrio import read_dataframe, write_dataframe
 
 from analysis.constants import GEO_CRS, MLI_STATES
-
 
 data_dir = Path("data")
 se_src_dir = Path("../secas-blueprint/source_data").resolve()
@@ -36,7 +35,7 @@ def get_col_types(df, bool_cols=None):
 
         out.append("-T")
         out_type = dtype
-        if dtype in ("object", "str"):
+        if dtype in {"object", "str"}:
             out_type = "string"
         elif "int" in dtype:
             out_type = "int"

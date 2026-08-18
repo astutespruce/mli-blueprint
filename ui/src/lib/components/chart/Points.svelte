@@ -19,7 +19,7 @@
 <g>
 	<!-- render points in reverse order so that tooltips how up properly with increasing trend -->
 
-	{#each points.slice().reverse() as { x, y, yLabel }, i (yLabel)}
+	{#each points.slice().reverse() as { x, y, yLabel }, i (`${x}-${y}`)}
 		<g>
 			<circle r={radius} cx={x} cy={y} {fill} stroke-width={0} />
 

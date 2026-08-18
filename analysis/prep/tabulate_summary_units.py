@@ -5,7 +5,6 @@ import geopandas as gp
 import rasterio
 
 from analysis.lib.raster import SummaryUnitGrid
-
 from analysis.lib.stats.blueprint import summarize_blueprint_by_units_grid
 from analysis.lib.stats.nlcd import summarize_nlcd_by_units_grid
 from analysis.lib.stats.protected_areas import summarize_protected_areas_by_units
@@ -30,7 +29,7 @@ out_dir.mkdir(exist_ok=True, parents=True)
 print("Reading HUC12 boundaries")
 units_df = gp.read_feather(
     huc12_filename,
-    columns=["id", "value", "rasterized_acres", "outside_extent", "geometry"],
+    columns=["id", "value", "rasterized_acres", "outside_extent_acres", "geometry"],
 ).set_index("id")
 units_df = units_df.join(units_df.bounds)
 

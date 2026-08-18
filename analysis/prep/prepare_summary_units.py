@@ -1,19 +1,19 @@
 import os
-from pathlib import Path
 import warnings
+from pathlib import Path
 
-from progress.bar import Bar
 import geopandas as gp
-import pandas as pd
-from pyogrio import read_dataframe, write_dataframe
 import numpy as np
+import pandas as pd
 import rasterio
-from rasterio.features import rasterize
 import shapely
+from progress.bar import Bar
+from pyogrio import read_dataframe, write_dataframe
+from rasterio.features import rasterize
 
 from analysis.constants import DATA_CRS, GEO_CRS, M2_ACRES, MLI_HUC2
 from analysis.lib.geometry import make_valid, to_dict
-from analysis.lib.raster import write_raster, add_overviews, get_window
+from analysis.lib.raster import add_overviews, get_window, write_raster
 
 warnings.filterwarnings("ignore", message=".*polygon with more than 100 parts.*")
 
@@ -134,6 +134,7 @@ subregions = (
     .groupby(level=0)
     .agg({"subregions": "unique"})
 )
+subregions["subregions"] = subregions.subregions.apply(list)
 
 huc12 = huc12.join(subregions, on="id")
 huc12["subregions"] = huc12.subregions.apply(list)
@@ -172,7 +173,7 @@ with rasterio.open(blueprint_extent_filename) as src:
     huc12["pixels"] = counts
     cellsize = src.res[0] * src.res[0] * M2_ACRES
     huc12["rasterized_acres"] = counts * cellsize
-    huc12["outside_extent"] = outside_extent_counts * cellsize
+    huc12["outside_extent_acres"] = outside_extent_counts * cellsize
 
     outfilename = bnd_dir / "huc12.tif"
     write_raster(outfilename, data, transform=src.transform, crs=src.crs, nodata=0)

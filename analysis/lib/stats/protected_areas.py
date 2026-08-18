@@ -2,14 +2,13 @@ from pathlib import Path
 
 import geopandas as gp
 import pandas as pd
-from pyogrio import read_dataframe
 import rasterio
 import shapely
+from pyogrio import read_dataframe
 
 from analysis.constants import M2_ACRES, PROTECTED_AREAS
 from analysis.lib.raster import summarize_raster_by_units_grid
 from analysis.lib.stats.summary_units import read_unit_from_feather
-
 
 src_dir = Path("data/inputs/boundaries")
 filename = src_dir / "protected_areas.tif"
@@ -198,7 +197,7 @@ def summarize_protected_areas_by_units(df, units_grid, out_dir):
     """
     print("Calculating overlap with protected areas")
 
-    if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent"})) == 3:
+    if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent_acres"})) == 3:
         raise ValueError("GeoDataFrame for summary must include value, rasterized_acres, outside_extent columns")
 
     with rasterio.open(filename) as value_dataset:

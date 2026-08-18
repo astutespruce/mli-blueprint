@@ -18,15 +18,14 @@ Areas where there were no values present were converted to empty strings.  Areas
 where there was no change from the baseline just include the baseline.
 """
 
-from pathlib import Path
 from itertools import product
+from pathlib import Path
 
 import geopandas as gp
 import pandas as pd
 
 from analysis.constants import GEO_CRS, NLCD_INDEXES, NLCD_YEARS, PROTECTED_AREAS, URBAN_YEARS
-from analysis.lib.attribute_encoding import encode_values, delta_encode_values, encode_blueprint
-
+from analysis.lib.attribute_encoding import delta_encode_values, encode_blueprint, encode_values
 
 data_dir = Path("data")
 out_dir = data_dir / "for_tiles"
@@ -59,7 +58,7 @@ huc12 = (
             "subregions",
             "acres",
             "rasterized_acres",
-            "outside_extent",
+            "outside_extent_acres",
             "minx",
             "miny",
             "maxx",
@@ -130,7 +129,7 @@ urban = delta_encode_values(urban_results[cols], urban_results.rasterized_acres,
 ### Output final compiled data
 huc12 = (
     huc12[["geometry", "name", "subregions", "type"]]
-    .join(huc12[["acres", "rasterized_acres", "outside_extent"]].round().astype("int"))
+    .join(huc12[["acres", "rasterized_acres", "outside_extent_acres"]].round().astype("int"))
     .join(blueprint, how="left")
     .join(protected_areas, how="left")
     .join(protected_areas_list, how="left")

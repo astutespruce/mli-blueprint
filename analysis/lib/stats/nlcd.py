@@ -24,8 +24,8 @@ def summarize_nlcd_by_units_grid(df, units_grid, out_dir):
     out_dir : str
     """
 
-    if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent"})) == 3:
-        raise ValueError("GeoDataFrame for summary must include value, rasterized_acres, outside_extent columns")
+    if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent_acres"})) == 3:
+        raise ValueError("GeoDataFrame for summary must include value, rasterized_acres, outside_extent_acres columns")
 
     bins = np.arange(len(NLCD_INDEXES))
 
