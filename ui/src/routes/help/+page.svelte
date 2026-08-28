@@ -214,7 +214,7 @@
 				<figure>
 					<enhanced:img
 						src="$images/help-filter-OR-after.png"
-						alt="Shows filtering the Blueprint with OR filter logic applied to indicators that do not co-occur"
+						alt="Shows filtering the blueprint with OR filter logic applied to indicators that do not co-occur"
 						loading="lazy"
 					/>
 					<figcaption class="text-sm text-muted-foreground">
@@ -273,7 +273,7 @@
 		<p class="mt-8">
 			Note: this PDF file is intended to help save information about your active filters for later
 			reference. It is entirely different from the data-rich PDF reports you can create by selecting
-			a watershed or by uploading a shapefile, which include maps of the Blueprint and all
+			a watershed or by uploading a shapefile, which include maps of the blueprint and all
 			indicators present in your area of interest.
 		</p>
 
