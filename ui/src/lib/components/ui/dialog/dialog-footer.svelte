@@ -1,4 +1,5 @@
 <script lang="ts">
+	// style override: change to justify-between
 	import { cn, type WithElementRef } from '$lib/utils.js'
 	import type { HTMLAttributes } from 'svelte/elements'
 
@@ -13,7 +14,7 @@
 <div
 	bind:this={ref}
 	data-slot="dialog-footer"
-	class={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+	class={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-between', className)}
 	{...restProps}
 >
 	{@render children?.()}

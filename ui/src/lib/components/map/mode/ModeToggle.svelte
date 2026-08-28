@@ -4,23 +4,23 @@
 	import { logGAEvent } from '$lib/util/log'
 	import ModeTooltip from './ModeTooltip.svelte'
 	import { cn } from '$lib/utils'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 
 	let { belowMinZoom } = $props()
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 
 	const handleFilterClick = () => {
-		mapData.mapMode = 'filter'
+		mapState.mapMode = 'filter'
 		logGAEvent('set-map-mode', { mode: 'filter' })
 	}
 
 	const handlePixelClick = () => {
-		mapData.mapMode = 'pixel'
+		mapState.mapMode = 'pixel'
 		logGAEvent('set-map-mode', { mode: 'pixel-identify' })
 	}
 
 	const handleUnitClick = () => {
-		mapData.mapMode = 'unit'
+		mapState.mapMode = 'unit'
 		logGAEvent('set-map-mode', { mode: 'summary-unit' })
 	}
 
@@ -41,7 +41,7 @@
 		<ModeTooltip
 			content="Show data summaries and charts for a subwatershed"
 			onClick={handleUnitClick}
-			class={cn(mapData.mapMode === 'unit' ? activeClass : inactiveClass)}
+			class={cn(mapState.mapMode === 'unit' ? activeClass : inactiveClass)}
 		>
 			Summarize data
 		</ModeTooltip>
@@ -49,7 +49,7 @@
 		<ModeTooltip
 			content="Show values at a specific point for the blueprint, indicators, and other contextual information"
 			onClick={handlePixelClick}
-			class={cn(mapData.mapMode === 'pixel' ? activeClass : inactiveClass)}
+			class={cn(mapState.mapMode === 'pixel' ? activeClass : inactiveClass)}
 		>
 			View point data
 		</ModeTooltip>
@@ -57,29 +57,31 @@
 		<ModeTooltip
 			content="Find your part of the blueprint by showing only areas that score within a certain range on indicators and more"
 			onClick={handleFilterClick}
-			class={cn('', mapData.mapMode === 'filter' ? activeClass : inactiveClass)}
+			class={cn('', mapState.mapMode === 'filter' ? activeClass : inactiveClass)}
 		>
 			Filter the blueprint
 		</ModeTooltip>
 	</div>
 	<div class="text-xs md:text-sm text-center md:text-left ml-2 leading-none mt-1 md:mt-0">
-		{#if (mapData.mapMode === 'unit' || mapData.mapMode === 'pixel') && belowMinZoom}
-			<div class="max-w-[7em]">
-				Zoom in to select {mapData.mapMode === 'pixel' ? 'a point' : 'an area'}
+		{#if (mapState.mapMode === 'unit' || mapState.mapMode === 'pixel') && belowMinZoom}
+			<div class="lg:max-w-[6em]">
+				Zoom in to select {mapState.mapMode === 'pixel' ? 'a point' : 'an area'}
 			</div>
-		{:else if mapData.mapMode === 'unit'}
-			<div class="max-w-[12em] xl:max-w-[18em]">
+		{:else if mapState.mapMode === 'unit'}
+			<div class="lg:max-w-[16em]">
 				Select a subwatershed to show details
 				<span class="hidden md:inline">in sidebar</span>
 			</div>
-		{:else if mapData.mapMode === 'pixel'}
-			<div class="max-w-[12em] xl:max-w-[18em]">
+		{:else if mapState.mapMode === 'pixel'}
+			<div class="lg:max-w-[16em]">
 				Pan the map behind the crosshairs to show details
 				<span class="hidden md:inline"> in sidebar</span>
 			</div>
-		{:else if mapData.mapMode === 'filter'}
-			<div class="max-w-[12em] xl:max-w-[18em]">
-				Select data to filter and adjust the range to update the map
+		{:else if mapState.mapMode === 'filter'}
+			<div class="lg:max-w-[18em]">
+				Select data to filter and adjust
+				<span class="hidden md:inline"><br /></span>
+				the range to update the map
 			</div>
 		{/if}
 	</div>

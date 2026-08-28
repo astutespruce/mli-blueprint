@@ -2,13 +2,13 @@
 	import { getContext } from 'svelte'
 
 	import CheckIcon from '~icons/fa-solid/check'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 	import { Button } from '$lib/components/ui/button'
 	import { cn } from '$lib/utils'
 
 	const { indicator } = $props()
 
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 </script>
 
 <div
@@ -23,7 +23,7 @@
 				'text-primary cursor-pointer': indicator.total > 0
 			}
 		)}
-		onclick={indicator.total > 0 ? () => (mapData.selectedIndicator = indicator.id) : () => {}}
+		onclick={indicator.total > 0 ? () => (mapState.selectedIndicator = indicator.id) : () => {}}
 	>
 		{indicator.label}
 

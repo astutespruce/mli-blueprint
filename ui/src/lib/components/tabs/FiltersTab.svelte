@@ -10,7 +10,7 @@
 	import LandscapeHealthIcon from '$images/l.svg'
 	import WildlifeIcon from '$images/w.svg'
 	import OtherInfoIcon from '$images/otherInfo.svg'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 	import { setIntersection } from '$lib/util/data'
 	import type { Filter } from '$lib/types'
 	import { cn } from '$lib/utils'
@@ -19,7 +19,8 @@
 		priorityFilters as rawPriorityFilters,
 		otherInfoFilters as rawOtherInfoFilters
 	} from '$lib/config/filters'
-	import { FilterGroup } from '$lib/components/filter'
+	import { FilterGroup, FilterMethodDropdown } from '$lib/components/filter'
+	import { PrintMapDialog } from '$lib/components/dialog'
 
 	const indicatorGroupIcons = {
 		h: HumanWellbeingIcon,
@@ -28,7 +29,7 @@
 	}
 
 	const { class: className } = $props()
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 
 	type FilterVisibilityStub = {
 		canBeVisible: boolean
@@ -40,12 +41,10 @@
 			priorityFilters: rawPriorityFilters
 				.map((entry) => ({
 					...entry,
-					...mapData.filters[entry.id],
-					canBeVisible: mapData.visibleSubregions.size > 0
+					...mapState.filters[entry.id],
+					canBeVisible: mapState.visibleSubregions.size > 0
 				}))
-				.filter(
-					({ canBeVisible, enabled }: FilterVisibilityStub) => canBeVisible || enabled // mapData.filters[id].enabled
-				),
+				.filter(({ canBeVisible, enabled }: FilterVisibilityStub) => canBeVisible || enabled),
 
 			...Object.fromEntries(
 				indicatorGroups.map(({ id: groupId, indicators }) => {
@@ -58,11 +57,11 @@
 								...rest,
 								// sort indicator values in descending order
 								values: values.slice().reverse(),
-								...mapData.filters[id],
+								...mapState.filters[id],
 								// null / empty subregions indicates the indicator is visible everywhere
 								canBeVisible:
 									indicatorSubregions.size === 0 ||
-									setIntersection(indicatorSubregions, mapData.visibleSubregions).size > 0
+									setIntersection(indicatorSubregions, mapState.visibleSubregions).size > 0
 							}
 						})
 						.filter(({ canBeVisible, enabled }: FilterVisibilityStub) => canBeVisible || enabled)
@@ -74,7 +73,7 @@
 			otherInfoFilters: rawOtherInfoFilters
 				.map((entry) => ({
 					...entry,
-					...mapData.filters[entry.id],
+					...mapState.filters[entry.id],
 					canBeVisible: true
 				}))
 				.filter(({ canBeVisible, enabled }: FilterVisibilityStub) => canBeVisible || enabled)
@@ -82,11 +81,11 @@
 	})
 
 	const handleFilterChange = ({ id, enabled, activeValues }: Filter & { id: string }) => {
-		mapData.setLayerFilterValues(id, { enabled, activeValues })
+		mapState.setLayerFilterValues(id, { enabled, activeValues })
 	}
 
 	const handleResetFilters = () => {
-		mapData.resetFilters()
+		mapState.resetFilters()
 	}
 </script>
 
@@ -98,25 +97,30 @@
 		</div>
 		<div
 			class={cn('flex justify-end items-center', {
-				hidden: mapData.numEnabledFilters === 0
+				hidden: mapState.numEnabledFilters === 0
 			})}
 		>
 			<Button onclick={handleResetFilters} class="text-sm px-2 gap-1 py-0 h-7">
 				<TimesCircle width="1em" height="1em" class="p-0 m-0" />
-				reset {mapData.numEnabledFilters} filter{mapData.numEnabledFilters > 1 ? 's' : ''}
+				reset {mapState.numEnabledFilters} filter{mapState.numEnabledFilters > 1 ? 's' : ''}
 			</Button>
 		</div>
 	</div>
 
 	<div class="flex-auto h-full overflow-y-auto">
-		{#if mapData.filtersLoading}
+		{#if mapState.filtersLoading}
 			<div class="mt-4 text-center text-xl text-grey-8">Loading...</div>
-		{:else if mapData.hasVisibleFilters}
+		{:else if mapState.hasVisibleFilters}
 			<div class="flex flex-col overflow-y-auto flex-auto h-full relative">
 				<div class="px-4 py-2 leading-tight text-grey-8">
 					Filters can help you find the part of the blueprint that aligns with your mission,
 					interest, or specific question. Enable the filters below to narrow down the Blueprint to
 					the part that falls within a range of values for one or more layers.
+				</div>
+
+				<div class="bg-grey-1 py-1 px-2 flex justify-between gap-4">
+					<FilterMethodDropdown />
+					<PrintMapDialog />
 				</div>
 
 				<FilterGroup

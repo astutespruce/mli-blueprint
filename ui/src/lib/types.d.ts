@@ -1,3 +1,8 @@
+export type AppState = {
+	isMobile: boolean
+	isPrint: boolean
+}
+
 export type IndicatorValue = {
 	value: number
 	label: string

@@ -3,7 +3,7 @@
 
 	import ReplyIcon from '~icons/fa-solid/reply'
 	import { Button } from '$lib/components/ui/button'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 	import { formatPercent } from '$lib/util/format'
 	import { sum } from '$lib/util/data'
 	import { cn } from '$lib/utils'
@@ -24,7 +24,7 @@
 		icon
 	} = $props()
 
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 
 	const { totalIndicatorPercent, percentTableValues } = $derived.by(() => {
 		const totalPercent = sum(values.map(({ percent }: { percent: number }) => percent))
@@ -68,7 +68,7 @@
 	>
 		<Button
 			class="shadow-none rounded-none bg-transparent hover:bg-transparent w-full flex justify-between items-center pl-1 pr-4 text-foreground text-wrap whitespace-break-spaces h-auto gap-4 py-1"
-			onclick={() => (mapData.selectedIndicator = null)}
+			onclick={() => (mapState.selectedIndicator = null)}
 		>
 			<div class="flex items-start">
 				<ReplyIcon class="size-3 flex-none text-grey-9/75" />

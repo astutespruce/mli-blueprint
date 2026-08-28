@@ -10,10 +10,10 @@
 	import SearchIcon from '~icons/fa-solid/search-location'
 	import TasksIcon from '~icons/fa-solid/tasks'
 	import { Button } from '$lib/components/ui/button'
-	import { MapData } from '$lib/components/map'
+	import { MapState } from '$lib/components/map'
 	import { cn } from '$lib/utils'
 
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 	const { tab, onChange } = $props()
 
 	const defaultTabs = [
@@ -38,9 +38,9 @@
 	]
 
 	let tabs = $derived.by(() => {
-		if (mapData.mapMode === 'filter') {
+		if (mapState.mapMode === 'filter') {
 			return filterTabs
-		} else if (mapData.data !== null && !mapData.data.isLoading) {
+		} else if (mapState.data !== null && !mapState.data.isLoading) {
 			return dataTabs
 		}
 		return defaultTabs
@@ -51,12 +51,12 @@
 	}
 </script>
 
-<div class="md:hidden flex-none border-t border-t-grey-9 leading-snug">
+<div class="md:hidden flex-none border-t border-t-grey-9 leading-snug print:hidden">
 	<nav class="grid auto-cols-fr grid-flow-col gap-0 items-center">
 		{#each tabs as { id, label, icon: Icon } (id)}
 			<Button
 				class={cn(
-					'flex flex-col gap-0 items-center justify-center text-center grow p-2 h-10 select-none rounded-none text-grey-1 text-[10px]',
+					'flex flex-col gap-0 items-center justify-center text-center flex-grow p-2 h-10 select-none rounded-none text-grey-1 text-[10px]',
 					{
 						'text-white': id === tab,
 						'bg-blue-9': id === tab

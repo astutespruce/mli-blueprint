@@ -26,7 +26,7 @@
 			</h1>
 		</div>
 	</div>
-	<div class="text-sm text-grey-8 text-right pr-1 hidden sm:block">
+	<div class="text-sm text-grey-8 text-right pr-1 hidden md:block">
 		Photo: Sunset at Crab Orchard National Wildlife Refuge, <a
 			href="https://www.flickr.com/photos/usfwsmidwest/51356236607/"
 			target="_blank"

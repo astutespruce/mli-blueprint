@@ -94,6 +94,9 @@
 	--color-secondary-foreground: var(--white);
 	--color-destructive: var(--error);
 
+	--color-popover: var(--white);
+	--color-popover-foreground: var(--foreground);
+
 	--color-input: var(--grey-9);
 
 	--radius-sm: calc(var(--radius) - 4px);
@@ -143,15 +146,45 @@
 	.mapboxgl-ctrl-compass,
 	.mapboxgl-ctrl-logo,
 	.mapboxgl-ctrl-attrib {
-		@apply !hidden md:!block;
+		@apply hidden! md:block!;
 	}
 
 	.mapboxgl-ctrl-attrib.mapboxgl-compact {
-		@apply !min-h-[24px];
+		@apply min-h-[24px]!;
 	}
 
 	.mapboxgl-ctrl-top-right {
-		@apply !top-[50px];
+		@apply top-[50px]!;
+	}
+
+	@media print {
+		@page :first {
+			counter-set: page 0;
+		}
+		@page {
+			size: letter portrait;
+			margin: 0.25in 0.25in 0.5in 0.25in;
+			@top-left {
+				content: '';
+			}
+			@top-right {
+				content: '';
+			}
+			@bottom-left {
+				content: '';
+			}
+			@bottom-right {
+				@apply text-xs text-muted-foreground;
+				counter-increment: page;
+				content: 'Page ' counter(page);
+			}
+		}
+		body {
+			margin: 0;
+			height: auto;
+			print-color-adjust: exact !important;
+			background: #fff;
+		}
 	}
 }
 

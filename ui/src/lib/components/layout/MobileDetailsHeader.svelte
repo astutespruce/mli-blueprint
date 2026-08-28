@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="bg-primary md:hidden drop-shadow-sm drop-shadow-black z-10000 py-1 px-2 flex gap-2 justify-between flex-auto items-center leading-none min-h-[2.5rem] text-white"
+	class="bg-primary md:hidden drop-shadow-sm drop-shadow-black z-10000 py-1 px-2 flex gap-2 justify-between flex-auto items-center leading-none min-h-[2.5rem] text-white print:hidden"
 >
 	{#if type === 'pixel'}
 		<div class="flex-auto text-sm">

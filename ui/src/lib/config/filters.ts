@@ -1,6 +1,13 @@
 import { indexBy, range, sortByFunc } from '$lib/util/data'
 import type { Filters } from '$lib/types'
-import { blueprint, indicators, urban, protectedAreas } from './constants'
+import {
+	blueprint,
+	indicators,
+	indicatorGroups,
+	indicatorsIndex,
+	urban,
+	protectedAreas
+} from './constants'
 
 // setup default filters
 export const defaultFilters: Filters = Object.fromEntries(
@@ -51,6 +58,19 @@ export const priorityFilters = [
 	}
 ]
 
+export const indicatorGroupFilters = Object.fromEntries(
+	indicatorGroups.map(({ indicators: groupIndicators, ...group }) => [
+		group.id,
+		{
+			...group,
+			indicators: groupIndicators.map((id) => ({
+				...indicatorsIndex[id],
+				// sort indicator values in descending order
+				values: indicatorsIndex[id].values.slice().reverse()
+			}))
+		}
+	])
+)
 export const otherInfoFilters = [
 	{
 		id: 'urban',
@@ -70,3 +90,16 @@ export const otherInfoFilters = [
 			'Protected areas information is derived from the Protected Areas Database of the United States (PAD-US v4.1).'
 	}
 ]
+export const allFilters = []
+	// @ts-expect-error priorityFilters are fine
+	.concat(priorityFilters)
+	// @ts-expect-error indicatorGroupFilters are fine
+	.concat(indicatorGroupFilters.l.indicators)
+	// @ts-expect-error indicatorGroupFilters are fine
+	.concat(indicatorGroupFilters.w.indicators)
+	// @ts-expect-error indicatorGroupFilters are fine
+	.concat(indicatorGroupFilters.h.indicators)
+	// @ts-expect-error otherFilters are fine
+	.concat(otherInfoFilters)
+
+export const filterToIndex = Object.fromEntries(allFilters.map(({ id }, index) => [id, index]))

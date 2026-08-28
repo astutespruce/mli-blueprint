@@ -8,25 +8,18 @@ import { range } from '$lib/util/data'
  * @returns GLSL code to inject into the fragment shader
  */
 export const getFilterExpr = (encodingSchemes) => {
-	let code = ''
-	const conditions = []
+	const expressions: string[] = []
 	let i = 0
-	encodingSchemes.forEach((layers, textureIndex) => {
-		const expressions = []
+	encodingSchemes.forEach((layers: { offset: number; bits: number }[], textureIndex: number) => {
 		layers.forEach(({ offset, bits }) => {
 			expressions.push(
-				`\n((stackedPNGLayer.filterValues[${i}] < 0) || matchValue(valueRGB${textureIndex}, ${offset}, ${bits}, stackedPNGLayer.filterValues[${i}]))`
+				`\nmatchValue(valueRGB${textureIndex}, ${offset}, ${bits}, stackedPNGLayer.filterValues[${i}])`
 			)
 			i += 1
 		})
-
-		const condition = `canRender${textureIndex}`
-		conditions.push(condition)
-
-		code += `\nbool ${condition} = (${expressions.join(' &&')});\n`
 	})
 
-	return `\n${code}\n\nbool canRender = (${conditions.join(' && ')});\n`
+	return `\n\nbool canRender = (${expressions.join(' + ')}) >= stackedPNGLayer.requiredLayerCount;\n`
 }
 
 /**
