@@ -74,8 +74,8 @@
 		</div>
 
 		<p class="mt-8">
-			You can download a detailed PDF report of the blueprint, underlying indicators, and
-			landscape-level threats for the selected summary unit. Click the
+			You can download a detailed PDF report of the blueprint, underlying indicators, and other
+			contextual information for the selected summary unit. Click the
 			<b>Export detailed maps and analysis</b> link below the area name. To unselect the area, click
 			the <b>X</b> in the upper right of the sidebar.
 		</p>
@@ -84,9 +84,9 @@
 
 		<h2 class="text-4xl">View point data:</h2>
 		<p class="mt-2">
-			This mode allows you to show values at a specific point for the blueprint, indicators,
-			threats, and more by drilling into a single 30 meter pixel, the smallest unit of the blueprint
-			analysis.
+			This mode allows you to show values at a specific point for the blueprint, indicators, and
+			other contextual information by drilling into a single 30 meter pixel, the smallest unit of
+			the blueprint analysis.
 		</p>
 
 		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-8">
@@ -150,7 +150,8 @@
 		<p class="mt-2">
 			Filters can help you find the part of the blueprint that aligns with your mission, interests,
 			or specific question. Use the filters to show areas on the map that fall within a range of
-			values for one or more layers, including the blueprint, underlying indicators, and threats.
+			values for one or more layers, including the blueprint, underlying indicators, and other
+			contextual information.
 		</p>
 
 		<div class="grid grid-cols-0 md:grid-cols-2 gap-8 mt-8">
@@ -193,8 +194,87 @@
 		</div>
 
 		<p class="mt-8">
+			Alternatively, you can use OR logic to select all areas where <i>any</i> of your selected
+			criteria are present.
+			<br /><br />
+			Use the <b>Change filter overlay method</b> dropdown to change the logic being applied to your filters.
+			This can be especially helpful for identifying areas across indicators that do not spatially co-occur
+			in the exact same areas. This mode starts from a blank map, and adds areas as you specify filters.
+		</p>
+
+		<div class="grid grid-cols-0 md:grid-cols-[1fr_2fr] gap-8 mt-8">
+			<div>
+				<enhanced:img
+					src="$images/help-filter-mode.png"
+					alt="Shows dropdown to select filter mode"
+					loading="lazy"
+				/>
+			</div>
+			<div>
+				<figure>
+					<enhanced:img
+						src="$images/help-filter-OR-after.png"
+						alt="Shows filtering the Blueprint with OR filter logic applied to indicators that do not co-occur"
+						loading="lazy"
+					/>
+					<figcaption class="text-sm text-muted-foreground">
+						Example showing OR logic applied to two indicators that do not spatially co-occur.
+					</figcaption>
+				</figure>
+			</div>
+		</div>
+
+		<p class="mt-8">
 			Note: pixel filters may take a few moments to display within your browser, especially as you
 			pan or zoom the map. You may need to zoom in to see areas that meet your filters.
+		</p>
+
+		<div class="grid grid-cols-0 md:grid-cols-[2fr_1fr] gap-8 mt-8">
+			<p>
+				You can save a PDF with a snapshot of your filtered map and information about the filters
+				you've selected using the <b>Print / save map to PDF</b> button. This will use your
+				browser's print dialog, where you can choose PDF as an option.
+				<br /><br />
+				The map snapshot is based on the dimensions of your browser window and the view of the map that
+				is currently visible in the Explorer. You may need to adjust the map or the size of your browser
+				window to better focus on your area of interest.
+			</p>
+			<div>
+				<enhanced:img
+					src="$images/help-filter-print-1.png"
+					alt="Filtered map print button"
+					loading="lazy"
+				/>
+			</div>
+		</div>
+
+		<div class="grid grid-cols-0 md:grid-cols-[2fr_1fr] gap-8 mt-8">
+			<div>
+				<enhanced:img
+					src="$images/help-filter-print-2.png"
+					alt="Browser print dialog"
+					loading="lazy"
+				/>
+			</div>
+			<div>
+				<figure>
+					<enhanced:img
+						src="$images/help-filter-print-3.png"
+						alt="Shows second page of filter PDF"
+						loading="lazy"
+					/>
+					<figcaption class="text-sm text-muted-foreground">
+						Example of information about active filters saved in the PDF.
+					</figcaption>
+				</figure>
+			</div>
+		</div>
+
+		<p class="mt-8">
+			Note: this PDF file is intended to help save information about your active filters for later
+			reference. It is entirely different from the data-rich PDF reports you can create by selecting
+			a watershed or by uploading a shapefile, which include maps of the Blueprint and all
+			indicators present in your area of interest.
 		</p>
 
 		<hr />
@@ -203,7 +283,7 @@
 		<p class="mt-2">
 			Click on the <b>Upload a shapefile</b> button in the upper right. You will be able to upload
 			your area of interest and create a detailed PDF report of the blueprint, underlying
-			indicators, and landscape-level threats in that area.
+			indicators, and other contextual information for your area of interest.
 			<br />
 			<br />
 			Examples of what is inside:
