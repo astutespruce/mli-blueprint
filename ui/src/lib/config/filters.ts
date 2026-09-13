@@ -58,7 +58,7 @@ export const priorityFilters = [
 	}
 ]
 
-export const indicatorGroupFilters = Object.fromEntries(
+const indicatorGroupFilters = Object.fromEntries(
 	indicatorGroups.map(({ indicators: groupIndicators, ...group }) => [
 		group.id,
 		{

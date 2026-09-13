@@ -1,19 +1,19 @@
-from itertools import product
 import math
+from itertools import product
 
-from affine import Affine
 import numba as nb
-from numba import njit
 import numpy as np
-from progress.bar import Bar
 import rasterio
+import shapely
+from affine import Affine
+from numba import njit
+from progress.bar import Bar
 from rasterio.enums import Resampling
 from rasterio.mask import geometry_mask
 from rasterio.vrt import WarpedVRT
 from rasterio.windows import Window
-import shapely
 
-from analysis.constants import OVERVIEW_FACTORS, DATA_CRS
+from analysis.constants import DATA_CRS, OVERVIEW_FACTORS
 
 
 @nb.njit(
@@ -627,7 +627,7 @@ class WindowGeometryMask(object):
         return out
 
 
-@njit(["int8[:,:](int8[:,:],int8[:,:],int8,int8)", "uint8[:,:](uint8[:,:],uint8[:,:],uint8,uint8)"], cache=True)
+@njit("uint8[:,:](uint8[:,:],uint8[:,:],uint8,uint8)", cache=True)
 def remap(arr, remap_table, nodata, fill):
     """Remap a 2D array of values
 

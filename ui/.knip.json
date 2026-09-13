@@ -1,0 +1,19 @@
+{
+	"project": ["./src/**/*.ts", "./src/**/*.svelte", "./src/**/*.css"],
+	"ignore": ["./src/lib/components/ui/**/*.ts"],
+	"ignoreDependencies": [
+		"deck.gl",
+		"@deck.gl/core",
+		"@deck.gl/geo-layers",
+		"@deck.gl/mapbox",
+		"@loaders.gl/core",
+		"@loaders.gl/images",
+		"@loaders.gl/loader-utils",
+		"@luma.gl/core",
+		"@luma.gl/engine",
+		"@luma.gl/shadertools",
+		"@math.gl/core",
+		"@typescript/native",
+		"@sentry/browser"
+	]
+}

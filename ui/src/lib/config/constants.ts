@@ -19,7 +19,6 @@ import pixelLayers4 from '$constants/pixel_layers_4.json'
 export {
 	indicatorGroups,
 	protectedAreas,
-	subregions,
 	urban,
 	pixelLayers0,
 	pixelLayers1,
@@ -29,8 +28,6 @@ export {
 }
 
 export const indicatorGroupIndex = indexBy(indicatorGroups, 'id')
-
-export const subregionsIndex = indexBy(subregions, 'subregion')
 
 // Sort by descending value
 export const blueprint = rawBlueprint.sort(({ value: leftValue }, { value: rightValue }) =>
