@@ -1,26 +1,85 @@
 from pathlib import Path
 
-import pyarrow.dataset as pa
-import pyarrow.compute as pc
-
+from analysis.constants import SummaryUnitType
+from analysis.lib.io import read_unit_from_feather
+from analysis.lib.stats.blueprint import get_blueprint_unit_results
+from analysis.lib.stats.protected_areas import get_protected_areas_unit_results
+from analysis.lib.stats.urban import get_urban_unit_results
 
 data_dir = Path("data")
-huc12_filename = data_dir / "inputs/summary_units/huc12.feather"
 
 
-def read_unit_from_feather(filename, unit_id, columns=None):
-    """Read a summary unit from a Feather file, returning rows that match unit_id
+def get_summary_unit_results(unit_type, unit_id):
+    """Get statistics for a single summary unit (HUC12)
 
     Parameters
     ----------
-    filename : str or Path
+    unit_type : str
+        currently only "huc12" is supported
     unit_id : str
-    columns : list-like, optional (default: None)
-        list of columns to extract from Feather
 
     Returns
     -------
-    DataFrame
+    dict (None if id not present)
     """
-    src = pa.dataset(filename, format="feather")
-    return src.to_table(columns=columns, filter=pc.field("id") == unit_id).to_pandas().set_index("id")
+    if unit_type not in SummaryUnitType:
+        raise ValueError(f"unit_type must be one of {', '.join([x.value for x in SummaryUnitType])}")
+
+    if not isinstance(unit_id, str):
+        raise TypeError("unit_id must be a string")
+
+    results_dir = data_dir / "results" / unit_type
+
+    units_filename = "huc12.feather"
+
+    df = read_unit_from_feather(
+        data_dir / "inputs/summary_units" / units_filename,
+        unit_id,
+        columns=[
+            "id",
+            "name",
+            "acres",
+            "rasterized_acres",
+            "outside_extent_acres",
+            "minx",
+            "miny",
+            "maxx",
+            "maxy",
+            "subregions",
+        ],
+    )
+    df["subregions"] = df.subregions.apply(set)
+
+    if len(df) == 0:
+        # no unit with that ID
+        return None
+
+    unit = df.iloc[0]
+
+    name_suffix = "subwatershed" if unit_type == "huc12" else ""
+    name = f"{unit['name']} {name_suffix}"
+    bounds = unit[["minx", "miny", "maxx", "maxy"]].tolist()
+
+    results = {
+        "name": name,
+        "acres": unit.acres,
+        "rasterized_acres": unit.rasterized_acres,
+        "outside_extent_acres": unit.outside_extent_acres,
+        "outside_extent_percent": 100 * unit.outside_extent_acres / unit.rasterized_acres,
+        "bounds": bounds,
+        "subregions": unit.subregions,
+    }
+
+    blueprint_results = get_blueprint_unit_results(results_dir, unit)
+    if blueprint_results is not None:
+        results.update(blueprint_results)
+
+    protected_areas_results = get_protected_areas_unit_results(results_dir, unit)
+    if protected_areas_results is not None:
+        results["protected_areas"] = protected_areas_results
+
+    urban_results = get_urban_unit_results(results_dir, unit)
+    if urban_results is not None:
+        results["urban"] = urban_results
+
+    return results

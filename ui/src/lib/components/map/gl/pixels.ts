@@ -6,7 +6,6 @@ import {
 	indicatorGroupIndex,
 	indicators as indicatorInfo
 } from '$lib/config/constants'
-
 import { indexBy, setIntersection, sum } from '$lib/util/data'
 import type { IndicatorValue } from '$lib/types'
 
@@ -242,25 +241,25 @@ export const extractPixelData = async (map: Map, point: LngLatLike) => {
 	data.indicators = extractIndicators(data, subregions)
 
 	// extract protected areas from vector tiles
-	const protectedAreasList: string[] = []
-	// @ts-expect-error id is an expected field of layer
+	const protected_areas_list: string[] = []
+	// @ts-expect-error id is valid
 	const protectedAreasFeatures = features.filter(({ layer: { id } }) => id === 'protectedAreas')
 	if (protectedAreasFeatures.length > 0) {
-		// @ts-expect-error name and owner are expected properties
+		// @ts-expect-error name and owner are valid
 		protectedAreasFeatures.forEach(({ properties: { name, owner } }) => {
 			if (owner) {
-				protectedAreasList.push(`${name} (${owner})`)
+				protected_areas_list.push(`${name} (${owner})`)
 			} else {
-				protectedAreasList.push(name)
+				protected_areas_list.push(name)
 			}
 		})
 	}
 
 	return {
 		subregions,
-		outsideExtentPercent: 0,
+		outside_extent_percent: 0,
 		...data,
-		protectedAreasList,
-		numProtectedAreas: protectedAreasList.length
+		protected_areas_list,
+		num_protected_areas: protected_areas_list.length
 	}
 }

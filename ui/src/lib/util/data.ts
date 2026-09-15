@@ -9,7 +9,6 @@ export const indexBy = (records: Record<string, any>[], field: string) =>
 		{}
 	)
 
-
 /**
  * Calculate the sum of an array of numbers
  * @param {Array} values - array of numbers
@@ -32,30 +31,11 @@ export const range = (min: number, max: number | null = null) =>
  */
 export const extent = (values: number[]) => [Math.min(...values), Math.max(...values)]
 
-/**
- * Create a sort function that can be used as input to .sort()
- * @param {String} field - field to sort on
- * @param {bool} ascending
- */
-export const sortByFunc =
-	(field: string, ascending: boolean = true) =>
-	(a: { [key: string]: any }, b: { [key: string]: any }) => {
-		if (a[field] < b[field]) {
-			return ascending ? -1 : 1
-		}
-		if (a[field] > b[field]) {
-			return ascending ? 1 : -1
-		}
-		return 0
-	}
-
-
 export const applyFactor = (values: number[], factor: number) => {
 	if (!values) return values
 
 	return values.map((v) => v * factor)
 }
-
 
 const numericRegex = /\d+/
 const nonNumericRegex = /[^0-9|]/

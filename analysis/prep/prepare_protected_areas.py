@@ -1,18 +1,18 @@
-from pathlib import Path
 import warnings
+from pathlib import Path
 
-import pandas as pd
 import geopandas as gp
 import numpy as np
-from pyogrio import read_dataframe, write_dataframe
+import pandas as pd
 import rasterio
-from rasterio.features import rasterize
 import shapely
+from pyogrio import read_dataframe, write_dataframe
+from rasterio.features import rasterize
 
-from analysis.constants import MLI_STATES, PROTECTED_AREAS, MASK_RESOLUTION, DATA_CRS
+from analysis.constants import DATA_CRS, MASK_RESOLUTION, MLI_STATES, PROTECTED_AREAS
 from analysis.lib.colors import hex_to_uint8
-from analysis.lib.geometry import make_valid, to_dict_all, dissolve
-from analysis.lib.raster import write_raster, add_overviews, create_lowres_mask
+from analysis.lib.geometry import dissolve, make_valid
+from analysis.lib.raster import add_overviews, create_lowres_mask, write_raster
 
 warnings.filterwarnings("ignore", message=".*polygon with more than 100 parts.*")
 
@@ -129,14 +129,16 @@ df.owner.drop_duplicates().sort_values().to_csv("/tmp/names.csv", index=False)
 
 # Use FGB (instead of Feather) for more optimal reading by area of interest
 print("Writing files")
-write_dataframe(df[["name", "owner", "geometry"]], out_dir / "protected_areas.fgb")
+write_dataframe(
+    df[["name", "owner", "geometry"]], data_dir / "inputs" / PROTECTED_AREAS["filename"].replace(".tif", ".fgb")
+)
 
 
 ################################################################################
 ### Rasterize to protected (1) or not (0)
 ################################################################################
 
-protected_areas = pd.DataFrame(PROTECTED_AREAS)
+protected_areas = pd.DataFrame(PROTECTED_AREAS["values"])
 protected_areas_colormap = (
     protected_areas.set_index("value")
     .color.apply(lambda x: hex_to_uint8(x) + (255,) if not pd.isnull(x) else (255, 255, 255, 0))
@@ -153,7 +155,7 @@ align_ul = np.take(extent.transform, [2, 5]).tolist()
 
 print("Rasterizing protected areas")
 data = rasterize(
-    to_dict_all(df.geometry.values),
+    df.geometry.apply(lambda g: g.__geo_interface__).values,
     transform=extent.transform,
     out_shape=extent.shape,
     fill=0,
@@ -163,7 +165,7 @@ data = rasterize(
 
 data = np.where(extent_data == 1, data, NODATA)
 
-outfilename = out_dir / "protected_areas.tif"
+outfilename = data_dir / "inputs" / PROTECTED_AREAS["filename"]
 write_raster(
     outfilename,
     data,
@@ -181,7 +183,7 @@ add_overviews(outfilename)
 
 create_lowres_mask(
     outfilename,
-    out_dir / "protected_areas_mask.tif",
+    str(outfilename).replace(".tif", "_mask.tif"),
     resolution=MASK_RESOLUTION,
     ignore_zero=False,
 )

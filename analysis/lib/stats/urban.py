@@ -4,19 +4,20 @@ import numpy as np
 import pandas as pd
 import rasterio
 
-from analysis.constants import M2_ACRES, URBAN_YEARS
+from analysis.constants import M2_ACRES, URBAN_BY_DECADE, URBAN_YEARS
+from analysis.lib.io import read_unit_from_feather
 from analysis.lib.raster import summarize_raster_by_units_grid
-from analysis.lib.stats.summary_units import read_unit_from_feather
 
 # values are number of runs out of 50 that are predicted to urbanize
 # 51 = urban as of 2021 (NLCD)
 # NOTE: index 0 = not predicted to urbanize
 PROBABILITIES = np.append(np.arange(0, 51) / 50.0, np.array([1.0]))
+BINS = range(len(PROBABILITIES))
 
 
-src_dir = Path("data/inputs/threats/urban")
-urban_filename = str(src_dir / "urban_{year}.tif")
-mask_filename = src_dir / "urban_mask.tif"
+src_dir = Path("data/inputs")
+urban_filename = str(src_dir / URBAN_BY_DECADE["filename"])
+mask_filename = src_dir / URBAN_BY_DECADE["filename"].replace("_{year}.tif", "_mask.tif")
 
 
 async def summarize_urban_in_aoi(rasterized_geometry, progress_callback=None):
@@ -52,12 +53,10 @@ async def summarize_urban_in_aoi(rasterized_geometry, progress_callback=None):
         if not rasterized_geometry.detect_data(src):
             return None
 
-    bins = range(len(PROBABILITIES))
-
     urban_results = []
     for i, year in enumerate(URBAN_YEARS):
         with rasterio.open(urban_filename.format(year=year)) as src:
-            urban_acres = rasterized_geometry.get_acres_by_bin(src, bins)
+            urban_acres = rasterized_geometry.get_acres_by_bin(src, BINS)
 
         # total urbanization is sum of acres by probability bin * probability
         total_projected_acres = (urban_acres * PROBABILITIES).sum()
@@ -136,7 +135,7 @@ def summarize_urban_by_units_grid(df, units_grid, out_dir):
     """
 
     if not len(df.columns.intersection({"value", "rasterized_acres", "outside_extent_acres"})) == 3:
-        raise ValueError("GeoDataFrame for summary must include value, rasterized_acres, outside_extent columns")
+        raise ValueError("GeoDataFrame for summary must include value, rasterized_acres, outside_extent_acres columns")
 
     bins = np.arange(0, len(PROBABILITIES))
 
@@ -160,7 +159,7 @@ def summarize_urban_by_units_grid(df, units_grid, out_dir):
 
     already_urban_acres = urban_acres[:, 51]
     available_urban_acres = urban_acres.sum(axis=1)
-    outside_urban_acres = df.rasterized_acres - df.outside_extent - available_urban_acres
+    outside_urban_acres = df.rasterized_acres - df.outside_extent_acres - available_urban_acres
     outside_urban_acres[outside_urban_acres < 1e-6] = 0
 
     urban = pd.DataFrame(
@@ -202,10 +201,6 @@ def summarize_urban_by_units_grid(df, units_grid, out_dir):
                 urban["noturban_2100_acres"] = noturban_2100_acres
 
             urban[f"urban_proj_{year}_acres"] = total_projected_acres
-
-    # if nothing is urban / projected to urbanize by 2100, return None
-    if urban_acres[:, 1:].max() == 0:
-        return None
 
     urban.reset_index().to_feather(out_dir / "urban.feather")
 

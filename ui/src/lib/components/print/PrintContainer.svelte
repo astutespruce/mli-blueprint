@@ -19,7 +19,7 @@
 
 {#if browser}
 	<div class="hidden print:block">
-		<h1 class="text-2xl">Southeast Conservation Blueprint Explorer (2026)</h1>
+		<h1 class="text-2xl">Midwest Conservation Blueprint Explorer (2026)</h1>
 
 		{#if mapState.mapImg !== null}
 			<div class="mt-4">

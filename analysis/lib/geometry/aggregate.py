@@ -1,12 +1,12 @@
 import geopandas as gp
-import pandas as pd
 import numpy as np
+import pandas as pd
 import shapely
 
 from analysis.lib.graph import DirectedGraph
 
 
-def dissolve(df, by, grid_size=None, agg=None, allow_multi=True, op="union"):
+def dissolve(df, by=None, grid_size=None, agg=None, allow_multi=True, op="union"):
     """Dissolve a DataFrame by grouping records using "by".
 
     Contiguous or overlapping geometries will be unioned together.
@@ -15,7 +15,7 @@ def dissolve(df, by, grid_size=None, agg=None, allow_multi=True, op="union"):
     ----------
     df : GeoDataFrame
         geometries must be single-part geometries
-    by : str or list-like
+    by : str or list-like, optional (default None)
         field(s) to dissolve by
     grid_size : float
         precision grid size, will be used in union operation
@@ -31,13 +31,14 @@ def dissolve(df, by, grid_size=None, agg=None, allow_multi=True, op="union"):
         if "geometry" in agg:
             raise ValueError("Cannot use user-specified aggregator for geometry")
     else:
-        agg = dict()
+        agg = {}
 
     agg["geometry"] = lambda g: union_or_combine(g.values, grid_size=grid_size, op=op)
 
-    dissolved = gp.GeoDataFrame(
-        df.groupby(by).agg(agg).reset_index(), geometry="geometry", crs=df.crs
-    )
+    if by:
+        dissolved = gp.GeoDataFrame(df.groupby(by).agg(agg).reset_index(), geometry="geometry", crs=df.crs)
+    else:
+        dissolved = gp.GeoDataFrame(df.agg(agg).rename("geometry").reset_index(), geometry="geometry", crs=df.crs)
 
     if not allow_multi:
         # flatten any multipolygons
@@ -81,9 +82,7 @@ def union_or_combine(geometries, grid_size=None, op="union"):
     elif geom_types[0] == 3:
         multi_type = shapely.multipolygons
     else:
-        raise ValueError(
-            f"Aggregate geometry type not supported for GeometryType {geom_types[0]}"
-        )
+        raise ValueError(f"Aggregate geometry type not supported for GeometryType {geom_types[0]}")
 
     if len(geometries) == 1:
         return multi_type(geometries)
@@ -108,17 +107,11 @@ def union_or_combine(geometries, grid_size=None, op="union"):
 
     if op == "coverage_union":
         for group in groups:
-            parts.extend(
-                shapely.get_parts(shapely.coverage_union_all(geometries[list(group)]))
-            )
+            parts.extend(shapely.get_parts(shapely.coverage_union_all(geometries[list(group)])))
 
     else:
         for group in groups:
-            parts.extend(
-                shapely.get_parts(
-                    shapely.union_all(geometries[list(group)], grid_size=grid_size)
-                )
-            )
+            parts.extend(shapely.get_parts(shapely.union_all(geometries[list(group)], grid_size=grid_size)))
 
     parts.extend(shapely.get_parts(geometries[discontiguous]))
 

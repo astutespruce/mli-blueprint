@@ -5,18 +5,15 @@ import pandas as pd
 import rasterio
 
 from analysis.constants import BLUEPRINT, INDICATOR_GROUPS, INDICATORS, INDICATORS_INDEX, M2_ACRES
-from analysis.lib.util import pluck
+from analysis.lib.io import read_unit_from_feather
 from analysis.lib.raster import summarize_raster_by_units_grid
-from analysis.lib.stats.summary_units import (
-    read_unit_from_feather,
-)
+from analysis.lib.util import pluck
 
 data_dir = Path("data")
 src_dir = data_dir / "inputs"
-indicators_dir = src_dir / "indicators"
-blueprint_filename = src_dir / "blueprint.tif"
+blueprint_filename = src_dir / BLUEPRINT["filename"]
 
-BLUEPRINT_BINS = range(0, len(BLUEPRINT))
+BLUEPRINT_BINS = range(len(BLUEPRINT["values"]))
 
 
 async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_callback=None):
@@ -38,7 +35,6 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
     -------
     {
         "blueprint": [{"value": <...>, "label": <...>, "acres": <...>, "percent": <...>, ...}, ...],
-        "corridors": [{"value": <...>, "label": <...>, "acres": <...>, "percent": <...>, ...}, ...],
         "legend": [...],
         "indicator_groups": ...,
         "total_acres": <...>
@@ -46,7 +42,7 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
     """
 
     with rasterio.open(blueprint_filename) as src:
-        blueprint_acres = rasterized_geometry.get_acres_by_bin(src, bins=range(len(BLUEPRINT)))
+        blueprint_acres = rasterized_geometry.get_acres_by_bin(src, bins=range(len(BLUEPRINT["values"])))
 
     total_acres = blueprint_acres.sum()
 
@@ -59,18 +55,15 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
             "acres": blueprint_acres[i],
             "percent": 100 * blueprint_acres[i] / rasterized_geometry.acres,
         }
-        for i, e in enumerate(pluck(BLUEPRINT, ["value", "label"]))
+        for i, e in enumerate(pluck(BLUEPRINT["values"], ["value", "label"]))
     ][::-1]
 
     if progress_callback is not None:
         await progress_callback(20)
 
-    # empty list indicates no hubs / corridors present
-    corridors = []
-
     indicators_present = []
     for indicator in INDICATORS:
-        mask_filename = src_dir / "indicators" / f"{indicator['id']}_mask.tif"
+        mask_filename = src_dir / indicator["filename"].replace(".tif", "_mask.tif")
         with rasterio.open(mask_filename) as src:
             if rasterized_geometry.detect_data(src):
                 indicators_present.append(indicator)
@@ -78,8 +71,8 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
     indicators = {}
     for i, indicator in enumerate(indicators_present):
         id = indicator["id"]
-        filename = src_dir / f"indicators/{indicator['id']}.tif"
-        bins = range(0, indicator["values"][-1]["value"] + 1)
+        filename = src_dir / indicator["filename"]
+        bins = range(indicator["values"][-1]["value"] + 1)
 
         with rasterio.open(filename) as src:
             indicator_acres = rasterized_geometry.get_acres_by_bin(src, bins)
@@ -90,7 +83,7 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
         # Some indicators exclude 0 values, their counts need to be zeroed out here
         min_value = indicator["values"][0]["value"]
         if min_value > 0:
-            indicator_acres[range(0, min_value)] = 0
+            indicator_acres[range(min_value)] = 0
 
         # if only 0 values are present, ignore this indicator
         if indicator_acres[1:].max() == 0:
@@ -127,13 +120,11 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
             await progress_callback(20 + (75 * (i + 1) / len(indicators_present)))
 
     ### aggregate indicators up to indicator groups
-    # determine indicator gruop present from indicators
+    # determine indicator groups present from indicators
     indicator_group_ids = {id.split("_")[0] for id in indicators}
     indicator_groups_present = [deepcopy(e) for e in INDICATOR_GROUPS if e["id"] in indicator_group_ids]
     indicator_groups = []
     for group in indicator_groups_present:
-        id = group["id"]
-
         # include either indicators that are present or those expected based on
         # subregions (NOTE: None is a flag that indicator applies to all subregions)
         expected_indicators = [
@@ -153,20 +144,17 @@ async def summarize_blueprint_in_aoi(rasterized_geometry, subregions, progress_c
             for id in expected_indicators
         ]
 
-        # update indicator group with only the indicators that are present
+        # update group with only indicators that are present
         group["indicators"] = [indicators[id] for id in group["indicators"] if id in indicators]
         indicator_groups.append(group)
 
     results = {
         "blueprint": blueprint,
         # don't include Priority for conservation in legend
-        "legend": pluck(BLUEPRINT[1:], ["label", "color"])[::-1],
+        "legend": pluck(BLUEPRINT["values"][1:], ["label", "color"])[::-1],
         "indicator_groups": indicator_groups,
         "total_acres": total_acres,
     }
-
-    if corridors:
-        results["corridors"] = corridors
 
     return results
 
@@ -205,16 +193,15 @@ def summarize_blueprint_by_units_grid(df, units_grid, out_dir):
 
     for indicator in INDICATORS:
         id = indicator["id"]
-        filename = indicators_dir / f"{indicator['id']}.tif"
         # WARNING: some indicators have missing values in the range and are non-contiguous
         values = [v["value"] for v in indicator["values"]]
-        with rasterio.open(filename) as value_dataset:
+        with rasterio.open(src_dir / indicator["filename"]) as value_dataset:
             indicator_acres = (
                 summarize_raster_by_units_grid(
                     df,
                     units_grid,
                     value_dataset,
-                    bins=range(0, values[-1] + 1),
+                    bins=range(values[-1] + 1),
                     progress_label=f"Summarizing {indicator['label']}",
                 )
                 * cellsize
@@ -235,7 +222,9 @@ def summarize_blueprint_by_units_grid(df, units_grid, out_dir):
         outside_indicator_acres[outside_indicator_acres < 1e-6] = 0
         # store a column of 0s for indicators with discontinuous value ranges
         indicator_df = pd.DataFrame(
-            indicator_acres, columns=[f"{id}_value_{v}" for v in range(values[0], values[-1] + 1)], index=df.index
+            indicator_acres,
+            columns=[f"{id}_value_{v}" for v in range(values[0], values[-1] + 1)],
+            index=df.index,
         )
         indicator_df[f"{id}_outside"] = outside_indicator_acres
 
@@ -277,7 +266,7 @@ def get_blueprint_unit_results(results_dir, unit):
             "acres": blueprint_acres[entry["value"]],
             "percent": 100 * blueprint_acres[entry["value"]] / unit.rasterized_acres,
         }
-        for entry in BLUEPRINT
+        for entry in BLUEPRINT["values"]
     ][::-1]
 
     # only check areas of indicators actually present in summaries for unit type
@@ -355,7 +344,7 @@ def get_blueprint_unit_results(results_dir, unit):
     results = {
         "blueprint": blueprint,
         # don't include Priority for conservation in legend
-        "legend": pluck(BLUEPRINT[1:], ["label", "color"])[::-1],
+        "legend": pluck(BLUEPRINT["values"][1:], ["label", "color"])[::-1],
         "total_acres": total_acres,
         "indicator_groups": indicator_groups,
     }

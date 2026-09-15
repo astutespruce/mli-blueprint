@@ -1,0 +1,11 @@
+{
+	"id": "urban_by_decade",
+	"filename": "threats/urban/urban_{year}.tif",
+	"label": "Urban growth",
+	"description": "The FUTURES urban growth model predicts the likelihood that an area will urbanize at every decade from 2020 to 2100. Developed areas from the 2021 National Landcover Database serve as the baseline for current urban areas. The model simulates landscape change based on trends in population growth, local development suitability factors, and an urban patch-growing algorithm. It considers environmental drivers like distance to floodplain, slope, and available infrastructure, and even socio-economic status. The probability of urbanization for each area reflects how many times it urbanized out of 50 model runs.  Data were reprojected to align with the Blueprint.  Urban data are limited to the inland continental Southeast.  The projected extent of urbanization for each analysis unit is calculated by multiplying the probability of urbanization in each decade by the area in each probability class in the analysis area, and then summing the resulting values together.",
+	"caption": "Extent of projected urbanization by decade",
+	"source": "FUTURES",
+	"date": "2023",
+	"citation": "Center for Geospatial Analytics, NC State University (June 2023)",
+	"url": "https://www.sciencebase.gov/catalog/item/63f50297d34efa0476b04cf7"
+}

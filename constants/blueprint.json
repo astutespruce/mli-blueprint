@@ -1,42 +1,53 @@
-[
-	{
-		"value": 0,
-		"label": "Priority for Conservation",
-		"shortLabel": "Lower priority",
-		"percent": 50,
-		"description": "These pixels fall in the bottom 50th percentile of conservation priority in the blueprint. While these pixels are not considered to be prioritized, they can still have conservation value and conservation efforts in these areas are still encouraged.",
-		"color": "#ffebc2"
-	},
-	{
-		"value": 1,
-		"label": "Connections Between Priority Areas",
-		"shortLabel": "Priority connections",
-		"percent": 5,
-		"description": "Connections between prioritized areas (Highest, High, and Medium Conservation Priority) that cover the shortest distance possible, routing through the maximum pixel values possible.",
-		"color": "#89bf7c"
-	},
-	{
-		"value": 2,
-		"label": "Medium Conservation Priority",
-		"shortLabel": "Medium priority",
-		"percent": 20,
-		"description": "Medium Conservation Priority areas cover roughly 20% of the blueprint area, and consist of the 75th-55th percentile in priority rank.",
-		"color": "#388c3a"
-	},
-	{
-		"value": 3,
-		"label": "High Conservation Priority",
-		"shortLabel": "High priority",
-		"percent": 15,
-		"description": "High Conservation Priority areas cover roughly 15% of the blueprint area, and consist of the 90th-75th percentile in priority rank.",
-		"color": "#0f662c"
-	},
-	{
-		"value": 4,
-		"label": "Highest Conservation Priority",
-		"shortLabel": "Highest priority",
-		"description": "Highest Conservation Priority areas cover roughly 10% of the blueprint area, and consist of the top 10th percentile in priority rank.",
-		"percent": 10,
-		"color": "#00441b"
-	}
-]
+{
+  "id": "blueprint",
+  "filename": "blueprint.tif",
+  "label": "Blueprint priority",
+  "description": "The Blueprint identifies priority areas based on a suite of natural and cultural resource indicators representing terrestrial, freshwater, and marine ecosystems.",
+  "caption": "Extent of each Blueprint priority category",
+  "source": "Midwest Conservation Blueprint",
+  "date": "2026",
+  "citation": "Midwest Landscape Initiative. 2026. The Midwest Conservation Blueprint 2026",
+  "url": "https://secas-fws.hub.arcgis.com/maps/fws::southeast-conservation-blueprint-2025/explore",
+  "values": [
+    {
+      "value": 0,
+      "label": "Priority for Conservation",
+      "shortLabel": "Lower priority",
+      "percent": 50,
+      "description": "These pixels fall in the bottom 50th percentile of conservation priority in the blueprint. While these pixels are not considered to be prioritized, they can still have conservation value and conservation efforts in these areas are still encouraged.",
+      "color": "#ffebc2"
+    },
+    {
+      "value": 1,
+      "label": "Connections Between Priority Areas",
+      "shortLabel": "Priority connections",
+      "percent": 5,
+      "description": "Connections between prioritized areas (Highest, High, and Medium Conservation Priority) that cover the shortest distance possible, routing through the maximum pixel values possible.",
+      "color": "#89bf7c"
+    },
+    {
+      "value": 2,
+      "label": "Medium Conservation Priority",
+      "shortLabel": "Medium priority",
+      "percent": 20,
+      "description": "Medium Conservation Priority areas cover roughly 20% of the blueprint area, and consist of the 75th-55th percentile in priority rank.",
+      "color": "#388c3a"
+    },
+    {
+      "value": 3,
+      "label": "High Conservation Priority",
+      "shortLabel": "High priority",
+      "percent": 15,
+      "description": "High Conservation Priority areas cover roughly 15% of the blueprint area, and consist of the 90th-75th percentile in priority rank.",
+      "color": "#0f662c"
+    },
+    {
+      "value": 4,
+      "label": "Highest Conservation Priority",
+      "shortLabel": "Highest priority",
+      "description": "Highest Conservation Priority areas cover roughly 10% of the blueprint area, and consist of the top 10th percentile in priority rank.",
+      "percent": 10,
+      "color": "#00441b"
+    }
+  ]
+}

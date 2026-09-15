@@ -1,17 +1,17 @@
-from pathlib import Path
 import math
+from pathlib import Path
 from time import time
 
-from progress.bar import Bar
 import numpy as np
 import rasterio
+import shapely
+from progress.bar import Bar
 from rasterio.enums import Resampling
 from rasterio.vrt import WarpedVRT
-from rasterio.warp import transform_bounds
 from rasterio.windows import Window
 
-from analysis.constants import MASK_RESOLUTION, URBAN_YEARS, DATA_CRS, URBAN_COLORS, NLCD_INDEXES
-from analysis.lib.colors import interpolate_colormap, hex_to_uint8
+from analysis.constants import DATA_CRS, MASK_RESOLUTION, NLCD_INDEXES, URBAN, URBAN_COLORS, URBAN_YEARS
+from analysis.lib.colors import hex_to_uint8, interpolate_colormap
 from analysis.lib.raster import add_overviews, create_lowres_mask, write_raster
 
 CHUNK_SIZE = 500  # number of rows to read at a time
@@ -33,16 +33,17 @@ urban_codes = [k for k, v in NLCD_INDEXES.items() if v["label"].startswith("Deve
 
 start = time()
 
-bnd_dir = Path("data/inputs/boundaries")
+data_dir = Path("data")
+bnd_dir = data_dir / "inputs/boundaries"
 src_dir = Path("../secas-blueprint/source_data/urban")
-nlcd_dir = Path("data/inputs/nlcd")
-out_dir = Path("data/inputs/threats/urban")
+nlcd_dir = data_dir / "data/inputs/nlcd"
+out_dir = data_dir / "data/inputs/threats/urban"
 tmp_dir = Path("/tmp")
 
 out_dir.mkdir(parents=True, exist_ok=True)
 
 bnd_raster = rasterio.open(bnd_dir / "blueprint_extent.tif")
-# bnd = shapely.box(*bnd_raster.bounds)
+bnd = shapely.box(*bnd_raster.bounds)
 
 
 # Read NLCD 2021 prepared using analysis/prep/prepare_nlcd.py
@@ -55,8 +56,7 @@ with rasterio.open(nlcd_dir / "landcover_2021.tif") as src:
 
 ### Find the overlapping window for the Blueprint extent
 with rasterio.open(src_dir / "fv2_probability_newDevelopment_2030.tif") as src:
-    target_bounds = transform_bounds(bnd_raster.crs, src.crs, *bnd_raster.bounds)
-    window = src.window(*target_bounds)
+    window = src.window(*shapely.total_bounds(bnd))
     window_floored = window.round_offsets(op="floor", pixel_precision=3)
     w = math.ceil(window.width + window.col_off - window_floored.col_off)
     h = math.ceil(window.height + window.row_off - window_floored.row_off)
@@ -191,7 +191,7 @@ with rasterio.open(out_dir / "urban_2060.tif") as src:
     binned[data == 51] = 1  # already urban
     binned[data == 255] = 0  # outside Blueprint extent
 
-    outfilename = out_dir / "urban_2060_binned.tif"
+    outfilename = data_dir / "inputs" / URBAN["filename"]
     write_raster(
         outfilename,
         binned,

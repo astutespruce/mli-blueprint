@@ -1,5 +1,5 @@
-from pathlib import Path
 import math
+from pathlib import Path
 from time import time
 
 import numpy as np
@@ -11,7 +11,7 @@ from rasterio.windows import Window
 
 from analysis.constants import DATA_CRS, NLCD_CODES, NLCD_INDEXES
 from analysis.lib.colors import hex_to_uint8
-from analysis.lib.raster import add_overviews, write_raster, remap
+from analysis.lib.raster import add_overviews, remap, write_raster
 
 NODATA = 255
 

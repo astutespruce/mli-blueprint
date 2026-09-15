@@ -17,8 +17,8 @@
 	const {
 		type,
 		indicators,
-		outsideExtentPercent,
-		rasterizedAcres,
+		outside_extent_percent,
+		rasterized_acres,
 		class: className = ''
 	} = $props()
 
@@ -30,8 +30,8 @@
 		<IndicatorDetails
 			{type}
 			{...indicators.indicators[mapState.selectedIndicator]}
-			{outsideExtentPercent}
-			{rasterizedAcres}
+			{outside_extent_percent}
+			{rasterized_acres}
 			icon={indicatorGroupIcons[
 				indicators.indicators[mapState.selectedIndicator].group
 					.id as keyof typeof indicatorGroupIcons

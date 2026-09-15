@@ -9,7 +9,7 @@ import type {
 
 import {
 	blueprint,
-	blueprintCategories,
+	indicatorGroups,
 	indicatorsIndex,
 	protectedAreas,
 	urban,
@@ -17,8 +17,7 @@ import {
 	pixelLayers1,
 	pixelLayers2,
 	pixelLayers3,
-	pixelLayers4,
-	indicatorGroups
+	pixelLayers4
 } from './constants'
 
 import { tileHost } from './map'
@@ -60,35 +59,34 @@ pixelLayers.forEach(({ encoding }, textureIndex) => {
 
 const coreLayers: PixelLayer[] = [
 	{
-		id: 'blueprint',
+		id: blueprint.id,
 		label: 'Blueprint priority',
 		valueLabel: 'for the wellbeing of people and nature', // used in legend
-		// sort colors in ascending value; blueprint is in descending order
-		colors: blueprint.map(({ color, value }) => (value === 0 ? null : color)).reverse(),
-		categories: blueprintCategories,
-		layer: pixelLayerIndex.blueprint
+		colors: blueprint.values.map(({ color, value }) => (value === 0 ? null : color)),
+		categories: blueprint.values.filter(({ value }) => value > 0),
+		layer: pixelLayerIndex[blueprint.id]
 	}
 ]
 
 const otherInfoLayers: PixelLayer[] = [
 	{
-		id: 'urban',
-		label: 'Probability of urbanization by 2060',
-		colors: urban.map(({ color }) => color),
-		categories: urban.map(({ color, ...rest }) => ({
+		id: urban.id,
+		label: urban.label,
+		colors: urban.values.map(({ color }) => color),
+		categories: urban.values.map(({ color, ...rest }) => ({
 			...rest,
 			color: color || '#FFFFFF',
 			outlineWidth: 1,
 			outlineColor: 'grey.5'
 		})),
-		layer: pixelLayerIndex.urban
+		layer: pixelLayerIndex[urban.id]
 	},
 	{
-		id: 'protectedAreas',
-		label: 'Protected areas',
-		colors: protectedAreas.map(({ color }) => color),
-		categories: protectedAreas.filter(({ color }) => color !== null),
-		layer: pixelLayerIndex.protectedAreas
+		id: protectedAreas.id,
+		label: protectedAreas.label,
+		colors: protectedAreas.values.map(({ color }) => color),
+		categories: protectedAreas.values.filter(({ color }) => color !== null),
+		layer: pixelLayerIndex[protectedAreas.id]
 	}
 ]
 

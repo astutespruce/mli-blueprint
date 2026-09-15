@@ -14,19 +14,14 @@
 	import { setIntersection } from '$lib/util/data'
 	import type { Filter } from '$lib/types'
 	import { cn } from '$lib/utils'
-	import { indicatorGroups, indicatorsIndex } from '$lib/config/constants'
+	import { indicatorGroups, urban } from '$lib/config/constants'
 	import {
 		priorityFilters as rawPriorityFilters,
+		indicatorGroupFilters as rawIndicatorGroupFilters,
 		otherInfoFilters as rawOtherInfoFilters
 	} from '$lib/config/filters'
 	import { FilterGroup, FilterMethodDropdown } from '$lib/components/filter'
 	import { PrintMapDialog } from '$lib/components/dialog'
-
-	const indicatorGroupIcons = {
-		h: HumanWellbeingIcon,
-		l: LandscapeHealthIcon,
-		w: WildlifeIcon
-	}
 
 	const { class: className } = $props()
 	const mapState: MapState = getContext('map-state')
@@ -34,6 +29,12 @@
 	type FilterVisibilityStub = {
 		canBeVisible: boolean
 		enabled: boolean
+	}
+
+	const indicatorGroupIcons = {
+		h: HumanWellbeingIcon,
+		l: LandscapeHealthIcon,
+		w: WildlifeIcon
 	}
 
 	let { priorityFilters, otherInfoFilters, ...indicatorGroupFilters } = $derived.by(() => {
@@ -47,16 +48,12 @@
 				.filter(({ canBeVisible, enabled }: FilterVisibilityStub) => canBeVisible || enabled),
 
 			...Object.fromEntries(
-				indicatorGroups.map(({ id: groupId, indicators }) => {
+				Object.entries(rawIndicatorGroupFilters).map(([id, { indicators }]) => {
 					const indicatorFilters = indicators
-						.map((id) => {
-							const { subregions: indicatorSubregions, values, ...rest } = indicatorsIndex[id]
-
+						.map(({ id, subregions: indicatorSubregions, ...rest }) => {
 							return {
 								id,
 								...rest,
-								// sort indicator values in descending order
-								values: values.slice().reverse(),
 								...mapState.filters[id],
 								// null / empty subregions indicates the indicator is visible everywhere
 								canBeVisible:
@@ -66,7 +63,7 @@
 						})
 						.filter(({ canBeVisible, enabled }: FilterVisibilityStub) => canBeVisible || enabled)
 
-					return [groupId, indicatorFilters]
+					return [id, indicatorFilters]
 				})
 			),
 

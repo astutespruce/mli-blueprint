@@ -1,4 +1,16 @@
-[
-  { "value": 0, "label": "Not within a protected area", "color": null },
-  { "value": 1, "label": "Within a protected area", "color": "#359935" }
-]
+{
+	"id": "protected_areas",
+	"filename": "boundaries/protected_areas.tif",
+	"label": "Protected areas",
+	"sheet_name": "Protected areas",
+	"description": "Protected areas include a variety of public lands owned or managed by federal, state, and local agencies and nonprofit organizations, as well as some private conservation lands and conservation easements.  Protected areas iare derived from the Protected Areas Database of the United States (PAD-US v4.1) and include Fee, Designation, Easement, Marine, and Proclamation (Dept. of Defense lands only) boundaries.  Data were reprojected to the Albers Equal Area - Contiguous U.S. projection and rasterized to 30m pixels aligned with the Blueprint.",
+	"caption": "Extent of protected areas",
+	"source": "U.S. Geological Survey",
+	"date": "2025",
+	"citation": "U.S. Geological Survey (USGS) Gap Analysis Project (GAP), 2024, Protected Areas Database of the United States (PAD-US) 4.1: U.S. Geological Survey data release, https://doi.org/10.5066/P96WBCHS.",
+	"url": "https://www.usgs.gov/programs/gap-analysis-project/science/pad-us-data-overview",
+	"values": [
+		{ "value": 0, "label": "Not within a protected area", "color": null },
+		{ "value": 1, "label": "Within a protected area", "color": "#359935" }
+	]
+}

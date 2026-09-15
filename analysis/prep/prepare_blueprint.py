@@ -1,24 +1,17 @@
 import json
-from pathlib import Path
 import re
+from pathlib import Path
 
-from affine import Affine
 import numpy as np
 import pandas as pd
-from pyogrio import read_dataframe
 import rasterio
+from affine import Affine
+from pyogrio import read_dataframe
 from rasterio import windows
 
-from analysis.constants import MASK_RESOLUTION, BLUEPRINT
+from analysis.constants import BLUEPRINT, MASK_RESOLUTION
 from analysis.lib.colors import hex_to_uint8
-from analysis.lib.raster import (
-    write_raster,
-    add_overviews,
-    create_lowres_mask,
-    shift_window,
-    unique,
-)
-
+from analysis.lib.raster import add_overviews, create_lowres_mask, shift_window, unique, write_raster
 
 NODATA = 255  # standardize NODATA of all indicators
 INDICATOR_GROUP_COLORS = {
@@ -54,11 +47,11 @@ extent = rasterio.open(out_dir / "boundaries/blueprint_extent.tif")
 ################################################################################
 ### Extract blueprint to data extent
 ################################################################################
-outfilename = out_dir / "blueprint.tif"
+outfilename = out_dir / BLUEPRINT["filename"]
 
 if not outfilename.exists():
     print("Extracting blueprint")
-    colormap = {e["value"]: hex_to_uint8(e["color"]) for e in BLUEPRINT}
+    colormap = {e["value"]: hex_to_uint8(e["color"]) for e in BLUEPRINT["values"]}
     colormap[0] = (255, 255, 255, 0)
 
     with rasterio.open(src_dir / "Blueprint_2026.tif") as src:
@@ -79,8 +72,6 @@ if not outfilename.exists():
 
         extent_data = extent.read(1)
         # then mask out everything outside the extent
-        # NOTE: in 2026 there were many pixels of value 2 (corridors) outside
-        # the extent that get set to NODATA here
         data = np.where(extent_data == 1, data, NODATA)
 
         del extent_data
@@ -119,6 +110,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
     ).rename(
         columns={
             "Indicator": "label",
+            "Abbreviated Layer Name for Excel (31 character limit)": "sheet_name",
             "Legend Subheader": "valueLabel",
             "Abbreviated indicator values": "valueLabels",
             # 'Blueprint Explorer "Good" threshold': "goodThreshold",
@@ -142,6 +134,12 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
     indicator_group_id = sheet_name.lower()[0]
     df["id"] = indicator_group_id + "_" + key.str.lower()
 
+    df["sheet_name"] = df.sheet_name.fillna("").str.strip().replace("N/A", "")
+    ix = df.sheet_name.apply(len) > 31
+    if ix.any():
+        print(df.loc[ix, ["label", "sheet_name"]])
+        raise ValueError("Sheet name must be <= 31 chars, see failures above")
+
     indicator_groups.append(
         {
             "id": indicator_group_id,
@@ -151,7 +149,9 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
         }
     )
 
-    df["filename"] = key + ".tif"
+    # we intentionally rename the files to their IDs
+    df["filename"] = df.id + ".tif"
+    df["src_filename"] = key + ".tif"
 
     # fix filenames that don't follow the standard convention
     filename_fixes = {
@@ -181,10 +181,10 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
         "DrinkingWaterGroundwater.tif": "WaterQA_Groundwater.tif",
         "DrinkingWaterSurfaceWater.tif": "WaterQA_Surfacewater.tif",
     }
-    ix = df.filename.isin(filename_fixes.keys())
-    df.loc[ix, "filename"] = df.loc[ix].filename.map(filename_fixes)
+    ix = df.src_filename.isin(filename_fixes.keys())
+    df.loc[ix, "src_filename"] = df.loc[ix].src_filename.map(filename_fixes)
 
-    missing = [f for f in df.filename.values if not (indicators_dir / f).exists()]
+    missing = [f for f in df.src_filename.values if not (indicators_dir / f).exists()]
 
     if missing:
         raise ValueError(f"Unable to find files for {', '.join(missing)}")
@@ -228,7 +228,9 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
         [
             "id",
             "filename",
+            "src_filename",
             "label",
+            "sheet_name",
             "description",
             "valueLabels",
             "values",
@@ -249,15 +251,13 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
 indicator_df = merged
 
 with open(constants_dir / "indicator_groups.json", "w") as out:
-    res = out.write(json.dumps(indicator_groups, indent=2))
+    _ = out.write(json.dumps(indicator_groups, indent=2))
 
 
 # read indicator attribute tables
 for index, indicator_row in indicator_df.iterrows():
-    filename = indicator_row.filename
-
     # read data tables and extract indicator values
-    df = read_dataframe(indicators_dir / f"{filename}.vat.dbf", use_arrow=True)
+    df = read_dataframe(indicators_dir / f"{indicator_row.src_filename}.vat.dbf", use_arrow=True)
 
     # columns not named consistently; standardize them
     desc_col = [c for c in df.columns if c.lower().startswith("desc")][0]
@@ -329,13 +329,12 @@ indicator_df = indicator_df.sort_values(by="id").drop(columns=["valueLabels"])
 ################################################################################
 extent_data = extent.read(1)
 for index, indicator_row in indicator_df.iterrows():
-    filename = indicator_row.filename
-
     # clip to new TIF, standardize nodata
     # Note: manually checked value range to verify that all can be safely cast to uint8
-    outfilename = indicators_out_dir / f"{indicator_row.id}.tif"
+    outfilename = indicators_out_dir / indicator_row.filename
+
     if not outfilename.exists():
-        with rasterio.open(indicators_dir / filename) as src:
+        with rasterio.open(indicators_dir / indicator_row.src_filename) as src:
             print(f"\n-------------------------\nProcessing {indicator_row.label}")
 
             nodata = int(src.nodata)
@@ -444,7 +443,7 @@ for index, indicator_row in indicator_df.iterrows():
 
 del extent_data
 
-indicator_df = indicator_df.drop(columns=["filename"])
+indicator_df = indicator_df.drop(columns=["src_filename"])
 
 ################################################################################
 ### Extract subregions associated with indicator
@@ -458,7 +457,7 @@ with rasterio.open(data_dir / "boundaries/subregion_mask.tif") as subregions:
     subregion_values = subregions.read(1)
     for index, indicator_row in indicator_df.iterrows():
         print(f"Finding subregions for {indicator_row.label}")
-        mask_filename = indicators_out_dir / f"{indicator_row.id}_mask.tif"
+        mask_filename = indicators_out_dir / str(indicator_row.filename).replace(".tif", "_mask.tif")
 
         with rasterio.open(mask_filename) as src:
             read_window = shift_window(
@@ -495,4 +494,5 @@ extent.close()
 
 
 with open(constants_dir / "indicators.json", "w") as out:
-    indicator_df.to_json(out, orient="records", indent=2, force_ascii=False)
+    content = indicator_df.to_json(orient="records", indent=2, force_ascii=False).replace(r"\/", "/")
+    _ = out.write(content)

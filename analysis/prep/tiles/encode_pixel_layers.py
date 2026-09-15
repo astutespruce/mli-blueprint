@@ -1,22 +1,21 @@
-from pathlib import Path
 from math import ceil, log2
+from pathlib import Path
 
-from affine import Affine
-from progress.bar import Bar
+import geopandas as gp
 import numpy as np
 import pandas as pd
 import rasterio
-from rasterio.windows import get_data_window, Window, transform as transform_for_window
-import geopandas as gp
 import shapely
+from affine import Affine
+from progress.bar import Bar
+from rasterio.windows import Window, get_data_window
+from rasterio.windows import transform as transform_for_window
 
-
-from analysis.constants import INDICATORS, BLUEPRINT, URBAN, DATA_CRS, PROTECTED_AREAS
-from analysis.lib.raster import write_raster, shift_window, clip_window
+from analysis.constants import BLUEPRINT, DATA_CRS, INDICATORS, PROTECTED_AREAS, URBAN
+from analysis.lib.raster import clip_window, shift_window, write_raster
 
 data_dir = Path("data")
 inputs_dir = data_dir / "inputs"
-indicators_dir = inputs_dir / "indicators"
 out_dir = Path("data/for_tiles")
 constants_dir = Path("constants")
 
@@ -40,7 +39,7 @@ indicators = pd.DataFrame(
         [
             e["id"].split("_")[0],
             e["id"],
-            indicators_dir / f"{e['id']}.tif",
+            inputs_dir / e["filename"],
             min([v["value"] for v in e["values"]]),
             max([v["value"] for v in e["values"]]),
         ]
@@ -54,25 +53,25 @@ core = pd.DataFrame(
     [
         # blueprint is included so that it can be rendered after applying filters in UI
         {
-            "theme": "",
+            "theme": "priorities",
             "id": "blueprint",
             "filename": blueprint_filename,
-            "min_value": BLUEPRINT[0]["value"],
-            "max_value": BLUEPRINT[-1]["value"],
+            "min_value": BLUEPRINT["values"][0]["value"],
+            "max_value": BLUEPRINT["values"][-1]["value"],
         },
         {
             "theme": "otherInfo",
-            "id": "protectedAreas",
+            "id": "protected_areas",
             "filename": protected_areas_filename,
-            "min_value": PROTECTED_AREAS[0]["value"],
-            "max_value": PROTECTED_AREAS[-1]["value"],
+            "min_value": PROTECTED_AREAS["values"][0]["value"],
+            "max_value": PROTECTED_AREAS["values"][-1]["value"],
         },
         {
             "theme": "otherInfo",
             "id": "urban",
             "filename": urban_filename,
-            "min_value": URBAN[0]["value"],
-            "max_value": URBAN[-1]["value"],
+            "min_value": URBAN["values"][0]["value"],
+            "max_value": URBAN["values"][-1]["value"],
         },
     ]
 )
@@ -111,8 +110,9 @@ print(grouped.groupby("group", dropna=False).bits.sum())
 if grouped.group.isnull().any():
     raise ValueError("All layers must be assigned to a group")
 
-df = df.join(grouped.group)
-df["orig_pos"] = np.arange(len(df))
+# use the order stored in layers.csv, in case df is reorded by other criteria
+grouped["orig_pos"] = np.arange(len(grouped))
+df = df.join(grouped[["group", "orig_pos"]])
 df = df.sort_values(by=["group", "orig_pos"])
 
 

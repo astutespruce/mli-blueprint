@@ -10,7 +10,7 @@ in `../secas-blueprint/source_data`.
 1. `prepare_boundaries.py`: Prepare Midwest region boundary and mask for analysis and mapping
 2. `prepare_summary_units.py`: Compile and prepare HUC12 summary units for analysis and mapping
 3. `prepare_protected_areas.py`: Prepare PAD-US protected areas data for analysis and mapping
-4. `prepare_blueprint.py`: Prepare Midwest Blueprint, corridors, and indicators for analysis and mapping
+4. `prepare_blueprint.py`: Prepare Midwest Blueprint and indicators for analysis and mapping
 5. `prepare_nlcd.py`: Prepare NLCD data
 6. `prepare_urban.py`: Prepare urbanization data
 7. `tabulate_summary_units.py`: Tabulate Blueprint, indicators, and other data layers by HUC12

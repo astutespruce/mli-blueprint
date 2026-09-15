@@ -1,5 +1,3 @@
-import camelCase from 'camelcase'
-
 import {
 	applyFactor,
 	parsePipeEncodedValues,
@@ -10,9 +8,12 @@ import {
 	sum
 } from '$lib/util/data'
 import {
+	blueprint,
 	indicatorGroups as indicatorGroupInfo,
 	indicatorGroupIndex,
-	indicators as indicatorInfo
+	indicators as indicatorInfo,
+	protectedAreas,
+	urban
 } from '$lib/config/constants'
 import type { IndicatorValue } from '$lib/types'
 
@@ -119,9 +120,7 @@ const extractIndicators = (packedPercents: Record<string, number[]>, subregions:
  */
 export const unpackFeatureData = (properties: object, subregionIndex) => {
 	const values = Object.entries(properties)
-		.map(([rawKey, value]) => {
-			const key = camelCase(rawKey)
-
+		.map(([key, value]) => {
 			if (!value || typeof value !== 'string' || key === 'name') {
 				return [key, value]
 			}
@@ -130,7 +129,7 @@ export const unpackFeatureData = (properties: object, subregionIndex) => {
 				return [key, null]
 			}
 
-			if (key === 'protectedAreasList') {
+			if (key === 'protected_areas_list') {
 				return [key, value ? value.split('|') : []]
 			}
 
@@ -152,14 +151,14 @@ export const unpackFeatureData = (properties: object, subregionIndex) => {
 			return prev
 		}, {})
 
-	// calculate area outside Blueprint Extent, rounded to 0 in case it is very small
-	values.outsideExtentPercent = (100 * values.outsideExtentAcres) / values.rasterizedAcres
-	if (values.outsideExtentPercent < 1) {
-		values.outsideExtentPercent = 0
+	// calculate area outside Blueprint, rounded to 0 in case it is very small
+	values.outside_extent_percent = (100 * values.outside_extent_acres) / values.rasterized_acres
+	if (values.outside_extent_percent < 1) {
+		values.outside_extent_percent = 0
 	}
 
 	// rescale scaled values from percent * 10 back to percent
-	const scaledColumns = ['blueprint', 'protectedAreas', 'urban']
+	const scaledColumns = [blueprint.id, protectedAreas.id, urban.id]
 	scaledColumns.forEach((c) => {
 		values[c] = values[c] ? applyFactor(values[c], 0.1) : []
 	})
@@ -168,7 +167,7 @@ export const unpackFeatureData = (properties: object, subregionIndex) => {
 
 	if (values.subregions) {
 		values.subregions.split(',').forEach((v: string) => {
-			const { subregion, region } = subregionIndex[v]
+			const { subregion } = subregionIndex[v]
 			subregions.add(subregion)
 		})
 	}
@@ -177,8 +176,8 @@ export const unpackFeatureData = (properties: object, subregionIndex) => {
 	values.indicators = extractIndicators(values.indicators || {}, values.subregions)
 
 	// rename specific fields for easier use later
-	values.unitType = values.type
-	values.unitAcres = values.acres
+	values.unit_type = values.type
+	values.unit_acres = values.acres
 
 	return values
 }

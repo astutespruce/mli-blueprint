@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
-	import { blueprint as blueprintCategories } from '$lib/config/constants'
+	import { blueprint as blueprintInfo } from '$lib/config/constants'
 	import { PieChart } from '$lib/components/chart'
 	import { cn } from '$lib/utils'
 	import { NeedHelp } from './general'
@@ -8,11 +8,11 @@
 	type Props = {
 		type: string
 		blueprint: number[] | number | null
-		outsideExtentPercent: number
+		outside_extent_percent: number
 		class: string | undefined
 	}
 
-	const { type, blueprint, outsideExtentPercent, class: className = '' }: Props = $props()
+	const { type, blueprint, outside_extent_percent, class: className = '' }: Props = $props()
 
 	type Category = {
 		value: number
@@ -31,19 +31,20 @@
 		}
 
 		const blueprintPercents = (blueprint as number[]).slice().reverse()
-		const data: Category[] = blueprintCategories
-			.map(({ color, label, shortLabel, ...rest }, i) => ({
+		const data: Category[] = blueprintInfo.values
+			.slice()
+			.reverse()
+			.map(({ color, ...rest }, i) => ({
 				...rest,
 				// add transparency to match map
 				color: `${color}bf`,
-				value: blueprintPercents[i],
-				label: shortLabel || label
+				value: blueprintPercents[i]
 			}))
 			.filter(({ value }) => value > 0)
 
-		if (outsideExtentPercent) {
+		if (outside_extent_percent) {
 			data.push({
-				value: outsideExtentPercent,
+				value: outside_extent_percent,
 				color: '#fde0dd',
 				label: 'Outside Midwest Blueprint'
 			})
@@ -59,9 +60,11 @@
 		<PieChart categories={blueprintChartData} class="mt-6 mb-4" />
 	{/if}
 
-	{#if outsideExtentPercent < 100}
+	{#if outside_extent_percent < 100}
 		<div class="mt-2">
-			{#each blueprintCategories as { value, label, percent, color, description } (value)}
+			{#each blueprintInfo.values
+				.slice()
+				.reverse() as { value, label, percent, color, description } (value)}
 				<div
 					class={cn(
 						'flex justify-between items-start gap-2 text-grey-8 border border-transparent py-2 px-4 rounded-[0.5rem] bg-white not-first:mt-2',

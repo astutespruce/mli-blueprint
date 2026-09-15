@@ -5,9 +5,7 @@ import rasterio
 import shapely
 
 from analysis.constants import M2_ACRES
-from analysis.lib.geometry import to_dict
-from analysis.lib.raster import WindowGeometryMask, get_window, get_overlapping_windows
-
+from analysis.lib.raster import WindowGeometryMask, get_overlapping_windows, get_window
 
 data_dir = Path("data/inputs")
 bnd_dir = data_dir / "boundaries"
@@ -18,7 +16,7 @@ extent_mask_filename = bnd_dir / "blueprint_extent_mask.tif"
 WINDOW_SIZE = 2048  # approx 16 MB for 8 bit data
 
 
-class RasterizedGeometry(object):
+class RasterizedGeometry:
     """Helper class to detect and extract data for a rasterized geometry"""
 
     def __init__(self, geometry):
@@ -30,7 +28,7 @@ class RasterizedGeometry(object):
         """
         self.bounds = shapely.bounds(geometry)
 
-        all_shapes = [to_dict(geometry)]
+        all_shapes = [geometry.__geo_interface__]
 
         # create lowres shape mask and window (used to presecreen some datasets)
         with rasterio.open(extent_mask_filename) as src:
@@ -46,15 +44,17 @@ class RasterizedGeometry(object):
 
             # threshold for using windows determined by testing performance
             if num_windows >= 50 or (num_windows > 1 and ratio <= 0.25):
-                print(f"Using {len(windows)} windows for reading (ratio: {ratio:.3f})")
+                # print(f"Using {len(windows)} windows for reading (ratio: {ratio:.3f})")
                 for window in windows:
                     # clip geometry to window then rasterize
                     clipped = shapely.clip_by_rect(geometry, *src.window_bounds(window))
-                    mask = WindowGeometryMask(src, window, shapes=[to_dict(clipped)])
+                    mask = WindowGeometryMask(src, window, shapes=[clipped.__geo_interface__])
                     self.masks.append(mask)
 
             else:
-                print(f"Using single window for reading (overlapping windows: {num_windows}, ratio: {ratio:.3f})")
+                # NOTE: this includes features with no windows calculated above, because they are entirely outside
+                # the data extent
+                # print(f"Using single window for reading (overlapping windows: {num_windows}, ratio: {ratio:.3f})")
                 window = get_window(src, self.bounds)
                 mask = WindowGeometryMask(src, window, all_shapes)
                 self.masks.append(mask)

@@ -14,7 +14,7 @@
 		{/if}
 	</h3>
 	<div class="flex items-center gap-6 mt-2">
-		<Progress max={100} value={progress} class="h-4" />
+		<Progress max={100} value={progress} class="h-[1rem]" />
 		<div class="text-xl">
 			{progress}%
 		</div>

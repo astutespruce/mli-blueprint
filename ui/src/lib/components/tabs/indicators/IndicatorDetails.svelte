@@ -20,7 +20,7 @@
 		goodThreshold,
 		values,
 		valueLabel,
-		outsideExtentPercent,
+		outside_extent_percent,
 		icon
 	} = $props()
 
@@ -37,7 +37,7 @@
 			}))
 			.reverse()
 
-		const notEvaluatedPercent = 100 - outsideExtentPercent - totalPercent
+		const notEvaluatedPercent = 100 - outside_extent_percent - totalPercent
 		if (notEvaluatedPercent >= 1) {
 			tableValues.push({
 				value: -1,
@@ -46,11 +46,11 @@
 			})
 		}
 
-		if (outsideExtentPercent >= 1) {
+		if (outside_extent_percent >= 1) {
 			tableValues.push({
 				value: -3,
 				label: 'Outside Midwest Blueprint',
-				percent: outsideExtentPercent
+				percent: outside_extent_percent
 			})
 		}
 

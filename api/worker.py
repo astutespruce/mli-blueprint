@@ -2,23 +2,23 @@ import logging
 from time import time
 
 import arq
-from arq import cron
 import sentry_sdk
+from arq import cron
 
-from api.custom_report import create_custom_report
-from api.summary_unit_report import create_summary_unit_report
 from api.settings import (
-    TEMP_DIR,
-    JOB_TIMEOUT,
     FILE_RETENTION,
-    SENTRY_DSN,
-    SENTRY_ENV,
+    JOB_TIMEOUT,
     LOGGING_LEVEL,
+    MAX_JOBS,
     REDIS,
     REDIS_QUEUE,
-    MAX_JOBS,
+    SENTRY_DSN,
+    SENTRY_ENV,
+    TEMP_DIR,
 )
-
+from api.tasks.custom_report_pdf import create_custom_pdf_report
+from api.tasks.custom_report_xlsx import create_custom_xlsx_report, get_xlsx_report_inputs
+from api.tasks.summary_unit_report_pdf import create_summary_unit_pdf_report
 
 log = logging.getLogger(__name__)
 log.setLevel(LOGGING_LEVEL)
@@ -55,7 +55,11 @@ async def cleanup_files(ctx):
 
 
 async def startup(ctx):
-    ctx["redis"] = await arq.create_pool(REDIS)
+    pool = await arq.create_pool(REDIS)
+    ctx["redis"] = pool
+
+    # clear queue on startup to prevent any stuck jobs from overwhelming the server
+    await pool.delete(REDIS_QUEUE)
 
     logging.config.dictConfig(
         {
@@ -92,7 +96,7 @@ async def startup(ctx):
 
 
 async def shutdown(ctx):
-    await ctx["redis"].close()
+    await ctx["redis"].aclose()
 
 
 class WorkerSettings:
@@ -102,7 +106,12 @@ class WorkerSettings:
     queue_name = REDIS_QUEUE
     # run cleanup every 60 minutes
     cron_jobs = [cron(cleanup_files, run_at_startup=True, minute=0, second=0)]
-    functions = [create_custom_report, create_summary_unit_report]
+    functions = [
+        create_custom_pdf_report,
+        get_xlsx_report_inputs,
+        create_custom_xlsx_report,
+        create_summary_unit_pdf_report,
+    ]
 
     on_startup = startup
     on_shutdown = shutdown

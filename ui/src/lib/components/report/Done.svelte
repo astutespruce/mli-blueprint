@@ -18,7 +18,7 @@
 	</h3>
 
 	{#if errors && errors.length > 0}
-		<Root variant="destructive" class="border-error mt-4 flex gap-4 mb-12 max-w-200">
+		<Root variant="destructive" class="border-error mt-4 flex gap-4 mb-12 max-w-[800px]">
 			<ExclamationTriangle width="1.5rem" height="1.5rem" class="flex-none" />
 
 			<Description class="text-lg text-error">
@@ -46,13 +46,10 @@
 			report.
 		</p>
 		<div class="mt-8">
-			<a href={reportURL} target="_blank">
-				<div class="flex gap-4 items-center text-xl">
-					<Download width="1rem" height="1rem" />
-
-					Download report
-				</div>
-			</a>
+			<Button href={reportURL} target="_blank" variant="link" class="text-xl">
+				<Download class="size-5" />
+				Download report
+			</Button>
 		</div>
 	{/if}
 
