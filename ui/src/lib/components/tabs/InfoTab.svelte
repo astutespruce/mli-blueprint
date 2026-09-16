@@ -41,7 +41,7 @@
 			href="https://experience.arcgis.com/experience/d05669f0532247bc96fffa8e3820f498/page/Viewer"
 			target="_blank">Viewer</a
 		>
-		for other ways to explore the Blueprint and provide feedback using the
+		for other ways to explore the blueprint and provide feedback using the
 		<a
 			href="https://experience.arcgis.com/experience/d05669f0532247bc96fffa8e3820f498/page/Feedback"
 			target="_blank">Feedback app</a
@@ -50,8 +50,8 @@
 		<br />
 		<br />
 		The <b>Midwest Conservation Blueprint Explorer</b> is designed to help you understand the blueprint
-		and discover how your area of interest scores on the blueprint priorities, indicators, and other landscape-level
-		information. Here, you can:
+		and discover how your area of interest scores on the blueprint priorities, indicators, and other
+		landscape-level information. Here, you can:
 	</p>
 
 	<ul class="text-lg list-disc pl-6 mt-1 [&>li]:pb-2">
@@ -59,8 +59,8 @@
 			<b>Summarize data</b> to show charts and information for a subwatershed
 		</li>
 		<li>
-			<b>View point data</b> to discover what is driving the blueprint priorities and show values at a
-			specific location for indicators, threats, and more
+			<b>View point data</b> to discover what is driving the blueprint priorities and show values at
+			a specific location for indicators, threats, and more
 		</li>
 		<li>
 			<b>Filter the blueprint</b> to find your part of the blueprint by showing only areas that score
@@ -111,14 +111,14 @@
 			for priorities, indicators, threats, and partners.
 			<br />
 			<br />
-			The indicators tab shows the pixel value for each indicator present at that point. Click on an indicator
-			for more information about it.
+			The indicators tab shows the pixel value for each indicator present at that point. Click on an
+			indicator for more information about it.
 			<br />
 			<br />
 			Note: this approach uses pixels that have been resampled and reprojected for each zoom level. This
-			means that the values shown in the tool may not exactly match the blueprint and indicator data for
-			that specific ground location, especially in areas of high variability in the data. To view and
-			/ or download more precise spatial data, please visit the
+			means that the values shown in the tool may not exactly match the blueprint and indicator data
+			for that specific ground location, especially in areas of high variability in the data. To view
+			and / or download more precise spatial data, please visit the
 			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 			<a href={BLUEPRINT_URL} target="_blank">
 				blueprint page of the Midwest Conservation Action Portal

@@ -34,7 +34,7 @@
 	<div class="mt-8 break-before-page">
 		<h2 class="text-xl">Active filters:</h2>
 		<div class="mt-1">
-			{activeFilters.length} layers have been used to filter the Blueprint.
+			{activeFilters.length} layers have been used to filter the blueprint.
 			<div class="text-sm flex gap-2 mt-2">
 				<div
 					class="rounded-xs size-5 border border-black flex justify-center items-center leading-none"
