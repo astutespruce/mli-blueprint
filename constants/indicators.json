@@ -175,7 +175,7 @@
     "id":"h_hazardanddisasterprotectionsocialvulnerabilityindex",
     "filename":"h_hazardanddisasterprotectionsocialvulnerabilityindex.tif",
     "label":"Hazard and disaster protection - social vulnerability index",
-    "sheet_name":"Social vulnerability",
+    "sheet_name":"Social vulnerability index",
     "description":"This indicator represents the protection of communities vulnerable to impacts of hazards and other community-level stressors, which can include natural disasters (e.g. flooding, wildfire, etc.) or human-caused pollution. It prioritizes areas of social vulnerability based on environmental and socioeconomic burdens. Due to the low resolution of the input data, we refine priority areas in this indicator by emphasizing the value of natural landcover types and protected lands, designated as natural assets in the legend. This indicator originates from the CDC Social Vulnerability Index.",
     "values":[
       {
@@ -1033,7 +1033,7 @@
     "id":"l_terrestrialhabitatconnectivity",
     "filename":"l_terrestrialhabitatconnectivity.tif",
     "label":"Terrestrial habitat connectivity",
-    "sheet_name":"Habitat connectivity",
+    "sheet_name":"Terrestrial connectivity",
     "description":"This indicator identifies the ability of terrestrial species to move across the landscape within the Midwest. It prioritizes areas based on relative ease of movement for terrestrial species, factoring in NLCD landcover classes, slope, proximity to water, and habitat core score. This indicator originates from the Esri Green Infrastructure Habitat Cost Surface layer.",
     "values":[
       {

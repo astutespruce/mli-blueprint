@@ -67,7 +67,7 @@ if not outfilename.exists():
 
         # Fill NODATA values within Blueprint extent with 0 (priority for conservation)
         # per direction from Rachael Carlberg on 3/19/2026
-        # and recode all valid values down by 1 to match Southeast Blueprint
+        # and recode all valid values down by 1 to match Midwest Blueprint
         data = np.where(data == nodata, 0, data - 1)
 
         extent_data = extent.read(1)

@@ -246,9 +246,8 @@
 						We're currently testing advanced reporting that complements this simple PDF report, including
 						the ability to choose specific datasets and save results to an XLSX file. This functionality
 						is not yet public. Contact
-						<a href="http://secassoutheast.org/staff" target="_blank">
-							Midwest Landscape Initiative staff</a
-						> to find out more.
+						<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff</a> to find out
+						more.
 					{:else}
 						Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
 						interest to generate a detailed Excel spreadsheet report (.xlsx) of the Blueprint,

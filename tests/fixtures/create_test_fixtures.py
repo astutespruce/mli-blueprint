@@ -80,7 +80,7 @@ for format in ["shp", "gdb"]:
         out_dir / f"{format}_poly_too_many.zip",
     )
 
-    # NOTE: the following are specific to the spatial footprint of the Southeast Blueprint
+    # NOTE: the following are specific to the spatial footprint of the Midwest Blueprint
     # no overlap with Blueprint
     save_to_zip(
         {f"poly_no_overlap.{format}": gp.GeoDataFrame(geometry=[shapely.box(-91, 0, -90, 1)], crs=GEO_CRS)},

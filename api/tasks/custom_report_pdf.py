@@ -72,7 +72,7 @@ async def create_custom_pdf_report(ctx, zip_filename, dataset, layer, name=""):
 
     if results is None:
         raise DataError(
-            "area of interest does not overlap Southeast Blueprint or area of interest did not overlap with the center of at least one 30m pixel in the Southeast Blueprint"
+            "area of interest does not overlap Midwest Blueprint or area of interest did not overlap with the center of at least one 30m pixel in the Midwest Blueprint"
         )
 
     # compile indicator IDs across all indicator groups
@@ -127,7 +127,7 @@ async def create_custom_pdf_report(ctx, zip_filename, dataset, layer, name=""):
     log.debug(f"Created PDF at: {local_filename}")
 
     download_filename = (
-        f"Southeast Blueprint Summary Report - {name}.pdf" if name else "Southeast Blueprint Summary Report.pdf"
+        f"Midwest Blueprint Summary Report - {name}.pdf" if name else "Midwest Blueprint Summary Report.pdf"
     )
 
     return {

@@ -10,8 +10,7 @@ from api.settings import TEMP_DIR
 
 
 async def create_summary_unit_pdf_report(ctx, unit_type, unit_id):
-    """Generate Southeast Blueprint Report for a HUC12
-    or marine hex grid cell
+    """Generate Midwest Blueprint Report for a HUC12
 
     Parameters
     ----------
@@ -78,7 +77,7 @@ async def create_summary_unit_pdf_report(ctx, unit_type, unit_id):
 
     log.debug(f"Created PDF at: {local_filename}")
 
-    download_filename = f"Southeast Blueprint Summary Report - {name}.pdf"
+    download_filename = f"Midwest Blueprint Summary Report - {name}.pdf"
 
     return {
         "local_filename": local_filename,

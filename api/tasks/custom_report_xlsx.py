@@ -42,7 +42,7 @@ async def get_xlsx_report_inputs(ctx, zip_filename, dataset, layer, uuid):
 
     if len(datasets) == 0:
         raise DataError(
-            "area of interest does not overlap Southeast Blueprint or area of interest did not overlap with the center of at least one 30m pixel in the Southeast Blueprint"
+            "area of interest does not overlap Midwest Blueprint or area of interest did not overlap with the center of at least one 30m pixel in the Midwest Blueprint"
         )
 
     await set_progress(ctx["redis"], ctx["job_id"], 100, "Done checking available datasets")
@@ -128,7 +128,7 @@ async def create_custom_xlsx_report(
 
     results = await get_analysis_unit_results(df, datasets, progress_callback=progress_callback)
     if results is None:
-        raise DataError("Dataset does not overlap Southeast states")
+        raise DataError("Dataset does not overlap Midwest states")
 
     await set_progress(ctx["redis"], ctx["job_id"], 75, "Creating XLSX file")
     xlsx = create_report(results, datasets, name)
@@ -145,7 +145,7 @@ async def create_custom_xlsx_report(
     await set_progress(ctx["redis"], ctx["job_id"], 100, "All done!")
 
     download_filename = (
-        f"Southeast Blueprint Summary Report - {name}.xlsx" if name else "Southeast Blueprint Summary Report.xlsx"
+        f"Midwest Blueprint Summary Report - {name}.xlsx" if name else "Midwest Blueprint Summary Report.xlsx"
     )
 
     return {

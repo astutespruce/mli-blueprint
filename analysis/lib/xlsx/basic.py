@@ -1,13 +1,6 @@
 import pandas as pd
 
-from analysis.constants import INDICATORS_INDEX
-from analysis.lib.xlsx.style import (
-    CHAR_PER_WIDTH_UNIT,
-    add_caption,
-    add_good_condition_row,
-    set_cell_styles,
-    set_column_widths,
-)
+from analysis.lib.xlsx.style import CHAR_PER_WIDTH_UNIT, add_caption, set_cell_styles, set_column_widths
 
 
 def get_value_columns(values):
@@ -49,14 +42,6 @@ def add_basic_results_sheet(
     values = dataset["values"]
     caption = dataset["caption"] + "."
 
-    # good threshold is only applicable to indicators
-    if dataset["id"] in INDICATORS_INDEX:
-        good_threshold = dataset.get("goodThreshold", None)
-        if good_threshold:
-            caption += "  Good condition thresholds reflect the range of indicator values that occur in healthy, functioning ecosystems."
-        else:
-            caption += "  A good condition threshold is not yet defined for this indicator."
-
     value_label = dataset.get("valueLabel", None)
     if value_label:
         caption += f"  Values show {value_label[0].lower()}{value_label[1:]}."
@@ -95,9 +80,3 @@ def add_basic_results_sheet(
     set_cell_styles(ws, area_columns=range(1, len(tmp.columns) + 3))
 
     add_caption(ws, table_counter, caption)
-
-    if dataset["id"] in INDICATORS_INDEX and good_threshold:
-        # NOTE: this only applies to indicators, which are always in greatest to least order
-        offset = 3 if has_area_outside else 2
-        pos = [v["value"] for v in values[::-1]].index(good_threshold) + 1
-        add_good_condition_row(ws, offset, offset + len(values), break_col=pos)

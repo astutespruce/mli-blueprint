@@ -111,7 +111,7 @@
 			<div class="flex flex-col overflow-y-auto flex-auto h-full relative">
 				<div class="px-4 py-2 leading-tight text-grey-8">
 					Filters can help you find the part of the blueprint that aligns with your mission,
-					interest, or specific question. Enable the filters below to narrow down the Blueprint to
+					interest, or specific question. Enable the filters below to narrow down the blueprint to
 					the part that falls within a range of values for one or more layers.
 				</div>
 
