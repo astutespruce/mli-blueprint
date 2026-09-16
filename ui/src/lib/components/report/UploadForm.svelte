@@ -247,7 +247,7 @@
 						the ability to choose specific datasets and save results to an XLSX file. This functionality
 						is not yet public. Contact
 						<a href="http://secassoutheast.org/staff" target="_blank">
-							Blueprint user support staff</a
+							Midwest Landscape Initiative staff</a
 						> to find out more.
 					{:else}
 						Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
