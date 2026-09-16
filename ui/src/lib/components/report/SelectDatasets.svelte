@@ -8,6 +8,8 @@
 	import WildlifeIcon from '$images/w.svg'
 	import OtherInfoIcon from '$images/otherInfo.svg'
 
+	import { cn } from '$lib/utils'
+
 	import {
 		blueprint,
 		indicatorGroups,
@@ -137,7 +139,16 @@
 					{:else}
 						<CaretRight class="size-6" aria-hidden="true" />
 					{/if}
-					<img src={category.icon} alt="" aria-hidden="true" class="size-8" />
+					<img
+						src={category.icon}
+						alt=""
+						aria-hidden="true"
+						class={cn('size-8 bg-white rounded-full ', {
+							'border-[1.5px] border-grey-8':
+								category.id !== 'priorities' && category.id !== 'otherInfo'
+						})}
+					/>
+
 					<div class="font-bold text-xl">
 						{category.label}
 					</div>
