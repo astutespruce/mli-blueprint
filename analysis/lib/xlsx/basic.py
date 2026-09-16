@@ -42,6 +42,10 @@ def add_basic_results_sheet(
         if defined, function that returns value columns in correct order
     """
     sheet_name = dataset.get("sheet_name", None) or dataset["label"]
+
+    if len(sheet_name) > 31:
+        print(f"WARNING: Sheet name too long: {sheet_name}")
+
     values = dataset["values"]
     caption = dataset["caption"] + "."
 

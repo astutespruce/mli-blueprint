@@ -1033,7 +1033,7 @@
     "id":"l_terrestrialhabitatconnectivity",
     "filename":"l_terrestrialhabitatconnectivity.tif",
     "label":"Terrestrial habitat connectivity",
-    "sheet_name":"",
+    "sheet_name":"Habitat connectivity",
     "description":"This indicator identifies the ability of terrestrial species to move across the landscape within the Midwest. It prioritizes areas based on relative ease of movement for terrestrial species, factoring in NLCD landcover classes, slope, proximity to water, and habitat core score. This indicator originates from the Esri Green Infrastructure Habitat Cost Surface layer.",
     "values":[
       {

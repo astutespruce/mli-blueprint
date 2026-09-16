@@ -20,7 +20,7 @@ app = typer.Typer(help="Create a Blueprint report")
 
 
 async def _create_pdf_report(filename: str, outfilename: str, area_name: str | None = None):
-    if filename.endswith(".shp") or filename.endswith(".gdb"):
+    if filename.endswith((".shp", ".gdb")):
         df = read_dataframe(filename, columns=[], use_arrow=True).to_crs(DATA_CRS)
     elif filename.endswith(".zip"):
         with ZipFile(filename) as zipfile:
@@ -77,7 +77,7 @@ async def _create_xlsx_report(
     if invalid:
         raise typer.Exit(f"ERROR: invalid datasets: {', '.join(invalid)}")
 
-    if filename.endswith(".shp") or filename.endswith(".gdb"):
+    if filename.endswith((".shp", ".gdb")):
         path = filename
         layer = None
     elif filename.endswith(".zip"):
@@ -89,7 +89,7 @@ async def _create_xlsx_report(
         raise typer.Exit(f"ERROR: unsupported file type: {filename}")
 
     available_fields = set(read_info(path, layer=layer)["fields"])
-    if field not in available_fields:
+    if field is not None and field not in available_fields:
         raise typer.Exit(f"ERROR: field '{field}' is not present in dataset")
 
     df = read_dataframe(path, layer=layer, columns=columns, use_arrow=True).to_crs(DATA_CRS)
@@ -152,7 +152,7 @@ def xlsx(
 
 @app.command(help="Get info about a shapefile or FGDB")
 def info(filename: Annotated[str, typer.Argument(help="shapefile or FGDB filename")]):
-    if filename.endswith(".shp") or filename.endswith(".gdb"):
+    if filename.endswith((".shp", ".gdb")):
         path = filename
         dataset = filename
         layer = None
