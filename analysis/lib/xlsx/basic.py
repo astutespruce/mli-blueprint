@@ -64,7 +64,6 @@ def add_basic_results_sheet(
     tmp["outside_dataset_acres"] = tmp.overlap_acres - tmp[value_columns].sum(axis=1)
     # remove small rounding-related errors
     tmp.loc[tmp.outside_dataset_acres < 0, "outside_dataset_acres"] = 0
-
     # NOTE: percents are actually proportions formatted as percents
     tmp["outside_dataset_percent"] = tmp.outside_dataset_acres / tmp.rasterized_acres
 
@@ -84,7 +83,6 @@ def add_basic_results_sheet(
     ]
 
     # drop columns if no area present outside extent or dataset
-
     has_area_outside_extent = tmp.outside_extent_acres.max() > 1e-2
     if not has_area_outside_extent:
         tmp = tmp.drop(columns=["outside_extent_acres", "outside_extent_percent"])
