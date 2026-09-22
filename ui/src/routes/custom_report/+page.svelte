@@ -1,39 +1,31 @@
 <script lang="ts">
 	import { uploadFile } from '$lib/api'
+	import { API_HOST } from '$lib/env'
 	import { captureException, logGAEvent } from '$lib/util/log'
 	import { Footer, Header } from '$lib/components/layout'
-	import { Done, Progress, Queued, ReportError, UploadForm } from '$lib/components/report'
-	import type { ReportState, ReportJobResult } from '$lib/components/report/types'
+	import { Done, Progress, Queued, Error, UploadForm } from '$lib/components/report'
+	import type { ReportState, ReportJobResult, ReportType } from '$lib/components/report/types'
 
 	const initState: ReportState = {
-		reportURL: null,
-		status: null,
+		view: 'upload',
+		status: 'not_started',
 		progress: 0,
 		queuePosition: 0,
 		elapsedTime: null,
 		message: null,
-		errors: null, // non-fatal errors reported to user
-		inProgress: false,
-		error: null // if error is non-null, it indicates there was an error
+		result: null,
+		errors: null // non-fatal errors reported to user
 	}
 
 	let reportState: ReportState = $state(initState)
 
-	const handleUpload = async (areaName: string, file: File) => {
+	const handleUpload = async (reportType: ReportType, areaName: string, file: File) => {
 		reportState = {
-			...reportState,
-			status: '',
-			inProgress: true,
-			progress: 0,
-			queuePosition: 0,
-			elapsedTime: null,
-			message: null,
-			errors: null,
-			error: null,
-			reportURL: null
+			...initState,
+			status: 'in_progress'
 		}
 
-		logGAEvent('create-custom-report', {
+		logGAEvent(`create-custom-${reportType}-report`, {
 			name: areaName,
 			file: file.name,
 			sizeKB: file.size / 1024
@@ -42,10 +34,12 @@
 		try {
 			// upload file and update progress
 			const {
-				error: uploadError,
-				result,
-				errors: finalErrors
+				status: uploadJobStatus,
+				result: uploadJobResult,
+				message: uploadJobErrorMessage,
+				errors: uploadJobErrors
 			}: ReportJobResult = await uploadFile(
+				reportType,
 				file,
 				areaName,
 				({
@@ -53,38 +47,28 @@
 					progress: nextProgress,
 					queuePosition: nextQueuePosition,
 					elapsedTime: nextElapsedTime,
-					message: nextMessage = null,
-					errors: nextErrors = null
+					message: nextMessage = reportState.message,
+					errors: nextErrors = reportState.errors
 				}) => {
 					reportState = {
 						...reportState,
 						status: nextStatus,
-						inProgress:
-							nextStatus === 'in_progress' ||
-							(nextStatus === 'queued' && nextElapsedTime !== undefined && nextElapsedTime < 5),
 						progress: nextProgress,
 						queuePosition: nextQueuePosition,
 						elapsedTime: nextElapsedTime,
-						message: nextMessage || reportState.message,
-						errors: nextErrors || reportState.errors
+						message: nextMessage,
+						errors: nextErrors
 					}
 				}
 			)
 
-			if (uploadError) {
-				console.error(uploadError)
+			if (uploadJobStatus === 'failed') {
+				console.error(uploadJobErrorMessage)
 
 				reportState = {
-					...reportState,
-					inProgress: false,
-					status: null,
-					progress: 0,
-					queuePosition: 0,
-					elapsedTime: null,
-					message: null,
-					errors: null,
-					error: uploadError,
-					reportURL: null
+					...initState,
+					status: 'failed',
+					message: uploadJobErrorMessage
 				}
 
 				logGAEvent('file-upload-error')
@@ -94,33 +78,22 @@
 
 			// upload and processing completed successfully
 			reportState = {
-				...reportState,
-				status: null,
+				...initState,
+				view: 'done',
+				status: 'success',
 				progress: 100,
-				queuePosition: 0,
-				elapsedTime: null,
-				message: null,
-				errors: finalErrors, // there may be non-fatal errors (e.g., errors rendering maps)
-				inProgress: false,
-				reportURL: result as string
+				result: uploadJobResult,
+				errors: uploadJobErrors // there may be non-fatal errors (e.g., errors rendering maps)
 			}
-
-			window.location.href = result as string
+			window.location.href = `${API_HOST}/api${uploadJobResult}` as string
 		} catch (ex) {
 			captureException('File upload failed', ex)
 			console.error('Caught unhandled error from uploadFile', ex)
 
 			reportState = {
-				...reportState,
-				inProgress: false,
-				status: null,
-				progress: 0,
-				queuePosition: 0,
-				elapsedTime: null,
-				message: null,
-				errors: null,
-				error: '', // no meaningful error to show to user, but needs to be non-null}
-				reportURL: null
+				...initState,
+				status: 'failed'
+				// NOTE: no meaningful error to show to user
 			}
 		}
 	}
@@ -165,17 +138,8 @@
 		Photo: Wetland in Fountain County, IN. Iowa Department of Natural Resources.
 	</div>
 
-	{#if reportState.error !== null}
-		<ReportError error={reportState.error} onReset={handleReset} class="mt-8" />
-	{:else if reportState.reportURL !== null}
-		<Done
-			reportURL={reportState.reportURL}
-			errors={reportState.errors}
-			onReset={handleReset}
-			class="mt-8"
-		/>
-	{:else if reportState.inProgress}
-		<Progress message={reportState.message} progress={reportState.progress} class="mt-4" />
+	{#if reportState.status === 'failed'}
+		<Error message={reportState.message} onReset={handleReset} class="mt-8" />
 	{:else if reportState.status === 'queued'}
 		<Queued
 			message={reportState.message}
@@ -183,8 +147,17 @@
 			elapsedTime={reportState.elapsedTime}
 			class="mt-8"
 		/>
+	{:else if reportState.status === 'in_progress'}
+		<Progress message={reportState.message} progress={reportState.progress} class="mt-4" />
+	{:else if reportState.view === 'done'}
+		<Done
+			reportURL={`${API_HOST}/api${reportState.result}`}
+			errors={reportState.errors}
+			onReset={handleReset}
+			class="mt-8"
+		/>
 	{:else}
-		<UploadForm onSubmit={handleUpload} />
+		<UploadForm reportFormat="pdf" onSubmit={handleUpload} />
 	{/if}
 </main>
 

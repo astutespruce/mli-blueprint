@@ -10,7 +10,8 @@ precision mediump float;
 in vec2 vTexCoord;
 out vec4 fragColor;
 
-uniform sampler2D palette;
+// additional uniforms are injected by the caller; see
+// StackedPNGLayer.ts::stackedPNGLayerUniformBlock
 
 // uniforms for textures for each layer
 uniform sampler2D layer0;
@@ -29,13 +30,22 @@ int bitmask(int bits) {
   return int(pow(2., float(bits))) - 1;
 }
 
-bool matchValue(int valueRGB, int offset, int numBits, int filterValue) {
+// return 1 if true, 0 if false
+int matchValue(int valueRGB, int offset, int numBits, int filterValue) {
+  // if filterValue is -1 (no filters set) and using AND logic, return 1 (TRUE)
+  // so that this layer does not filter other layers;
+  // otherwise when using OR logic, we want to exclude this layer unless
+  // filterValue is set
+  if (filterValue == -1) {
+    return stackedPNGLayer.useAndLogic;
+  }
+
   int value = (valueRGB >> offset) & bitmask(numBits);
 
   // use left shift to set the bit in the value position to 1
   // then use bitwise AND to verify that value is also turned on in active
   // filters. If the value is 0, then value is not present in active filters.
-  return (filterValue & (1 << value)) > 0;
+  return (filterValue & (1 << value)) > 0 ? 1 : 0;
 }
 
 void main(void) {
@@ -66,7 +76,7 @@ void main(void) {
   }
 
   int renderValue = (valueRGB >> stackedPNGLayer.offset) & bitmask(stackedPNGLayer.bits);
-  fragColor = texelFetch(palette, ivec2(renderValue, 0), 0);
+  fragColor = stackedPNGLayer.palette[renderValue];
 
   fragColor.a = fragColor.a * stackedPNGLayer.opacity;
   if (!canRender) {

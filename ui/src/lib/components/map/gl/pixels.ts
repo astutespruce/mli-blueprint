@@ -1,6 +1,11 @@
 import { DynamicTexture } from '@luma.gl/engine'
 import type { Map, Point, LngLatLike } from 'mapbox-gl/esm'
 
+import {
+	indicatorGroups as indicatorGroupInfo,
+	indicatorGroupIndex,
+	indicators as indicatorInfo
+} from '$lib/config/constants'
 import { indexBy, setIntersection, sum } from '$lib/util/data'
 import type { IndicatorValue } from '$lib/types'
 
@@ -64,9 +69,7 @@ const getTile = (map: Map, screenPoint: Point) => {
 	}
 }
 
-const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: Set<string>) => {
-	const indicatorGroupIndex = indexBy(indicatorGroupInfo, 'id')
-
+const extractIndicators = (data, subregions: Set<string>) => {
 	// only show indicators that are either present or likely present based on
 	// subregion
 	let indicators = indicatorInfo
@@ -121,7 +124,9 @@ const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: 
 				borderColor: string
 				indicators: string[]
 			}) => {
-				const indicatorsPresent = groupIndicators.filter((indicatorId) => indicators[indicatorId])
+				const indicatorsPresent = groupIndicators.filter(
+					(indicatorId) => indicators[indicatorId as keyof typeof indicators]
+				)
 
 				return {
 					...rest,
@@ -139,12 +144,7 @@ const extractIndicators = (data, indicatorGroupInfo, indicatorInfo, subregions: 
 	return { indicatorGroups, indicators }
 }
 
-export const extractPixelData = async (
-	map: Map,
-	point: LngLatLike,
-	indicatorGroupInfo,
-	indicatorInfo
-) => {
+export const extractPixelData = async (map: Map, point: LngLatLike) => {
 	const screenPoint = map.project(point)
 
 	const { tile, offsetX, offsetY } = getTile(map, screenPoint)
@@ -186,7 +186,7 @@ export const extractPixelData = async (
 	// @ts-expect-error props is dynamically defined
 	const layers = map.__deck.layerManager.layers[0].props.layers
 
-	const data = {}
+	const data: Record<string, number> = {}
 
 	// layers will be empty array if there are no tiles for any of the pixel layers
 	layers.forEach(({ encoding }, i) => {
@@ -238,28 +238,28 @@ export const extractPixelData = async (
 	const subregions = new Set([subregion])
 
 	// unpack indicators and indicator groups
-	data.indicators = extractIndicators(data, indicatorGroupInfo, indicatorInfo, subregions)
+	data.indicators = extractIndicators(data, subregions)
 
 	// extract protected areas from vector tiles
-	const protectedAreasList: string[] = []
-	// @ts-expect-error id is an expected field of layer
+	const protected_areas_list: string[] = []
+	// @ts-expect-error id is valid
 	const protectedAreasFeatures = features.filter(({ layer: { id } }) => id === 'protectedAreas')
 	if (protectedAreasFeatures.length > 0) {
-		// @ts-expect-error name and owner are expected properties
+		// @ts-expect-error name and owner are valid
 		protectedAreasFeatures.forEach(({ properties: { name, owner } }) => {
 			if (owner) {
-				protectedAreasList.push(`${name} (${owner})`)
+				protected_areas_list.push(`${name} (${owner})`)
 			} else {
-				protectedAreasList.push(name)
+				protected_areas_list.push(name)
 			}
 		})
 	}
 
 	return {
 		subregions,
-		outsideExtentPercent: 0,
+		outside_extent_percent: 0,
 		...data,
-		protectedAreasList,
-		numProtectedAreas: protectedAreasList.length
+		protected_areas_list,
+		num_protected_areas: protected_areas_list.length
 	}
 }

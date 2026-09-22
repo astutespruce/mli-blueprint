@@ -1,4 +1,4 @@
-import { MapData } from './data.svelte'
+import { MapState } from './state.svelte'
 import Map from './Map.svelte'
 
-export { Map, MapData }
+export { Map, MapState }

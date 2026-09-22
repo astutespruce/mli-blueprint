@@ -3,7 +3,7 @@
 
 	import ReplyIcon from '~icons/fa-solid/reply'
 	import { Button } from '$lib/components/ui/button'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 	import { formatPercent } from '$lib/util/format'
 	import { sum } from '$lib/util/data'
 	import { cn } from '$lib/utils'
@@ -20,11 +20,11 @@
 		goodThreshold,
 		values,
 		valueLabel,
-		outsideExtentPercent,
+		outside_extent_percent,
 		icon
 	} = $props()
 
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 
 	const { totalIndicatorPercent, percentTableValues } = $derived.by(() => {
 		const totalPercent = sum(values.map(({ percent }: { percent: number }) => percent))
@@ -37,7 +37,7 @@
 			}))
 			.reverse()
 
-		const notEvaluatedPercent = 100 - outsideExtentPercent - totalPercent
+		const notEvaluatedPercent = 100 - outside_extent_percent - totalPercent
 		if (notEvaluatedPercent >= 1) {
 			tableValues.push({
 				value: -1,
@@ -46,11 +46,11 @@
 			})
 		}
 
-		if (outsideExtentPercent >= 1) {
+		if (outside_extent_percent >= 1) {
 			tableValues.push({
 				value: -3,
 				label: 'Outside Midwest Blueprint',
-				percent: outsideExtentPercent
+				percent: outside_extent_percent
 			})
 		}
 
@@ -68,7 +68,7 @@
 	>
 		<Button
 			class="shadow-none rounded-none bg-transparent hover:bg-transparent w-full flex justify-between items-center pl-1 pr-4 text-foreground text-wrap whitespace-break-spaces h-auto gap-4 py-1"
-			onclick={() => (mapData.selectedIndicator = null)}
+			onclick={() => (mapState.selectedIndicator = null)}
 		>
 			<div class="flex items-start">
 				<ReplyIcon class="size-3 flex-none text-grey-9/75" />

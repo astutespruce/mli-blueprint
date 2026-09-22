@@ -8,7 +8,7 @@
 <div class="flex-auto">
 	<div class="flex justify-between items-end text-sm">
 		<div class="flex-auto">{label}</div>
-		<div class="text-grey-8 ml-4 text-right grow-0 shrink-0 basis-10">
+		<div class="text-grey-8 ml-4 text-right grow-0 shrink-0 basis-11">
 			{formatPercent(percent)}% {percentSuffix}
 		</div>
 	</div>

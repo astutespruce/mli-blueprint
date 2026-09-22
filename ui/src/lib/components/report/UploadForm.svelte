@@ -4,14 +4,16 @@
 	import { zod4, zod4Client } from 'sveltekit-superforms/adapters'
 	import { z } from 'zod'
 
-	import Download from '~icons/fa-solid/download'
+	import ZipFileIcon from '~icons/fa-solid/file-archive'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
+	import UploadIcon from '~icons/fa-solid/upload'
 	import { CONTACT_URL } from '$lib/env'
 	import { cn } from '$lib/utils.js'
 	import { Field, Control, Label, Button as SubmitButton } from '$lib/components/ui/form'
 	import { Button } from '$lib/components/ui/button'
 	import { Input } from '$lib/components/ui/input'
 	import { ContactDialog } from '$lib/components/dialog'
+	import { resolve } from '$app/paths'
 
 	const MAXSIZE_MB = 100
 	const MIME_TYPES = new Set([
@@ -21,7 +23,7 @@
 		'multipart/x-zip'
 	])
 
-	const { onSubmit } = $props()
+	const { reportFormat = 'pdf', onSubmit } = $props()
 	let isDragValid: boolean | null = $state(null)
 	const schema = z.object({
 		areaName: z.string().default('').optional(),
@@ -46,7 +48,7 @@
 				return
 			}
 
-			onSubmit(areaName, file)
+			onSubmit(reportFormat, areaName, file)
 		}
 	})
 
@@ -129,9 +131,9 @@
 </script>
 
 <div class="container text-lg pt-12 pb-16 leading-snug">
-	<div class="grid grid-cols-2 gap-16">
-		<div>
-			<form enctype="multipart/form-data" use:enhance>
+	<form enctype="multipart/form-data" use:enhance>
+		<div class="grid sm:grid-cols-2 gap-16">
+			<div>
 				<Field {form} name="areaName">
 					<Control>
 						{#snippet children({ props })}
@@ -141,7 +143,7 @@
 					</Control>
 				</Field>
 
-				<Field {form} name="file" class="mt-12">
+				<Field {form} name="file" class="mt-8">
 					<Control>
 						{#snippet children({ props })}
 							<Label
@@ -151,7 +153,7 @@
 								ondrop={handleDrop}
 								ondragleave={handleDragOut}
 							>
-								<div class="text-2xl font-bold">Choose Area of Interest:</div>
+								<div class="text-2xl font-bold">Area of Interest:</div>
 								<Input
 									type="file"
 									{...props}
@@ -163,7 +165,7 @@
 								/>
 								<div
 									class={cn(
-										'border-2 border-grey-9/50 rounded-lg bg-grey-1/40 border-dashed p-6 flex flex-col justify-center items-center text-center cursor-pointer mt-2',
+										'border-2 border-grey-8/50 rounded-lg bg-grey-1/40 border-dashed p-6 flex flex-col justify-center cursor-pointer mt-2',
 										{
 											'border-error': isDragValid === false || $errors.file,
 											'bg-error/10': isDragValid === false || $errors.file,
@@ -179,13 +181,14 @@
 									aria-label="Click to browse for files or drop file over this area"
 									tabindex={0}
 								>
-									<div>
-										<Download class="size-8" aria-hidden="true" />
+									<div class="flex gap-2 items-center">
+										<ZipFileIcon class="size-6 flex-none" aria-hidden="true" />
+										<div class="text-2xl font-bold">Drop your zip file here</div>
 									</div>
-									<p class="text-2xl font-bold mt-2">Drop your zip file here</p>
-									<p class="text-lg text-grey-8 leading-tight mt-4">
-										Zip file must contain all associated files for a shapefile (at least .shp, .prj,
-										.shx) <br />or file geodatabase (.gdb).
+
+									<p class="text-base text-grey-8 leading-tight mt-4">
+										Your zip file must contain all associated files for a shapefile (at least .shp,
+										.prj, .shx) or file geodatabase (.gdb).
 										<br />
 										<br />
 										Max size: {MAXSIZE_MB} MB.
@@ -193,7 +196,7 @@
 								</div>
 
 								{#if isFileValid}
-									<div class="text-lg ml-4">
+									<div class="text-lg">
 										Selected: {$formData.file.name}
 									</div>
 								{/if}
@@ -207,92 +210,116 @@
 							{/if}
 						{/snippet}
 					</Control>
-					<p class="text-sm text-grey-8 mx-4">
-						Note: your files must be in a zip file, and can include only one shapefile or Feature
-						Class, and should represent a relatively small area. For help analyzing larger areas,
-						please <ContactDialog>
-							<span class="text-link hover:underline cursor-pointer"> contact us</span>
-						</ContactDialog>.
-					</p>
-				</Field>
 
-				<div class="flex justify-between border-t border-t-grey-2 pt-8 mt-8">
-					<div>
-						{#if isFileValid}
-							<Button onclick={handleResetFile} variant="outline" class="text-xl"
+					{#if isFileValid}
+						<div class="flex justify-center mt-8">
+							<Button onclick={handleResetFile} variant="destructive" class="text-base"
 								>Choose a different file</Button
 							>
-						{/if}
-					</div>
-					<SubmitButton disabled={!isValid} class="text-xl">Create Report</SubmitButton>
+						</div>
+					{:else}
+						<p class="text-sm text-grey-8 leading-snug">
+							Note: your files must be in a zip file, and can include only one shapefile or Feature
+							Class, and should represent a relatively small area. For help analyzing larger areas,
+							please <ContactDialog>
+								<span class="text-link hover:underline cursor-pointer"> contact us</span>
+							</ContactDialog>.
+						</p>
+					{/if}
+				</Field>
+
+				<div class="flex justify-end mt-8 border-t pt-8 border-t-grey-2">
+					<SubmitButton disabled={!isValid} class="text-xl gap-2">
+						<UploadIcon class="size-5" /> Upload file
+					</SubmitButton>
 				</div>
-			</form>
+			</div>
+			<div>
+				<p>
+					{#if reportFormat === 'pdf'}
+						Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
+						interest to generate a detailed PDF report of the blueprint, underlying indicators, and
+						other contextual information for your area of interest. It includes a map and summary
+						table for every indicator present in the area as well as projected urbanization and
+						protected areas.
+						<br /><br />
+						We're currently testing advanced reporting that complements this simple PDF report, including
+						the ability to choose specific datasets and save results to an XLSX file. This functionality
+						is not yet public. Contact
+						<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff</a> to find out
+						more.
+					{:else}
+						Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
+						interest to generate a detailed Excel spreadsheet report (.xlsx) of the blueprint,
+						underlying indicators, and other contextual information for your area of interest. This
+						report is intended to complement the <a href={resolve('/custom_report/')}>PDF report</a>
+						and it is expected that you will have created that first and reviewed the results.
+						<br />
+						<br />
+						On the next step, you can select a field in the dataset for aggregating statistics in your
+						report, or run the entire area as one unit.
+					{/if}
+					<br /><br />
+					Don't have a shapefile? You can create one using
+					<a href="https://geojson.io/" target="_blank"> geojson.io </a>
+					to draw your area of interest, save as a shapefile, then upload here.
+					<br />
+					<br />
+					<ContactDialog>
+						<span class="text-link hover:underline cursor-pointer">We are here</span>
+					</ContactDialog>
+					to help you interpret and apply this information to your particular application!
+
+					{#if reportFormat === 'pdf'}
+						<br />
+						<br />
+						We have made every possible effort to ensure that the information provided in the blueprint
+						Explorer is accessible to people with disabilities. If you cannot fully access the information,
+						please reach out to
+						<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+						<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
+						so that we can provide the information in an alternate format.
+					{/if}
+					<br />
+					<br />
+					You can help us improve the blueprint and this report by helping us understand your use case;
+					we use this information to provide statistics about how the blueprint is being used and to
+					prioritize improvements.
+				</p>
+			</div>
 		</div>
-		<div>
-			<p>
-				Upload a zipped shapefile or ESRI File Geodatabase Feature Class containing your area of
-				interest to generate a detailed PDF report of the blueprint, underlying indicators, and
-				other contextual information for your area of interest. It includes a map and summary table
-				for every indicator present in the area as well as projected urbanization and protected
-				areas.
-				<br />
-				<br />
-				Don&apos;t have a shapefile? You can create one using
-				<a href="https://geojson.io" target="_blank"> geojson.io </a>
-				to draw your area of interest, save as a shapefile, then upload here.
-				<br />
-				<br />
-				<ContactDialog>
-					<span class="text-link hover:underline cursor-pointer">We are here</span>
-				</ContactDialog>
-				to help you interpret and apply this information to your particular application!
-				<br />
-				<br />
-				We have made every possible effort to ensure that the information provided in the Blueprint Explorer
-				is accessible to people with disabilities. If you cannot fully access the information, please
-				reach out to
-				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-				<a href={CONTACT_URL} target="_blank"> Midwest Landscape Initiative staff </a>
-				so that we can provide the information in an alternate format.
-				<br />
-				<br />
-				You can help us improve the blueprint and this report by helping us understand your use case:
-				we use this information to provide statistics about how the blueprint is being used and to prioritize
-				improvements.
-			</p>
+	</form>
+
+	{#if reportFormat === 'pdf'}
+		<hr />
+		<h2 class="text-2xl">Examples of what is inside</h2>
+		<div class="grid grid-cols-2 md:grid-cols-5 mt-2 gap-4 [&_img]:border [&_img]:border-grey-2">
+			<enhanced:img
+				src="$images/report/report_sm_1.png"
+				alt="Tool report example screenshot 1"
+				loading="lazy"
+			/>
+			<enhanced:img
+				src="$images/report/report_sm_2.png"
+				alt="Tool report example screenshot 2"
+				loading="lazy"
+			/>
+			<enhanced:img
+				src="$images/report/report_sm_3.png"
+				alt="Tool report example screenshot 3"
+				loading="lazy"
+			/>
+			<enhanced:img
+				src="$images/report/report_sm_4.png"
+				alt="Tool report example screenshot 4"
+				loading="lazy"
+			/>
+			<enhanced:img
+				src="$images/report/report_sm_5.png"
+				alt="Tool report example screenshot 5"
+				loading="lazy"
+			/>
 		</div>
-	</div>
-
-	<hr />
-
-	<h2 class="text-2xl">Examples of what is inside</h2>
-
-	<div class="grid grid-cols-2 md:grid-cols-5 mt-2 gap-4 [&_img]:border [&_img]:border-grey-2">
-		<enhanced:img
-			src="$images/report/report_sm_1.png"
-			alt="Tool report example screenshot 1"
-			loading="lazy"
-		/>
-		<enhanced:img
-			src="$images/report/report_sm_2.png"
-			alt="Tool report example screenshot 2"
-			loading="lazy"
-		/>
-		<enhanced:img
-			src="$images/report/report_sm_3.png"
-			alt="Tool report example screenshot 3"
-			loading="lazy"
-		/>
-		<enhanced:img
-			src="$images/report/report_sm_4.png"
-			alt="Tool report example screenshot 4"
-			loading="lazy"
-		/>
-		<enhanced:img
-			src="$images/report/report_sm_5.png"
-			alt="Tool report example screenshot 5"
-			loading="lazy"
-		/>
-	</div>
-	<p class="mt-2 text-lg">...and much more!</p>
+		<p class="mt-2 text-lg">...and much more!</p>
+	{/if}
 </div>

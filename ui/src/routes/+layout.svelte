@@ -45,6 +45,6 @@
 	{/if}
 </svelte:head>
 
-<div class="flex flex-col h-full w-full overflow-none">
+<div class="flex flex-col h-full w-full overflow-none print:h-auto">
 	{@render children()}
 </div>

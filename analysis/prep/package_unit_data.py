@@ -81,7 +81,7 @@ blueprint = encode_blueprint(blueprint_results)
 
 ### Protected areas
 print("Encoding protected areas")
-cols = [f"protected_areas_{e['value']}" for e in PROTECTED_AREAS]
+cols = [f"protected_areas_{e['value']}" for e in PROTECTED_AREAS["values"]]
 protected_areas_results = (
     pd.read_feather(results_dir / "protected_areas.feather").set_index("id").join(huc12.rasterized_acres)
 )

@@ -1,16 +1,16 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
 	import { PercentBarChart } from '$lib/components/chart'
-	import { protectedAreas as categories } from '$lib/config/constants'
+	import { protectedAreas as protectedAreasInfo } from '$lib/config/constants'
 	import { formatNumber } from '$lib/util/format'
 	import { cn } from '$lib/utils'
 
-	const { type, protectedAreas, protectedAreasList, numProtectedAreas } = $props()
+	const { type, protected_areas, protected_areas_list, num_protected_areas } = $props()
 
 	const bars = $derived(
-		categories.map((category) => ({
+		protectedAreasInfo.values.map((category) => ({
 			...category,
-			percent: protectedAreas ? protectedAreas[category.value] || 0 : 0
+			percent: protected_areas ? protected_areas[category.value] || 0 : 0
 		}))
 	)
 </script>
@@ -20,41 +20,41 @@
 
 	{#if type === 'pixel'}
 		<div class="ml-2 mt-2">
-			{#each categories as { value, label } (value)}
+			{#each protectedAreasInfo.values as { value, label } (value)}
 				<div
 					class="flex items-baseline justify-between pl-2 border-b border-b-grey-2 pb-1 not-first:mt-1 gap-4"
 				>
 					<div
 						class={cn('flex-auto text-grey-8', {
-							'text-foreground font-bold': value === protectedAreas
+							'text-foreground font-bold': value === protected_areas
 						})}
 					>
 						{label}
 					</div>
 
 					<CheckIcon
-						class={cn('size-4 flex-none invisible', { visible: value === protectedAreas })}
+						class={cn('size-4 flex-none invisible', { visible: value === protected_areas })}
 					/>
 				</div>
 			{/each}
 		</div>
 	{:else}
-		{#each bars as bar (bar.label)}
+		{#each bars as bar (bar.value)}
 			<PercentBarChart {...bar} class="mt-2 mb-4" />
 		{/each}
 	{/if}
 
-	{#if protectedAreasList && protectedAreasList.length > 0}
+	{#if protected_areas_list && protected_areas_list.length > 0}
 		<div class="mt-6">
 			<div class="font-bold">Protected areas at this location</div>
 			<ul class="mt-2 list-disc ml-4 text-grey-9">
-				{#each protectedAreasList as name, i (`${name}-${i}`)}
+				{#each protected_areas_list as name, i (`${name}-${i}`)}
 					<li class="not-first:mt-2">{name}</li>
 				{/each}
 
-				{#if numProtectedAreas && numProtectedAreas - protectedAreasList.length > 0}
+				{#if num_protected_areas && num_protected_areas - protected_areas_list.length > 0}
 					<li class="not-first:mt-2">
-						...and {formatNumber(numProtectedAreas - protectedAreasList.length)} more...
+						...and {formatNumber(num_protected_areas - protected_areas_list.length)} more...
 					</li>
 				{/if}
 			</ul>
@@ -69,10 +69,10 @@
 		>
 			Protected Areas Database of the United States
 		</a>
-		(PAD-US v4.1) and include Fee, Designation, Easement, Marine, and Proclamation (Dept. of Defense lands
-		only) boundaries.
+		(PAD-US v4.1) and include Fee, Designation, Easement, Marine, and Proclamation (Dept. of Defense
+		lands only) boundaries.
 
-		{#if protectedAreasList && protectedAreasList.length > 0}
+		{#if protected_areas_list && protected_areas_list.length > 0}
 			Areas are listed based on name, ownership, and boundary information in the Protected Areas
 			Database of the United States, which may include overlapping and duplicate areas.
 		{/if}

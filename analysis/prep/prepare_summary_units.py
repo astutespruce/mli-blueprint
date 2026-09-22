@@ -12,7 +12,7 @@ from pyogrio import read_dataframe, write_dataframe
 from rasterio.features import rasterize
 
 from analysis.constants import DATA_CRS, GEO_CRS, M2_ACRES, MLI_HUC2
-from analysis.lib.geometry import make_valid, to_dict
+from analysis.lib.geometry import make_valid
 from analysis.lib.raster import add_overviews, get_window, write_raster
 
 warnings.filterwarnings("ignore", message=".*polygon with more than 100 parts.*")
@@ -151,7 +151,7 @@ with rasterio.open(blueprint_extent_filename) as src:
     print("Rasterizing HUC12s")
     data = rasterize(
         # create tuples of GeoJSON, value
-        tmp_huc12.apply(lambda row: (to_dict(row.geometry), row.value), axis=1),
+        tmp_huc12.apply(lambda row: (row.geometry.__geo_interface__, row.value), axis=1),
         (src.height, src.width),
         transform=src.transform,
         fill=0,  # values are >= 1

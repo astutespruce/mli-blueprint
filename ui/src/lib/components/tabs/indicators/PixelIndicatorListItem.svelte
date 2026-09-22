@@ -2,14 +2,14 @@
 	import { getContext } from 'svelte'
 
 	import { cn } from '$lib/utils'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 	import { Button } from '$lib/components/ui/button'
 
 	import IndicatorPixelValueChart from './IndicatorPixelValueChart.svelte'
 
 	const { indicator } = $props()
 
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 
 	let { isPresent, isZeroValue, currentValue } = $derived.by(() => {
 		const present = indicator.total > 0
@@ -32,7 +32,7 @@
 	<Button
 		onclick={!isZeroValue
 			? () => {
-					mapData.selectedIndicator = indicator.id
+					mapState.selectedIndicator = indicator.id
 				}
 			: () => {}}
 		class={cn(

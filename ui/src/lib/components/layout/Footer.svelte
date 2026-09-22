@@ -7,7 +7,7 @@
 </script>
 
 <footer
-	class="hidden md:flex flex-none gap-4 items-center justify-between py-1 px-2 leading-none text-sm bg-blue-9 [&_a]:text-white text-white"
+	class="hidden md:flex flex-none gap-4 items-center justify-between py-1 px-2 leading-none text-sm bg-blue-9 [&_a]:text-white text-white print:hidden"
 >
 	<div class="flex flex-none gap-3 items-center">
 		<div>Version: Midwest Conservation Blueprint 2026</div>

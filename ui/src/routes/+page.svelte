@@ -5,8 +5,7 @@
 	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
 
 	import ExclamationTriangleIcon from '~icons/fa-solid/exclamation-triangle'
-
-	import type { LocationData } from '$lib/types'
+	import type { AppState, LocationData } from '$lib/types'
 	import {
 		Footer,
 		Header,
@@ -14,7 +13,8 @@
 		MobileTabs,
 		SidebarDetailsHeader
 	} from '$lib/components/layout'
-	import { Map, MapData } from '$lib/components/map'
+	import { Map, MapState } from '$lib/components/map'
+	import { PrintContainer } from '$lib/components/print'
 	import {
 		ContactTab,
 		FiltersTab,
@@ -26,10 +26,11 @@
 	} from '$lib/components/tabs'
 	import { cn } from '$lib/utils'
 
-	let isMobile: boolean = $state(false)
+	const appState: AppState = $state({ isMobile: false, isPrint: false })
+	setContext('app-state', appState)
 
-	const mapData = new MapData()
-	setContext('map-data', mapData)
+	const mapState = new MapState()
+	setContext('map-state', mapState)
 
 	let locationData: LocationData = $state({ location: null })
 	setContext('location-data', locationData)
@@ -45,32 +46,32 @@
 	$effect(() => {
 		/* eslint-disable @typescript-eslint/no-unused-expressions */
 		tab
-		isMobile
-		mapData.mapMode
-		mapData.data
+		appState.isMobile
+		mapState.mapMode
+		mapState.data
 		/* eslint-enable @typescript-eslint/no-unused-expressions */
 
 		let nextTab = tab
 
-		if (isMobile) {
-			if (mapData.data === null && tab.startsWith('selected-')) {
+		if (appState.isMobile) {
+			if (mapState.data === null && tab.startsWith('selected-')) {
 				nextTab = 'map'
 			}
 		} else {
-			if (mapData.data === null && tab.startsWith('selected-')) {
+			if (mapState.data === null && tab.startsWith('selected-')) {
 				nextTab = 'info'
-			} else if (mapData.mapMode === 'filter' && tab !== 'filter') {
+			} else if (mapState.mapMode === 'filter' && tab !== 'filter') {
 				nextTab = 'filter'
-			} else if (tab === 'filter' && mapData.mapMode !== 'filter') {
-				nextTab = mapData.data !== null ? 'selected-priorities' : 'info'
-			} else if (tab === 'info' && mapData.data !== null) {
+			} else if (tab === 'filter' && mapState.mapMode !== 'filter') {
+				nextTab = mapState.data !== null ? 'selected-priorities' : 'info'
+			} else if (tab === 'info' && mapState.data !== null) {
 				nextTab = 'selected-priorities'
 			}
 		}
 
 		if (nextTab !== tab) {
 			if (nextTab !== 'selected-indicators') {
-				mapData.selectedIndicator = null
+				mapState.selectedIndicator = null
 			}
 
 			tab = nextTab
@@ -87,7 +88,7 @@
 		tab = newTab
 
 		// reset selected indicator on intentional tab change
-		mapData.selectedIndicator = null
+		mapState.selectedIndicator = null
 
 		// scroll content to top
 		if (contentNode) {
@@ -98,7 +99,7 @@
 	const handleWindowMatchMediaChange = ({ matches: nextIsMobile }: { matches: boolean }) => {
 		let nextTab = tab
 
-		if (isMobile && !nextIsMobile) {
+		if (appState.isMobile && !nextIsMobile) {
 			prevMobileTab = tab
 
 			// switched from mobile to desktop; if on any of the mobile-only tabs, switch to info
@@ -106,7 +107,7 @@
 				// reset to info tab (default) on desktop
 				nextTab = 'info'
 			}
-		} else if (!isMobile && nextIsMobile) {
+		} else if (!appState.isMobile && nextIsMobile) {
 			// switched from desktop to mobile
 			if (tab === 'info') {
 				// reset to map tab (default) on mobile
@@ -114,7 +115,7 @@
 			}
 		}
 
-		isMobile = nextIsMobile
+		appState.isMobile = nextIsMobile
 		tab = nextTab
 	}
 
@@ -127,7 +128,7 @@
 			tab = 'map'
 		}
 
-		isMobile = mediaQueryList.matches
+		appState.isMobile = mediaQueryList.matches
 		mediaQueryList.addEventListener('change', handleWindowMatchMediaChange)
 
 		return () => {
@@ -147,25 +148,25 @@
 <svelte:window {@attach windowMediaQueryHandler} />
 
 <QueryClientProvider client={new QueryClient()}>
-	<Header hasData={mapData && mapData.data !== null} />
-	{#if isMobile && mapData && mapData.data}
-		<MobileDetailsHeader {...mapData.data} onClose={() => mapData.setData(null)} />
+	<Header hasData={mapState && mapState.data !== null} />
+	{#if appState.isMobile && mapState && mapState.data}
+		<MobileDetailsHeader {...mapState.data} onClose={() => mapState.setData(null)} />
 	{/if}
 
-	<main class="h-full w-full flex-auto overflow-auto">
+	<main class="h-full w-full flex-auto overflow-auto print:hidden">
 		<div class="flex flex-col h-full flex-auto">
 			<div class="flex h-full flex-auto overflow-y-hidden relative">
 				<!-- sidebar -->
 				<div
 					bind:this={contentNode}
 					class={cn(
-						'md:flex h-full bg-white grow shrink-0 basis-full md:basis-[360px] lg:basis-[468px] w-max-[100%] md:w-max-[360px] lg:w-max-[468px] flex-col overflow-hidden absolute md:relative left-0 right-0 top-0 bottom-0 z-10000 md:z-1',
+						'md:flex h-full bg-white grow shrink-0 basis-full md:basis-[468px] w-max-[100%] md:w-max-[468px] flex-col overflow-hidden absolute md:relative left-0 right-0 top-0 bottom-0 z-10000 md:z-1',
 						{
 							hidden: tab === 'map'
 						}
 					)}
 				>
-					{#if !isMobile && mapData.data !== null}
+					{#if !appState.isMobile && mapState.data !== null}
 						<SidebarDetailsHeader {tab} onTabChange={handleTabChange} />
 					{/if}
 
@@ -181,10 +182,10 @@
 					<ContactTab class={tab === 'contact' ? '' : 'hidden'} />
 
 					<!-- selected data tabs -->
-					{#if mapData.data !== null}
-						{#if mapData.data.isLoading}
+					{#if mapState.data !== null}
+						{#if mapState.data.isLoading}
 							<div class="mt-8 text-center text-lg text-grey-8">Loading...</div>
-						{:else if mapData.data.blueprint === undefined || mapData.data.blueprint === null}
+						{:else if mapState.data.blueprint === undefined || mapState.data.blueprint === null}
 							<div class="flex gap-2 items-center mt-8 px-4">
 								<ExclamationTriangleIcon class="size-6 flex-none text-accent" />
 								<text class="text-grey-8 flex-auto font-bold">
@@ -192,11 +193,11 @@
 								</text>
 							</div>
 						{:else if tab === 'selected-priorities'}
-							<PrioritiesTab {...mapData.data} />
+							<PrioritiesTab {...mapState.data} />
 						{:else if tab === 'selected-indicators'}
-							<IndicatorsTab {...mapData.data} />
+							<IndicatorsTab {...mapState.data} />
 						{:else if tab === 'selected-more-info'}
-							<MoreInfoTab {...mapData.data} />
+							<MoreInfoTab {...mapState.data} />
 						{/if}
 					{/if}
 				</div>
@@ -210,3 +211,7 @@
 	</main>
 	<Footer />
 </QueryClientProvider>
+
+{#if appState.isPrint}
+	<PrintContainer />
+{/if}

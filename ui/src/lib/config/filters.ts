@@ -1,6 +1,13 @@
-import { indexBy, range, sortByFunc } from '$lib/util/data'
+import { indexBy, range } from '$lib/util/data'
 import type { Filters } from '$lib/types'
-import { blueprint, indicators, urban, protectedAreas } from './constants'
+import {
+	blueprint,
+	indicators,
+	indicatorGroups,
+	indicatorsIndex,
+	urban,
+	protectedAreas
+} from './constants'
 
 // setup default filters
 export const defaultFilters: Filters = Object.fromEntries(
@@ -23,19 +30,19 @@ export const defaultFilters: Filters = Object.fromEntries(
 	})
 )
 
-defaultFilters.blueprint = {
+defaultFilters[blueprint.id] = {
 	enabled: false,
 	// skip not a priority class; values 1-4
 	activeValues: Object.fromEntries(range(1, 5).map((v) => [v, true]))
 }
 
-defaultFilters.urban = {
+defaultFilters[urban.id] = {
 	enabled: false,
 	// values 1-5
 	activeValues: Object.fromEntries(range(1, 6).map((v) => [v, true]))
 }
 
-defaultFilters.protectedAreas = {
+defaultFilters[protectedAreas.id] = {
 	enabled: false,
 	// values 0-1
 	activeValues: { 0: false, 1: true }
@@ -43,30 +50,50 @@ defaultFilters.protectedAreas = {
 
 export const priorityFilters = [
 	{
-		id: 'blueprint',
-		label: 'Blueprint priority',
-		description:
-			'The blueprint is a basemap of priority lands and waters for conservation in the Midwest.',
-		values: blueprint.slice().sort(sortByFunc('value')).slice(1, blueprint.length).reverse()
+		id: blueprint.id,
+		label: blueprint.label,
+		description: blueprint.description,
+		values: blueprint.values.filter(({ value }) => value > 0).reverse()
 	}
 ]
 
+export const indicatorGroupFilters = Object.fromEntries(
+	indicatorGroups.map(({ indicators: groupIndicators, ...group }) => [
+		group.id,
+		{
+			...group,
+			indicators: groupIndicators.map((id) => ({
+				...indicatorsIndex[id],
+				// sort indicator values in descending order
+				values: indicatorsIndex[id].values.slice().reverse()
+			}))
+		}
+	])
+)
 export const otherInfoFilters = [
 	{
-		id: 'urban',
-		label: 'Probability of urbanization by 2060',
-		values: urban
-			.slice()
-			// values are not in order and need to be sorted in ascending order
-			.sort(sortByFunc('value')),
-		description:
-			'Past and current (2021) urban levels based on developed land cover classes from the National Land Cover Database. Future urban growth estimates derived from the FUTURES model developed by the Center for Geospatial Analytics, NC State University.'
+		id: urban.id,
+		label: urban.label,
+		values: urban.values,
+		description: urban.description
 	},
 	{
-		id: 'protectedAreas',
-		label: 'Protected areas',
-		values: protectedAreas,
-		description:
-			'Protected areas information is derived from the Protected Areas Database of the United States (PAD-US v4.1).'
+		id: protectedAreas.id,
+		label: protectedAreas.label,
+		values: protectedAreas.values,
+		description: protectedAreas.description
 	}
 ]
+export const allFilters = []
+	// @ts-expect-error priorityFilters are fine
+	.concat(priorityFilters)
+	// @ts-expect-error indicatorGroupFilters are fine
+	.concat(indicatorGroupFilters.l.indicators)
+	// @ts-expect-error indicatorGroupFilters are fine
+	.concat(indicatorGroupFilters.w.indicators)
+	// @ts-expect-error indicatorGroupFilters are fine
+	.concat(indicatorGroupFilters.h.indicators)
+	// @ts-expect-error otherFilters are fine
+	.concat(otherInfoFilters)
+
+export const filterToIndex = Object.fromEntries(allFilters.map(({ id }, index) => [id, index]))

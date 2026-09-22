@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { getContext } from 'svelte'
 	import EyeIcon from '~icons/fa-solid/eye'
 	import EyeSlashIcon from '~icons/fa-solid/eye-slash'
 	import { Button } from '$lib/components/ui/button'
 
 	import LegendElement from './LegendElement.svelte'
+	import { MapState } from '../state.svelte'
 
-	const { title, subtitle, categories, isVisible, onToggleLayerVisibility } = $props()
+	const mapState: MapState = getContext('map-state')
+	const { label: title, valueLabel: subtitle, categories } = $derived(mapState.displayLayer)
 
 	let isOpen = $state(true)
 
@@ -20,7 +23,7 @@
 	}
 
 	const toggleLayerVisibility = (e: Event) => {
-		onToggleLayerVisibility()
+		mapState.renderLayerIsVisible = !mapState.renderLayerIsVisible
 		e.stopPropagation()
 	}
 </script>
@@ -34,17 +37,17 @@
 >
 	{#if isOpen}
 		<div class="p-2" title="Click to hide legend">
-			<div class="flex items-center justify-between gap-4">
-				<div class="flex-auto font-bold leading-none text-base">
+			<div class="flex items-top justify-between gap-2">
+				<div class="flex-auto font-bold leading-none text-lg">
 					{title}
 				</div>
 				<Button
-					class="flex-none bg-grey-0 text-foreground border border-grey-9/50 hover:border-grey-9 rounded-sm p-0 leading-none hover:bg-grey-1 w-7 h-7"
-					title={`Click to ${isVisible ? 'hide' : 'show'}`}
+					class="flex-none bg-grey-0 text-foreground border border-grey-8 rounded-sm p-0 leading-none hover:bg-grey-1 w-7 h-7"
+					title={`Click to ${mapState.renderLayerIsVisible ? 'hide' : 'show'}`}
 					onclick={toggleLayerVisibility}
 					tabindex={0}
 				>
-					{#if isVisible}
+					{#if mapState.renderLayerIsVisible}
 						<EyeIcon class="size-5" />
 					{:else}
 						<EyeSlashIcon class="size-5" />
@@ -59,7 +62,7 @@
 			{/if}
 
 			<div class="mt-2">
-				{#each categories as element (`${element.label}-${element.color}`)}
+				{#each categories as element (element.label)}
 					<LegendElement {...element} />
 				{/each}
 			</div>

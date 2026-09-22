@@ -1,14 +1,4 @@
 /**
- * Flatten an array of arrays (2D) to an array (1D)
- * @param {Array} records
- */
-export const flatten = (records: [[]]) =>
-	records.reduce((prev, record) => {
-		prev.push(...record)
-		return prev
-	}, [])
-
-/**
  * Convert an array to an object, indexing on values of field
  * @param {Array} records
  * @param {String} field
@@ -18,34 +8,6 @@ export const indexBy = (records: Record<string, any>[], field: string) =>
 		(prev: {}, record: Record<string, any>) => Object.assign(prev, { [record[field]]: record }),
 		{}
 	)
-
-/**
- * Resolve a dot notation key into an object into its final value.
- * Example: resolveKey({foo: {bar: 'baz'}}, 'foo.bar') => 'baz'
- * @param {Object} item
- * @param {String} key
- */
-export const resolveKey = (item: { [key: string]: {} }, key: string): any => {
-	const [cur, remainder] = key.split('.', 2)
-	if (remainder !== undefined) {
-		return resolveKey(item[cur], remainder)
-	}
-	return item[cur]
-}
-
-/**
- * Groups array into an object, keyed by value of `field`.
- * Returns an object
- *
- * @param {Array } data
- * @param {String} groupField - name of group field to group by
- */
-export const groupBy = (data: [{ [key: string]: any }], groupField: string) =>
-	data.reduce((prev, d) => {
-		const key = resolveKey(d, groupField)
-		prev[key] = (prev[key] || []).concat([d])
-		return prev
-	}, {})
 
 /**
  * Calculate the sum of an array of numbers
@@ -69,74 +31,10 @@ export const range = (min: number, max: number | null = null) =>
  */
 export const extent = (values: number[]) => [Math.min(...values), Math.max(...values)]
 
-/**
- * Create a sort function that can be used as input to .sort()
- * @param {String} field - field to sort on
- * @param {bool} ascending
- */
-export const sortByFunc =
-	(field: string, ascending: boolean = true) =>
-	(a: { [key: string]: any }, b: { [key: string]: any }) => {
-		if (a[field] < b[field]) {
-			return ascending ? -1 : 1
-		}
-		if (a[field] > b[field]) {
-			return ascending ? 1 : -1
-		}
-		return 0
-	}
-
-/**
- * Recursively compare a to b using fields
- * @param {*} a
- * @param {*} b
- * @param {Array} fields - array of objects: {field, ascending}
- */
-const recursiveCompare = (
-	a: { [key: string]: any },
-	b: { [key: string]: any },
-	[{ field, ascending }, ...fields]: { field: string; ascending: boolean }[]
-) => {
-	if (a[field] < b[field]) {
-		return ascending ? -1 : 1
-	}
-	if (a[field] > b[field]) {
-		return ascending ? 1 : -1
-	}
-
-	// this field is equal, recurse
-	if (fields.length > 0) {
-		return recursiveCompare(a, b, fields)
-	}
-
-	// no more fields, they are equal
-	return 0
-}
-
-/**
- * Sort by multiple fields
- * For each field that is equal, will recurse into testing the next field
- * @param {Array} fields - array of objects: {field, ascending}
- */
-export const sortByFuncMultiple =
-	(fields: { field: string; ascending: boolean }[]) =>
-	(a: { [key: string]: any }, b: { [key: string]: any }) =>
-		recursiveCompare(a, b, fields)
-
 export const applyFactor = (values: number[], factor: number) => {
 	if (!values) return values
 
 	return values.map((v) => v * factor)
-}
-
-/**
- * Calculate the average bin based on using percents vs total percent as weights
- * and bin index as value.
- * @param {*} percents
- */
-export const percentsToAvg = (percents: number[]) => {
-	const total = sum(percents)
-	return sum(percents.map((p, i) => i * (p / total)))
 }
 
 const numericRegex = /\d+/
@@ -213,16 +111,6 @@ export const parseDictEncodedValues = (text: string) => {
 			return prev
 		}, {})
 }
-
-export const ifNull = (value: any, defaultValue: any) => (value === null ? defaultValue : value)
-
-/**
- * Count number of entries for each value
- * @param {Array} a - array of values
- * @returns Object - {key:count, ...}
- */
-export const histogram = (a: any[]) =>
-	a.reduce((prev, cur) => Object.assign(prev, { [cur]: (prev[cur] || 0) + 1 }), {})
 
 /**
  * Return the set intersection of two sets

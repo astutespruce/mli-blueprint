@@ -68,7 +68,7 @@ def create_tileset(infilename, outfilename, minzoom, maxzoom, layer_id, col_type
         + ["-l", layer_id]
         + ["-Z", str(minzoom), "-z", str(maxzoom)]
         + col_types
-        + ["-o", f"{str(outfilename)}", str(infilename)]
+        + ["-o", f"{outfilename!s}", str(infilename)]
     )
     ret.check_returncode()
 

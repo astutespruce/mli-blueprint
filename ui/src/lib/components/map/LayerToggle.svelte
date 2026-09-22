@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getContext } from 'svelte'
 	import EyeIcon from '~icons/fa-solid/eye'
 	import EyeSlashIcon from '~icons/fa-solid/eye-slash'
 	import LayerGroupIcon from '~icons/fa-solid/layer-group'
@@ -6,11 +7,12 @@
 	import { renderLayerGroups, renderLayersIndex } from '$lib/config/pixelLayers'
 	import { logGAEvent } from '$lib/util/log'
 	import { cn } from '$lib/utils'
+	import type { MapState } from './state.svelte'
 
-	const { renderLayer, onSetRenderLayer, class: className = '' } = $props()
+	const mapState: MapState = getContext('map-state')
 
 	const handleSetRenderLayer = (id: string) => () => {
-		onSetRenderLayer(renderLayersIndex[id])
+		mapState.renderLayer = renderLayersIndex[id]
 		logGAEvent('set-render-layer', {
 			layer: id
 		})
@@ -20,33 +22,33 @@
 		(id: string) =>
 		({ key }: { key: string }) => {
 			if (key === 'Enter') {
-				onSetRenderLayer(renderLayersIndex[id])
+				mapState.renderLayer = renderLayersIndex[id]
 				logGAEvent('set-render-layer', {
 					layer: id
 				})
 			}
 		}
 
-	const isActiveLayer = (id: string) => renderLayer?.id === id
+	const isActiveLayer = (id: string) => mapState.renderLayer?.id === id
 </script>
 
 <Root>
 	<Trigger
 		class={cn(
-			'absolute top-[70px] md:top-[160px] right-[12px] md:right-[10px]  p-[6px] text-grey-9 bg-white cursor-pointer  pointer-events-auto rounded-sm focus-visible:outline-2 outline-accent',
-			className
+			'absolute top-[70px] md:top-[162px] right-[12px] md:right-[10px]  p-[7px] text-grey-9 bg-white cursor-pointer  pointer-events-auto rounded-sm focus-visible:outline-2 outline-accent hidden',
+			{ block: mapState.mapMode !== 'unit' }
 		)}
 		style="box-shadow:0 0 0 2px #0000001a;"
 		aria-label="show layers popup to choose a different layer to display on the map"
 	>
-		<LayerGroupIcon class="w-6 h-6 md:w-5.25 md:h-5.25" />
+		<LayerGroupIcon class="w-6 h-6 md:w-4.5 md:h-4.5" />
 	</Trigger>
 	<Content class="pt-4 pb-6">
 		<Header class="border-b pb-4 border-b-grey-2">
 			<Title class="text-3xl">Choose layer to show on map</Title>
 		</Header>
-		<div class="overflow-y-auto max-h-[400px] py-2">
-			{#each renderLayerGroups as { label: groupLabel, layers } (groupLabel)}
+		<div class="overflow-y-auto max-h-[400px]">
+			{#each renderLayerGroups as { id: groupId, label: groupLabel, layers } (groupId)}
 				<div class="not-first:mt-2 not-first:pt-2 not-first:border-t not-first:border-t-grey-1">
 					{#if groupLabel}
 						<h4 class="text-xl not-first:mt-8">{groupLabel}</h4>
@@ -62,7 +64,7 @@
 							{#if isActiveLayer(id)}
 								<EyeIcon class="text-foreground size-4 mt-1" />
 							{:else}
-								<EyeSlashIcon class="text-grey-9/40 size-4 mt-1" />
+								<EyeSlashIcon class="text-grey-8 size-4 mt-1" />
 							{/if}
 							<div class={cn({ 'font-bold': isActiveLayer(id) })}>{label}</div>
 						</div>

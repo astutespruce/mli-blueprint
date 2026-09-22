@@ -5,7 +5,7 @@ import { Model } from '@luma.gl/engine'
 import type { ShaderModule } from '@luma.gl/shadertools'
 import { DynamicTexture } from '@luma.gl/engine'
 
-import { pixelLayers } from '$lib/config/pixelLayers'
+import { pixelLayers, paletteSize } from '$lib/config/pixelLayers'
 import { sum } from '$lib/util/data'
 
 import createMesh from './mesh'
@@ -24,6 +24,12 @@ layout(std140) uniform stackedPNGLayerUniforms {
 	// encoded filters, with a bit set to 1 for each value that is present in the
 	// set of activated filters.  -1 indicates no filtering for that layer.
 	uniform int filterValues[${numLayers}];
+	// useAndLogic is true where layers are combined with AND logic; false indicates OR logic
+	uniform int useAndLogic;
+	// requiredLayerCount is the number of layers that must be TRUE for the selected logic
+	// in order to render a pixel; this should be 1 for OR logic and numLayers for AND logic
+	uniform int requiredLayerCount;
+	uniform vec4 palette[${paletteSize}];
 } stackedPNGLayer;
 `
 
@@ -33,12 +39,10 @@ type StackedPNGLayerUniformProps = {
 	offset?: number
 	bits?: number
 	filterValues?: number[]
-	palette?: DynamicTexture
-	layer0?: DynamicTexture
-	layer1?: DynamicTexture
-	layer2?: DynamicTexture
-	layer3?: DynamicTexture
-	layer4?: DynamicTexture
+	useAndLogic?: number
+	requiredLayerCount?: number
+	palette?: number[]
+	// layers are DynamicTexture type, but don't need to be itemized here
 }
 
 const stackedPNGLayerUniforms = {
@@ -50,7 +54,10 @@ const stackedPNGLayerUniforms = {
 		offset: 'i32',
 		bits: 'i32',
 		// @ts-expect-error filterValues is valid
-		filterValues: ['i32', numLayers]
+		filterValues: ['i32', numLayers],
+		useAndLogic: 'i32',
+		requiredLayerCount: 'i32',
+		palette: ['vec4<f32>', paletteSize]
 	}
 } as const satisfies ShaderModule<StackedPNGLayerUniformProps>
 
@@ -64,9 +71,10 @@ type StackedPNGLayerProps = {
 			offset: number
 			bits: number
 		}
-		palette: DynamicTexture
+		palette: number[]
 	}
 	filterValues?: number[]
+	filterMode?: string
 	opacity?: number
 }
 
@@ -132,12 +140,13 @@ class StackedPNGLayer extends Layer {
 	}
 
 	updateState({
-		props: { bounds, images = [], renderTarget, filterValues, opacity },
+		props: { bounds, images = [], renderTarget, filterMode, filterValues, opacity },
 		oldProps: {
 			bounds: oldBounds,
 			images: oldImages = [],
 			// @ts-expect-error oldRenderTarget is intentionally missing props
 			renderTarget: oldRenderTarget = {},
+			filterMode: oldFilterMode,
 			filterValues: oldFilterValues,
 			opacity: oldOpacity
 		}
@@ -188,12 +197,18 @@ class StackedPNGLayer extends Layer {
 			}
 		}
 
+		if (filterMode != oldFilterMode) {
+			newProps.useAndLogic = filterMode === 'AND' ? 1 : 0
+			newProps.requiredLayerCount = filterMode === 'AND' ? numLayers : 1
+		}
+
 		if (
 			filterValues &&
 			(!oldFilterValues || !filterValues.every((v: number, i: number) => v === oldFilterValues[i]))
 		) {
 			newProps.filterValues = filterValues
 		}
+
 		if (opacity !== oldOpacity) {
 			newProps.opacity = opacity
 		}

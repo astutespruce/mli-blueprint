@@ -1,20 +1,20 @@
 import math
-from pathlib import Path
 import warnings
+from pathlib import Path
 
-from affine import Affine
 import geopandas as gp
 import numpy as np
 import pandas as pd
-from pyogrio.geopandas import read_dataframe, write_dataframe
 import rasterio
-from rasterio.features import rasterize, dataset_features, shapes
-from rasterio import windows
 import shapely
+from affine import Affine
+from pyogrio.geopandas import read_dataframe, write_dataframe
+from rasterio import windows
+from rasterio.features import dataset_features, rasterize, shapes
 
-from analysis.constants import DATA_CRS, MLI_STATES, MASK_RESOLUTION
-from analysis.lib.geometry import to_dict, dissolve
-from analysis.lib.raster import write_raster, add_overviews, create_lowres_mask
+from analysis.constants import DATA_CRS, MASK_RESOLUTION, MLI_STATES
+from analysis.lib.geometry import dissolve
+from analysis.lib.raster import add_overviews, create_lowres_mask, write_raster
 
 warnings.filterwarnings("ignore", message=".*Measured 3D MultiPolygon.*")
 warnings.filterwarnings("ignore", message=".*polygon with more than 100 parts.*")
@@ -124,7 +124,7 @@ with rasterio.open(src_dir / "blueprint/MidwestBP_extent.tif") as src:
         f=transform.f,
     )
     subregion_data = rasterize(
-        subregion_df.apply(lambda row: (to_dict(row.geometry), row.value), axis=1),
+        subregion_df.apply(lambda row: (row.geometry.__geo_interface__, row.value), axis=1),
         out_shape=(math.ceil(window.height / 16), math.ceil(window.width / 16)),
         transform=subregion_transform,
         fill=NODATA,
@@ -165,7 +165,7 @@ with rasterio.open(out_dir / "blueprint_extent.tif") as extent:
 
     data = np.zeros(shape=(extent.shape), dtype="uint8")
     _ = rasterize(
-        states.apply(lambda row: (to_dict(row.geometry), row.value), axis=1),
+        states.apply(lambda row: (row.geometry.__geo_interface__, row.value), axis=1),
         transform=extent.transform,
         out=data,
     )

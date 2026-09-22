@@ -6,10 +6,9 @@ from progress.bar import Bar
 from pyogrio import read_dataframe
 
 from analysis.constants import DATA_CRS, GEO_CRS
-from api.report import create_report
-from api.report.map import render_maps
-from api.stats.custom_area import get_custom_area_results
-
+from analysis.lib.pdf.map import render_maps
+from analysis.lib.pdf.report import create_report
+from analysis.lib.stats.aoi import get_aoi_results
 
 bnd_dir = Path("data/boundaries")
 out_dir = Path("/tmp/mli")
@@ -31,7 +30,7 @@ for state in states.state.values:
         bar.next(percent)
 
     print("Calculating results...")
-    task = get_custom_area_results(df, progress_callback=progress_callback)
+    task = get_aoi_results(df, progress_callback=progress_callback)
     results = asyncio.run(task)
 
     bar.finish()
@@ -63,4 +62,4 @@ for state in states.state.values:
     with open(out_dir / f"{state.replace(' ', '_')}_Blueprint2026_report.pdf", "wb") as out:
         out.write(pdf)
 
-    print("Elapsed {:.2f}s".format(time() - start))
+    print(f"Elapsed {time() - start:.2f}s")

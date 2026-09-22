@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
-	import { urban as urbanCategories } from '$lib/config/constants'
+	import { urban as urbanInfo } from '$lib/config/constants'
 	import { cn } from '$lib/utils'
 
 	import UrbanChart from './UrbanChart.svelte'
@@ -21,7 +21,7 @@
 		{:else}
 			<!-- show as list with checkmarks -->
 			<div class="text-grey-8">Probability of urbanization by 2060:</div>
-			{#each urbanCategories as { value, label } (value)}
+			{#each urbanInfo.values as { value, label } (value)}
 				<div
 					class="flex items-baseline justify-between pl-2 border-b border-b-grey-2 pb-1 not-first:mt-1 gap-4"
 				>

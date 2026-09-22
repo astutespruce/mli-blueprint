@@ -91,7 +91,7 @@ def encode_blueprint(df):
     -------
     DataFrame
     """
-    blueprint_cols = [f"blueprint_{v['value']}" for v in BLUEPRINT]
+    blueprint_cols = [f"blueprint_{v['value']}" for v in BLUEPRINT["values"]]
     blueprint = encode_values(
         df[blueprint_cols],
         df.rasterized_acres,

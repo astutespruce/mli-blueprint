@@ -5,7 +5,7 @@
 	import LandscapeHealthIcon from '$images/l.svg'
 	import WildlifeIcon from '$images/w.svg'
 	import { cn } from '$lib/utils'
-	import type { MapData } from '$lib/components/map'
+	import type { MapState } from '$lib/components/map'
 	import { IndicatorGroup, IndicatorDetails } from './indicators'
 
 	const indicatorGroupIcons = {
@@ -17,23 +17,23 @@
 	const {
 		type,
 		indicators,
-		outsideExtentPercent,
-		rasterizedAcres,
+		outside_extent_percent,
+		rasterized_acres,
 		class: className = ''
 	} = $props()
 
-	const mapData: MapData = getContext('map-data')
+	const mapState: MapState = getContext('map-state')
 </script>
 
 <section class={cn('flex-auto overflow-y-auto h-full', className)}>
-	{#if mapData.selectedIndicator && !!indicators.indicators[mapData.selectedIndicator]}
+	{#if mapState.selectedIndicator && !!indicators.indicators[mapState.selectedIndicator]}
 		<IndicatorDetails
 			{type}
-			{...indicators.indicators[mapData.selectedIndicator]}
-			{outsideExtentPercent}
-			{rasterizedAcres}
+			{...indicators.indicators[mapState.selectedIndicator]}
+			{outside_extent_percent}
+			{rasterized_acres}
 			icon={indicatorGroupIcons[
-				indicators.indicators[mapData.selectedIndicator].group
+				indicators.indicators[mapState.selectedIndicator].group
 					.id as keyof typeof indicatorGroupIcons
 			]}
 		/>

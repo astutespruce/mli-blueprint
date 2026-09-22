@@ -1,19 +1,21 @@
-from itertools import product
 import math
+from itertools import product
 
-from affine import Affine
 import numba as nb
-from numba import njit
 import numpy as np
-from progress.bar import Bar
 import rasterio
+import shapely
+from affine import Affine
+from progress.bar import Bar
 from rasterio.enums import Resampling
 from rasterio.mask import geometry_mask
 from rasterio.vrt import WarpedVRT
 from rasterio.windows import Window
-import shapely
 
-from analysis.constants import OVERVIEW_FACTORS, DATA_CRS
+from analysis.constants import DATA_CRS, OVERVIEW_FACTORS
+
+type UInt8_2D_Array = np.ndarray[tuple[int, int], np.dtype[np.uint8]]
+type Bool_2D_Array = np.ndarray[tuple[int, int], np.dtype[np.bool]]
 
 
 @nb.njit(
@@ -22,7 +24,9 @@ from analysis.constants import OVERVIEW_FACTORS, DATA_CRS
     nogil=True,
     cache=True,
 )
-def count_values_inplace(arr, mask, out, nodata):
+def count_values_inplace(
+    arr: UInt8_2D_Array, mask: Bool_2D_Array, out: np.ndarray[int, np.dtype[np.uint64]], nodata: np.uint8
+):
     """Calculate count of each value in arr.
 
     About 2x as fast as np.bincount
@@ -52,7 +56,7 @@ def count_values_inplace(arr, mask, out, nodata):
     nogil=True,
     cache=True,
 )
-def unique(arr):
+def unique(arr: UInt8_2D_Array) -> set:
     """Extract unique values in arr.
 
     About 2x as fast as np.unique.
@@ -171,10 +175,7 @@ def window_overlaps(window, dataset):
     bool
     """
     clipped_window = clip_window(window, dataset.width, dataset.height)
-    if clipped_window.width > 0 and clipped_window.height > 0:
-        return True
-
-    return False
+    return clipped_window.width > 0 and clipped_window.height > 0
 
 
 def create_lowres_mask(
@@ -240,7 +241,7 @@ def create_lowres_mask(
                 out.write(data)
 
 
-class SummaryUnitGrid(object):
+class SummaryUnitGrid:
     def __init__(self, dataset, bounds):
         self.dataset = dataset
         self.window = get_window(dataset, bounds, boundless=False)
@@ -280,8 +281,6 @@ def summarize_raster_by_units_grid(
     value_read_window = get_window(value_dataset, df.total_bounds, boundless=False)
     value_data = value_dataset.read(1, window=value_read_window)
 
-    # TODO: consider moving this loop to Cython or numba, but that would require
-    # jit-ifying the window operations
     out = np.zeros((len(df), len(bins)), dtype="uint64")
     for i, (_, row) in Bar(progress_label, max=len(df)).iter(enumerate(df.iterrows())):
         # get boundless window in order to calculate offset adjustments for
@@ -479,23 +478,10 @@ def get_overlapping_windows(src, geometry, bounds, window_size):
     # Select all windows that intersect geometry
     res = src.res[0]
     src_bounds = src.bounds
-    start_row = max(
-        math.floor(math.floor((src_bounds[3] - bounds[3]) / res) / window_size) * window_size,
-        0,
-    )
-    end_row = min(
-        math.ceil(math.ceil((src_bounds[3] - bounds[1]) / res) / window_size) * window_size + 1,
-        src.height,
-    )
-
-    start_col = max(
-        math.floor(math.floor((bounds[0] - src_bounds[0]) / res) / window_size) * window_size,
-        0,
-    )
-    end_col = min(
-        math.ceil(math.ceil((bounds[2] - src_bounds[0]) / res) / window_size) * window_size + 1,
-        src.width,
-    )
+    start_row = math.floor(math.floor((src_bounds[3] - bounds[3]) / res) / window_size) * window_size
+    end_row = math.ceil(math.ceil((src_bounds[3] - bounds[1]) / res) / window_size) * window_size + 1
+    start_col = math.floor(math.floor((bounds[0] - src_bounds[0]) / res) / window_size) * window_size
+    end_col = math.ceil(math.ceil((bounds[2] - src_bounds[0]) / res) / window_size) * window_size + 1
 
     windows = [
         Window(row_off=row_off, col_off=col_off, width=window_size, height=window_size)
@@ -507,6 +493,9 @@ def get_overlapping_windows(src, geometry, bounds, window_size):
 
     total_windows = len(windows)
 
+    if total_windows == 0:
+        return [], 0
+
     window_boxes = shapely.box(*np.array([src.window_bounds(w) for w in windows]).T)
     shapely.prepare(geometry)
     ix = shapely.intersects(geometry, window_boxes)
@@ -515,7 +504,7 @@ def get_overlapping_windows(src, geometry, bounds, window_size):
     return windows, len(windows) / total_windows
 
 
-class WindowGeometryMask(object):
+class WindowGeometryMask:
     """Geometry mask with an associated read window for optimized
     reading from the dataset
 
@@ -542,7 +531,7 @@ class WindowGeometryMask(object):
             invert=True,
         )
 
-    def detect_data(self, dataset):
+    def detect_data(self, dataset: rasterio.DatasetReader) -> bool:
         """Detect if there are any non-NODATA pixel values in the dataset within
         the geometry mask.
 
@@ -579,10 +568,7 @@ class WindowGeometryMask(object):
         data = dataset.read(1, window=read_window, boundless=True)
 
         # if there are non-nodata values within geometry mask, then there are data
-        if (data[self.shape_mask] != nodata).any():
-            return True
-
-        return False
+        return bool((data[self.shape_mask] != nodata).any())
 
     def get_pixel_count_by_bin(self, dataset, num_values=None, out=None):
         """Get count of pixels in each bin
@@ -627,7 +613,7 @@ class WindowGeometryMask(object):
         return out
 
 
-@njit(["int8[:,:](int8[:,:],int8[:,:],int8,int8)", "uint8[:,:](uint8[:,:],uint8[:,:],uint8,uint8)"], cache=True)
+@nb.njit("uint8[:,:](uint8[:,:],uint8[:,:],uint8,uint8)", cache=True)
 def remap(arr, remap_table, nodata, fill):
     """Remap a 2D array of values
 
