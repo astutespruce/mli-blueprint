@@ -76,7 +76,7 @@ analysis_unit_divider = Border(
 description_font = Font(color="999999")
 
 
-def set_cell_styles(ws, breaks=None, area_columns=None, percent_columns=None):
+def set_cell_styles(ws, breaks=None, area_columns=None, percent_columns=None, add_percent_divider=False):
     area_columns = area_columns or []
     percent_columns = percent_columns or []
 
@@ -109,6 +109,15 @@ def set_cell_styles(ws, breaks=None, area_columns=None, percent_columns=None):
         for col in ws.columns:
             for line in breaks:
                 col[line].border = analysis_unit_divider
+
+    if add_percent_divider and len(percent_columns) > 0:
+        # add a line between areas and percents
+        percent_start_col = get_column_letter(percent_columns[0] + 1)
+        for i in range(1, ws.max_row + 1):
+            cell = ws[f"{percent_start_col}{i}"]
+            cell.border = Border(
+                left=Side(border_style="medium", color="666666"), bottom=cell.border.bottom, right=cell.border.right
+            )
 
 
 def set_column_widths(ws, widths):
@@ -143,44 +152,3 @@ def add_caption(ws, table_counter, caption):
     total_line_height = sum([max(1, ceil(len(line) / chars_per_line)) * 16 for line in caption.split("\n")])
     # default is height 20, but extend up to 16 units per line of text
     ws.row_dimensions[1].height = max(20, total_line_height)
-
-
-def add_good_condition_row(ws, values_start_col, values_end_col, break_col):
-    """Add header row with merged cells for not in good condition / in good condition
-
-    Good conditions are only defined for indicators, which always have columns
-    ordered greatest to least (good condition on the left.
-
-    Parameters
-    ----------
-    ws : Worksheet
-    values_start_col : int
-        values start column index, 0-based
-    values_end_col : int
-        values end column index, 0-based
-    break_col : int
-        the column index of the first value after the break between good and not good condition, 0-based
-    """
-    row = 3
-
-    ws.insert_rows(idx=row)
-
-    start_col = get_column_letter(values_start_col + 1)
-    end_col = get_column_letter(values_start_col + break_col)
-    cell = ws[f"{start_col}{row}"]
-    cell.value = "In good condition"
-    cell.style = good_condition_header_style
-    ws.merge_cells(f"{start_col}{row}:{end_col}{row}")
-
-    start_col = get_column_letter(values_start_col + break_col + 1)
-    end_col = get_column_letter(values_end_col)
-    cell = ws[f"{start_col}{row}"]
-    cell.value = "Not in good condition"
-    cell.style = good_condition_header_style
-    ws.merge_cells(f"{start_col}{row}:{end_col}{row}")
-
-    for i in range(row, ws.max_row + row):
-        cell = ws[f"{start_col}{i}"]
-        cell.border = Border(
-            left=Side(border_style="medium", color="666666"), bottom=cell.border.bottom, right=cell.border.right
-        )

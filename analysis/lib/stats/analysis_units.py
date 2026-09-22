@@ -113,6 +113,8 @@ async def get_analysis_unit_results(df: gp.GeoDataFrame, datasets: set[str], pro
                 "overlap_acres": overlap_acres,
                 "rasterized_acres": rasterized_geometry.acres,
                 "outside_extent_acres": rasterized_geometry.outside_extent_acres,
+                # NOTE: all percents are actually proportions formatted as percents in XLSX
+                "outside_extent_percent": rasterized_geometry.outside_extent_acres / rasterized_geometry.acres,
             }
 
             # short-circuit if there are no overlapping pixels

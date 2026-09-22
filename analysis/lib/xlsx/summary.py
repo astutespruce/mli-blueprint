@@ -8,8 +8,6 @@ def add_summary_sheet(
     xlsx: pd.ExcelWriter,
     df: pd.DataFrame,
     name_col_width: float,
-    area_col_width: float,
-    area_label: str,
     has_area_outside_region: bool,
     table_counter: int,
 ):
@@ -23,10 +21,6 @@ def add_summary_sheet(
         results DataFrame
     name_col_width : float
         width of name column
-    area_col_width : float
-        width of area column
-    area_label : str
-        area column label
     has_area_outside_region : bool
         True if there is area in any of the analysis regions outside analysis region
     """
@@ -35,7 +29,7 @@ def add_summary_sheet(
     pixel_col_width = max(df.pixels.apply(lambda x: len("{x:,}")).max() * CHAR_PER_WIDTH_UNIT, 12)
 
     cols = ["acres", "overlap_acres"]
-    col_widths = [name_col_width, area_col_width, area_col_width]
+    col_widths = [name_col_width, 16, 16]
     area_columns = [1, 2]
     if has_area_outside_region:
         cols.append("outside_extent_acres")
@@ -51,7 +45,9 @@ def add_summary_sheet(
         columns={
             "acres": "GIS acres",
             "pixels": "Number of 30m pixels in analysis unit",
-            "overlap_acres": area_label + " (rasterized to 30m pixels)",
+            "overlap_acres": f"Acres within {ANALYSIS_REGION_NAME} data extent (rasterized to 30m pixels)"
+            if has_area_outside_region
+            else "Analysis acres (rasterized to 30m pixels)",
             "outside_extent_acres": f"Acres outside {ANALYSIS_REGION_NAME} data extent (rasterized to 30m pixels)",
             "count": "Number of distinct areas in analysis unit",
             "states": "State(s)",

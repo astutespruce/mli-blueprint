@@ -19,34 +19,44 @@ assets_dir = Path(__file__).parent / "templates/assets"
 asset_cache = {}
 
 
-def load_asset(path):
-    global asset_cache
+class MapAndAssetFetcher(URLFetcher):
+    def __init__(self, maps, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
+        self.maps = maps
 
-    if path.startswith("assets:"):
-        path = path.replace("assets:", "")
-        if path in asset_cache:
-            value = asset_cache[path]
-            return URLFetcherResponse(url=path, body=value["body"], headers=value["headers"])
+    def fetch(self, url, headers=None):
+        if url.startswith("maps:"):
+            return URLFetcherResponse(
+                url=url, body=self.maps[url.replace("maps:", "")], headers={"mime_type": "image/png"}
+            )
 
-        mime_type = None
-        if path.endswith(".png"):
-            mime_type = "image/png"
+        global asset_cache
 
-        elif path.endswith(".svg"):
-            mime_type = "image/svg+xml"
+        if url.startswith("assets:"):
+            url = url.replace("assets:", "")
+            if url in asset_cache:
+                value = asset_cache[url]
+                return URLFetcherResponse(url=url, body=value["body"], headers=value["headers"])
 
-        else:
-            raise NotImplementedError(f"{path} not a handled type")
+            mime_type = None
+            if url.endswith(".png"):
+                mime_type = "image/png"
 
-        with open(assets_dir / path, "rb") as infile:
-            body = infile.read()
+            elif url.endswith(".svg"):
+                mime_type = "image/svg+xml"
 
-        value = {"body": body, "headers": {"mime_type": mime_type}}
-        asset_cache[path] = value
+            else:
+                raise NotImplementedError(f"{url} not a handled type")
 
-        return URLFetcherResponse(url=path, body=value["body"], headers=value["headers"])
+            with open(assets_dir / url, "rb") as infile:
+                body = infile.read()
 
-    return URLFetcher(path)
+            value = {"body": body, "headers": {"mime_type": mime_type}}
+            asset_cache[url] = value
+
+            return URLFetcherResponse(url=url, body=value["body"], headers=value["headers"])
+
+        return super().fetch(url, headers)
 
 
 template_path = Path(__file__).parent.resolve() / "templates"
@@ -55,7 +65,6 @@ env = Environment(loader=FileSystemLoader(template_path))
 env.filters["reverse"] = reverse_filter
 env.filters["format_number"] = format_number
 env.filters["format_percent"] = format_percent
-env.filters["load_asset"] = load_asset
 env.filters["sum"] = sum
 
 template = env.get_template("report.html")
@@ -121,14 +130,6 @@ def create_report(maps, results, name=None, area_type="custom"):
     css = css_template.render(**context)
     context["css"] = css
 
-    def url_fetcher(path):
-        if path.startswith("maps:"):
-            return URLFetcherResponse(
-                url=path, body=maps[path.replace("maps:", "")], headers={"mime_type": "image/png"}
-            )
-
-        return load_asset(path)
-
     # if DEBUG:
     # TODO: will need to fill in images / convert to base64
     # with open("/tmp/test.html", "w") as out:
@@ -139,6 +140,6 @@ def create_report(maps, results, name=None, area_type="custom"):
     # TODO: enable pdf/ua once accessibility features have been fixed in Weasyprint
     # kwargs["variant"] = "pdf/ua-1"
 
-    pdf = HTML(BytesIO((template.render(**context)).encode()), url_fetcher=url_fetcher).write_pdf(**kwargs)
+    pdf = HTML(BytesIO((template.render(**context)).encode()), url_fetcher=MapAndAssetFetcher(maps)).write_pdf(**kwargs)
 
     return pdf
