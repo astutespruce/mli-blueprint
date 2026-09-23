@@ -17,25 +17,22 @@ LOCATOR_STYLE = {
     "sources": {
         "boundaries": {
             "type": "vector",
-            "url": f"mbtiles://{TILE_DIR}/midwest_report_boundaries.mbtiles",
+            "url": f"pmtiles://file://{TILE_DIR}/midwest_report_boundaries.pmtiles",
         },
         "map_units": {
             "type": "vector",
-            "url": f"mbtiles://{TILE_DIR}/midwest_map_units.mbtiles",
+            "url": f"pmtiles://file://{TILE_DIR}/midwest_map_units.pmtiles",
         },
         "mask": {
             "type": "vector",
-            "url": f"mbtiles://{TILE_DIR}/midwest_mask.mbtiles",
+            "url": f"pmtiles://file://{TILE_DIR}/midwest_mask.pmtiles",
         },
     },
     "layers": [
         {
             "id": "background",
             "type": "background",
-            "paint": {
-                "background-color": "#F9F9F9"
-                #   "#F0F0EF"
-            },
+            "paint": {"background-color": "#F9F9F9"},
         },
         {
             "id": "other-states-fill",

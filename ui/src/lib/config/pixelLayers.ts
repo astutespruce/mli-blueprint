@@ -1,3 +1,4 @@
+import { TILES_URL } from '$lib/env'
 import { indexBy } from '$lib/util/data'
 import type {
 	Indicator,
@@ -19,8 +20,6 @@ import {
 	pixelLayers3,
 	pixelLayers4
 } from './constants'
-
-import { tileHost } from './map'
 
 const pixelLayerEncoding: PixelLayerEncodings = {
 	0: pixelLayers0,
@@ -44,7 +43,7 @@ const pixelLayerSourceConfig = { tileSize: 512, minzoom: 3, maxzoom: 14 }
 export const pixelLayers = [...Array(5).keys()].map((i) => ({
 	...pixelLayerSourceConfig,
 	id: `pixels${i}`,
-	url: `${tileHost}/services/midwest_pixel_layers_${i}/tiles/{z}/{x}/{y}.png`,
+	url: `${TILES_URL}/midwest_pixel_layers_${i}.pmtiles`,
 	bounds: pixelLayerBounds[i],
 	encoding: pixelLayerEncoding[i]
 }))

@@ -1,12 +1,6 @@
 import { browser } from '$app/environment'
-import { TILE_HOST } from '$lib/env'
+import { TILES_URL } from '$lib/env'
 import type { MapConfig } from '$lib/types'
-
-export let tileHost = TILE_HOST
-
-if (browser && !tileHost) {
-	tileHost = `//${window.location.host}`
-}
 
 export const mapConfig: MapConfig = {
 	// idealized bounds to be able to show legend in bottom right
@@ -19,28 +13,31 @@ export const mapConfig: MapConfig = {
 export const sources = {
 	blueprint: {
 		type: 'raster',
+		url: `${TILES_URL}/midwest_blueprint.pmtiles`,
+		provider: 'pmtiles',
 		// tiles are at 512, but using 256 forces higher resolution
 		tileSize: 256,
 		minzoom: 3,
 		maxzoom: 14,
-		bounds: [-105.69088, 35.4594, -78.63988, 49.53074],
-		tiles: [`${tileHost}/services/midwest_blueprint/tiles/{z}/{x}/{y}.png`]
+		bounds: [-105.69088, 35.4594, -78.63988, 49.53074]
 	},
 	mapUnits: {
 		type: 'vector',
+		url: `${TILES_URL}/midwest_map_units.pmtiles`,
+		provider: 'pmtiles',
 		minzoom: 3,
 		maxzoom: 14,
 		bounds: [-104.459724, 35.790944, -80.330658, 49.796336],
-		tiles: [`${tileHost}/services/midwest_map_units/tiles/{z}/{x}/{y}.pbf`],
 		// note: can use promoteId: 'id' to promote feature properties ID to feature ID
 		promoteId: 'id'
 	},
 	pixelFeatures: {
 		type: 'vector',
+		url: `${TILES_URL}/midwest_other_features.pmtiles`,
+		provider: 'pmtiles',
 		minzoom: 3,
 		maxzoom: 14,
-		bounds: [-104.07486, 35.995647, -80.516052, 49.385949],
-		tiles: [`${tileHost}/services/midwest_other_features/tiles/{z}/{x}/{y}.pbf`]
+		bounds: [-104.07486, 35.995647, -80.516052, 49.385949]
 	}
 }
 
