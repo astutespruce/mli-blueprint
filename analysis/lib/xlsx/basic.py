@@ -1,6 +1,5 @@
 import pandas as pd
 
-from analysis.constants import INDICATORS_INDEX
 from analysis.lib.xlsx.style import CHAR_PER_WIDTH_UNIT
 from analysis.lib.xlsx.writer import write_excel
 

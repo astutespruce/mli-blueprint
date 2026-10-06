@@ -168,10 +168,12 @@ class WebMercatorReader:
             num_threads=2,
         )
 
+        # ruff:disable[ERA001]
         # if DEBUG:
         # filename = os.path.splitext(os.path.split(dataset.name)[-1])[0]
         # filename = f"/tmp/{filename}-warped-clipped.tif"
         # write_raster(filename, clipped, final_transform, MAP_CRS, nodata)
+        # ruff:enable[ERA001]
 
         return clipped
 
@@ -299,11 +301,13 @@ def render_raster(path, reader, colors):
         nodata = getattr(np, src.dtypes[0])(src.nodata)
 
         if data is not None:
+            # ruff:disable[ERA001]
             # DEBUG
             # print(
             #     f"Memory of map data ({path}): {data.size * data.itemsize / (1024 * 1024):0.2f} MB",
             #     data.dtype,
             # )
+            # ruff:enable[ERA001]
 
             # does not overlap with bounds
             return render_array(

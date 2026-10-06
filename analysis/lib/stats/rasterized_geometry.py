@@ -44,7 +44,6 @@ class RasterizedGeometry:
 
             # threshold for using windows determined by testing performance
             if num_windows >= 50 or (num_windows > 1 and ratio <= 0.25):
-                # print(f"Using {len(windows)} windows for reading (ratio: {ratio:.3f})")
                 for window in windows:
                     # clip geometry to window then rasterize
                     clipped = shapely.clip_by_rect(geometry, *src.window_bounds(window))
@@ -54,7 +53,6 @@ class RasterizedGeometry:
             else:
                 # NOTE: this includes features with no windows calculated above, because they are entirely outside
                 # the data extent
-                # print(f"Using single window for reading (overlapping windows: {num_windows}, ratio: {ratio:.3f})")
                 window = get_window(src, self.bounds)
                 mask = WindowGeometryMask(src, window, all_shapes)
                 self.masks.append(mask)

@@ -320,7 +320,8 @@ def summarize_raster_by_units_grid(
         values = value_data[value_window.toslices()]
         count_values_inplace(values, in_unit, out[i, :], nodata)
 
-        # # DEBUG: write value and unit rasters
+        # ruff:disable[ERA001]
+        # DEBUG: write value and unit rasters
         # outfilename = "/tmp/values.tif"
         # write_raster(
         #     outfilename,
@@ -347,6 +348,7 @@ def summarize_raster_by_units_grid(
         #     crs=units_grid.dataset.crs,
         #     nodata=0,
         # )
+        # ruff:enable[ERA001]
 
     return out
 
@@ -547,14 +549,8 @@ class WindowGeometryMask:
         bool
             returns True if there are non-NODATA pixel values present
         """
-        # DEBUG: check for implementation errors
-        # if (
-        #     dataset.transform.a != self.dataset_transform.a
-        #     or dataset.transform.e != self.dataset_transform.e
-        # ):
-        #     raise ValueError(
-        #         f"{dataset.name} resolution does not match that used for mask windows"
-        #     )
+        if dataset.transform.a != self.dataset_transform.a or dataset.transform.e != self.dataset_transform.e:
+            raise ValueError(f"{dataset.name} resolution does not match that used for mask windows")
 
         if dataset.transform == self.dataset_transform:
             read_window = self.window
@@ -585,14 +581,9 @@ class WindowGeometryMask:
         ndarray of shape (num_values, )
             Total number of pixels for each bin
         """
-        # DEBUG: check for implementation errors
-        # if (
-        #     dataset.transform.a != self.dataset_transform.a
-        #     or dataset.transform.e != self.dataset_transform.e
-        # ):
-        #     raise ValueError(
-        #         f"{dataset.name} resolution does not match that used for mask windows"
-        #     )
+
+        if dataset.transform.a != self.dataset_transform.a or dataset.transform.e != self.dataset_transform.e:
+            raise ValueError(f"{dataset.name} resolution does not match that used for mask windows")
 
         read_window = (
             self.window

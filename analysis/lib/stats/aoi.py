@@ -25,7 +25,6 @@ async def get_aoi_results(df, progress_callback=None):
         this task is complete
     """
 
-    # full_start = time()
     if len(df) > 1:
         raise ValueError(f"DataFrame for custom area had more rows than expected: {len(df)}")
 
@@ -40,9 +39,7 @@ async def get_aoi_results(df, progress_callback=None):
     if len(subregion_df) == 0:
         return None
 
-    # start = time()
     rasterized_geometry = RasterizedGeometry(geometry)
-    # print(f"rasterized geom creation elapsed: {time() - start:.4f}s")
 
     if progress_callback is not None:
         await progress_callback(5)

@@ -1,7 +1,6 @@
 from datetime import date
 
 import pandas as pd
-from openpyxl.styles import Color, Font
 
 from analysis.constants import (
     BLUEPRINT,

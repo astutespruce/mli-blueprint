@@ -109,10 +109,7 @@ NLCD_YEARS = [2001, 2004, 2006, 2008, 2011, 2013, 2016, 2019, 2021]
 # 2001-2021
 NLCD_CODES = {
     # 11: {"label": "Open water", "color": "#466B9F"},
-    # 12: {
-    #     "label": "Perennial ice/snow",
-    #     "color": "#FFFFFF",
-    # },  # original color: "#D1DEF8"
+    # 12: {"label": "Perennial ice/snow", "color": "#FFFFFF"},
     21: {"label": "Developed (open space)", "color": "#DEC5C5"},
     22: {"label": "Developed (low intensity)", "color": "#D99282"},
     23: {"label": "Developed (medium intensity)", "color": "#EB0000"},

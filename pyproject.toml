@@ -69,6 +69,9 @@ namespace = true
 exclude = ['.scratch']
 line-length = 120
 
+[tool.ruff.lint]
+select = ["ERA001", "F401"]
+
 [tool.pytest.ini_options]
 filterwarnings = [
     "ignore::DeprecationWarning",
