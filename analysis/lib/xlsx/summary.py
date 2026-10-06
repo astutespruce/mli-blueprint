@@ -1,16 +1,11 @@
 import pandas as pd
 
 from analysis.constants import ANALYSIS_REGION_NAME
-from analysis.lib.xlsx.style import CHAR_PER_WIDTH_UNIT, add_caption, set_cell_styles, set_column_widths
+from analysis.lib.xlsx.style import CHAR_PER_WIDTH_UNIT
+from analysis.lib.xlsx.writer import write_excel
 
 
-def add_summary_sheet(
-    xlsx: pd.ExcelWriter,
-    df: pd.DataFrame,
-    name_col_width: float,
-    has_area_outside_region: bool,
-    table_counter: int,
-):
+def add_summary_sheet(xlsx: pd.ExcelWriter, df: pd.DataFrame, name_col_width: float, has_area_outside_region: bool):
     """Create summary sheet for XLSX report, with the area and other summary
     statistics for each analysis unit.
 
@@ -29,32 +24,40 @@ def add_summary_sheet(
     pixel_col_width = max(df.pixels.apply(lambda x: len("{x:,}")).max() * CHAR_PER_WIDTH_UNIT, 12)
 
     cols = ["acres", "overlap_acres"]
-    col_widths = [name_col_width, 16, 16]
+    column_widths = [name_col_width, 16, 16]
     area_columns = [1, 2]
     if has_area_outside_region:
         cols.append("outside_extent_acres")
-        col_widths.append(16)
+        column_widths.append(16)
         area_columns.append(3)
 
     cols.extend(["pixels", "count", "states"])
-    col_widths.extend([pixel_col_width, 16, 20])
+    column_widths.extend([pixel_col_width, 16, 20])
     # NOTE: pixels col is treated as an area col so it can be formated with commas
     area_columns.append(4 if has_area_outside_region else 3)
 
-    df[cols].reset_index().rename(
-        columns={
-            "acres": "GIS acres",
-            "pixels": "Number of 30m pixels in analysis unit",
-            "overlap_acres": f"Acres within {ANALYSIS_REGION_NAME} data extent (rasterized to 30m pixels)"
-            if has_area_outside_region
-            else "Analysis acres (rasterized to 30m pixels)",
-            "outside_extent_acres": f"Acres outside {ANALYSIS_REGION_NAME} data extent (rasterized to 30m pixels)",
-            "count": "Number of distinct areas in analysis unit",
-            "states": "State(s)",
-        }
-    ).to_excel(xlsx, sheet_name=sheet_name, index=False)
-    ws = xlsx.sheets[sheet_name]
-    set_cell_styles(ws, area_columns=area_columns)
-    set_column_widths(ws, col_widths)
+    df = (
+        df[cols]
+        .reset_index()
+        .rename(
+            columns={
+                "acres": "GIS acres",
+                "pixels": "Number of 30m pixels in analysis unit",
+                "overlap_acres": f"Acres within {ANALYSIS_REGION_NAME} data extent (rasterized to 30m pixels)"
+                if has_area_outside_region
+                else "Analysis acres (rasterized to 30m pixels)",
+                "outside_extent_acres": f"Acres outside {ANALYSIS_REGION_NAME} data extent (rasterized to 30m pixels)",
+                "count": "Number of distinct areas in analysis unit",
+                "states": "State(s)",
+            }
+        )
+    )
 
-    add_caption(ws, table_counter, "Summary of analysis units included in this analysis.")
+    write_excel(
+        xlsx,
+        df,
+        sheet_name=sheet_name,
+        caption="Summary of analysis units included in this analysis.",
+        column_widths=column_widths,
+        area_columns=area_columns,
+    )

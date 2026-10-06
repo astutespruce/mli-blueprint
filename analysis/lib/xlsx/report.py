@@ -43,16 +43,13 @@ def create_report(df: pd.DataFrame, datasets: set[str], name: str | None = None)
     outside_area_label = f"Area outside {ANALYSIS_REGION_NAME} data extent\n(acres)"
 
     ### Create XLSX file and write to memory buffer
-    table_counter = 1
     buffer = BytesIO()
     with pd.ExcelWriter(buffer) as xlsx:
         # Data descriptions sheet
-        add_data_details_sheet(xlsx, datasets, table_counter)
-        table_counter += 1
+        add_data_details_sheet(xlsx, datasets)
 
         # Summary sheet
-        add_summary_sheet(xlsx, df, name_col_width, has_area_outside_region, table_counter)
-        table_counter += 1
+        add_summary_sheet(xlsx, df, name_col_width, has_area_outside_region)
 
         for dataset_id, dataset in REPORT_DATASETS.items():
             if dataset_id not in datasets:
@@ -67,12 +64,11 @@ def create_report(df: pd.DataFrame, datasets: set[str], name: str | None = None)
                     name_col_width,
                     area_label=area_label,
                     outside_area_label=outside_area_label,
-                    table_counter=table_counter,
                     get_value_order=get_value_order.get(dataset_id, None),
                 )
 
             elif dataset_id == PROTECTED_AREAS_POLY["id"]:
-                add_protected_areas_poly_sheet(xlsx, df, name_col_width, area_col_width, table_counter=table_counter)
+                add_protected_areas_poly_sheet(xlsx, df, name_col_width, area_col_width)
 
             elif dataset_id == URBAN_BY_DECADE["id"]:
                 add_urbanization_sheet(
@@ -82,13 +78,10 @@ def create_report(df: pd.DataFrame, datasets: set[str], name: str | None = None)
                     area_col_width,
                     area_label=area_label,
                     outside_area_label=outside_area_label,
-                    table_counter=table_counter,
                 )
 
-            table_counter += 1
-
         # Analysis metadata sheet
-        add_metadata_sheet(xlsx, table_counter, name)
+        add_metadata_sheet(xlsx, name)
 
     # rewind buffer and read data
     buffer.seek(0)

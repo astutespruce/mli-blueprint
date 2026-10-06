@@ -22,7 +22,6 @@ from analysis.lib.stats.analysis_units import get_analysis_unit_results
 from analysis.lib.stats.prescreen import get_available_datasets
 from analysis.lib.xlsx.basic import get_value_columns
 from analysis.lib.xlsx.report import create_report
-from analysis.lib.xlsx.urban import percent_columns as urban_percent_cols
 from analysis.lib.xlsx.urban import value_columns as urban_value_cols
 from api.logger import log
 from api.settings import TEMP_DIR
@@ -46,6 +45,8 @@ mock_ctx = {"redis": MockRedis(), "job_id": 123}
 # value cols not provided by specific modules (these come from xlsx/basic.py)
 blueprint_value_cols = get_value_columns(BLUEPRINT["values"])
 blueprint_percent_cols = [col.replace("(acres)", "(percent)") for col in blueprint_value_cols]
+
+urban_percent_cols = [col.replace("(acres)", "(percent)") for col in urban_value_cols]
 
 outside_data_extent_col = "Outside extent of this dataset"
 
@@ -339,14 +340,19 @@ async def test_create_xlsx_file_single_area(format):
     assert len(details) == len(datasets)
     assert details["Name"].tolist() == [d["label"] for id, d in REPORT_DATASETS.items() if id in datasets]
 
-    metadata = reader.parse(sheet_name="Analysis metadata", header=None, skiprows=2)
+    metadata = reader.parse(sheet_name="Analysis metadata", skiprows=2)
     assert len(metadata) == 3
-    assert metadata[1][0] == "Test area"
+    assert metadata.Value.values[0] == "Test area"
 
-    header = reader.parse(sheet_name="Blueprint priority", nrows=1)
-    assert header.columns[0] == f"Table 3: {BLUEPRINT['caption']}."
+    caption = reader.parse(sheet_name="Blueprint priority", nrows=1, header=None)
+    assert caption.values[0] == f"Table 3: {BLUEPRINT['caption']}."
 
-    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=2)
+    acres_percent_header = reader.parse(sheet_name="Blueprint priority", skiprows=2, nrows=1, header=None).dropna(
+        axis=1
+    )
+    assert acres_percent_header.values[0].tolist() == ["ACRES", "PERCENT"]
+
+    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     assert (
         blueprint.columns.tolist()
         == ["Analysis unit", "Analysis area\n(acres)"] + blueprint_value_cols[::-1] + blueprint_percent_cols[::-1]
@@ -356,7 +362,7 @@ async def test_create_xlsx_file_single_area(format):
     indicator_id = "l_climateresiliency"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=2)
+    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -381,7 +387,7 @@ async def test_create_xlsx_file_single_area(format):
     assert protected_areas_poly["Name"].values.tolist() == ["Devils Lake State Park-Iansr"]
     assert protected_areas_poly["Owner"].values.tolist() == ["SDNR"]
 
-    urban = reader.parse(sheet_name="Urban growth", skiprows=2)
+    urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert urban.columns.tolist() == ["Analysis unit", "Analysis area\n(acres)"] + urban_value_cols + urban_percent_cols
     # last column is nodata, omitted here
     assert np.allclose(urban.iloc[0][urban_value_cols].values.astype("float64"), results.urban_by_decade.iloc[0][:-1])
@@ -428,11 +434,7 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     assert len(details) == len(datasets)
     assert details["Name"].tolist() == [d["label"] for id, d in REPORT_DATASETS.items() if id in datasets]
 
-    metadata = reader.parse(sheet_name="Analysis metadata", header=None, skiprows=2)
-    assert len(metadata) == 3
-    assert metadata[1][0] == "Test area"
-
-    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=2)
+    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     # when we have partial overlap, we have to update the label of the analysis area column
     assert (
         blueprint.columns.tolist()
@@ -448,7 +450,7 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     indicator_id = "l_climateresiliency"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=2)
+    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -487,7 +489,7 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     ]
     assert protected_areas_poly["Owner"].fillna("").values.tolist() == ["", "USDA Forest Service", ""]
 
-    urban = reader.parse(sheet_name="Urban growth", skiprows=2)
+    urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert (
         urban.columns.tolist()
         == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
@@ -550,11 +552,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     assert len(details) == len(datasets)
     assert details["Name"].tolist() == [d["label"] for id, d in REPORT_DATASETS.items() if id in datasets]
 
-    metadata = reader.parse(sheet_name="Analysis metadata", header=None, skiprows=2)
-    assert len(metadata) == 3
-    assert metadata[1][0] == "Test area"
-
-    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=2)
+    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     assert (
         blueprint.columns.tolist()
         == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
@@ -568,7 +566,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     indicator_id = "l_climateresiliency"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=2)
+    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -586,7 +584,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     indicator_id = "l_greatlakesshorelineanddunehabitat"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=2)
+    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -645,7 +643,7 @@ async def test_create_xlsx_file_multiple_areas(format):
         "University of Wisconsin",
     ]
 
-    urban = reader.parse(sheet_name="Urban growth", skiprows=2)
+    urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert (
         urban.columns.tolist()
         == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]

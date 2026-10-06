@@ -1,6 +1,8 @@
 import pandas as pd
 
-from analysis.lib.xlsx.style import CHAR_PER_WIDTH_UNIT, add_caption, set_cell_styles, set_column_widths
+from analysis.constants import INDICATORS_INDEX
+from analysis.lib.xlsx.style import CHAR_PER_WIDTH_UNIT
+from analysis.lib.xlsx.writer import write_excel
 
 
 def get_value_columns(values):
@@ -14,11 +16,9 @@ def add_basic_results_sheet(
     name_col_width: float,
     area_label: str,
     outside_area_label: str,
-    table_counter: int,
     get_value_order=None,
 ):
-    """Add a sheet for one of the Blueprint datasets (Blueprint, indicators)
-    or other simple raster results dataset.
+    """Add a sheet for one of the Blueprint datasets or other simple raster results dataset.
 
     Parameters
     ----------
@@ -32,12 +32,9 @@ def add_basic_results_sheet(
         name of analysis area acres column
     outside_area_label : str
         name of outside analysis area acres column
-    table_counter : int
-        table counter for this table, 1-based
     get_value_order : function, optional (default: None)
         if defined, function that returns value columns in correct order
     """
-
     sheet_name = dataset.get("sheet_name", None) or dataset["label"]
 
     if len(sheet_name) > 31:
@@ -50,7 +47,7 @@ def add_basic_results_sheet(
     if value_label:
         caption += f"  Values show {value_label[0].lower()}{value_label[1:]}."
 
-    nodata_label = dataset.get("nodata_label", "Outside extent of this dataset") + "\n(acres)"
+    nodata_label = "Outside extent of this dataset\n(acres)"
 
     value_columns = get_value_columns(values)
     col_width = min(max([len(c) for c in value_columns]) * CHAR_PER_WIDTH_UNIT, 18)
@@ -60,7 +57,7 @@ def add_basic_results_sheet(
     tmp.columns = value_columns
     tmp = df[["rasterized_acres", "overlap_acres", "outside_extent_acres", "outside_extent_percent"]].join(tmp)
 
-    # calculate area outside this dataset
+    # calculate area outside
     tmp["outside_dataset_acres"] = tmp.overlap_acres - tmp[value_columns].sum(axis=1)
     # remove small rounding-related errors
     tmp.loc[tmp.outside_dataset_acres < 0, "outside_dataset_acres"] = 0
@@ -101,20 +98,20 @@ def add_basic_results_sheet(
         }
     )
 
-    tmp.reset_index().to_excel(xlsx, sheet_name=sheet_name, index=False)
-
-    ws = xlsx.sheets[sheet_name]
-
-    set_column_widths(ws, [name_col_width] + ([col_width] * len(tmp.columns)))
+    column_widths = [name_col_width] + ([col_width] * len(tmp.columns))
 
     area_col_offset = 1
-    num_area_cols = len(value_columns) + 1 + int(has_area_outside_extent) + int(has_area_outside_dataset)
+    num_area_cols = len(value_columns) + int(has_area_outside_extent) + int(has_area_outside_dataset) + 1
+    area_columns = list(range(area_col_offset, area_col_offset + num_area_cols))
+    percent_columns = list(range(area_col_offset + num_area_cols, area_col_offset + num_area_cols + num_area_cols))
 
-    set_cell_styles(
-        ws,
-        area_columns=range(area_col_offset, area_col_offset + num_area_cols),
-        percent_columns=range(area_col_offset + num_area_cols, area_col_offset + num_area_cols + num_area_cols),
+    write_excel(
+        xlsx,
+        tmp.reset_index(),
+        sheet_name=sheet_name,
+        caption=caption,
+        column_widths=column_widths,
+        area_columns=area_columns,
+        percent_columns=percent_columns,
         add_percent_divider=True,
     )
-
-    add_caption(ws, table_counter, caption)
