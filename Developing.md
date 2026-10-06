@@ -38,6 +38,25 @@ and the following is not currently used.
 uv pip compile -U pyproject.toml -o ../secas-docker/docker/api/mli-blueprint-requirements.txt
 ```
 
+### Environment variables
+
+Create a `.env` file in the root of this repository with the following:
+
+```bash
+TEMP_DIR=/tmp/midwest-reports
+MAPBOX_ACCESS_TOKEN=<token>
+API_TOKEN=<create an arbitrary token and use same value in UI>
+API_SECRET=<secret value>
+LOGGING_LEVEL=DEBUG
+ENABLE_CORS=1
+MAP_RENDER_THREADS=6
+TILE_DIR=<path to folder containing pmtiles files>
+
+# to save PDF/XLSX files from tests for manual review
+TEST_SAVE_PDF=1
+TEST_SAVE_XLSX=1
+```
+
 ### Other dependencies
 
 On MacOS, install other dependencies:
@@ -110,6 +129,46 @@ ncu -i --cooldown 3
 Note: this uses a 3 day "cooldown" to prevent upgrading to very recently released
 versions; modify this on a selective basis to pull in a newer version that resolves
 a vulnerability.
+
+### Environment variables
+
+#### Development mode
+
+Create a `ui/.env.development` file with the following:
+
+```bash
+PUBLIC_MAPBOX_TOKEN=<token>
+PUBLIC_GOOGLE_ANALYTICS_ID=
+PUBLIC_SENTRY_DSN=
+PUBLIC_API_TOKEN=<token set in .env file above>
+PUBLIC_DEPLOY_ENV="local"
+PUBLIC_DEPLOY_PATH=
+VITE_API_PROX=1 # to proxy to API on port 5000 using vite
+VITE_TILE_DIR=<path to directory containing pmtiles>
+
+PUBLIC_CONTACT_URL="https://www.mlimidwest.org/about-us/contact-mli-staff/"
+PUBLIC_BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
+```
+
+#### Build mode
+
+Create a `ui/.env.production` file with the following:
+
+```bash
+PUBLIC_MAPBOX_TOKEN=<token>
+PUBLIC_GOOGLE_ANALYTICS_ID=<can temporarily set value for testing>
+PUBLIC_SENTRY_DSN=<can temporarily set value for testing>
+PUBLIC_API_TOKEN=<token set in .env file above>
+PUBLIC_DEPLOY_ENV="local"
+PUBLIC_DEPLOY_PATH=<leave blank for vite preview server, set to /southeastblueprint for testing via Docker & Caddy>
+
+PUBLIC_CONTACT_URL="https://www.mlimidwest.org/about-us/contact-mli-staff/"
+PUBLIC_BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
+
+# only set the following if proxying via Vite's preview server
+VITE_API_PROX=1
+VITE_TILE_DIR=<path to directory containing pmtiles>
+```
 
 ## Other dependencies
 

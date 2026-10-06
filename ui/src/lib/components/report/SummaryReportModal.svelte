@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DownloadIcon from '~icons/fa-solid/download'
 	import { createSummaryUnitReport } from '$lib/api'
-	import { API_HOST, CONTACT_URL } from '$lib/env'
+	import { API_URL, CONTACT_URL } from '$lib/env'
 	import { Root, Trigger, Close, Content, Footer, Header, Title } from '$lib/components/ui/dialog'
 	import { Button } from '$lib/components/ui/button'
 	import { captureException, logGAEvent } from '$lib/util/log'
@@ -99,7 +99,7 @@
 				errors: jobErrors
 			}
 
-			window.location.href = `${API_HOST}/api${jobResult}` as string
+			window.location.href = `${API_URL}${jobResult}` as string
 		} catch (ex) {
 			captureException(`Create summary report for ${id} (${type}) failed`, ex)
 			console.error('Caught unhandled error from createSummaryUnitReport', ex)
@@ -156,7 +156,7 @@
 			<Close onclick={handleClose} class="text-lg cursor-pointer">Cancel</Close>
 
 			{#if reportState.status === 'success'}
-				<Button href={`${API_HOST}/api${reportState.result}`} class="text-lg no-underline">
+				<Button href={`${API_URL}${reportState.result}`} class="text-lg no-underline">
 					<DownloadIcon class="size-4" />
 					Download report
 				</Button>

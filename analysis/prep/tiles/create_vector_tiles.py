@@ -140,7 +140,7 @@ outfilename = tmp_dir / "lakes.mbtiles"
 tilesets.append(outfilename)
 create_tileset(infilename, outfilename, minzoom=0, maxzoom=5, layer_id="lakes")
 
-outfilename = out_dir / "midwest_report_boundaries.mbtiles"
+outfilename = out_dir / "midwest_report_boundaries.pmtiles"
 ret = subprocess.run(["tile-join", "-f", "-pg"] + ["-o", f"{str(outfilename)}"] + tilesets)
 ret.check_returncode()
 
@@ -198,7 +198,7 @@ create_tileset(
 )
 
 
-outfilename = out_dir / "midwest_other_features.mbtiles"
+outfilename = out_dir / "midwest_other_features.pmtiles"
 ret = subprocess.run(
     [
         "tile-join",
@@ -259,7 +259,7 @@ print(
 )
 
 
-outfilename = out_dir / "midwest_map_units.mbtiles"
+outfilename = out_dir / "midwest_map_units.pmtiles"
 ret = subprocess.run(["tile-join", "-f", "-pg", "--no-tile-size-limit"] + ["-o", f"{str(outfilename)}"] + tilesets)
 ret.check_returncode()
 
@@ -276,5 +276,5 @@ mask = shapely.normalize(shapely.difference(world, bnd_df.geometry.values[0]))
 infilename = tmp_dir / "midwest_mask.fgb"
 write_dataframe(gp.GeoDataFrame({"geometry": mask}, index=[0], crs=GEO_CRS), infilename)
 
-outfilename = out_dir / "midwest_mask.mbtiles"
+outfilename = out_dir / "midwest_mask.pmtiles"
 create_tileset(infilename, outfilename, minzoom=0, maxzoom=8, layer_id="mask")

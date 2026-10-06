@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { uploadFile, finalizeXLSXReport } from '$lib/api'
-	import { API_HOST } from '$lib/env'
+	import { API_URL } from '$lib/env'
 	import { captureException, logGAEvent } from '$lib/util/log'
 	import { Footer, Header } from '$lib/components/layout'
 	import {
@@ -180,7 +180,7 @@
 				result: finalizeJobResult
 			}
 
-			window.location.href = `${API_HOST}/api${finalizeJobResult}` as string
+			window.location.href = `${API_URL}${finalizeJobResult}` as string
 		} catch (ex) {
 			captureException('finalize XLSX report failed', ex)
 			console.error('Caught unhandled error from finalize XLSX report', ex)
@@ -249,7 +249,7 @@
 		<ConfigXLSXReport {...configData} onStartOver={handleReset} onSubmit={handleSubmitXLSXReport} />
 	{:else if reportState.view === 'done'}
 		<Done
-			reportURL={`${API_HOST}/api${reportState.result}`}
+			reportURL={`${API_URL}${reportState.result}`}
 			errors={reportState.errors}
 			onReset={handleReset}
 			class="mt-8"

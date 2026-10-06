@@ -13,12 +13,12 @@ STYLE = {
     "sources": {
         "map_units": {
             "type": "vector",
-            "url": f"mbtiles://{TILE_DIR}/midwest_map_units.mbtiles",
+            "url": f"pmtiles://file://{TILE_DIR}/midwest_map_units.pmtiles",
             "maxzoom": 14,
         },
         "mask": {
             "type": "vector",
-            "url": f"mbtiles://{TILE_DIR}/midwest_mask.mbtiles",
+            "url": f"pmtiles://file://{TILE_DIR}/midwest_mask.pmtiles",
             "maxzoom": 8,
         },
     },

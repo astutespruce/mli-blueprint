@@ -1,5 +1,5 @@
 import { captureException } from '$lib/util/log'
-import { API_TOKEN, API_HOST } from '$lib/env'
+import { API_TOKEN, API_URL } from '$lib/env'
 import type {
 	JobStatus,
 	ProgressCallback,
@@ -23,7 +23,7 @@ export const uploadFile = async (
 	formData.append('file', file)
 	formData.append('name', name)
 
-	const response = await fetch(`${API_HOST}/api/custom_report/${reportType}?token=${API_TOKEN}`, {
+	const response = await fetch(`${API_URL}/custom_report/${reportType}?token=${API_TOKEN}`, {
 		method: 'POST',
 		body: formData
 	})
@@ -69,7 +69,7 @@ export const finalizeXLSXReport = async (
 	formData.append('datasets', datasets)
 
 	const response = await fetch(
-		`${API_HOST}/api/custom_report/xlsx/${uuid}/finalize?token=${API_TOKEN}`,
+		`${API_URL}/custom_report/xlsx/${uuid}/finalize?token=${API_TOKEN}`,
 		{
 			method: 'POST',
 			body: formData
@@ -108,7 +108,7 @@ export const createSummaryUnitReport = async (
 	const unit_type = 'huc12' // other types not supported
 
 	const response = await fetch(
-		`${API_HOST}/api/summary_unit_report/${unit_type}/${id}/pdf?token=${API_TOKEN}`,
+		`${API_URL}/summary_unit_report/${unit_type}/${id}/pdf?token=${API_TOKEN}`,
 		{
 			method: 'POST'
 		}
@@ -146,7 +146,7 @@ const pollJob = async (jobId: string, onProgress: ProgressCallback): Promise<Rep
 
 	while (time < jobTimeout && failedRequests < failedFetchLimit) {
 		try {
-			response = await fetch(`${API_HOST}/api/jobs/${jobId}`, {
+			response = await fetch(`${API_URL}/jobs/${jobId}`, {
 				cache: 'no-cache'
 			})
 		} catch {

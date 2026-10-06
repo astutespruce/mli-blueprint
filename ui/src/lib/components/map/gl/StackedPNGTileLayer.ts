@@ -1,7 +1,7 @@
 import { TileLayer, _getURLFromTemplate } from '@deck.gl/geo-layers'
-import { load } from '@loaders.gl/core'
-import { ImageLoader } from '@loaders.gl/images'
-import { Device, luma } from '@luma.gl/core'
+import { createDataSource } from '@loaders.gl/core'
+import { PMTilesSource } from '@loaders.gl/pmtiles'
+import { luma } from '@luma.gl/core'
 import { dequal as deepEqual } from 'dequal'
 
 // have to use the raw loader to load shaders
@@ -16,21 +16,6 @@ import { createPNGTexture } from './texture'
 // turn off verbose logging
 luma.log.level = 0
 luma.log.enable(false)
-
-/**
- * Fetch a tile image asynchronously and load into a GL texture
- */
-const fetchImage = async (device: Device, url: string, signal: any, skip = false) => {
-	const data = skip
-		? null
-		: await load(url, ImageLoader, {
-				image: { type: 'imagebitmap' },
-				fetch: { signal }
-			})
-
-	// always create a texture, which can be empty if there is no data
-	return createPNGTexture(device, data)
-}
 
 /**
  * StackedPNGTileLayer provides a tile-loading interface that wraps
@@ -60,7 +45,8 @@ export default class StackedPNGTileLayer extends TileLayer {
 				...renderLayer,
 				// first color must always be null
 				palette: makeRGBAFloat32Palette([null, ...renderLayer.colors])
-			}
+			},
+			sources: layers.map(({ url }) => createDataSource(url, [PMTilesSource], {}))
 		})
 	}
 
@@ -104,14 +90,17 @@ export default class StackedPNGTileLayer extends TileLayer {
 		}
 
 		const {
-			bbox: { west, south, east, north },
-			signal
+			bbox: { west, south, east, north }
 		} = tile
 
-		const imageRequests = this.props.layers.map(({ url, bounds: [xmin, ymin, xmax, ymax] }) => {
+		const imageRequests = this.props.layers.map(async ({ bounds: [xmin, ymin, xmax, ymax] }, i) => {
 			// intersect tile bounds and layer bounds and skip if no overlap
 			const skip = west > xmax || east < xmin || south > ymax || north < ymin
-			return fetchImage(this.context.device, _getURLFromTemplate(url, tile), signal, skip)
+
+			const data = skip ? null : await this.state.sources[i].getTileData(tile)
+
+			// always create a texture, which can be empty if there is no data
+			return createPNGTexture(this.context.device, data)
 		})
 
 		const images = await Promise.all(imageRequests)
