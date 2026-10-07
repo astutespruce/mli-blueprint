@@ -7,5 +7,6 @@ export const variables = defineEnvVars({
 	API_TOKEN: { public: true, static: true },
 	DEPLOY_ENV: { public: true, static: true },
 	DEPLOY_PATH: { public: true, static: true },
-	CONTACT_URL: { public: true, static: true }
+	CONTACT_URL: { public: true, static: true },
+	BLUEPRINT_URL: { public: true, static: true }
 })
