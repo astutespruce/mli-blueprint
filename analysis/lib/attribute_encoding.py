@@ -69,9 +69,6 @@ def delta_encode_values(df, total, scale=100):
     # calculate delta values
     delta = scaled[scaled.columns[1:]].subtract(scaled[scaled.columns[:-1]].values, axis=0)
 
-    # caret must be escaped
-    # nochange = "\^" * len(delta.columns)
-
     return (
         scaled[[scaled.columns[0]]]
         .join(delta)

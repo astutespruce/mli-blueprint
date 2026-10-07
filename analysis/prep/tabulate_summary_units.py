@@ -20,7 +20,7 @@ subregion_df = gp.read_feather(data_dir / "inputs/boundaries/subregions.feather"
 start = time()
 
 #########################################################################
-########### Subwatersheds (HUC12) #######################################
+########### Subwatersheds ###############################################
 #########################################################################
 out_dir = data_dir / "results/huc12"
 out_dir.mkdir(exist_ok=True, parents=True)

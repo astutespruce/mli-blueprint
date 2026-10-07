@@ -64,9 +64,11 @@ with rasterio.open(src_dir / "blueprint/MidwestBP_extent.tif") as src:
 
     data[data != nodata] = np.int8(1)
 
+    # ruff:disable[ERA001]
     # uncomment to recalculate
     # window = windows.get_data_window(data, nodata=nodata)
     # print(window)
+    # ruff:enable[ERA001]
 
     # there is 1px of NODATA at the top edge
     window = windows.Window(col_off=0, row_off=1, width=66233, height=49996)

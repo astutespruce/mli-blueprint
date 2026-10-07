@@ -1,7 +1,6 @@
 from datetime import date
 
 import pandas as pd
-from openpyxl.styles import Color, Font
 
 from analysis.constants import (
     BLUEPRINT,
@@ -12,10 +11,10 @@ from analysis.constants import (
     REPORT_DATASETS,
     URBAN_BY_DECADE,
 )
-from analysis.lib.xlsx.style import add_caption, set_cell_styles, set_column_widths
+from analysis.lib.xlsx.writer import write_excel
 
 
-def add_data_details_sheet(xlsx: pd.ExcelWriter, datasets: set[str], table_counter: int):
+def add_data_details_sheet(xlsx: pd.ExcelWriter, datasets: set[str]):
     """Create dataset details sheet.
 
     Parameters
@@ -62,20 +61,16 @@ def add_data_details_sheet(xlsx: pd.ExcelWriter, datasets: set[str], table_count
         }
     )
 
-    metadata.to_excel(xlsx, sheet_name="Data descriptions", index=False)
-
-    ws = xlsx.sheets["Data descriptions"]
-    set_column_widths(ws, [18, 24, 18, 24, 8, 64, 48, 40])
-    set_cell_styles(ws)
-
-    add_caption(ws, table_counter, "Details for datasets included in this analysis.")
-
-    for cell in list(ws.columns)[-1][3:]:
-        cell.hyperlink = str(cell.value)
-        cell.font = Font(color=Color(index=4))
+    write_excel(
+        xlsx,
+        metadata,
+        sheet_name="Data descriptions",
+        caption="Details for datasets included in this analysis.",
+        column_widths=[18, 24, 18, 24, 8, 64, 48, 40],
+    )
 
 
-def add_metadata_sheet(xlsx: pd.ExcelWriter, table_counter: int, name: str | None = None):
+def add_metadata_sheet(xlsx: pd.ExcelWriter, name: str | None = None):
     """Add metadata sheet with analysis date and name, if applicable.
 
     Parameters
@@ -83,25 +78,21 @@ def add_metadata_sheet(xlsx: pd.ExcelWriter, table_counter: int, name: str | Non
     xlsx : pd.ExcelWriter
     url : str
         URL to tool
-    table_counter : int
     name : str | None, optional (default None)
         Analysis area name, if any
     """
 
     metadata = pd.DataFrame(
         [
-            {"label": "Analysis date", "value": str(date.today())},
-            {"label": "Created using", "value": "Midwest Conservation Blueprint Explorer"},
+            {"Label": "Analysis date", "Value": str(date.today())},
+            {"Label": "Created using", "Value": "Midwest Conservation Blueprint Explorer"},
         ]
     )
     if name:
         metadata = pd.concat(
-            [pd.DataFrame([{"label": "Analysis area name", "value": name}]), metadata], ignore_index=True
+            [pd.DataFrame([{"Label": "Analysis area name", "Value": name}]), metadata], ignore_index=True
         )
 
-    metadata.to_excel(xlsx, sheet_name="Analysis metadata", index=False, header=False)
-    ws = xlsx.sheets["Analysis metadata"]
-
-    set_column_widths(ws, [24, 48])
-
-    add_caption(ws, table_counter, "Metadata for this analysis.")
+    write_excel(
+        xlsx, metadata, sheet_name="Analysis metadata", caption="Metadata for this analysis.", column_widths=[24, 48]
+    )

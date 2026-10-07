@@ -130,15 +130,17 @@ def create_report(maps, results, name=None, area_type="custom"):
     css = css_template.render(**context)
     context["css"] = css
 
+    # ruff:disable[ERA001]
     # if DEBUG:
     # TODO: will need to fill in images / convert to base64
     # with open("/tmp/test.html", "w") as out:
     #     out.write(template.render(**context))
+    # ruff:enable[ERA001]
 
     kwargs = {}
 
     # TODO: enable pdf/ua once accessibility features have been fixed in Weasyprint
-    # kwargs["variant"] = "pdf/ua-1"
+    # kwargs["variant"] = "pdf/ua-1" # noqa: ERA001
 
     pdf = HTML(BytesIO((template.render(**context)).encode()), url_fetcher=MapAndAssetFetcher(maps)).write_pdf(**kwargs)
 

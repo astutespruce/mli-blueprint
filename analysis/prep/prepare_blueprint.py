@@ -189,6 +189,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
     if missing:
         raise ValueError(f"Unable to find files for {', '.join(missing)}")
 
+    # ruff:disable[ERA001]
     # NOTE: not currently used
     # extract first value as integer; this is the threshold, set the rest to None
     # df["goodThreshold"] = df.goodThreshold.fillna("")
@@ -196,6 +197,7 @@ for sheet_name in ["Landscape Health", "Wildlife", "Human Wellbeing"]:
     # ix = df.goodThreshold != ""
     # df.loc[ix, "goodThreshold"] = df.loc[ix].goodThreshold.str.extract(r"(\d)").astype("uint8").values[:, 0]
     # df.loc[~ix, "goodThreshold"] = None
+    # ruff:enable[ERA001]
 
     df["url"] = df.url.fillna("")
     df["valueLabel"] = df.valueLabel.fillna("").str.strip().replace("N/A", "")
