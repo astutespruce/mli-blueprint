@@ -1,13 +1,14 @@
 import js from '@eslint/js'
-import { includeIgnoreFile,defineConfig } from 'eslint/config'
+import { includeIgnoreFile, defineConfig } from 'eslint/config'
 import svelte from 'eslint-plugin-svelte'
 import globals from 'globals'
 import { fileURLToPath } from 'node:url'
 import ts from 'typescript-eslint'
 import oxlint from 'eslint-plugin-oxlint'
-import svelteConfig from './svelte.config.js'
+import { loadConfig } from '@sveltejs/load-config'
 
 const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url))
+const svelteConfig = (await loadConfig('./', { traverse: false }))?.config
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),

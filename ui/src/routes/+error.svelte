@@ -1,5 +1,5 @@
 <script>
-	import { browser } from '$app/environment'
+	import { browser } from '$app/env'
 	import { page } from '$app/state'
 	import { CONTACT_URL } from '$lib/env'
 	import { Footer, Header } from '$lib/components/layout'

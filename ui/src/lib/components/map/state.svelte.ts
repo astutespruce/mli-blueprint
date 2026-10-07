@@ -1,7 +1,7 @@
 import { SvelteSet } from 'svelte/reactivity'
 import type { Map } from 'mapbox-gl/esm'
 
-import { browser } from '$app/environment'
+import { browser } from '$app/env'
 import { defaultFilters, filterToIndex } from '$lib/config/filters'
 import { renderLayersIndex } from '$lib/config/pixelLayers'
 import { BLUEPRINT_VERSION } from '$lib/env'
