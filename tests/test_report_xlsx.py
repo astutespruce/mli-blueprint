@@ -353,10 +353,7 @@ async def test_create_xlsx_file_single_area(format):
     assert acres_percent_header.values[0].tolist() == ["ACRES", "PERCENT"]
 
     blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
-    assert (
-        blueprint.columns.tolist()
-        == ["Analysis unit", "Analysis area\n(acres)"] + blueprint_value_cols[::-1] + blueprint_percent_cols[::-1]
-    )
+    assert blueprint.columns.tolist() == ["Analysis unit"] + blueprint_value_cols[::-1] + blueprint_percent_cols[::-1]
     assert np.allclose(blueprint.iloc[0][blueprint_value_cols].values.astype("float64"), results.blueprint.iloc[0])
 
     indicator_id = "l_climateresiliency"
@@ -367,7 +364,7 @@ async def test_create_xlsx_file_single_area(format):
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
         indicator_sheet.columns.tolist()
-        == ["Analysis unit", "Analysis area\n(acres)"] + indicator_value_cols[::-1] + indicator_percent_cols[::-1]
+        == ["Analysis unit"] + indicator_value_cols[::-1] + indicator_percent_cols[::-1]
     )
     assert np.allclose(
         indicator_sheet.iloc[0][indicator_value_cols].values.astype("float64"), results[indicator_id].iloc[0]
@@ -388,7 +385,7 @@ async def test_create_xlsx_file_single_area(format):
     assert protected_areas_poly["Owner"].values.tolist() == ["SDNR"]
 
     urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
-    assert urban.columns.tolist() == ["Analysis unit", "Analysis area\n(acres)"] + urban_value_cols + urban_percent_cols
+    assert urban.columns.tolist() == ["Analysis unit"] + urban_value_cols + urban_percent_cols
     # last column is nodata, omitted here
     assert np.allclose(urban.iloc[0][urban_value_cols].values.astype("float64"), results.urban_by_decade.iloc[0][:-1])
 
@@ -438,12 +435,11 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     # when we have partial overlap, we have to update the label of the analysis area column
     assert (
         blueprint.columns.tolist()
-        == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
         + blueprint_value_cols[::-1]
         + ["Area outside Midwest data extent\n(percent)"]
         + blueprint_percent_cols[::-1]
     )
-    assert np.isclose(blueprint["Area within Midwest data extent\n(acres)"].iloc[0], 0.0)
     assert np.allclose(blueprint.iloc[1][blueprint_value_cols].values.astype("float64"), results.blueprint.iloc[1])
     assert np.allclose(blueprint.iloc[2][blueprint_value_cols].values.astype("float64"), results.blueprint.iloc[2])
 
@@ -455,12 +451,11 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
         indicator_sheet.columns.tolist()
-        == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
         + indicator_value_cols[::-1]
         + ["Area outside Midwest data extent\n(percent)"]
         + indicator_percent_cols[::-1]
     )
-    assert np.isclose(indicator_sheet["Area within Midwest data extent\n(acres)"].iloc[0], 0.0)
     assert np.allclose(
         indicator_sheet.iloc[1][indicator_value_cols].values.astype("float64"), results[indicator_id].iloc[1]
     )
@@ -469,7 +464,6 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
         indicator_sheet.iloc[2][indicator_value_cols].values.astype("float64"), results[indicator_id].iloc[2]
     )
 
-    # protected_areas_poly = reader.parse("")
     protected_areas_poly = reader.parse(sheet_name="Protected areas by name", skiprows=2)
     assert protected_areas_poly.columns.tolist() == [
         "Analysis unit",
@@ -492,13 +486,12 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert (
         urban.columns.tolist()
-        == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
         + urban_value_cols
         + ["Area outside Midwest data extent\n(percent)"]
         + urban_percent_cols
     )
     # last column is nodata, omitted here
-    assert np.isclose(urban["Area within Midwest data extent\n(acres)"].iloc[0], 0.0)
     assert np.allclose(urban.iloc[1][urban_value_cols].values.astype("float64"), results.urban_by_decade.iloc[1][:-1])
     assert np.allclose(urban.iloc[2][urban_value_cols].values.astype("float64"), results.urban_by_decade.iloc[2][:-1])
 
@@ -555,7 +548,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     assert (
         blueprint.columns.tolist()
-        == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
         + blueprint_value_cols[::-1]
         + ["Area outside Midwest data extent\n(percent)"]
         + blueprint_percent_cols[::-1]
@@ -571,7 +564,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
         indicator_sheet.columns.tolist()
-        == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
         + indicator_value_cols[::-1]
         + ["Area outside Midwest data extent\n(percent)"]
         + indicator_percent_cols[::-1]
@@ -589,12 +582,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
         indicator_sheet.columns.tolist()
-        == [
-            "Analysis unit",
-            "Area within Midwest data extent\n(acres)",
-            "Area outside Midwest data extent\n(acres)",
-            "Outside extent of this dataset\n(acres)",
-        ]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)", "Outside extent of this dataset\n(acres)"]
         + indicator_value_cols[::-1]
         + ["Area outside Midwest data extent\n(percent)", "Outside extent of this dataset\n(percent)"]
         + indicator_percent_cols[::-1]
@@ -646,7 +634,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert (
         urban.columns.tolist()
-        == ["Analysis unit", "Area within Midwest data extent\n(acres)", "Area outside Midwest data extent\n(acres)"]
+        == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
         + urban_value_cols
         + ["Area outside Midwest data extent\n(percent)"]
         + urban_percent_cols

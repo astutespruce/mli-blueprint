@@ -10,14 +10,7 @@ value_columns = (
 )
 
 
-def add_urbanization_sheet(
-    xlsx: pd.ExcelWriter,
-    df: pd.DataFrame,
-    name_col_width: float,
-    area_col_width: float,
-    area_label: str,
-    outside_area_label: str,
-):
+def add_urbanization_sheet(xlsx: pd.ExcelWriter, df: pd.DataFrame, name_col_width: float, outside_area_label: str):
     """Add urbanization sheet.
 
     Parameters
@@ -26,10 +19,6 @@ def add_urbanization_sheet(
     df : pd.DataFrame
     name_col_width : float
         width of name column
-    area_col_width : float
-        width of area column
-    area_label : str
-        name of analysis area acres column
     outside_area_label : str
         name of outside analysis area acres column
     """
@@ -37,11 +26,11 @@ def add_urbanization_sheet(
     nodata_label = "Outside extent of this dataset\n(acres)"
 
     # convert values to columns
-    urban = df[["rasterized_acres", "overlap_acres", "outside_extent_acres", "outside_extent_percent"]].join(
+    urban = df[["rasterized_acres", "outside_extent_acres", "outside_extent_percent"]].join(
         df[URBAN_BY_DECADE["id"]].apply(pd.Series)
     )
     urban.columns = (
-        ["rasterized_acres", "overlap_acres", "outside_extent_acres", "outside_extent_percent"]
+        ["rasterized_acres", "outside_extent_acres", "outside_extent_percent"]
         + value_columns
         + ["outside_dataset_acres"]
     )
@@ -53,7 +42,7 @@ def add_urbanization_sheet(
 
     # move nodata to left
     urban = urban[
-        ["overlap_acres", "outside_extent_acres", "outside_dataset_acres"]
+        ["outside_extent_acres", "outside_dataset_acres"]
         + value_columns
         + ["outside_extent_percent", "outside_dataset_percent"]
         + [col.replace("(acres)", "(percent)") for col in value_columns]
@@ -69,7 +58,6 @@ def add_urbanization_sheet(
 
     urban = urban.rename(
         columns={
-            "overlap_acres": area_label,
             "outside_extent_acres": outside_area_label,
             "outside_extent_percent": outside_area_label.replace("(acres)", "(percent)"),
             "outside_dataset_acres": nodata_label,
@@ -77,12 +65,10 @@ def add_urbanization_sheet(
         }
     ).reset_index()
 
-    area_col_offset = 1
+    column_widths = [name_col_width] + ([18] * (len(urban.columns) - 1))
     num_area_cols = len(value_columns) + int(has_area_outside_extent) + int(has_area_outside_dataset) + 1
-
-    column_widths = [name_col_width, area_col_width] + ([18] * (len(urban.columns) - 2))
-    area_columns = list(range(area_col_offset, area_col_offset + num_area_cols))
-    percent_columns = list(range(area_col_offset + num_area_cols, area_col_offset + num_area_cols + num_area_cols))
+    area_columns = list(range(num_area_cols))
+    percent_columns = list(range(num_area_cols, num_area_cols + num_area_cols))
     write_excel(
         xlsx,
         urban,

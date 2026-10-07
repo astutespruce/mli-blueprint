@@ -13,7 +13,6 @@ def add_basic_results_sheet(
     df: pd.DataFrame,
     dataset: dict,
     name_col_width: float,
-    area_label: str,
     outside_area_label: str,
     get_value_order=None,
 ):
@@ -72,7 +71,7 @@ def add_basic_results_sheet(
         tmp[percent_col] = tmp[value_col] / tmp.rasterized_acres
 
     tmp = tmp[
-        ["overlap_acres", "outside_extent_acres", "outside_dataset_acres"]
+        ["outside_extent_acres", "outside_dataset_acres"]
         + value_columns
         + ["outside_extent_percent", "outside_dataset_percent"]
         + percent_columns
@@ -89,7 +88,6 @@ def add_basic_results_sheet(
 
     tmp = tmp.rename(
         columns={
-            "overlap_acres": area_label,
             "outside_extent_acres": outside_area_label,
             "outside_extent_percent": outside_area_label.replace("(acres)", "(percent)"),
             "outside_dataset_acres": nodata_label,
@@ -99,10 +97,9 @@ def add_basic_results_sheet(
 
     column_widths = [name_col_width] + ([col_width] * len(tmp.columns))
 
-    area_col_offset = 1
     num_area_cols = len(value_columns) + int(has_area_outside_extent) + int(has_area_outside_dataset) + 1
-    area_columns = list(range(area_col_offset, area_col_offset + num_area_cols))
-    percent_columns = list(range(area_col_offset + num_area_cols, area_col_offset + num_area_cols + num_area_cols))
+    area_columns = list(range(num_area_cols))
+    percent_columns = list(range(num_area_cols, num_area_cols + num_area_cols))
 
     write_excel(
         xlsx,
