@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, onMount } from 'svelte'
 
-	import { browser } from '$app/environment'
+	import { browser } from '$app/env'
 	import type { MapState } from '$lib/components/map'
 	import { LegendElement } from '$lib/components/map/legend'
 	import FiltersList from './FiltersList.svelte'

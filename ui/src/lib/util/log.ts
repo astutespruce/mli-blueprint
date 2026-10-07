@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/browser'
 
-import { browser } from '$app/environment'
+import { browser } from '$app/env'
 
 export const captureException = (err: Error | string, data: object | null = null) => {
 	if (browser && window.Sentry) {

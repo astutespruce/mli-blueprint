@@ -2,7 +2,7 @@ import path from 'path'
 
 import send from 'send'
 
-const basePath = process.env.PUBLIC_DEPLOY_PATH || ''
+const basePath = process.env.DEPLOY_PATH || ''
 
 /** This plugin serves PMTiles from VITE_TILE_DIR in development; they are served
  * by Caddy in production

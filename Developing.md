@@ -137,17 +137,17 @@ a vulnerability.
 Create a `ui/.env.development` file with the following:
 
 ```bash
-PUBLIC_MAPBOX_TOKEN=<token>
-PUBLIC_GOOGLE_ANALYTICS_ID=
-PUBLIC_SENTRY_DSN=
-PUBLIC_API_TOKEN=<token set in .env file above>
-PUBLIC_DEPLOY_ENV="local"
-PUBLIC_DEPLOY_PATH=
+MAPBOX_TOKEN=<token>
+GOOGLE_ANALYTICS_ID=
+SENTRY_DSN=
+API_TOKEN=<token set in .env file above>
+DEPLOY_ENV="local"
+DEPLOY_PATH=
 VITE_API_PROX=1 # to proxy to API on port 5000 using vite
 VITE_TILE_DIR=<path to directory containing pmtiles>
 
-PUBLIC_CONTACT_URL="https://www.mlimidwest.org/about-us/contact-mli-staff/"
-PUBLIC_BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
+CONTACT_URL="https://www.mlimidwest.org/about-us/contact-mli-staff/"
+BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
 ```
 
 #### Build mode
@@ -155,15 +155,15 @@ PUBLIC_BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
 Create a `ui/.env.production` file with the following:
 
 ```bash
-PUBLIC_MAPBOX_TOKEN=<token>
-PUBLIC_GOOGLE_ANALYTICS_ID=<can temporarily set value for testing>
-PUBLIC_SENTRY_DSN=<can temporarily set value for testing>
-PUBLIC_API_TOKEN=<token set in .env file above>
-PUBLIC_DEPLOY_ENV="local"
-PUBLIC_DEPLOY_PATH=<leave blank for vite preview server, set to /southeastblueprint for testing via Docker & Caddy>
+MAPBOX_TOKEN=<token>
+GOOGLE_ANALYTICS_ID=<can temporarily set value for testing>
+SENTRY_DSN=<can temporarily set value for testing>
+API_TOKEN=<token set in .env file above>
+DEPLOY_ENV="local"
+DEPLOY_PATH=<leave blank for vite preview server, set to /southeastblueprint for testing via Docker & Caddy>
 
-PUBLIC_CONTACT_URL="https://www.mlimidwest.org/about-us/contact-mli-staff/"
-PUBLIC_BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
+CONTACT_URL="https://www.mlimidwest.org/about-us/contact-mli-staff/"
+BLUEPRINT_URL="http://tinyurl.com/midwestblueprint"
 
 # only set the following if proxying via Vite's preview server
 VITE_API_PROX=1

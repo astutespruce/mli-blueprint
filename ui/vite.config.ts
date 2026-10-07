@@ -1,11 +1,13 @@
 import path from 'path'
+import adapter from '@sveltejs/adapter-static'
 import { sveltekit } from '@sveltejs/kit/vite'
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vite'
 import { enhancedImages } from '@sveltejs/enhanced-img'
 import Icons from 'unplugin-icons/vite'
 import tailwindcss from '@tailwindcss/vite'
 import { config as dotEnvConfig } from 'dotenv'
-import { VitePWA } from 'vite-plugin-pwa'
+import { SvelteKitPWA } from '@vite-pwa/sveltekit'
 
 // have to configure dotenv to load correct .env file
 dotEnvConfig({ path: `.env.${process.env.NODE_ENV}` })
@@ -51,7 +53,7 @@ export default defineConfig({
 			: undefined
 	},
 	plugins: [
-		VitePWA({
+		SvelteKitPWA({
 			manifest: {
 				name: 'Midwest Conservation Blueprint Explorer',
 				short_name: 'Midwest Blueprint Explorer',
@@ -104,7 +106,27 @@ export default defineConfig({
 		}),
 		tailwindcss(),
 		enhancedImages(),
-		sveltekit(),
+		sveltekit({
+			preprocess: vitePreprocess(),
+
+			adapter: adapter({
+				pages: 'public',
+				assets: 'public',
+				fallback: '404.html',
+				precompress: false,
+				strict: true
+			}),
+			paths: {
+				// @ts-expect-error DEPLOY_PATH is valid
+				base: process.env.DEPLOY_PATH || ''
+			},
+			alias: {
+				$constants: '../constants',
+				$images: 'src/images',
+				// TODO: migrate to #lib: https://svelte.dev/docs/kit/migrating-to-sveltekit-3
+				$lib: 'src/lib'
+			}
+		}),
 		Icons({ compiler: 'svelte' }),
 		// middleware to serve PMTtiles in development mode
 		servePMTiles ? pmtilesServer() : undefined

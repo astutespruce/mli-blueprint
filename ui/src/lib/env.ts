@@ -1,21 +1,11 @@
-import { browser } from '$app/environment'
-import * as env from '$env/static/public'
+import { browser } from '$app/env'
+import { DEPLOY_PATH } from '$app/env/public'
+
+export * from '$app/env/public'
 
 export const BLUEPRINT_VERSION = '2026'
 
-export const SENTRY_DSN = env.PUBLIC_SENTRY_DSN || ''
-export const GOOGLE_ANALYTICS_ID = env.PUBLIC_GOOGLE_ANALYTICS_ID || ''
-export const MAPBOX_TOKEN = env.PUBLIC_MAPBOX_TOKEN
-export const API_TOKEN = env.PUBLIC_API_TOKEN
-export const CONTACT_URL = env.PUBLIC_CONTACT_URL
-export const BLUEPRINT_URL = env.PUBLIC_BLUEPRINT_URL
-export const DEPLOY_ENV = env.PUBLIC_DEPLOY_ENV
-
-if (!MAPBOX_TOKEN) {
-	console.error('ERROR: Mapbox token is required in .env.* file')
-}
-
-const deploy_path = env.PUBLIC_DEPLOY_PATH || ''
+const deploy_path = DEPLOY_PATH || ''
 const root_url = browser
 	? `${window.location.protocol}//${window.location.host}${deploy_path}`
 	: deploy_path

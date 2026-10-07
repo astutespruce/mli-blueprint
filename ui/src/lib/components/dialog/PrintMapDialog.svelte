@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Spinner from '~icons/fa-solid/spinner'
 	import { getContext } from 'svelte'
-	import { browser } from '$app/environment'
+	import { browser } from '$app/env'
 	import PrintIcon from '~icons/fa-solid/file-import'
 	import { Root, Trigger, Content, Header, Title, Footer, Close } from '$lib/components/ui/dialog'
 	import { Button } from '$lib/components/ui/button'
