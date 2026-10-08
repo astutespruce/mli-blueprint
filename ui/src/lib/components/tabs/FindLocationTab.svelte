@@ -3,11 +3,11 @@
 
 	import LocationArrowIcon from '~icons/fa-solid/location-arrow'
 	import SpinnerIcon from '~icons/fa-solid/spinner'
-	import { Search } from '$lib/components/search'
-	import { Button } from '$lib/components/ui/button'
-	import { hasGeolocation } from '$lib/util/dom'
-	import type { LocationData } from '$lib/types'
-	import { cn } from '$lib/utils'
+	import { Search } from '#lib/components/search/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { hasGeolocation } from '#lib/util/dom.js'
+	import type { LocationData } from '#lib/types.js'
+	import { cn } from '#lib/utils.js'
 
 	const { class: className, onSetLocation } = $props()
 	let isError: boolean = $state(false)

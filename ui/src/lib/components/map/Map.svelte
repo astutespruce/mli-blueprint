@@ -6,16 +6,16 @@
 	import type { LngLatLike, Map, Marker, SourceSpecification } from 'mapbox-gl/esm'
 	import 'mapbox-gl/dist/mapbox-gl.css'
 
-	import CrosshairsIcon from '$images/CrosshairsIcon.svg'
+	import CrosshairsIcon from '#images/CrosshairsIcon.svg'
 	import Spinner from '~icons/fa-solid/spinner'
 
-	import { subregionIndex } from '$lib/config/constants'
-	import { mapConfig as config, sources, layers } from '$lib/config/map'
-	import { pixelLayers } from '$lib/config/pixelLayers'
-	import { MAPBOX_TOKEN } from '$lib/env'
-	import type { LocationData } from '$lib/types'
-	import { indexBy } from '$lib/util/data'
-	import { debounce, eventHandler } from '$lib/util/func'
+	import { subregionIndex } from '#lib/config/constants.js'
+	import { mapConfig as config, sources, layers } from '#lib/config/map.js'
+	import { pixelLayers } from '#lib/config/pixelLayers.js'
+	import { MAPBOX_TOKEN } from '#lib/env.js'
+	import type { LocationData } from '#lib/types.js'
+	import { indexBy } from '#lib/util/data.js'
+	import { debounce, eventHandler } from '#lib/util/func.js'
 
 	import { unpackFeatureData } from './features'
 	import FindLocation from './FindLocation.svelte'
@@ -94,10 +94,12 @@
 		const { lng: longitude, lat: latitude } = map.getCenter()
 
 		// If protected areas tiles aren't loaded yet, schedule a callback once tiles are loaded
-		if (!(
-			map?.style?._otherSourceCaches.protectedAreas &&
-			map.style._otherSourceCaches.protectedAreas.loaded()
-		)) {
+		if (
+			!(
+				map?.style?._otherSourceCaches.protectedAreas &&
+				map.style._otherSourceCaches.protectedAreas.loaded()
+			)
+		) {
 			mapState.setData({
 				type: 'pixel',
 				location: {

@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte'
 	import EyeIcon from '~icons/fa-solid/eye'
 	import EyeSlashIcon from '~icons/fa-solid/eye-slash'
-	import { Button } from '$lib/components/ui/button'
+	import { Button } from '#lib/components/ui/button/index.js'
 
 	import LegendElement from './LegendElement.svelte'
 	import { MapState } from '../state.svelte'

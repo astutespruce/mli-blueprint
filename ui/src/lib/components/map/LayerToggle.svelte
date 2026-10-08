@@ -3,10 +3,10 @@
 	import EyeIcon from '~icons/fa-solid/eye'
 	import EyeSlashIcon from '~icons/fa-solid/eye-slash'
 	import LayerGroupIcon from '~icons/fa-solid/layer-group'
-	import { Root, Trigger, Content, Header, Title } from '$lib/components/ui/dialog'
-	import { renderLayerGroups, renderLayersIndex } from '$lib/config/pixelLayers'
-	import { logGAEvent } from '$lib/util/log'
-	import { cn } from '$lib/utils'
+	import { Root, Trigger, Content, Header, Title } from '#lib/components/ui/dialog/index.js'
+	import { renderLayerGroups, renderLayersIndex } from '#lib/config/pixelLayers.js'
+	import { logGAEvent } from '#lib/util/log.js'
+	import { cn } from '#lib/utils.js'
 	import type { MapState } from './state.svelte'
 
 	const mapState: MapState = getContext('map-state')

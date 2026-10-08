@@ -1,4 +1,4 @@
-import { range } from '$lib/util/data'
+import { range } from '#lib/util/data.js'
 
 /**
  * Construct WebGL filter expressions to inject into fragment shader

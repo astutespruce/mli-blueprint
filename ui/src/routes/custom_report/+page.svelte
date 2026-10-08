@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { uploadFile } from '$lib/api'
-	import { API_URL } from '$lib/env'
-	import { captureException, logGAEvent } from '$lib/util/log'
-	import { Footer, Header } from '$lib/components/layout'
-	import { Done, Progress, Queued, Error, UploadForm } from '$lib/components/report'
-	import type { ReportState, ReportJobResult, ReportType } from '$lib/components/report/types'
+	import { uploadFile } from '#lib/api.js'
+	import { API_URL } from '#lib/env.js'
+	import { captureException, logGAEvent } from '#lib/util/log.js'
+	import { Footer, Header } from '#lib/components/layout/index.js'
+	import { Done, Progress, Queued, Error, UploadForm } from '#lib/components/report/index.js'
+	import type { ReportState, ReportJobResult, ReportType } from '#lib/components/report/types.js'
 
 	const initState: ReportState = {
 		view: 'upload',
@@ -122,7 +122,7 @@
 	<div class="relative z-0 w-full overflow-hidden h-56">
 		<div class="z-1 absolute top-[-40%]">
 			<enhanced:img
-				src="$images/IndianaDNR_Fountain_County_Wetland.jpg"
+				src="#images/IndianaDNR_Fountain_County_Wetland.jpg"
 				class="h-auto min-w-[720px] object-cover"
 				fetchpriority="high"
 				alt=""

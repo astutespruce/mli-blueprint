@@ -1,9 +1,9 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
-	import { PercentBarChart } from '$lib/components/chart'
-	import { protectedAreas as protectedAreasInfo } from '$lib/config/constants'
-	import { formatNumber } from '$lib/util/format'
-	import { cn } from '$lib/utils'
+	import { PercentBarChart } from '#lib/components/chart/index.js'
+	import { protectedAreas as protectedAreasInfo } from '#lib/config/constants.js'
+	import { formatNumber } from '#lib/util/format.js'
+	import { cn } from '#lib/utils.js'
 
 	const { type, protected_areas, protected_areas_list, num_protected_areas } = $props()
 

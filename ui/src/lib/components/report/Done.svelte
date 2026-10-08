@@ -2,10 +2,10 @@
 	import CheckCircle from '~icons/fa-solid/check-circle'
 	import Download from '~icons/fa-solid/download'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
-	import { Root, Description } from '$lib/components/ui/alert'
-	import { Button } from '$lib/components/ui/button'
-	import { CONTACT_URL } from '$lib/env'
-	import { cn } from '$lib/utils'
+	import { Root, Description } from '#lib/components/ui/alert/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { CONTACT_URL } from '#lib/env.js'
+	import { cn } from '#lib/utils.js'
 
 	const { reportURL = null, errors, onReset = null, class: className = '' } = $props()
 </script>

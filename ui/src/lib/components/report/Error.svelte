@@ -1,9 +1,9 @@
 <script lang="ts">
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
-	import { Button } from '$lib/components/ui/button'
-	import { Root, Title, Description } from '$lib/components/ui/alert'
-	import { CONTACT_URL } from '$lib/env'
-	import { cn } from '$lib/utils'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { Root, Title, Description } from '#lib/components/ui/alert/index.js'
+	import { CONTACT_URL } from '#lib/env.js'
+	import { cn } from '#lib/utils.js'
 
 	const { message = null, onReset = null, class: className = '' } = $props()
 </script>

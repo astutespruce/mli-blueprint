@@ -5,8 +5,8 @@ import { Model } from '@luma.gl/engine'
 import type { ShaderModule } from '@luma.gl/shadertools'
 import { DynamicTexture } from '@luma.gl/engine'
 
-import { pixelLayers, paletteSize } from '$lib/config/pixelLayers'
-import { sum } from '$lib/util/data'
+import { pixelLayers, paletteSize } from '#lib/config/pixelLayers.js'
+import { sum } from '#lib/util/data.js'
 
 import createMesh from './mesh'
 

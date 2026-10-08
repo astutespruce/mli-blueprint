@@ -2,9 +2,9 @@
 	import { getContext } from 'svelte'
 
 	import CheckIcon from '~icons/fa-solid/check'
-	import type { MapState } from '$lib/components/map'
-	import { Button } from '$lib/components/ui/button'
-	import { cn } from '$lib/utils'
+	import type { MapState } from '#lib/components/map/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { cn } from '#lib/utils.js'
 
 	const { indicator } = $props()
 

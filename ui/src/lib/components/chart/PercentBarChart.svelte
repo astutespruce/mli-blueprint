@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Progress } from '$lib/components/ui/progress'
-	import { formatPercent } from '$lib/util/format'
-	import { cn } from '$lib/utils'
+	import { Progress } from '#lib/components/ui/progress/index.js'
+	import { formatPercent } from '#lib/util/format.js'
+	import { cn } from '#lib/utils.js'
 
 	const { label, percent, class: className = '' } = $props()
 </script>

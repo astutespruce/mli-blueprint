@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { CONTACT_URL } from '$lib/env'
-	import * as Select from '$lib/components/ui/select'
+	import { CONTACT_URL } from '#lib/env.js'
+	import * as Select from '#lib/components/ui/select/index.js'
 
 	type Props = {
 		count: number

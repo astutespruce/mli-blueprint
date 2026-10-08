@@ -1,7 +1,7 @@
 <script lang="ts">
-	import LightIcon from '$images/light-v9.jpg'
-	import SatelliteIcon from '$images/satellite-streets-v11.jpg'
-	import { Button } from '$lib/components/ui/button'
+	import LightIcon from '#images/light-v9.jpg'
+	import SatelliteIcon from '#images/satellite-streets-v11.jpg'
+	import { Button } from '#lib/components/ui/button/index.js'
 
 	const styles = [
 		{ id: 'light-v9', label: 'Light Basemap', icon: LightIcon },

@@ -1,5 +1,5 @@
-import { indexBy } from '$lib/util/data'
-import type { Indicator } from '$lib/types'
+import { indexBy } from '#lib/util/data.js'
+import type { Indicator } from '#lib/types.js'
 
 import blueprint from '$constants/blueprint.json'
 import indicatorGroups from '$constants/indicator_groups.json'

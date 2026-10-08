@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ReplyAllIcon from '~icons/fa-solid/reply-all'
-	import { protectedAreas, protectedAreasPoly } from '$lib/config/constants'
-	import { Button } from '$lib/components/ui/button'
+	import { protectedAreas, protectedAreasPoly } from '#lib/config/constants.js'
+	import { Button } from '#lib/components/ui/button/index.js'
 	import SelectField from './SelectField.svelte'
 	import SelectDatasets from './SelectDatasets.svelte'
 

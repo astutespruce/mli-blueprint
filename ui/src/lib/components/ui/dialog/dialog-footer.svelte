@@ -1,6 +1,6 @@
 <script lang="ts">
 	// style override: change to justify-between
-	import { cn, type WithElementRef } from '$lib/utils.js'
+	import { cn, type WithElementRef } from '#lib/utils.js'
 	import type { HTMLAttributes } from 'svelte/elements'
 
 	let {

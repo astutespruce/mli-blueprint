@@ -5,9 +5,9 @@ import {
 	indicatorGroups as indicatorGroupInfo,
 	indicatorGroupIndex,
 	indicators as indicatorInfo
-} from '$lib/config/constants'
-import { indexBy, setIntersection, sum } from '$lib/util/data'
-import type { IndicatorValue } from '$lib/types'
+} from '#lib/config/constants.js'
+import { indexBy, setIntersection, sum } from '#lib/util/data.js'
+import type { IndicatorValue } from '#lib/types.js'
 
 const TILE_SIZE = 512 // physical tile size (layer tile size may be set differently to increase resolution)
 

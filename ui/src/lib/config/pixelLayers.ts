@@ -1,12 +1,12 @@
-import { TILES_URL } from '$lib/env'
-import { indexBy } from '$lib/util/data'
+import { TILES_URL } from '#lib/env.js'
+import { indexBy } from '#lib/util/data.js'
 import type {
 	Indicator,
 	PixelLayerBounds,
 	PixelLayerEncodings,
 	PixelLayerIndex,
 	PixelLayer
-} from '$lib/types'
+} from '#lib/types.js'
 
 import {
 	blueprint,

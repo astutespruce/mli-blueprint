@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Indicator } from '$lib/types'
+	import type { Indicator } from '#lib/types.js'
 	import IndicatorListItem from './IndicatorListItem.svelte'
 	import PixelIndicatorListItem from './PixelIndicatorListItem.svelte'
 

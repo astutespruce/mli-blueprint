@@ -9,9 +9,9 @@
 	import PieChartIcon from '~icons/fa-solid/chart-pie'
 	import SearchIcon from '~icons/fa-solid/search-location'
 	import TasksIcon from '~icons/fa-solid/tasks'
-	import { Button } from '$lib/components/ui/button'
-	import { MapState } from '$lib/components/map'
-	import { cn } from '$lib/utils'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { MapState } from '#lib/components/map/index.js'
+	import { cn } from '#lib/utils.js'
 
 	const mapState: MapState = getContext('map-state')
 	const { tab, onChange } = $props()

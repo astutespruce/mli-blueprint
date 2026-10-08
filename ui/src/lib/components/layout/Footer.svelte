@@ -1,9 +1,9 @@
 <script>
 	import Envelope from '~icons/fa-solid/envelope'
 	import ExternalLinkAlt from '~icons/fa-solid/external-link-alt'
-	import { BLUEPRINT_URL } from '$lib/env'
+	import { BLUEPRINT_URL } from '#lib/env.js'
 
-	import { ContactDialog } from '$lib/components/dialog'
+	import { ContactDialog } from '#lib/components/dialog/index.js'
 </script>
 
 <footer

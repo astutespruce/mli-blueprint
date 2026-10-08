@@ -4,10 +4,10 @@
 	import SearchLocationIcon from '~icons/fa-solid/search-location'
 	import TimesIcon from '~icons/fa-solid/times'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
-	import { Button } from '$lib/components/ui/button'
-	import { Input } from '$lib/components/ui/input'
-	import { logGAEvent } from '$lib/util/log'
-	import type { LocationData } from '$lib/types'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { Input } from '#lib/components/ui/input/index.js'
+	import { logGAEvent } from '#lib/util/log.js'
+	import type { LocationData } from '#lib/types.js'
 
 	let { ref = $bindable(null), isCompact, onFocus } = $props()
 	const locationData: LocationData = getContext('location-data')

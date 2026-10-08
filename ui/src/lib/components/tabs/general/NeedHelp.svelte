@@ -1,6 +1,6 @@
 <script lang="ts">
 	import QuestionCircleIcon from '~icons/fa-regular/question-circle'
-	import { ContactDialog } from '$lib/components/dialog'
+	import { ContactDialog } from '#lib/components/dialog/index.js'
 </script>
 
 <div class="text-grey-9 mt-8 pt-8 border-t border-t-grey-2">

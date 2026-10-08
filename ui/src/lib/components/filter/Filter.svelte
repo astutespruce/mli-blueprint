@@ -2,12 +2,12 @@
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
 	import FilterIcon from '~icons/fa-solid/filter'
 	import Plus from '~icons/fa-solid/plus'
-	import { Checkbox } from '$lib/components/ui/checkbox'
-	import { Label } from '$lib/components/ui/label'
-	import { InfoTooltip } from '$lib/components/tooltip'
-	import { cn } from '$lib/utils'
+	import { Checkbox } from '#lib/components/ui/checkbox/index.js'
+	import { Label } from '#lib/components/ui/label/index.js'
+	import { InfoTooltip } from '#lib/components/tooltip/index.js'
+	import { cn } from '#lib/utils.js'
 
-	import { logGAEvent } from '$lib/util/log'
+	import { logGAEvent } from '#lib/util/log.js'
 
 	const {
 		id,

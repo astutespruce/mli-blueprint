@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { CONTACT_URL } from '$lib/env'
-	import { cn } from '$lib/utils'
+	import { CONTACT_URL } from '#lib/env.js'
+	import { cn } from '#lib/utils.js'
 
 	const { class: className } = $props()
 </script>

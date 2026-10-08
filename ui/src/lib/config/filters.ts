@@ -1,5 +1,5 @@
-import { indexBy, range } from '$lib/util/data'
-import type { Filters } from '$lib/types'
+import { indexBy, range } from '#lib/util/data.js'
+import type { Filters } from '#lib/types.js'
 import {
 	blueprint,
 	indicators,

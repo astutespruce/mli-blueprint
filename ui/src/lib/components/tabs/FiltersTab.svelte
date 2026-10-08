@@ -4,24 +4,24 @@
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
 	import FilterIcon from '~icons/fa-solid/filter'
 	import TimesCircle from '~icons/fa-solid/times-circle'
-	import { Button } from '$lib/components/ui/button'
-	import BlueprintIcon from '$images/blueprint.svg'
-	import HumanWellbeingIcon from '$images/h.svg'
-	import LandscapeHealthIcon from '$images/l.svg'
-	import WildlifeIcon from '$images/w.svg'
-	import OtherInfoIcon from '$images/otherInfo.svg'
-	import type { MapState } from '$lib/components/map'
-	import { setIntersection } from '$lib/util/data'
-	import type { Filter } from '$lib/types'
-	import { cn } from '$lib/utils'
-	import { indicatorGroups, urban } from '$lib/config/constants'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import BlueprintIcon from '#images/blueprint.svg'
+	import HumanWellbeingIcon from '#images/h.svg'
+	import LandscapeHealthIcon from '#images/l.svg'
+	import WildlifeIcon from '#images/w.svg'
+	import OtherInfoIcon from '#images/otherInfo.svg'
+	import type { MapState } from '#lib/components/map/index.js'
+	import { setIntersection } from '#lib/util/data.js'
+	import type { Filter } from '#lib/types.js'
+	import { cn } from '#lib/utils.js'
+	import { indicatorGroups } from '#lib/config/constants.js'
 	import {
 		priorityFilters as rawPriorityFilters,
 		indicatorGroupFilters as rawIndicatorGroupFilters,
 		otherInfoFilters as rawOtherInfoFilters
-	} from '$lib/config/filters'
-	import { FilterGroup, FilterMethodDropdown } from '$lib/components/filter'
-	import { PrintMapDialog } from '$lib/components/dialog'
+	} from '#lib/config/filters.js'
+	import { FilterGroup, FilterMethodDropdown } from '#lib/components/filter/index.js'
+	import { PrintMapDialog } from '#lib/components/dialog/index.js'
 
 	const { class: className } = $props()
 	const mapState: MapState = getContext('map-state')

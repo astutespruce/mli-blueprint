@@ -2,16 +2,16 @@
 	import { getContext } from 'svelte'
 	import { createQuery } from '@tanstack/svelte-query'
 
-	import { CONTACT_URL } from '$lib/env'
+	import { CONTACT_URL } from '#lib/env.js'
 	import CompassIcon from '~icons/fa-solid/compass'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
 	import SearchIcon from '~icons/fa-solid/Search'
 	import TimesIcon from '~icons/fa-solid/Times'
-	import { Button } from '$lib/components/ui/button'
-	import { Input } from '$lib/components/ui/input'
-	import type { LocationData } from '$lib/types'
-	import { debounce } from '$lib/util/func'
-	import { cn } from '$lib/utils'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { Input } from '#lib/components/ui/input/index.js'
+	import type { LocationData } from '#lib/types.js'
+	import { debounce } from '#lib/util/func.js'
+	import { cn } from '#lib/utils.js'
 
 	import { searchPlaces, getPlace } from './mapbox'
 

@@ -1,6 +1,5 @@
-import { browser } from '$app/env'
-import { TILES_URL } from '$lib/env'
-import type { MapConfig } from '$lib/types'
+import { TILES_URL } from '#lib/env.js'
+import type { MapConfig } from '#lib/types.js'
 
 export const mapConfig: MapConfig = {
 	// idealized bounds to be able to show legend in bottom right

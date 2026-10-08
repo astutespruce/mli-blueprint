@@ -1,7 +1,7 @@
 <script lang="ts">
 	// style override: bg-grey-2
 	import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui'
-	import { cn } from '$lib/utils.js'
+	import { cn } from '#lib/utils.js'
 
 	let {
 		ref = $bindable(null),

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/utils'
+	import { cn } from '#lib/utils.js'
 	import Filter from './Filter.svelte'
 
 	const { id, icon, label, color, borderColor, entries, onChange } = $props()

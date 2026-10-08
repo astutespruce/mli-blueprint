@@ -1,8 +1,8 @@
 <script>
 	import { browser } from '$app/env'
 	import { page } from '$app/state'
-	import { CONTACT_URL } from '$lib/env'
-	import { Footer, Header } from '$lib/components/layout'
+	import { CONTACT_URL } from '#lib/env.js'
+	import { Footer, Header } from '#lib/components/layout/index.js'
 
 	console.error(page.status)
 	console.error(page.error)
@@ -21,7 +21,7 @@
 	{#if page.status === 404}
 		<div class="relative flex-auto h-full">
 			<div class="hidden md:block absolute top-0 bottom-0 left-0 right-0 overflow-hidden">
-				<enhanced:img src="$images/48754428566_d34b348ac3_o.jpg" alt="" class="brightness-80" />
+				<enhanced:img src="#images/48754428566_d34b348ac3_o.jpg" alt="" class="brightness-80" />
 				<div class="sticky bottom-0">
 					<div class="absolute bottom-0 right-0 bg-black/65 text-white px-2 text-sm">
 						Photo:

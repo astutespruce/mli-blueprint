@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Progress } from '$lib/components/ui/progress'
-	import { cn } from '$lib/utils'
+	import { Progress } from '#lib/components/ui/progress/index.js'
+	import { cn } from '#lib/utils.js'
 
 	const { message, progress, class: className = '' } = $props()
 </script>

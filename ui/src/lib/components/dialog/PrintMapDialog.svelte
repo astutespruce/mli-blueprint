@@ -3,10 +3,18 @@
 	import { getContext } from 'svelte'
 	import { browser } from '$app/env'
 	import PrintIcon from '~icons/fa-solid/file-import'
-	import { Root, Trigger, Content, Header, Title, Footer, Close } from '$lib/components/ui/dialog'
-	import { Button } from '$lib/components/ui/button'
-	import type { AppState } from '$lib/types'
-	import type { MapState } from '$lib/components/map'
+	import {
+		Root,
+		Trigger,
+		Content,
+		Header,
+		Title,
+		Footer,
+		Close
+	} from '#lib/components/ui/dialog/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import type { AppState } from '#lib/types.js'
+	import type { MapState } from '#lib/components/map/index.js'
 
 	const appState: AppState = getContext('app-state')
 	const mapState: MapState = getContext('map-state')

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
-	import { blueprint as blueprintInfo } from '$lib/config/constants'
-	import { PieChart } from '$lib/components/chart'
-	import { cn } from '$lib/utils'
+	import { blueprint as blueprintInfo } from '#lib/config/constants.js'
+	import { PieChart } from '#lib/components/chart/index.js'
+	import { cn } from '#lib/utils.js'
 	import { NeedHelp } from './general'
 
 	type Props = {

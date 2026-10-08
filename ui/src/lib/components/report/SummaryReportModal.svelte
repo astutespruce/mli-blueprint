@@ -1,10 +1,18 @@
 <script lang="ts">
 	import DownloadIcon from '~icons/fa-solid/download'
-	import { createSummaryUnitReport } from '$lib/api'
-	import { API_URL, CONTACT_URL } from '$lib/env'
-	import { Root, Trigger, Close, Content, Footer, Header, Title } from '$lib/components/ui/dialog'
-	import { Button } from '$lib/components/ui/button'
-	import { captureException, logGAEvent } from '$lib/util/log'
+	import { createSummaryUnitReport } from '#lib/api.js'
+	import { API_URL, CONTACT_URL } from '#lib/env.js'
+	import {
+		Root,
+		Trigger,
+		Close,
+		Content,
+		Footer,
+		Header,
+		Title
+	} from '#lib/components/ui/dialog/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { captureException, logGAEvent } from '#lib/util/log.js'
 	import Done from './Done.svelte'
 	import Progress from './Progress.svelte'
 	import Queued from './Queued.svelte'

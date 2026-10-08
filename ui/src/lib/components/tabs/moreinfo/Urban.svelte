@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
-	import { urban as urbanInfo } from '$lib/config/constants'
-	import { cn } from '$lib/utils'
+	import { urban as urbanInfo } from '#lib/config/constants.js'
+	import { cn } from '#lib/utils.js'
 
 	import UrbanChart from './UrbanChart.svelte'
 

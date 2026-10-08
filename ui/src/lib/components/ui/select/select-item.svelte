@@ -1,7 +1,7 @@
 <script lang="ts">
 	// style override: change bg-accent to bg-grey-1
 	import { Select as SelectPrimitive } from 'bits-ui'
-	import { cn, type WithoutChild } from '$lib/utils.js'
+	import { cn, type WithoutChild } from '#lib/utils.js'
 	import CheckIcon from '@lucide/svelte/icons/check'
 
 	let {

@@ -2,10 +2,10 @@
 	import { scaleLinear } from 'd3-scale'
 	import { area, line } from 'd3-shape'
 
-	import { Points, XAxis, YAxis } from '$lib/components/chart'
-	import type { Point } from '$lib/types'
-	import { extent } from '$lib/util/data'
-	import { formatNumber } from '$lib/util/format'
+	import { Points, XAxis, YAxis } from '#lib/components/chart/index.js'
+	import type { Point } from '#lib/types.js'
+	import { extent } from '#lib/util/data.js'
+	import { formatNumber } from '#lib/util/format.js'
 
 	type Props = {
 		data: Point[]

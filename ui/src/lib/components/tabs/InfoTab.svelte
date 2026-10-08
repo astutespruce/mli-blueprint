@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { resolve } from '$app/paths'
-	import { BLUEPRINT_URL, DEPLOY_ENV } from '$lib/env'
+	import { BLUEPRINT_URL, DEPLOY_ENV } from '#lib/env.js'
 	import TimesCircle from '~icons/fa-solid/times-circle'
-	import { Root as Alert } from '$lib/components/ui/alert'
-	import MLILogo from '$images/MLI_logo_graphic.svg'
-	import { cn } from '$lib/utils'
+	import { Root as Alert } from '#lib/components/ui/alert/index.js'
+	import MLILogo from '#images/MLI_logo_graphic.svg'
+	import { cn } from '#lib/utils.js'
 
 	const isStaging = DEPLOY_ENV === 'staging'
 

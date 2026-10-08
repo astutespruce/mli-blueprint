@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Progress } from '$lib/components/ui/progress'
-	import { formatPercent } from '$lib/util/format'
+	import { Progress } from '#lib/components/ui/progress/index.js'
+	import { formatPercent } from '#lib/util/format.js'
 
 	const { label, percent, percentSuffix = '' } = $props()
 </script>

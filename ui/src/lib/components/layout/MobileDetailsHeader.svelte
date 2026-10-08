@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TimesCircleIcon from '~icons/fa-regular/times-circle'
-	import { Button } from '$lib/components/ui/button'
+	import { Button } from '#lib/components/ui/button/index.js'
 
 	const { type, name, location, onClose } = $props()
 </script>

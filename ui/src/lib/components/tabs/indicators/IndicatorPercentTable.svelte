@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ArrowUpIcon from '~icons/fa-solid/arrow-up'
 	import ArrowDownIcon from '~icons/fa-solid/arrow-down'
-	import { cn } from '$lib/utils'
+	import { cn } from '#lib/utils.js'
 
 	import IndicatorPercentChart from './IndicatorPercentChart.svelte'
 	const { values, goodThreshold = null } = $props()

@@ -12,6 +12,10 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"moduleResolution": "bundler"
+		"moduleResolution": "bundler",
+		"paths": {
+			"#lib/*": ["./src/lib/*"],
+			"#images/*": ["./src/images/*"]
+		}
 	}
 }

@@ -2,14 +2,14 @@
 	import GearIcon from '~icons/fa-solid/cog'
 	import CheckIcon from '~icons/fa-solid/check'
 	import { getContext } from 'svelte'
-	import type { AppState } from '$lib/types'
-	import { cn } from '$lib/utils'
-	import type { MapState } from '$lib/components/map'
-	import { Button } from '$lib/components/ui/button'
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
-	import * as Sheet from '$lib/components/ui/sheet'
-	import AndLogicIcon from '$images/AndLogicIcon.svg'
-	import OrLogicIcon from '$images/OrLogicIcon.svg'
+	import type { AppState } from '#lib/types.js'
+	import { cn } from '#lib/utils.js'
+	import type { MapState } from '#lib/components/map/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import * as DropdownMenu from '#lib/components/ui/dropdown-menu/index.js'
+	import * as Sheet from '#lib/components/ui/sheet/index.js'
+	import AndLogicIcon from '#images/AndLogicIcon.svg'
+	import OrLogicIcon from '#images/OrLogicIcon.svg'
 
 	const appState: AppState = getContext('app-state')
 	const mapState: MapState = getContext('map-state')

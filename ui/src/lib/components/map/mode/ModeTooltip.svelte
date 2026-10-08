@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Provider, Root, Trigger, Content } from '$lib/components/ui/tooltip'
-	import { cn } from '$lib/utils'
+	import { Provider, Root, Trigger, Content } from '#lib/components/ui/tooltip/index.js'
+	import { cn } from '#lib/utils.js'
 
 	const { content, children, class: className, onClick } = $props()
 </script>

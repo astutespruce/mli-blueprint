@@ -3,7 +3,7 @@
 	import sourceSansProBold from '@fontsource/montserrat/files/montserrat-latin-900-normal.woff2?url'
 
 	import { browser } from '$app/env'
-	import { GOOGLE_ANALYTICS_ID } from '$lib/env'
+	import { GOOGLE_ANALYTICS_ID } from '#lib/env.js'
 
 	import '../app.css'
 

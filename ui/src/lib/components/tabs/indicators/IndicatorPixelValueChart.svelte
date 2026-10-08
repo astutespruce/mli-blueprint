@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/utils'
+	import { cn } from '#lib/utils.js'
 
 	const { isPresent, values, currentValue, isZeroValue, valueLabel, goodThreshold } = $props()
 </script>
