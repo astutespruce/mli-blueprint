@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { resolve } from '$app/paths'
-
+	import FeedbackIcon from '~icons/fa-solid/comment-dots'
 	import FileUpload from '~icons/fa-solid/file-upload'
 	import InfoCircle from '~icons/fa-solid/info-circle'
 	import ViewerIcon from '~icons/fa-solid/map'
-	import FeedbackIcon from '~icons/fa-solid/comment-dots'
+
+	import { resolve } from '$app/paths'
 	import { Button } from '#lib/components/ui/button/index.js'
 	import { cn } from '#lib/utils.js'
 

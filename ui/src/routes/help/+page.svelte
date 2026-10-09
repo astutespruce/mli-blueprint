@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { BLUEPRINT_URL } from '#lib/env.js'
 	import { Footer, Header } from '#lib/components/layout/index.js'
+	import { BLUEPRINT_URL } from '#lib/env.js'
 </script>
 
 <svelte:head>
@@ -197,10 +197,9 @@
 			Alternatively, you can use OR logic to select all areas where <i>any</i> of your selected
 			criteria are present.
 			<br /><br />
-			Use the <b>Change filter overlay method</b> dropdown to change the logic being applied to your
-			filters. This can be especially helpful for identifying areas across indicators that do not spatially
-			co-occur in the exact same areas. This mode starts from a blank map, and adds areas as you specify
-			filters.
+			Use the <b>Change filter overlay method</b> dropdown to change the logic being applied to your filters.
+			This can be especially helpful for identifying areas across indicators that do not spatially co-occur
+			in the exact same areas. This mode starts from a blank map, and adds areas as you specify filters.
 		</p>
 
 		<div class="grid grid-cols-0 md:grid-cols-[1fr_2fr] gap-8 mt-8">

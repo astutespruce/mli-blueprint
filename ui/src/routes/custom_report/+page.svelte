@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { uploadFile } from '#lib/api.js'
-	import { API_URL } from '#lib/env.js'
-	import { captureException, logGAEvent } from '#lib/util/log.js'
 	import { Footer, Header } from '#lib/components/layout/index.js'
 	import { Done, Progress, Queued, Error, UploadForm } from '#lib/components/report/index.js'
 	import type { ReportState, ReportJobResult, ReportType } from '#lib/components/report/types.js'
+	import { API_URL } from '#lib/env.js'
+	import { captureException, logGAEvent } from '#lib/util/log.js'
 
 	const initState: ReportState = {
 		view: 'upload',

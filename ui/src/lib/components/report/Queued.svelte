@@ -1,5 +1,6 @@
 <script>
 	import Clock from '~icons/fa-solid/clock'
+
 	import { cn } from '#lib/utils.js'
 
 	const { message, queuePosition, elapsedTime, class: className = '' } = $props()

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { getContext } from 'svelte'
 
-	import { logGAEvent } from '#lib/util/log.js'
-	import ModeTooltip from './ModeTooltip.svelte'
-	import { cn } from '#lib/utils.js'
 	import type { MapState } from '#lib/components/map/index.js'
+	import { logGAEvent } from '#lib/util/log.js'
+	import { cn } from '#lib/utils.js'
+	import ModeTooltip from './ModeTooltip.svelte'
 
 	let { belowMinZoom } = $props()
 	const mapState: MapState = getContext('map-state')

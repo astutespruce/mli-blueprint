@@ -1,8 +1,8 @@
 <script lang="ts">
 	import CheckIcon from '~icons/fa-solid/check'
+
 	import { urban as urbanInfo } from '#lib/config/constants.js'
 	import { cn } from '#lib/utils.js'
-
 	import UrbanChart from './UrbanChart.svelte'
 
 	const YEARS = [2001, 2004, 2006, 2008, 2011, 2013, 2016, 2019, 2021, 2030, 2040, 2050, 2060]

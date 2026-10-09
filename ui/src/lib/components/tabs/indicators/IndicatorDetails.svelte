@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { getContext } from 'svelte'
-
 	import ReplyIcon from '~icons/fa-solid/reply'
-	import { Button } from '#lib/components/ui/button/index.js'
-	import type { MapState } from '#lib/components/map/index.js'
-	import { formatPercent } from '#lib/util/format.js'
-	import { sum } from '#lib/util/data.js'
-	import { cn } from '#lib/utils.js'
 
+	import type { MapState } from '#lib/components/map/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { sum } from '#lib/util/data.js'
+	import { formatPercent } from '#lib/util/format.js'
+	import { cn } from '#lib/utils.js'
 	import { NeedHelp } from '../general'
 	import IndicatorPercentTable from './IndicatorPercentTable.svelte'
 

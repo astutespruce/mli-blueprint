@@ -1,13 +1,4 @@
 import {
-	applyFactor,
-	parsePipeEncodedValues,
-	parseDeltaEncodedValues,
-	parseDictEncodedValues,
-	indexBy,
-	setIntersection,
-	sum
-} from '#lib/util/data.js'
-import {
 	blueprint,
 	indicatorGroups as indicatorGroupInfo,
 	indicatorGroupIndex,
@@ -16,6 +7,15 @@ import {
 	urban
 } from '#lib/config/constants.js'
 import type { IndicatorValue } from '#lib/types.js'
+import {
+	applyFactor,
+	parsePipeEncodedValues,
+	parseDeltaEncodedValues,
+	parseDictEncodedValues,
+	indexBy,
+	setIntersection,
+	sum
+} from '#lib/util/data.js'
 
 /**
  * Return true if text is null or an empty string or single quote.

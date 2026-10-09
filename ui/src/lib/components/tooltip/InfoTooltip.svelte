@@ -1,7 +1,8 @@
 <script lang="ts">
 	import QuestionCircle from '~icons/fa-regular/question-circle'
-	import * as Tooltip from '#lib/components/ui/tooltip/index.js'
+
 	import * as Dialog from '#lib/components/ui/dialog/index.js'
+	import * as Tooltip from '#lib/components/ui/tooltip/index.js'
 
 	const { title, description, 'aria-label': ariaLabel = null } = $props()
 </script>

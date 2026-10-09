@@ -4,8 +4,8 @@
 	import HumanWellbeingIcon from '#images/h.svg'
 	import LandscapeHealthIcon from '#images/l.svg'
 	import WildlifeIcon from '#images/w.svg'
-	import { cn } from '#lib/utils.js'
 	import type { MapState } from '#lib/components/map/index.js'
+	import { cn } from '#lib/utils.js'
 	import { IndicatorGroup, IndicatorDetails } from './indicators'
 
 	const indicatorGroupIcons = {

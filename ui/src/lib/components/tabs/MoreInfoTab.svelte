@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { cn } from '#lib/utils.js'
-
-	import { ProtectedAreas, Urban } from './moreinfo'
 	import { NeedHelp } from './general'
+	import { ProtectedAreas, Urban } from './moreinfo'
 
 	const {
 		type,

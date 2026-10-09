@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { getContext } from 'svelte'
-
+	import TimesCircleIcon from '~icons/fa-regular/times-circle'
 	import LineChartIcon from '~icons/fa-solid/chart-line'
 	import PieChartIcon from '~icons/fa-solid/chart-pie'
 	import TasksIcon from '~icons/fa-solid/tasks'
-	import TimesCircleIcon from '~icons/fa-regular/times-circle'
-	import { Button } from '#lib/components/ui/button/index.js'
+
 	import type { MapState } from '#lib/components/map/index.js'
 	import { SummaryReportModal } from '#lib/components/report/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
 	import { formatNumber } from '#lib/util/format.js'
 	import { cn } from '#lib/utils.js'
 

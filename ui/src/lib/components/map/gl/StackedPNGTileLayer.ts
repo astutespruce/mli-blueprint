@@ -4,14 +4,13 @@ import { PMTilesSource } from '@loaders.gl/pmtiles'
 import { luma } from '@luma.gl/core'
 import { dequal as deepEqual } from 'dequal'
 
-// have to use the raw loader to load shaders
-import vertexShader from './vertex.vs?raw'
-import fragmentShader from './fragment.fs?raw'
-
 import { makeRGBAFloat32Palette } from './colors'
 import { getFilterExpr, getFilterValues } from './filters'
+import fragmentShader from './fragment.fs?raw'
 import StackedPNGLayer from './StackedPNGLayer'
 import { createPNGTexture } from './texture'
+// have to use the raw loader to load shaders
+import vertexShader from './vertex.vs?raw'
 
 // turn off verbose logging
 luma.log.level = 0

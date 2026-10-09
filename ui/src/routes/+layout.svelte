@@ -4,7 +4,6 @@
 
 	import { browser } from '$app/env'
 	import { GOOGLE_ANALYTICS_ID } from '#lib/env.js'
-
 	import '../app.css'
 
 	let { children } = $props()

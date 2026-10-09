@@ -1,5 +1,4 @@
 import path from 'path'
-
 import send from 'send'
 
 const basePath = process.env.DEPLOY_PATH || ''

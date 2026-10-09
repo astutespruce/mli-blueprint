@@ -3,17 +3,17 @@
 	import { superForm, fileProxy, defaults } from 'sveltekit-superforms'
 	import { zod4, zod4Client } from 'sveltekit-superforms/adapters'
 	import { z } from 'zod'
-
-	import ZipFileIcon from '~icons/fa-solid/file-archive'
 	import ExclamationTriangle from '~icons/fa-solid/exclamation-triangle'
+	import ZipFileIcon from '~icons/fa-solid/file-archive'
 	import UploadIcon from '~icons/fa-solid/upload'
+
+	import { resolve } from '$app/paths'
+	import { ContactDialog } from '#lib/components/dialog/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { Field, Control, Label, Button as SubmitButton } from '#lib/components/ui/form/index.js'
+	import { Input } from '#lib/components/ui/input/index.js'
 	import { CONTACT_URL } from '#lib/env.js'
 	import { cn } from '#lib/utils.js'
-	import { Field, Control, Label, Button as SubmitButton } from '#lib/components/ui/form/index.js'
-	import { Button } from '#lib/components/ui/button/index.js'
-	import { Input } from '#lib/components/ui/input/index.js'
-	import { ContactDialog } from '#lib/components/dialog/index.js'
-	import { resolve } from '$app/paths'
 
 	const MAXSIZE_MB = 100
 	const MIME_TYPES = new Set([
@@ -283,8 +283,8 @@
 					<br />
 					<br />
 					You can help us improve the blueprint and this report by helping us understand your use case;
-					we use this information to provide statistics about how the blueprint is being used and to
-					prioritize improvements.
+					we use this information to provide statistics about how the blueprint is being used and to prioritize
+					improvements.
 				</p>
 			</div>
 		</div>

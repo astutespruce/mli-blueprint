@@ -4,8 +4,8 @@
 	import { browser } from '$app/env'
 	import type { MapState } from '#lib/components/map/index.js'
 	import { LegendElement } from '#lib/components/map/legend/index.js'
-	import FiltersList from './FiltersList.svelte'
 	import { BLUEPRINT_VERSION } from '#lib/env.js'
+	import FiltersList from './FiltersList.svelte'
 
 	const mapState: MapState = getContext('map-state')
 	const { label: title, valueLabel: subtitle, categories } = $derived(mapState.displayLayer)

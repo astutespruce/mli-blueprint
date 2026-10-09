@@ -2,14 +2,17 @@
 	import CheckIcon from '@lucide/svelte/icons/check'
 	import CaretDown from '~icons/fa-solid/caret-down'
 	import CaretRight from '~icons/fa-solid/caret-right'
+
 	import BlueprintIcon from '#images/blueprint.svg'
 	import HumanWellbeingIcon from '#images/h.svg'
 	import LandscapeHealthIcon from '#images/l.svg'
-	import WildlifeIcon from '#images/w.svg'
 	import OtherInfoIcon from '#images/otherInfo.svg'
-
-	import { cn } from '#lib/utils.js'
-
+	import WildlifeIcon from '#images/w.svg'
+	import { InfoTooltip } from '#lib/components/tooltip/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
+	import { Checkbox } from '#lib/components/ui/checkbox/index.js'
+	import * as Collapsible from '#lib/components/ui/collapsible/index.js'
+	import { Label } from '#lib/components/ui/label/index.js'
 	import {
 		blueprint,
 		indicatorGroups,
@@ -17,11 +20,7 @@
 		urbanByDecade,
 		protectedAreas
 	} from '#lib/config/constants.js'
-	import { Button } from '#lib/components/ui/button/index.js'
-	import { Checkbox } from '#lib/components/ui/checkbox/index.js'
-	import * as Collapsible from '#lib/components/ui/collapsible/index.js'
-	import { Label } from '#lib/components/ui/label/index.js'
-	import { InfoTooltip } from '#lib/components/tooltip/index.js'
+	import { cn } from '#lib/utils.js'
 
 	const priorityDatasets = [blueprint]
 	// polygon versions of protected areas are automatically included

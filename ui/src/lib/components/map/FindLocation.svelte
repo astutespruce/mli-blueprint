@@ -1,8 +1,9 @@
 <script lang="ts">
-	import CaretRightIcon from '~icons/fa-solid/caret-right'
 	import CaretDownIcon from '~icons/fa-solid/caret-down'
-	import { Button } from '#lib/components/ui/button/index.js'
+	import CaretRightIcon from '~icons/fa-solid/caret-right'
+
 	import { LatLon, Search } from '#lib/components/search/index.js'
+	import { Button } from '#lib/components/ui/button/index.js'
 	import { cn } from '#lib/utils.js'
 
 	let placenameInputNode: HTMLInputElement | null = $state(null)

@@ -1,5 +1,6 @@
 {
 	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"svelte": true,
 	"useTabs": true,
 	"singleQuote": true,
 	"trailingComma": "none",
@@ -14,5 +15,44 @@
 		"bun.lock",
 		"bun.lockb",
 		"src/lib/components/ui/**"
-	]
+	],
+	"sortImports": {
+		"newlinesBetween": false,
+		"customGroups": [
+			{
+				"groupName": "svelte-icons",
+				"elementNamePattern": ["~icons/**/*"]
+			},
+			{
+				"groupName": "sveltekit-app",
+				"elementNamePattern": ["$app/**/*"]
+			},
+			{
+				"groupName": "svelte-constants",
+				"elementNamePattern": ["$constants/**/*"]
+			},
+			{
+				"groupName": "svelte-images",
+				"elementNamePattern": ["#images/**/*"]
+			},
+			{
+				"groupName": "svelte-lib",
+				"elementNamePattern": ["#lib/**/*"]
+			}
+		],
+		"groups": [
+			"value-builtin",
+			"value-external",
+			"svelte-icons",
+			{ "newlinesBetween": true },
+			"sveltekit-app",
+			"svelte-constants",
+			"svelte-images",
+			"svelte-lib",
+			["value-internal", "value-parent", "value-sibling", "value-index"],
+			{ "newlinesBetween": true },
+			"type-import",
+			"unknown"
+		]
+	}
 }

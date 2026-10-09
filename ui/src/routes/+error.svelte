@@ -1,8 +1,8 @@
 <script>
 	import { browser } from '$app/env'
 	import { page } from '$app/state'
-	import { CONTACT_URL } from '#lib/env.js'
 	import { Footer, Header } from '#lib/components/layout/index.js'
+	import { CONTACT_URL } from '#lib/env.js'
 
 	console.error(page.status)
 	console.error(page.error)

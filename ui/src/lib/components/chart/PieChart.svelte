@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { cn } from '#lib/utils.js'
 	import { sum } from '#lib/util/data.js'
 	import { formatPercent } from '#lib/util/format.js'
+	import { cn } from '#lib/utils.js'
 
 	const { categories, radius = 35, lineWidth = 30, class: className = '' } = $props()
 

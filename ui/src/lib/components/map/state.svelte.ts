@@ -1,12 +1,13 @@
 import { SvelteSet } from 'svelte/reactivity'
-import type { Map } from 'mapbox-gl/esm'
 
 import { browser } from '$app/env'
 import { defaultFilters, filterToIndex } from '#lib/config/filters.js'
 import { renderLayersIndex } from '#lib/config/pixelLayers.js'
 import { BLUEPRINT_VERSION } from '#lib/env.js'
-import { logGAEvent } from '#lib/util/log.js'
 import type { Filter, Filters, PixelLayer } from '#lib/types.js'
+import { logGAEvent } from '#lib/util/log.js'
+
+import type { Map } from 'mapbox-gl/esm'
 
 type MapMode = 'unit' | 'pixel' | 'filter'
 type FilterMode = 'AND' | 'OR'

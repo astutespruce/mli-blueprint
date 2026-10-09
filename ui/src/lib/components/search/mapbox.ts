@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid'
 
-import { MAPBOX_TOKEN } from '#lib/env.js'
 import { mapConfig as config } from '#lib/config/map.js'
-import { getFromStorage, saveToStorage } from '#lib/util/dom.js'
+import { MAPBOX_TOKEN } from '#lib/env.js'
 import type { Coordinate } from '#lib/types.js'
+import { getFromStorage, saveToStorage } from '#lib/util/dom.js'
 
 const apiURL = 'https://api.mapbox.com/search/searchbox/v1'
 const { bounds } = config

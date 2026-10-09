@@ -1,7 +1,8 @@
 <script lang="ts">
 	import DownloadIcon from '~icons/fa-solid/download'
+
 	import { createSummaryUnitReport } from '#lib/api.js'
-	import { API_URL, CONTACT_URL } from '#lib/env.js'
+	import { Button } from '#lib/components/ui/button/index.js'
 	import {
 		Root,
 		Trigger,
@@ -11,12 +12,13 @@
 		Header,
 		Title
 	} from '#lib/components/ui/dialog/index.js'
-	import { Button } from '#lib/components/ui/button/index.js'
+	import { API_URL, CONTACT_URL } from '#lib/env.js'
 	import { captureException, logGAEvent } from '#lib/util/log.js'
 	import Done from './Done.svelte'
+	import Error from './Error.svelte'
 	import Progress from './Progress.svelte'
 	import Queued from './Queued.svelte'
-	import Error from './Error.svelte'
+
 	import type { SummaryUnitReportState, ReportJobResult, ProgressCallbackParams } from './types'
 
 	let open: boolean = $state(false)

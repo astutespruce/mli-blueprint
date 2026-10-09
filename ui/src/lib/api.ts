@@ -1,5 +1,3 @@
-import { captureException } from '#lib/util/log.js'
-import { API_TOKEN, API_URL } from '#lib/env.js'
 import type {
 	JobStatus,
 	ProgressCallback,
@@ -7,6 +5,8 @@ import type {
 	ReportJobResult,
 	SummaryUnitType
 } from '#lib/components/report/types.js'
+import { API_TOKEN, API_URL } from '#lib/env.js'
+import { captureException } from '#lib/util/log.js'
 
 const pollInterval = 1000 // milliseconds; 1 second
 const jobTimeout = 600000 // milliseconds; 10 minutes

@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { getContext, untrack } from 'svelte'
-	import { SvelteSet } from 'svelte/reactivity'
 	import { MapboxOverlay } from '@deck.gl/mapbox'
 	import * as mapboxgl from 'mapbox-gl/esm'
-	import type { LngLatLike, Map, Marker, SourceSpecification } from 'mapbox-gl/esm'
+	import { getContext, untrack } from 'svelte'
+	import { SvelteSet } from 'svelte/reactivity'
+	import Spinner from '~icons/fa-solid/spinner'
 	import 'mapbox-gl/dist/mapbox-gl.css'
 
 	import CrosshairsIcon from '#images/CrosshairsIcon.svg'
-	import Spinner from '~icons/fa-solid/spinner'
-
 	import { subregionIndex } from '#lib/config/constants.js'
 	import { mapConfig as config, sources, layers } from '#lib/config/map.js'
 	import { pixelLayers } from '#lib/config/pixelLayers.js'
@@ -16,18 +14,18 @@
 	import type { LocationData } from '#lib/types.js'
 	import { indexBy } from '#lib/util/data.js'
 	import { debounce, eventHandler } from '#lib/util/func.js'
-
 	import { unpackFeatureData } from './features'
 	import FindLocation from './FindLocation.svelte'
 	import { extractPixelData, StackedPNGTileLayer } from './gl'
-	import { Legend } from './legend'
-
 	import LayerToggle from './LayerToggle.svelte'
+	import { Legend } from './legend'
 	import { ModeToggle } from './mode'
 	import { MapState } from './state.svelte'
 	import StyleToggle from './StyleToggle.svelte'
 	import { serializeMapCenterZoomToURL, deserializeMapCenterZoomFromURL } from './util'
 	import { getCenterAndZoom } from './viewport'
+
+	import type { LngLatLike, Map, Marker, SourceSpecification } from 'mapbox-gl/esm'
 
 	let map: Map
 	let marker: Marker | null = null

@@ -1,5 +1,4 @@
 import { TILES_URL } from '#lib/env.js'
-import { indexBy } from '#lib/util/data.js'
 import type {
 	Indicator,
 	PixelLayerBounds,
@@ -7,7 +6,7 @@ import type {
 	PixelLayerIndex,
 	PixelLayer
 } from '#lib/types.js'
-
+import { indexBy } from '#lib/util/data.js'
 import {
 	blueprint,
 	indicatorGroups,

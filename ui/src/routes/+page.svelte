@@ -1,11 +1,10 @@
 <script lang="ts">
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
 	import { setContext, untrack } from 'svelte'
+	import ExclamationTriangleIcon from '~icons/fa-solid/exclamation-triangle'
+
 	import { dev } from '$app/env'
 	import { asset } from '$app/paths'
-	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query'
-
-	import ExclamationTriangleIcon from '~icons/fa-solid/exclamation-triangle'
-	import type { AppState, LocationData } from '#lib/types.js'
 	import {
 		Footer,
 		Header,
@@ -24,6 +23,7 @@
 		MoreInfoTab,
 		PrioritiesTab
 	} from '#lib/components/tabs/index.js'
+	import type { AppState, LocationData } from '#lib/types.js'
 	import { cn } from '#lib/utils.js'
 
 	const appState: AppState = $state({ isMobile: false, isPrint: false })

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import ReplyAllIcon from '~icons/fa-solid/reply-all'
-	import { protectedAreas, protectedAreasPoly } from '#lib/config/constants.js'
+
 	import { Button } from '#lib/components/ui/button/index.js'
-	import SelectField from './SelectField.svelte'
+	import { protectedAreas, protectedAreasPoly } from '#lib/config/constants.js'
 	import SelectDatasets from './SelectDatasets.svelte'
+	import SelectField from './SelectField.svelte'
 
 	type Props = {
 		count: number

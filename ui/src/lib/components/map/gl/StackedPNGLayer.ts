@@ -2,13 +2,13 @@
 
 import { Layer, project32 } from '@deck.gl/core'
 import { Model } from '@luma.gl/engine'
-import type { ShaderModule } from '@luma.gl/shadertools'
 import { DynamicTexture } from '@luma.gl/engine'
 
 import { pixelLayers, paletteSize } from '#lib/config/pixelLayers.js'
 import { sum } from '#lib/util/data.js'
-
 import createMesh from './mesh'
+
+import type { ShaderModule } from '@luma.gl/shadertools'
 
 const numLayers = sum(pixelLayers.map((l) => l.encoding.length))
 
