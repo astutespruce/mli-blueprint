@@ -98,7 +98,7 @@ def add_basic_results_sheet(
     column_widths = [name_col_width] + ([col_width] * len(tmp.columns))
 
     num_area_cols = len(value_columns) + int(has_area_outside_extent) + int(has_area_outside_dataset) + 1
-    area_columns = list(range(num_area_cols))
+    area_columns = list(range(1, num_area_cols))
     percent_columns = list(range(num_area_cols, num_area_cols + num_area_cols))
 
     write_excel(

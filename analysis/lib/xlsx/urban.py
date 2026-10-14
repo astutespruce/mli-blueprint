@@ -67,7 +67,7 @@ def add_urbanization_sheet(xlsx: pd.ExcelWriter, df: pd.DataFrame, name_col_widt
 
     column_widths = [name_col_width] + ([18] * (len(urban.columns) - 1))
     num_area_cols = len(value_columns) + int(has_area_outside_extent) + int(has_area_outside_dataset) + 1
-    area_columns = list(range(num_area_cols))
+    area_columns = list(range(1, num_area_cols))
     percent_columns = list(range(num_area_cols, num_area_cols + num_area_cols))
     write_excel(
         xlsx,
