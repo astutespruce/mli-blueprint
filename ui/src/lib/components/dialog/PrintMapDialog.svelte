@@ -69,7 +69,10 @@
 					This will use your browser's print interface to save a screenshot of your map and any
 					enabled filters.
 					<br /><br />
-					In your browser's print dialog, you can choose to save this to PDF instead of printing it.
+					<b>
+						IMPORTANT: please choose the "Save to PDF" option in your browser's print dialog and not
+						"Adobe PDF" or similar options.
+					</b>
 				</p>
 			{/if}
 			<Footer class="border-t border-t-grey-2 mt-2 pt-2">
