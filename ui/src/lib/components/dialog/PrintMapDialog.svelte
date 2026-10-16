@@ -70,7 +70,7 @@
 					enabled filters.
 					<br /><br />
 					<b>
-						IMPORTANT: please choose the "Save to PDF" option in your browser's print dialog and not
+						IMPORTANT: Please choose the "Save as PDF" option in your browser's print dialog and not
 						"Adobe PDF" or similar options.
 					</b>
 				</p>
