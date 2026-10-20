@@ -28,7 +28,9 @@ if (browser && typeof SENTRY_DSN !== 'undefined') {
 			// bot errors
 			'is not valid JSON',
 			// likely bot related
-			'Failed to fetch dynamically imported module'
+			'Failed to fetch dynamically imported module',
+			"Cannot set properties of undefined (setting 'scroll')",
+			'Object captured as exception with keys: message, status'
 		]
 	})
 
