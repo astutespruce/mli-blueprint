@@ -1,11 +1,8 @@
-import os
 import shutil
-from io import BytesIO
 
 import numpy as np
 import pandas as pd
 import pytest
-from dotenv import load_dotenv
 from pyogrio import read_dataframe
 
 from analysis.constants import (
@@ -27,10 +24,7 @@ from api.logger import log
 from api.settings import TEMP_DIR
 from api.tasks.custom_report_xlsx import get_xlsx_report_inputs
 
-load_dotenv()
-
-# add to .env file to name saving test files
-SAVE_XLSX = bool(os.getenv("TEST_SAVE_XLSX", "0"))
+pd.options.io.excel.xlsx.reader = "calamine"
 
 
 # mock redis context for set progress
@@ -320,14 +314,14 @@ async def test_create_xlsx_file_single_area(format):
     results = await get_analysis_unit_results(df, datasets)
     xlsx = create_report(results, datasets, name="Test area")
 
-    if SAVE_XLSX:
-        with open("/tmp/test_create_xlsx_file_single_area.xlsx", "wb") as out:
-            _ = out.write(xlsx)
+    filename = "/tmp/test_create_xlsx_file_single_area.xlsx"
+    with open(filename, "wb") as out:
+        _ = out.write(xlsx)
 
-    reader = pd.ExcelFile(BytesIO(xlsx))
+    reader = pd.ExcelFile(filename)
 
     assert len(reader.sheet_names) == len(datasets) + 3
-    summary = reader.parse(sheet_name="Summary", skiprows=2)
+    summary = pd.read_excel(filename, sheet_name="Summary", skiprows=2)
     assert len(summary) == len(df)
 
     assert np.allclose(summary["GIS acres"], results.acres)
@@ -336,30 +330,30 @@ async def test_create_xlsx_file_single_area(format):
     assert np.allclose(summary["Number of distinct areas in analysis unit"], results["count"])
     assert summary["State(s)"].tolist() == results.states.tolist()
 
-    details = reader.parse(sheet_name="Data descriptions", skiprows=2)
+    details = pd.read_excel(filename, sheet_name="Data descriptions", skiprows=2)
     assert len(details) == len(datasets)
     assert details["Name"].tolist() == [d["label"] for id, d in REPORT_DATASETS.items() if id in datasets]
 
-    metadata = reader.parse(sheet_name="Analysis metadata", skiprows=2)
+    metadata = pd.read_excel(filename, sheet_name="Analysis metadata", skiprows=2)
     assert len(metadata) == 3
     assert metadata.Value.values[0] == "Test area"
 
-    caption = reader.parse(sheet_name="Blueprint priority", nrows=1, header=None)
-    assert caption.values[0] == f"Table 3: {BLUEPRINT['caption']}."
+    caption = pd.read_excel(filename, sheet_name="Blueprint priority", nrows=1, header=None)
+    assert caption.values[0][0] == f"Table 3: {BLUEPRINT['caption']}."
 
-    acres_percent_header = reader.parse(sheet_name="Blueprint priority", skiprows=2, nrows=1, header=None).dropna(
-        axis=1
-    )
+    acres_percent_header = pd.read_excel(
+        filename, sheet_name="Blueprint priority", skiprows=2, nrows=1, header=None
+    ).dropna(axis=1)
     assert acres_percent_header.values[0].tolist() == ["ACRES", "PERCENT OF AREA"]
 
-    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
+    blueprint = pd.read_excel(filename, sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     assert blueprint.columns.tolist() == ["Analysis unit"] + blueprint_value_cols[::-1] + blueprint_percent_cols[::-1]
     assert np.allclose(blueprint.iloc[0][blueprint_value_cols].values.astype("float64"), results.blueprint.iloc[0])
 
     indicator_id = "l_climateresiliency"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
+    indicator_sheet = pd.read_excel(filename, sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -370,7 +364,7 @@ async def test_create_xlsx_file_single_area(format):
         indicator_sheet.iloc[0][indicator_value_cols].values.astype("float64"), results[indicator_id].iloc[0]
     )
 
-    protected_areas_poly = reader.parse(sheet_name="Protected areas by name", skiprows=2)
+    protected_areas_poly = pd.read_excel(filename, sheet_name="Protected areas by name", skiprows=2)
     assert protected_areas_poly.columns.tolist() == [
         "Analysis unit",
         "GIS acres",
@@ -384,7 +378,7 @@ async def test_create_xlsx_file_single_area(format):
     assert protected_areas_poly["Name"].values.tolist() == ["Devils Lake State Park-Iansr"]
     assert protected_areas_poly["Owner"].values.tolist() == ["SDNR"]
 
-    urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
+    urban = pd.read_excel(filename, sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert urban.columns.tolist() == ["Analysis unit"] + urban_value_cols + urban_percent_cols
     # last column is nodata, omitted here
     assert np.allclose(urban.iloc[0][urban_value_cols].values.astype("float64"), results.urban_by_decade.iloc[0][:-1])
@@ -407,14 +401,14 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     results = await get_analysis_unit_results(df, datasets)
     xlsx = create_report(results, datasets, name="Test area")
 
-    if SAVE_XLSX:
-        with open("/tmp/test_create_xlsx_file_multiple_areas_partial_overlap.xlsx", "wb") as out:
-            _ = out.write(xlsx)
+    filename = "/tmp/test_create_xlsx_file_multiple_areas_partial_overlap.xlsx"
+    with open(filename, "wb") as out:
+        _ = out.write(xlsx)
 
-    reader = pd.ExcelFile(BytesIO(xlsx))
+    reader = pd.ExcelFile(filename)
 
     assert len(reader.sheet_names) == len(datasets) + 3
-    summary = reader.parse(sheet_name="Summary", skiprows=2)
+    summary = pd.read_excel(filename, sheet_name="Summary", skiprows=2)
     assert len(summary) == len(df)
 
     assert np.allclose(summary["GIS acres"], results.acres)
@@ -427,11 +421,11 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     assert np.allclose(summary["Number of distinct areas in analysis unit"], results["count"])
     assert summary["State(s)"].fillna("").tolist() == results.states.tolist()
 
-    details = reader.parse(sheet_name="Data descriptions", skiprows=2)
+    details = pd.read_excel(filename, sheet_name="Data descriptions", skiprows=2)
     assert len(details) == len(datasets)
     assert details["Name"].tolist() == [d["label"] for id, d in REPORT_DATASETS.items() if id in datasets]
 
-    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
+    blueprint = pd.read_excel(filename, sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     # when we have partial overlap, we have to update the label of the analysis area column
     assert (
         blueprint.columns.tolist()
@@ -446,7 +440,7 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     indicator_id = "l_climateresiliency"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
+    indicator_sheet = pd.read_excel(filename, sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -464,7 +458,7 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
         indicator_sheet.iloc[2][indicator_value_cols].values.astype("float64"), results[indicator_id].iloc[2]
     )
 
-    protected_areas_poly = reader.parse(sheet_name="Protected areas by name", skiprows=2)
+    protected_areas_poly = pd.read_excel(filename, sheet_name="Protected areas by name", skiprows=2)
     assert protected_areas_poly.columns.tolist() == [
         "Analysis unit",
         "GIS acres",
@@ -483,7 +477,7 @@ async def test_create_xlsx_file_multiple_areas_partial_overlap(format):
     ]
     assert protected_areas_poly["Owner"].fillna("").values.tolist() == ["", "USDA Forest Service", ""]
 
-    urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
+    urban = pd.read_excel(filename, sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert (
         urban.columns.tolist()
         == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
@@ -520,14 +514,14 @@ async def test_create_xlsx_file_multiple_areas(format):
     results = await get_analysis_unit_results(df, datasets)
     xlsx = create_report(results, datasets, name="Test area")
 
-    if SAVE_XLSX:
-        with open("/tmp/test_create_xlsx_file_multiple_areas.xlsx", "wb") as out:
-            _ = out.write(xlsx)
+    filename = "/tmp/test_create_xlsx_file_multiple_areas.xlsx"
+    with open(filename, "wb") as out:
+        _ = out.write(xlsx)
 
-    reader = pd.ExcelFile(BytesIO(xlsx))
+    reader = pd.ExcelFile(filename)
 
     assert len(reader.sheet_names) == len(datasets) + 3
-    summary = reader.parse(sheet_name="Summary", skiprows=2)
+    summary = pd.read_excel(filename, sheet_name="Summary", skiprows=2)
     assert len(summary) == len(df)
     assert np.allclose(summary["GIS acres"], results.acres)
     assert np.allclose(
@@ -541,11 +535,11 @@ async def test_create_xlsx_file_multiple_areas(format):
     assert np.allclose(summary["Number of distinct areas in analysis unit"], results["count"])
     assert summary["State(s)"].tolist() == results.states.tolist()
 
-    details = reader.parse(sheet_name="Data descriptions", skiprows=2)
+    details = pd.read_excel(filename, sheet_name="Data descriptions", skiprows=2)
     assert len(details) == len(datasets)
     assert details["Name"].tolist() == [d["label"] for id, d in REPORT_DATASETS.items() if id in datasets]
 
-    blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
+    blueprint = pd.read_excel(filename, sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     assert (
         blueprint.columns.tolist()
         == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
@@ -559,7 +553,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     indicator_id = "l_climateresiliency"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
+    indicator_sheet = pd.read_excel(filename, sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -577,7 +571,7 @@ async def test_create_xlsx_file_multiple_areas(format):
     indicator_id = "l_greatlakesshorelineanddunehabitat"
     indicator = INDICATORS_INDEX[indicator_id]
     sheet_name = indicator.get("sheet_name") or indicator["label"]
-    indicator_sheet = reader.parse(sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
+    indicator_sheet = pd.read_excel(filename, sheet_name=sheet_name, skiprows=3).dropna(axis=1, how="all")
     indicator_value_cols = get_value_columns(indicator["values"])
     indicator_percent_cols = [col.replace("(acres)", "(percent)") for col in indicator_value_cols]
     assert (
@@ -592,7 +586,7 @@ async def test_create_xlsx_file_multiple_areas(format):
             indicator_sheet.iloc[i][indicator_value_cols].values.astype("float64"), results[indicator_id].iloc[i]
         )
 
-    protected_areas_poly = reader.parse(sheet_name="Protected areas by name", skiprows=2)
+    protected_areas_poly = pd.read_excel(filename, sheet_name="Protected areas by name", skiprows=2)
     assert protected_areas_poly.columns.tolist() == [
         "Analysis unit",
         "GIS acres",
@@ -631,7 +625,7 @@ async def test_create_xlsx_file_multiple_areas(format):
         "University of Wisconsin",
     ]
 
-    urban = reader.parse(sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
+    urban = pd.read_excel(filename, sheet_name="Urban growth", skiprows=3).dropna(axis=1, how="all")
     assert (
         urban.columns.tolist()
         == ["Analysis unit", "Area outside Midwest data extent\n(acres)"]
