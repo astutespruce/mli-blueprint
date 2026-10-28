@@ -219,7 +219,7 @@
 						</div>
 					{:else}
 						<p class="text-sm text-grey-8 leading-snug">
-							Note: your files must be in a zip file, and can include only one shapefile or Feature
+							Note: Your files must be in a zip file, and can include only one shapefile or Feature
 							Class, and should represent a relatively small area. For help analyzing larger areas,
 							please <ContactDialog>
 								<span class="text-link hover:underline cursor-pointer"> contact us</span>
@@ -283,8 +283,8 @@
 					<br />
 					<br />
 					You can help us improve the blueprint and this report by helping us understand your use case;
-					we use this information to provide statistics about how the blueprint is being used and to prioritize
-					improvements.
+					we use this information to provide statistics about how the blueprint is being used and to
+					prioritize improvements.
 				</p>
 			</div>
 		</div>

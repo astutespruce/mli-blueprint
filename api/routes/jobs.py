@@ -92,7 +92,7 @@ async def job_status_endpoint(job_id: str):
             if status == JobStatus.not_found:
                 raise HTTPException(
                     status_code=404,
-                    detail="Job not found; it may have been cancelled, timed out, or the server restarted.  Please try again.",
+                    detail="Job not found; it may have been cancelled, timed out, or the server restarted. Please try again.",
                 )
 
             if status == JobStatus.queued:
@@ -178,7 +178,7 @@ async def report_results_endpoint(job_id: str, report_type: ReportType):
         if status == JobStatus.not_found:
             raise HTTPException(
                 status_code=404,
-                detail="Job not found; it may have been cancelled, timed out, or the server restarted.  Please try again.",
+                detail="Job not found; it may have been cancelled, timed out, or the server restarted. Please try again.",
             )
 
         if status != JobStatus.complete:
@@ -189,7 +189,7 @@ async def report_results_endpoint(job_id: str, report_type: ReportType):
         if not info.success:
             raise HTTPException(
                 status_code=400,
-                detail="Job failed, cannot return results.  Please contact us to report an issue.",
+                detail="Job failed, cannot return results. Please contact us to report an issue.",
             )
 
         result, _ = await job.result()

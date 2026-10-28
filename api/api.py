@@ -41,7 +41,7 @@ async def catch_exceptions_middleware(request: Request, call_next):
         log.error(f"Error processing request: {ex}")
         return JSONResponse(
             {
-                "detail": "unexpected error processing this report.  The server may be experiencing above normal requests or other problems.  Please try again in a few minutes."
+                "detail": "unexpected error processing this report. The server may be experiencing above normal requests or other problems. Please try again in a few minutes."
             },
             status_code=500,
         )

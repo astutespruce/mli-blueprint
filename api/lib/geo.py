@@ -82,7 +82,7 @@ def get_dataset(zip: ZipFile) -> tuple[str]:
     elif num_features > MAX_POLYGONS:
         log.error("Upload data source contains too many features")
         raise ValueError(
-            f"data source contains too many features: {num_features:,} (must be <{MAX_POLYGONS:,}).  Please select a smaller subset of features or preprocess this dataset to reduce the number of individual features (e.g., dissolve adjacent boundaries)."
+            f"data source contains too many features: {num_features:,} (must be <{MAX_POLYGONS:,}). Please select a smaller subset of features or preprocess this dataset to reduce the number of individual features (e.g., dissolve adjacent boundaries)."
         )
 
     return filename, layers[0, 0]
@@ -110,14 +110,14 @@ def extract_dataset(path: str | Path, layer: None | str, columns: list[str]) -> 
     if len(df) > MAX_POLYGONS:
         log.error("Upload data source contains too many polygons")
         raise DataError(
-            f"data source contains too many individual polygons: {len(df):,} (must be <{MAX_POLYGONS:,}).  Please select a smaller subset of polygons or preprocess this dataset to reduce the number of individual polygons (e.g., dissolve adjacent boundaries)."
+            f"data source contains too many individual polygons: {len(df):,} (must be <{MAX_POLYGONS:,}). Please select a smaller subset of polygons or preprocess this dataset to reduce the number of individual polygons (e.g., dissolve adjacent boundaries)."
         )
 
     num_vertices = shapely.get_num_coordinates(df.geometry.values).sum()
     if num_vertices > MAX_VERTICES:
         log.error("Upload data source contains too many coordinates")
         raise DataError(
-            f"data source appears to be too complex and contains too many coordinates: {num_vertices:,} (total coordinates must be <{MAX_VERTICES:,}).  Please select a smaller subset of polygons preprocess this dataset to reduce the number of coordinates (e.g., dissolve adjacent boundaries, simplify polygons, etc)."
+            f"data source appears to be too complex and contains too many coordinates: {num_vertices:,} (total coordinates must be <{MAX_VERTICES:,}). Please select a smaller subset of polygons preprocess this dataset to reduce the number of coordinates (e.g., dissolve adjacent boundaries, simplify polygons, etc)."
         )
 
     # make sure that the polygons are big enough to be useful
@@ -129,7 +129,7 @@ def extract_dataset(path: str | Path, layer: None | str, columns: list[str]) -> 
             f"Upload data source has {pct_too_small}% of the total area in polygons less than a single 30x30m pixel"
         )
         raise DataError(
-            f"{pct_too_small:.0f}% of the total area in the data source is in polygons less than a single 30x30m pixel; these will not provide useful results.  Please filter these out of your dataset and try again."
+            f"{pct_too_small:.0f}% of the total area in the data source is in polygons less than a single 30x30m pixel; these will not provide useful results. Please filter these out of your dataset and try again."
         )
 
     df["geometry"] = shapely.make_valid(df.geometry.values)
@@ -142,7 +142,7 @@ def extract_dataset(path: str | Path, layer: None | str, columns: list[str]) -> 
 
         if len(df) == 0:
             raise DataError(
-                "no valid area boundaries available for analysis after making geometries valid.  This means that one or more of your features has an invalid geometry.  Please clean up your data and try again."
+                "no valid area boundaries available for analysis after making geometries valid. This means that one or more of your features has an invalid geometry. Please clean up your data and try again."
             )
 
     return df
