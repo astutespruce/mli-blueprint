@@ -350,7 +350,7 @@ async def test_create_xlsx_file_single_area(format):
     acres_percent_header = reader.parse(sheet_name="Blueprint priority", skiprows=2, nrows=1, header=None).dropna(
         axis=1
     )
-    assert acres_percent_header.values[0].tolist() == ["ACRES", "PERCENT"]
+    assert acres_percent_header.values[0].tolist() == ["ACRES", "PERCENT OF AREA"]
 
     blueprint = reader.parse(sheet_name="Blueprint priority", skiprows=3).dropna(axis=1, how="all")
     assert blueprint.columns.tolist() == ["Analysis unit"] + blueprint_value_cols[::-1] + blueprint_percent_cols[::-1]

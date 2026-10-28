@@ -135,7 +135,7 @@ def add_acres_percent_header(ws, row_idx: int, area_columns: list[int], percent_
 
     start_cell = f"{get_column_letter(percent_columns[0] + 1)}{row_idx}"
     cell = ws[start_cell]
-    cell.value = "PERCENT"
+    cell.value = "PERCENT OF AREA"
     cell.style = acres_percent_header_style
     ws.merge_cells(f"{start_cell}:{get_column_letter(percent_columns[-1])}{row_idx}")
 
