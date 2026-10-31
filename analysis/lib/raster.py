@@ -108,6 +108,35 @@ def get_window(dataset, bounds, boundless=True):
     return clip_window(window, dataset.width, dataset.height)
 
 
+def get_aligned_windows(dataset1, dataset2, bounds):
+    """Get windows into 2 different datasets that are aligned to bounds and their
+    common extent, so that resulting data read according to the window have the
+    same position and shape.
+
+    Parameters
+    ----------
+    dataset1 : open rasterio dataset
+    dataset2 : open rasterio dataset
+    bounds : list-like of [xmin, ymin, xmax, ymax]
+
+    Returns
+    -------
+    (window1, window2)
+    """
+    window1 = get_window(dataset1, bounds, boundless=False)
+    window2 = clip_window(
+        shift_window(window1, dataset1.window_transform(window1), dataset2.transform),
+        max_width=dataset2.width,
+        max_height=dataset2.height,
+    )
+
+    if window1.height != window2.height or window1.width != window2.width:
+        # if window2 covered a smaller area then have to clip back to it
+        window1 = shift_window(window2, dataset2.window_transform(window2), dataset1.transform)
+
+    return (window1, window2)
+
+
 def clip_window(window, max_width, max_height):
     """
     Convert a boundless window to a bounded window where the col_off and
@@ -241,16 +270,9 @@ def create_lowres_mask(
                 out.write(data)
 
 
-class SummaryUnitGrid:
-    def __init__(self, dataset, bounds):
-        self.dataset = dataset
-        self.window = get_window(dataset, bounds, boundless=False)
-        self.data = dataset.read(1, window=self.window)
-
-
-def summarize_raster_by_units_grid(
+def summarize_raster_by_summary_units(
     df,
-    units_grid,
+    units_dataset,
     value_dataset,
     bins,
     progress_label="Summarizing data...",
@@ -266,7 +288,7 @@ def summarize_raster_by_units_grid(
         must have a column "value" that corresponds to the value in units_dataset.
         units must not extend beyond extent of value_dataset and must have
         result of df.bounds joined in
-    units_grid : SummaryUnitGrid instance
+    units_dataset : open rasterio reader
     value_dataset : open rasterio Dataset
     bins : array-like of value bins
     message : str, optional
@@ -277,78 +299,34 @@ def summarize_raster_by_units_grid(
     """
     nodata = np.uint8(value_dataset.nodata)
 
-    # get read window for df
-    value_read_window = get_window(value_dataset, df.total_bounds, boundless=False)
-    value_data = value_dataset.read(1, window=value_read_window)
-
     out = np.zeros((len(df), len(bins)), dtype="uint64")
     for i, (_, row) in Bar(progress_label, max=len(df)).iter(enumerate(df.iterrows())):
-        # get boundless window in order to calculate offset adjustments for
-        # unit window, but then clip it to be boundless
-        value_window = get_window(value_dataset, (row.minx, row.miny, row.maxx, row.maxy), boundless=True)
-        col_off_adj = -value_window.col_off if value_window.col_off < 0 else 0
-        row_off_adj = -value_window.row_off if value_window.row_off < 0 else 0
-
-        value_window = clip_window(value_window, value_dataset.width, value_dataset.height)
-
-        if value_window.width == 0 or value_window.height == 0:
+        unit_window, value_window = get_aligned_windows(
+            units_dataset, value_dataset, bounds=(row.minx, row.miny, row.maxx, row.maxy)
+        )
+        if unit_window.width == 0 or unit_window.height == 0 or value_window.width == 0 or value_window.height == 0:
             continue
 
-        # shift the window for this area since we read the full data within a
-        # window
-        value_window = Window(
-            value_window.col_off - value_read_window.col_off,
-            value_window.row_off - value_read_window.row_off,
-            value_window.width,
-            value_window.height,
-        )
+        unit_mask = units_dataset.read(1, window=unit_window) == row.value
+        data = value_dataset.read(1, window=value_window)
+        count_values_inplace(data, unit_mask, out[i, :], nodata)
 
-        unit_window = get_window(
-            units_grid.dataset,
-            (row.minx, row.miny, row.maxx, row.maxy),
-            boundless=False,
-        )
-        # have to limit unit window to extent of area where value grid is available
-        unit_window = Window(
-            (unit_window.col_off - units_grid.window.col_off) + col_off_adj,
-            (unit_window.row_off - units_grid.window.row_off) + row_off_adj,
-            min(unit_window.width, value_window.width),
-            min(unit_window.height, value_window.height),
-        )
-        in_unit = units_grid.data[unit_window.toslices()] == row.value
-
-        values = value_data[value_window.toslices()]
-        count_values_inplace(values, in_unit, out[i, :], nodata)
-
-        # ruff:disable[ERA001]
-        # DEBUG: write value and unit rasters
-        # outfilename = "/tmp/values.tif"
+        # ruff: disable[ERA001]
+        # DEBUG
         # write_raster(
-        #     outfilename,
-        #     np.where(in_unit, values, nodata),
-        #     transform=value_dataset.window_transform(value_window),
-        #     crs=value_dataset.crs,
-        #     nodata=nodata,
+        #     "/tmp/unit.tif",
+        #     unit_mask.astype("uint8"),
+        #     units_dataset.window_transform(unit_window),
+        #     crs=units_dataset.crs,
+        #     nodata=255,
         # )
+
+        # outfilename = "/tmp/values.tif"
+        # write_raster(outfilename, data, value_dataset.window_transform(value_window), crs=value_dataset.crs, nodata=255)
         # if value_dataset.colormap(1):
         #     with rasterio.open(outfilename, "r+") as out_raster:
         #         out_raster.write_colormap(1, value_dataset.colormap(1))
-
-        # write_raster(
-        #     "/tmp/unit.tif",
-        #     np.where(in_unit, 1, 0).astype("uint8"),
-        #     transform=units_grid.dataset.window_transform(
-        #         Window(
-        #             unit_window.col_off + units_grid.window.col_off,
-        #             unit_window.row_off + units_grid.window.row_off,
-        #             unit_window.width,
-        #             unit_window.height,
-        #         )
-        #     ),
-        #     crs=units_grid.dataset.crs,
-        #     nodata=0,
-        # )
-        # ruff:enable[ERA001]
+        # # ruff: enable[ERA001]
 
     return out
 

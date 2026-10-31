@@ -6,14 +6,29 @@
 	import { formatNumber } from '#lib/util/format.js'
 	import { cn } from '#lib/utils.js'
 
-	const { type, protected_areas, protected_areas_list, num_protected_areas } = $props()
+	const {
+		type,
+		protected_areas,
+		protected_areas_list,
+		num_protected_areas,
+		outside_extent_percent
+	} = $props()
 
-	const bars = $derived(
-		protectedAreasInfo.values.map((category) => ({
+	const bars = $derived.by(() => {
+		const data = protectedAreasInfo.values.map((category) => ({
 			...category,
 			percent: protected_areas ? protected_areas[category.value] || 0 : 0
 		}))
-	)
+
+		if (outside_extent_percent > 0) {
+			data.push({
+				percent: outside_extent_percent,
+				label: 'Outside Midwest Blueprint'
+			})
+		}
+
+		return data
+	})
 </script>
 
 <div class="not-first:mt-8 not-first:border-t not-first:border-t-grey-2 not-first:pt-8">
@@ -70,8 +85,8 @@
 		>
 			Protected Areas Database of the United States
 		</a>
-		(PAD-US v4.1) and include Fee, Designation, Easement, Marine, and Proclamation (Dept. of Defense lands
-		only) boundaries.
+		(PAD-US v4.1) and include Fee, Designation, Easement, Marine, and Proclamation (Dept. of Defense
+		lands only) boundaries.
 
 		{#if protected_areas_list && protected_areas_list.length > 0}
 			Areas are listed based on name, ownership, and boundary information in the Protected Areas

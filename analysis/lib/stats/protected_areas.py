@@ -9,7 +9,7 @@ from pyogrio import read_dataframe
 
 from analysis.constants import M2_ACRES, PROTECTED_AREAS, PROTECTED_AREAS_POLY
 from analysis.lib.io import read_unit_from_feather
-from analysis.lib.raster import summarize_raster_by_units_grid
+from analysis.lib.raster import summarize_raster_by_summary_units
 
 src_dir = Path("data/inputs")
 filename = src_dir / PROTECTED_AREAS["filename"]
@@ -276,14 +276,14 @@ def extract_protected_areas_in_analysis_areas(df: gp.GeoDataFrame) -> pd.DataFra
     return out[out_name]
 
 
-def summarize_protected_areas_by_units(df, units_grid, out_dir):
+def summarize_protected_areas_by_summary_units(df, units_dataset, out_dir):
     """Calculate overlap with protected areas for each of the analysis units
 
     Parameters
     ----------
     df : GeoDataFrame
         contains unit boundaries, indexed by id
-    units_grid : SummaryUnitGrid instance
+    units_dataset : open rasterio dataset
     out_dir : str
     """
     print("Calculating overlap with protected areas")
@@ -295,9 +295,9 @@ def summarize_protected_areas_by_units(df, units_grid, out_dir):
         cellsize = value_dataset.res[0] * value_dataset.res[0] * M2_ACRES
 
         protected_areas_acres = (
-            summarize_raster_by_units_grid(
+            summarize_raster_by_summary_units(
                 df,
-                units_grid,
+                units_dataset,
                 value_dataset,
                 bins=BINS,
                 progress_label="Summarizing protected areas",

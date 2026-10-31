@@ -5,7 +5,7 @@ import pandas as pd
 import rasterio
 
 from analysis.constants import M2_ACRES, NLCD_INDEXES, NLCD_YEARS
-from analysis.lib.raster import summarize_raster_by_units_grid
+from analysis.lib.raster import summarize_raster_by_summary_units
 
 src_dir = Path("data/inputs/nlcd")
 nlcd_filename = str(src_dir / "landcover_{year}.tif")
@@ -13,14 +13,14 @@ nlcd_filename = str(src_dir / "landcover_{year}.tif")
 
 # NOTE: this is only used for summarizing urban classes for HUC12 summaries added
 # to tiles for use in the frontend; these are not included in the reports
-def summarize_nlcd_by_units_grid(df, units_grid, out_dir):
+def summarize_nlcd_by_summary_units(df, units_dataset, out_dir):
     """Summarize NLCD classes by HUC12
     Parameters
     ----------
     df : GeoDataFrame
         must have a "value" column with same values as used for corresponding units
         raster, and must have result of df.bounds joined in
-    units_grid : SummaryUnitGrid instance
+    units_dataset : open rasterio reader
     out_dir : str
     """
 
@@ -35,9 +35,9 @@ def summarize_nlcd_by_units_grid(df, units_grid, out_dir):
             cellsize = value_dataset.res[0] * value_dataset.res[0] * M2_ACRES
 
             nlcd_acres = (
-                summarize_raster_by_units_grid(
+                summarize_raster_by_summary_units(
                     df,
-                    units_grid,
+                    units_dataset,
                     value_dataset,
                     bins=bins,
                     progress_label=f"Summarizing NLCD {year}",
@@ -47,7 +47,7 @@ def summarize_nlcd_by_units_grid(df, units_grid, out_dir):
 
             if year == NLCD_YEARS[0]:
                 total_nlcd_acres = nlcd_acres.sum(axis=1)
-                outside_nlcd_acres = df.rasterized_acres - df.outside_extent - total_nlcd_acres
+                outside_nlcd_acres = df.rasterized_acres - df.outside_extent_acres - total_nlcd_acres
 
             # transform so that columns are <year>_<index>
             nlcd_year = pd.DataFrame(nlcd_acres, columns=[f"{year}_{i}" for i in bins], index=df.index)

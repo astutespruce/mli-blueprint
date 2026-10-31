@@ -4,11 +4,10 @@ from time import time
 import geopandas as gp
 import rasterio
 
-from analysis.lib.raster import SummaryUnitGrid
-from analysis.lib.stats.blueprint import summarize_blueprint_by_units_grid
-from analysis.lib.stats.nlcd import summarize_nlcd_by_units_grid
-from analysis.lib.stats.protected_areas import summarize_protected_areas_by_units
-from analysis.lib.stats.urban import summarize_urban_by_units_grid
+from analysis.lib.stats.blueprint import summarize_blueprint_by_summary_units
+from analysis.lib.stats.nlcd import summarize_nlcd_by_summary_units
+from analysis.lib.stats.protected_areas import summarize_protected_areas_by_summary_units
+from analysis.lib.stats.urban import summarize_urban_by_summary_units
 
 data_dir = Path("data")
 bnd_dir = data_dir / "boundaries"
@@ -31,24 +30,22 @@ units_df = gp.read_feather(
     huc12_filename,
     columns=["id", "value", "rasterized_acres", "outside_extent_acres", "geometry"],
 ).set_index("id")
-units_df = units_df.join(units_df.bounds)
 
+units_df = units_df.join(units_df.bounds)
 
 print("Reading HUC12 grid")
 with rasterio.open(huc12_raster_filename) as units_dataset:
-    units_grid = SummaryUnitGrid(units_dataset, units_df.total_bounds)
-
     # Summarize Blueprint
-    summarize_blueprint_by_units_grid(units_df, units_grid, out_dir)
+    summarize_blueprint_by_summary_units(units_df, units_dataset, out_dir)
 
     # Summarize protected areas
-    summarize_protected_areas_by_units(units_df, units_grid, out_dir)
+    summarize_protected_areas_by_summary_units(units_df, units_dataset, out_dir)
 
     # Summarize NLCD
-    summarize_nlcd_by_units_grid(units_df, units_grid, out_dir)
+    summarize_nlcd_by_summary_units(units_df, units_dataset, out_dir)
 
     # Summarize current / projected urbanization
-    summarize_urban_by_units_grid(units_df, units_grid, out_dir)
+    summarize_urban_by_summary_units(units_df, units_dataset, out_dir)
 
 
 print(f"Processed {len(units_df):,} zones in {(time() - start) / 60.0:.2f}m")
